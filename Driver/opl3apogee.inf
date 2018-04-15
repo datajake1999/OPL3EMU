@@ -1,0 +1,32 @@
+[version]
+Signature="$WINDOWS NT$"
+Class=MEDIA
+ClassGUID="{4d36e96c-e325-11ce-bfc1-08002be10318}"
+Provider=Unknown
+[Manufacturer]
+Unknown=OldDrvs
+[OldDrvs]
+%opl3apogee%=opl3apogee
+[opl3apogee.NT]
+DriverVer = 1/1/1998, 4.0.0.0
+AddReg=opl3apogee.AddReg
+CopyFiles=opl3apogee.CopyFiles.User,opl3apogee.CopyFiles.Kern
+Reboot
+[opl3apogee.NT.Services]
+AddService=,0x2
+[opl3apogee.AddReg]
+HKR,Drivers,SubClasses,,"MIDI"
+HKR,"Drivers\MIDI\opl3apogee.dll", Driver,,opl3apogee.dll
+HKR,"Drivers\MIDI\opl3apogee.dll", Description,,%opl3apogee%
+[opl3apogee.CopyFiles.User]
+opl3apogee.dll
+[opl3apogee.CopyFiles.Kern]
+[DestinationDirs]
+opl3apogee.CopyFiles.User = 11
+opl3apogee.CopyFiles.Kern = 12
+[SourceDisksNames]
+1 = "Apogee OPL3 Synth Files","",1
+[SourceDisksFiles]
+opl3apogee.dll=1
+[Strings]
+opl3apogee="Apogee OPL3 Synth"

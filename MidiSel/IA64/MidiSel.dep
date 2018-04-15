@@ -1,0 +1,10 @@
+# Microsoft Developer Studio Generated Dependency File, included by MidiSel.mak
+
+"..\MIDI Selector.cpp" : \
+	"..\resource.h"\
+	
+
+"..\MIDI Selector.rc" : \
+	"..\MIDI Selector.ico"\
+	"..\resource.h"\
+	

@@ -1,0 +1,32 @@
+[version]
+Signature="$WINDOWS NT$"
+Class=MEDIA
+ClassGUID="{4d36e96c-e325-11ce-bfc1-08002be10318}"
+Provider=Unknown
+[Manufacturer]
+Unknown=OldDrvs
+[OldDrvs]
+%opl3doom_ext%=opl3doom_ext
+[opl3doom_ext.NT]
+DriverVer = 1/1/1998, 4.0.0.0
+AddReg=opl3doom_ext.AddReg
+CopyFiles=opl3doom_ext.CopyFiles.User,opl3doom_ext.CopyFiles.Kern
+Reboot
+[opl3doom_ext.NT.Services]
+AddService=,0x2
+[opl3doom_ext.AddReg]
+HKR,Drivers,SubClasses,,"MIDI"
+HKR,"Drivers\MIDI\opl3doom_ext.dll", Driver,,opl3doom_ext.dll
+HKR,"Drivers\MIDI\opl3doom_ext.dll", Description,,%opl3doom_ext%
+[opl3doom_ext.CopyFiles.User]
+opl3doom_ext.dll
+[opl3doom_ext.CopyFiles.Kern]
+[DestinationDirs]
+opl3doom_ext.CopyFiles.User = 11
+opl3doom_ext.CopyFiles.Kern = 12
+[SourceDisksNames]
+1 = "Doom OPL3 Synth Extended Files","",1
+[SourceDisksFiles]
+opl3doom_ext.dll=1
+[Strings]
+opl3doom_ext="Doom OPL3 Synth Extended"

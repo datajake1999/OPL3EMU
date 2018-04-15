@@ -1,0 +1,34 @@
+# Microsoft Developer Studio Generated Dependency File, included by opl3doom_ext.mak
+
+..\..\synthlib_ext\i_oplmusic.cpp : \
+	"..\..\interface.h"\
+	"..\..\synthlib_ext\i_oplmusic.h"\
+	
+
+..\..\src\MidiSynth.cpp : \
+	"..\..\include\mmddk.h"\
+	"..\..\interface.h"\
+	"..\..\src\MidiSynth.h"\
+	"..\..\src\stdafx.h"\
+	"..\..\src\targetver.h"\
+	
+
+..\..\fmopl3lib_ext\opl3.cpp : \
+	"..\..\fmopl3lib_ext\opl3.h"\
+	"..\..\include\stdint.h"\
+	
+
+..\..\fmopl3lib_ext\opl3class.cpp : \
+	"..\..\fmopl3lib_ext\opl3.h"\
+	"..\..\fmopl3lib_ext\opl3class.h"\
+	"..\..\include\stdint.h"\
+	"..\..\interface.h"\
+	
+
+..\..\src\winmm_drv_doom_ext.cpp : \
+	"..\..\include\mmddk.h"\
+	"..\..\interface.h"\
+	"..\..\src\MidiSynth.h"\
+	"..\..\src\stdafx.h"\
+	"..\..\src\targetver.h"\
+	

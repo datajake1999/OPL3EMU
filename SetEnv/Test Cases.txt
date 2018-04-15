@@ -1,0 +1,49 @@
+SetEnv Test Cases
+-----------------
+
+Non-expanded Strings
+
+	setenv -a X c:\				- X = "c:\"					- OK Added
+	setenv -a X Test			- X = "Test"					- OK Changed
+	setenv -a X ~PATH~			- X = "%PATH%" (expanded now)			- OK Changed
+	setenv -a X Test			- X = "%PATH%;Test" (expanded)			- OK Changed
+	setenv -d X ~PATH~			- X = "Test" (expanded)				- OK Changed
+
+Expanded Strings 
+	
+		// NUKE All HERE
+ 
+	setenv -a XX %Hello			- XX  = "Hello"					- OK Added
+	setenv -a XXX ~XX~\1			- XXX = "%XX%\1" 	- "Hello\1"		- OK Added
+
+	setenv -a XX Test			- XX  = "Hello;Test"				- OK Changed
+						- XXX = "%XX%\1"	- "Hello;Test\1"	- OK Changed
+
+	setenv -a XX 2				- XX = "Hello;Test;2"				- OK Changed
+						- XXX = "%XX%;Test	- "Hello;Test;2\1"	- OK Changed
+
+	setenv -d XX \Test			- XX = "Hello;Test;2\1"				- OK Failed to delete
+	setenv -d XX Test			- XX = "Hello;2"				- OK Deleted
+						- XXX = "%XX%\1" 	- "Hello;2\1"		- OK Deleted
+Dynamic Strings
+
+		// NUKE All HERE
+
+	setenv -a X C:\				- X = "C:\"					- OK Created (not dynamic)
+	setenv -a XX ~X~Music			- XX = "%X%\Music"	- "C:\Music"		- OK Created (expanded dynamic)
+	setenv -a X D:\				- X = "D:\"					- OK Changed
+						- XX = "%X%\Music"	- "D:\Music"		- OK Changed (Dynamic)
+
+	setenv -a XX MP3			- XX = "%X%\Music;MP3"	- "D:\Music;MP3"	- OK Changed
+	setenv -a XX MP3			- XX = "%X%\Music;MP3"	- "D:\Music;MP3"	- OK Unchanged
+	setenv -d XX MP3			- XX = "%X%\Music;"	- "D:\Music"		- OK Changed
+
+	setenv -a XX Wav			- XX = "%X%Music;Wav"	- "D:\Music;WAV"	- OK Changed
+
+	setenv -a MEDIADIR D:\Media		- MEDIADIR = "D:\Media"
+	setenv -a MUSICDIR ~MEDIADIR~\Music	- MUSICDIR = "%MEDIADIR%\Music" - "D:\Media\Music"
+	setenv -a MEDIADIR C:\Media		- MUSICDIR = "C:\Media\Music"
+
+	setenv -a MUSICDIR ~MEDIADIR~\Music2	- MEDIADIR = "D:\Media"
+						- MUSICDIR = "%MEDIADIR%\Music;%MEDIADIR%\Music2" - "D:\Media\Music;D:\Media\Music2"
+

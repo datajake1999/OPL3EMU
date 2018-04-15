@@ -1,0 +1,32 @@
+[version]
+Signature="$WINDOWS NT$"
+Class=MEDIA
+ClassGUID="{4d36e96c-e325-11ce-bfc1-08002be10318}"
+Provider=Unknown
+[Manufacturer]
+Unknown=OldDrvs
+[OldDrvs]
+%opl3windows%=opl3windows
+[opl3windows.NT]
+DriverVer = 1/1/1998, 4.0.0.0
+AddReg=opl3windows.AddReg
+CopyFiles=opl3windows.CopyFiles.User,opl3windows.CopyFiles.Kern
+Reboot
+[opl3windows.NT.Services]
+AddService=,0x2
+[opl3windows.AddReg]
+HKR,Drivers,SubClasses,,"MIDI"
+HKR,"Drivers\MIDI\opl3windows.dll", Driver,,opl3windows.dll
+HKR,"Drivers\MIDI\opl3windows.dll", Description,,%opl3windows%
+[opl3windows.CopyFiles.User]
+opl3windows.dll
+[opl3windows.CopyFiles.Kern]
+[DestinationDirs]
+opl3windows.CopyFiles.User = 11
+opl3windows.CopyFiles.Kern = 12
+[SourceDisksNames]
+1 = "Windows OPL3 Synth Files","",1
+[SourceDisksFiles]
+opl3windows.dll=1
+[Strings]
+opl3windows="Windows OPL3 Synth"

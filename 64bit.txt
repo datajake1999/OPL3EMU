@@ -1,0 +1,2 @@
+Note:
+If you are installing on a 64 bit operating system, you will be notified that the driver has been installed twice. This is because both 32 bit and 64 bit versions of the driver have been installed, to insure that any MIDI application you run can use the driver.
