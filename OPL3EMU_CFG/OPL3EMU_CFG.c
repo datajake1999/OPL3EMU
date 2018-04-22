@@ -33,6 +33,11 @@ int main()
 	int wavwrite;
 	int vgmlog;
 	int vgmloop;
+	int rate;
+	int bsize;
+	int csize;
+	int latency;
+	int ringbuf;
 	LPCTSTR lpPath = TEXT("C:\\OPLSynth");
 	if (PathFileExists(lpPath) == FALSE)
 	{
@@ -48,8 +53,9 @@ int main()
 	printf("5 = Enable/disable WAV file writing\n");
 	printf("6 = Enable/disable VGM logging\n");
 	printf("7 = Enable/disable VGM looping\n");
-	printf("8 = Read current driver configuration\n");
-	printf("9 = Reset driver configuration\n");
+	printf("8 = Configure audio settings\n");
+	printf("9 = Read current driver configuration\n");
+	printf("10 = Reset driver configuration\n");
 	scanf("%d", &num);
 	if (num == 0)
 	{
@@ -404,6 +410,42 @@ int main()
 	}
 	if (num == 8)
 	{
+		char string[100];
+		printf("Configure driver audio settings.\n");
+		printf("Enter sample rate in HZ.\n");
+		scanf("%d", &rate);
+		sprintf(string, "SetEnv -u opl3rate %d", rate);
+		system(string);
+		printf("Enter buffer size in MS.\n");
+		scanf("%d", &bsize);
+		sprintf(string, "SetEnv -u opl3bufsize %d", bsize);
+		system(string);
+		printf("Enter chunk size in MS.\n");
+		scanf("%d", &csize);
+		sprintf(string, "SetEnv -u opl3chunksize %d", csize);
+		system(string);
+		printf("Enter MIDI latency in MS.\n");
+		scanf("%d", &latency);
+		sprintf(string, "SetEnv -u opl3latency %d", latency);
+		system(string);
+		printf("Press 0 to disable the ring buffer, or press 1 to enable it.\n");
+		scanf("%d", &ringbuf);
+		if (ringbuf == 0)
+		{
+			system("SetEnv -u -d opl3ringbuf");
+			printf("Ring buffer has been disabled.\n");
+		}
+		if (ringbuf == 1)
+		{
+			system("SetEnv -u opl3ringbuf true");
+			printf("ring buffer has been enabled.\n");
+		}
+		printf("Audio settings saved.\n");
+		printf("Press any key to exit.\n");
+		getch();
+	}
+	if (num == 9)
+	{
 		char *core = getenv("OPL3CORE");
 		char *hwsupport = getenv("OPLHWSUPPORT");
 		char *wavwrite = getenv("WAVWRITE");
@@ -411,6 +453,11 @@ int main()
 		char *vgmloop = getenv("VGMLOOP");
 		char *env = getenv("DMXOPTION");
 		char *chips = getenv("CHIPS");
+		char *rate = getenv("OPL3RATE");
+		char *bsize = getenv("OPL3BUFSIZE");
+		char *csize = getenv("OPL3CHUNKSIZE");
+		char *latency = getenv("OPL3LATENCY");
+		char *ringbuf = getenv("OPL3RINGBUF");
 		printf("General driver configuration.\n");
 		if (core)
 		{
@@ -530,10 +577,74 @@ int main()
 				printf("8 Chips are emulated.\n");
 			}
 		}
+		printf("Driver audio configuration.\n");
+		if (rate)
+		{
+			if (strstr(rate, getenv("OPL3RATE")))
+			{
+				printf("The current sample rate is ");
+				printf("%s.\n", rate);
+			}
+		}
+		else
+		{
+			printf("The current sample rate is ");
+			printf("49716.\n");
+		}
+		if (bsize)
+		{
+			if (strstr(bsize, getenv("OPL3BUFSIZE")))
+			{
+				printf("The current buffer size is ");
+				printf("%s.\n", bsize);
+			}
+		}
+		else
+		{
+			printf("The current buffer size is ");
+			printf("100.\n");
+		}
+		if (csize)
+		{
+			if (strstr(csize, getenv("OPL3CHUNKSIZE")))
+			{
+				printf("The current chunk size is ");
+				printf("%s.\n", csize);
+			}
+		}
+		else
+		{
+			printf("The current chunk size is ");
+			printf("10.\n");
+		}
+		if (latency)
+		{
+			if (strstr(latency, getenv("OPL3LATENCY")))
+			{
+				printf("The current MIDI latency is ");
+				printf("%s.\n", latency);
+			}
+		}
+		else
+		{
+			printf("The current MIDI latency is ");
+			printf("0.\n");
+		}
+		if (ringbuf)
+		{
+			if (strstr(ringbuf, getenv("OPL3RINGBUF")))
+			{
+				printf("The ring buffer is enabled.\n");
+			}
+		}
+		else
+		{
+			printf("The ring buffer is disabled.\n");
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
-	if (num == 9)
+	if (num == 10)
 	{
 		system("del c:\\OPLSynth\\apogee.tmb");
 		system("copy GENMIDI\\dmx_dmx.op2 c:\\OPLSynth\\genmidi.op2");
@@ -544,6 +655,11 @@ int main()
 		system("SetEnv -u -d wavwrite");
 		system("SetEnv -u -d vgmlog");
 		system("SetEnv -u -d vgmloop");
+		system("SetEnv -u -d opl3rate");
+		system("SetEnv -u -d opl3bufsize");
+		system("SetEnv -u -d opl3chunksize");
+		system("SetEnv -u -d opl3latency");
+		system("SetEnv -u -d opl3ringbuf");
 		printf("Driver configuration has been reset.\n");
 		printf("Press any key to exit.\n");
 		getch();
