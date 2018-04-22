@@ -333,11 +333,66 @@ unsigned int MidiSynth::MillisToFrames(unsigned int millis) {
 }
 
 void MidiSynth::LoadSettings() {
-	sampleRate = 49716;
-	bufferSize = MillisToFrames(100);
-	chunkSize = MillisToFrames(10);
-	midiLatency = MillisToFrames(0);
-	useRingBuffer = false;
+	char *rate = getenv("OPL3RATE");
+	char *bsize = getenv("OPL3BUFSIZE");
+	char *csize = getenv("OPL3CHUNKSIZE");
+	char *latency = getenv("OPL3LATENCY");
+	char *ringbuf = getenv("OPL3RINGBUF");
+	if (rate)
+	{
+		if (strstr(rate, getenv("OPL3RATE")))
+		{
+			sampleRate = atoi(rate);
+		}
+	}
+	else
+	{
+		sampleRate = 49716;
+	}
+	if (bsize)
+	{
+		if (strstr(bsize, getenv("OPL3BUFSIZE")))
+		{
+			bufferSize = MillisToFrames(atoi(bsize));
+		}
+	}
+	else
+	{
+		bufferSize = MillisToFrames(100);
+	}
+	if (csize)
+	{
+		if (strstr(csize, getenv("OPL3CHUNKSIZE")))
+		{
+			chunkSize = MillisToFrames(atoi(csize));
+		}
+	}
+	else
+	{
+		chunkSize = MillisToFrames(10);
+	}
+	if (latency)
+	{
+		if (strstr(latency, getenv("OPL3LATENCY")))
+		{
+			midiLatency = MillisToFrames(atoi(latency));
+		}
+	}
+	else
+	{
+		midiLatency = MillisToFrames(0);
+	}
+	if (ringbuf)
+	{
+		if (strstr(ringbuf, getenv("OPL3RINGBUF")))
+		{
+			useRingBuffer = true;
+		}
+	}
+	else
+	{
+		useRingBuffer = false;
+	}
 	if (!useRingBuffer) {
 		// Number of chunks should be ceil(bufferSize / chunkSize)
 		DWORD chunks = (bufferSize + chunkSize - 1) / chunkSize;
