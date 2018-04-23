@@ -33,6 +33,7 @@ int main()
 	int wavwrite;
 	int vgmlog;
 	int vgmloop;
+	int audcfg;
 	int rate;
 	int bsize;
 	int csize;
@@ -53,7 +54,7 @@ int main()
 	printf("5 = Enable/disable WAV file writing\n");
 	printf("6 = Enable/disable VGM logging\n");
 	printf("7 = Enable/disable VGM looping\n");
-	printf("8 = Configure audio settings\n");
+	printf("8 = Audio configuration\n");
 	printf("9 = Read current driver configuration\n");
 	printf("10 = Reset driver configuration\n");
 	scanf("%d", &num);
@@ -411,36 +412,57 @@ int main()
 	if (num == 8)
 	{
 		char string[100];
-		printf("Configure driver audio settings.\n");
-		printf("Enter sample rate in HZ.\n");
-		scanf("%d", &rate);
-		sprintf(string, "SetEnv -u opl3rate %d", rate);
-		system(string);
-		printf("Enter buffer size in MS.\n");
-		scanf("%d", &bsize);
-		sprintf(string, "SetEnv -u opl3bufsize %d", bsize);
-		system(string);
-		printf("Enter chunk size in MS.\n");
-		scanf("%d", &csize);
-		sprintf(string, "SetEnv -u opl3chunksize %d", csize);
-		system(string);
-		printf("Enter MIDI latency in MS.\n");
-		scanf("%d", &latency);
-		sprintf(string, "SetEnv -u opl3latency %d", latency);
-		system(string);
-		printf("Press 0 to disable the ring buffer, or press 1 to enable it.\n");
-		scanf("%d", &ringbuf);
-		if (ringbuf == 0)
+		printf("Audio configuration.\n");
+		printf("0 = Change sample rate.\n");
+		printf("1 = Change buffer size.\n");
+		printf("2 = Change chunk size.\n");
+		printf("3 = Change MIDI latency.\n");
+		printf("4 = Enable/disable ring buffer.\n");
+		scanf("%d", &audcfg);
+		if (audcfg == 0)
 		{
-			system("SetEnv -u -d opl3ringbuf");
-			printf("Ring buffer has been disabled.\n");
+			printf("Enter sample rate in HZ.\n");
+			scanf("%d", &rate);
+			sprintf(string, "SetEnv -u opl3rate %d", rate);
+			system(string);
 		}
-		if (ringbuf == 1)
+		if (audcfg == 1)
 		{
-			system("SetEnv -u opl3ringbuf true");
-			printf("ring buffer has been enabled.\n");
+			printf("Enter buffer size in MS.\n");
+			scanf("%d", &bsize);
+			sprintf(string, "SetEnv -u opl3bufsize %d", bsize);
+			system(string);
 		}
-		printf("Audio settings saved.\n");
+		if (audcfg == 2)
+		{
+			printf("Enter chunk size in MS.\n");
+			scanf("%d", &csize);
+			sprintf(string, "SetEnv -u opl3chunksize %d", csize);
+			system(string);
+		}
+		if (audcfg == 3)
+		{
+			printf("Enter MIDI latency in MS.\n");
+			scanf("%d", &latency);
+			sprintf(string, "SetEnv -u opl3latency %d", latency);
+			system(string);
+		}
+		if (audcfg == 4)
+		{
+			printf("Press 0 to disable the ring buffer, or press 1 to enable it.\n");
+			scanf("%d", &ringbuf);
+			if (ringbuf == 0)
+			{
+				system("SetEnv -u -d opl3ringbuf");
+				printf("Ring buffer has been disabled.\n");
+			}
+			if (ringbuf == 1)
+			{
+				system("SetEnv -u opl3ringbuf true");
+				printf("ring buffer has been enabled.\n");
+			}
+		}
+		printf("Audio configuration saved.\n");
 		printf("Press any key to exit.\n");
 		getch();
 	}
