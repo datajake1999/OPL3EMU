@@ -423,29 +423,61 @@ int main()
 		{
 			printf("Enter sample rate in HZ.\n");
 			scanf("%d", &rate);
-			sprintf(string, "SetEnv -u opl3rate %d", rate);
-			system(string);
+			if (rate == 49716)
+			{
+				system("SetEnv -u -d opl3rate");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u opl3rate %d", rate);
+				system(string);
+			}
+			printf("The sample rate has been set to %d.\n", rate);
 		}
 		if (audcfg == 1)
 		{
 			printf("Enter buffer size in MS.\n");
 			scanf("%d", &bsize);
-			sprintf(string, "SetEnv -u opl3bufsize %d", bsize);
-			system(string);
+			if (bsize == 100)
+			{
+				system("SetEnv -u -d opl3bufsize");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u opl3bufsize %d", bsize);
+				system(string);
+			}
+			printf("The buffer size has been set to %d.\n", bsize);
 		}
 		if (audcfg == 2)
 		{
 			printf("Enter chunk size in MS.\n");
 			scanf("%d", &csize);
-			sprintf(string, "SetEnv -u opl3chunksize %d", csize);
-			system(string);
+			if (csize == 10)
+			{
+				system("SetEnv -u -d opl3chunksize");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u opl3chunksize %d", csize);
+				system(string);
+			}
+			printf("The chunk size has been set to %d.\n", csize);
 		}
 		if (audcfg == 3)
 		{
 			printf("Enter MIDI latency in MS.\n");
 			scanf("%d", &latency);
-			sprintf(string, "SetEnv -u opl3latency %d", latency);
-			system(string);
+			if (latency == 0)
+			{
+				system("SetEnv -u -d opl3latency");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u opl3latency %d", latency);
+				system(string);
+			}
+			printf("The MIDI latency has been set to %d.\n", latency);
 		}
 		if (audcfg == 4)
 		{
@@ -462,7 +494,6 @@ int main()
 				printf("ring buffer has been enabled.\n");
 			}
 		}
-		printf("Audio configuration saved.\n");
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -604,53 +635,45 @@ int main()
 		{
 			if (strstr(rate, getenv("OPL3RATE")))
 			{
-				printf("The current sample rate is ");
-				printf("%s.\n", rate);
+				printf("The current sample rate is %s.\n", rate);
 			}
 		}
 		else
 		{
-			printf("The current sample rate is ");
-			printf("49716.\n");
+			printf("The current sample rate is 49716.\n");
 		}
 		if (bsize)
 		{
 			if (strstr(bsize, getenv("OPL3BUFSIZE")))
 			{
-				printf("The current buffer size is ");
-				printf("%s.\n", bsize);
+				printf("The current buffer size is %s.\n", bsize);
 			}
 		}
 		else
 		{
-			printf("The current buffer size is ");
-			printf("100.\n");
+			printf("The current buffer size is 100.\n");
 		}
 		if (csize)
 		{
 			if (strstr(csize, getenv("OPL3CHUNKSIZE")))
 			{
-				printf("The current chunk size is ");
-				printf("%s.\n", csize);
+				printf("The current chunk size is %s.\n", csize);
 			}
 		}
 		else
 		{
-			printf("The current chunk size is ");
-			printf("10.\n");
+			printf("The current chunk size is 10.\n");
 		}
 		if (latency)
 		{
 			if (strstr(latency, getenv("OPL3LATENCY")))
 			{
-				printf("The current MIDI latency is ");
-				printf("%s.\n", latency);
+				printf("The current MIDI latency is %s.\n", latency);
 			}
 		}
 		else
 		{
-			printf("The current MIDI latency is ");
-			printf("0.\n");
+			printf("The current MIDI latency is 0.\n");
 		}
 		if (ringbuf)
 		{
