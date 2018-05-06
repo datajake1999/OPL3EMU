@@ -7,7 +7,7 @@
 
 #include "VGMFile.h"
 
-void VGMLog_Init();
+void VGMLog_Init(unsigned int rate);
 inline void VGMLog_CmdWrite(BYTE Cmd, BYTE Reg, BYTE Data);
 inline void VGMLog_FlushWait();
 void VGMLog_IncrementSamples(int len);

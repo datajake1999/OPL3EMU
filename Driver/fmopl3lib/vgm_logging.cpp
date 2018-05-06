@@ -2,7 +2,8 @@
 #include "vgm_logging.h"
 
 //static const double FMToVGMSamples = 0.887038377986966;
-static const long double FMToVGMSamples = ((long double)44100.0 / 49716.0);
+//static const long double FMToVGMSamples = ((long double)44100.0 / 49716.0);
+static long double FMToVGMSamples;
 
 static VGM_HEADER VGMHead;
 static DWORD ClockAdd, VGMSmplPlayed, SamplesBeforeLoop, LoopMarker;
@@ -18,8 +19,9 @@ typedef struct
       RegLSB;
 } vgmcmd_t;
 
-void VGMLog_Init()
+void VGMLog_Init(unsigned int rate)
 {
+   FMToVGMSamples = ((long double)44100.0 / rate);
    LastVgmSmpl = 0;
    LastPBSample = 0;
    //VGMSmplPlayed = 0;

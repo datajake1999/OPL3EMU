@@ -67,7 +67,7 @@ WavFileOpen(rate);
 	{
 		if (strstr(vgmlog, "-on"))
 		{
-VGMLog_Init();
+VGMLog_Init(rate);
 		}
 	}
 	if (vgmloop)

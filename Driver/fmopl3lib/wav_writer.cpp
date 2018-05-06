@@ -35,8 +35,8 @@ waveheader head =
 	18,	//fSize
 	1,	//fFormat
 	2,	//fChannels
-	49716,	//fHertz
-	198864,	//fBytesPerSec
+	0,	//fHertz (dummy value)
+	0,	//fBytesPerSec (dummy value)
 	4,	//fBlockAlign
 	16,	//fBits
 	0,	//fSpecific
@@ -77,14 +77,11 @@ void WavFileOpen(unsigned int rate)
 		}
 	}
 	else
-	//fill header with correct rate values if necessary:
-	if (rate != 49716)
-	{
-		head.fHertz = rate;
-		head.fBytesPerSec = 4*rate;
-	}
-	//write dummy wave header:
 	rewind(out);
+	//fill header with correct rate values:
+	head.fHertz = rate;
+	head.fBytesPerSec = 4*rate;
+	//write dummy wave header:
 	fwrite(&head, sizeof(head), 1, out);
 }
 
