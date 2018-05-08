@@ -30,6 +30,7 @@ int main()
 	int chips;
 	int core;
 	int hwsupport;
+	char hwport[100];
 	int wavwrite;
 	int vgmlog;
 	int vgmloop;
@@ -348,12 +349,19 @@ int main()
 		if (hwsupport == 0)
 		{
 			system("SetEnv -u -d oplhwsupport");
+			system("SetEnv -u -d opl3port");
 			printf("Hardware OPL passthrough has been disabled.\n");
 		}
 		if (hwsupport == 1)
 		{
+			char string[100];
 			system("SetEnv -u oplhwsupport -on");
-			printf("Hardware OPL passthrough has been enabled. The driver will look for your hardware at i/o adress 0xE050. If your hardware is at a different address, you will have to recompile the drivers with the correct i/o address for your hardware.\n");
+			printf("Hardware OPL passthrough has been enabled.\n");
+			printf("Enter address of FM port.\n");
+			scanf("%s", &hwport);
+			sprintf(string, "SetEnv -u opl3port %s", hwport);
+			system(string);
+			printf("The FM port has been set to %s.\n", hwport);
 		}
 		printf("Press any key to exit.\n");
 		getch();
@@ -501,6 +509,7 @@ int main()
 	{
 		char *core = getenv("OPL3CORE");
 		char *hwsupport = getenv("OPLHWSUPPORT");
+		char *hwport = getenv("OPL3PORT");
 		char *wavwrite = getenv("WAVWRITE");
 		char *vgmlog = getenv("VGMLOG");
 		char *vgmloop = getenv("VGMLOOP");
@@ -536,6 +545,17 @@ int main()
 			if (strstr(hwsupport, "-on"))
 			{
 				printf("Hardware OPL passthrough is enabled.\n");
+				if (hwport)
+				{
+					if (strstr(hwport, getenv("OPL3PORT")))
+					{
+						printf("The current FM port is %s.\n", hwport);
+					}
+				}
+				else
+				{
+					printf("The current FM port is 388.\n");
+				}
 			}
 		}
 		else
@@ -697,6 +717,7 @@ int main()
 		system("SetEnv -u -d chips");
 		system("SetEnv -u -d opl3core");
 		system("SetEnv -u -d oplhwsupport");
+		system("SetEnv -u -d opl3port");
 		system("SetEnv -u -d wavwrite");
 		system("SetEnv -u -d vgmlog");
 		system("SetEnv -u -d vgmloop");
