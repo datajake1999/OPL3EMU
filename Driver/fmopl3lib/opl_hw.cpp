@@ -11,7 +11,8 @@
 BYTE OPL_MODE = 0x03;
 BYTE OPL_CHIPS = 0x01;
 INT64 HWusTime;
-WORD FMPort = 0xE050;
+char *hwport = getenv("OPL3PORT");
+WORD FMPort;
 
 void OPL_Hardware_Detection(void)
 {
@@ -129,6 +130,17 @@ FinishDetection:
 void OPL_HW_WriteReg(WORD Reg, BYTE Data)
 {
 #ifndef DISABLE_HW_SUPPORT
+	if (hwport)
+	{
+		if (strstr(hwport, getenv("OPL3PORT")))
+		{
+			FMPort = strtoul(hwport, 0, 16);
+		}
+	}
+	else
+	{
+		FMPort = 0x388;
+	}
 	UINT16 Port;
 	LARGE_INTEGER StartTime;
 	//UINT8 DataOld;
@@ -235,6 +247,17 @@ void OPL_HW_WriteReg(WORD Reg, BYTE Data)
 inline UINT8 OPL_HW_GetStatus(void)
 {
 #ifndef DISABLE_HW_SUPPORT
+	if (hwport)
+	{
+		if (strstr(hwport, getenv("OPL3PORT")))
+		{
+			FMPort = strtoul(hwport, 0, 16);
+		}
+	}
+	else
+	{
+		FMPort = 0x388;
+	}
 	UINT8 RetStatus;
 	
    RetStatus = inportb(FMPort);
