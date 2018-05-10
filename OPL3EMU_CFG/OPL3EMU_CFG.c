@@ -29,6 +29,7 @@ int main()
 	int doomcfg;
 	int chips;
 	int core;
+	int hwconfig;
 	int hwsupport;
 	char hwport[100];
 	int silence;
@@ -52,7 +53,7 @@ int main()
 	printf("1 = Copy patch to Doom driver\n");
 	printf("2 = Configure Doom driver\n");
 	printf("3 = Select OPL3 core\n");
-	printf("4 = Enable/disable Hardware OPL passthrough\n");
+	printf("4 = Configure Hardware OPL passthrough\n");
 	printf("5 = Enable/disable WAV file writing\n");
 	printf("6 = Enable/disable VGM logging\n");
 	printf("7 = Enable/disable VGM looping\n");
@@ -345,36 +346,48 @@ int main()
 	}
 	if (num == 4)
 	{
-		printf("Enable/disable Hardware OPL passthrough. Press 0 to disable or 1 to enable, and press enter to apply.\n");
-		scanf("%d", &hwsupport);
-		if (hwsupport == 0)
+		printf("Hardware OPL passthrough configuration.\n");
+		printf("0 = Enable/disable Hardware OPL passthrough.\n");
+		printf("1 = Set FM port.\n");
+		printf("2 = Enable/disable Silent emulation mode.\n");
+		scanf("%d", &hwconfig);
+		if (hwconfig == 0)
 		{
-			system("SetEnv -u -d oplhwsupport");
-			system("SetEnv -u -d opl3port");
-			system("SetEnv -u -d oplemusilence");
-			printf("Hardware OPL passthrough has been disabled.\n");
+			printf("Enable/disable Hardware OPL passthrough. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			scanf("%d", &hwsupport);
+			if (hwsupport == 0)
+			{
+				system("SetEnv -u -d oplhwsupport");
+				printf("Hardware OPL passthrough has been disabled.\n");
+			}
+			if (hwsupport == 1)
+			{
+				system("SetEnv -u oplhwsupport -on");
+				printf("Hardware OPL passthrough has been enabled.\n");
+			}
 		}
-		if (hwsupport == 1)
+		if (hwconfig == 1)
 		{
 			char string[100];
-			system("SetEnv -u oplhwsupport -on");
-			printf("Hardware OPL passthrough has been enabled.\n");
 			printf("Enter address of FM port.\n");
 			scanf("%s", &hwport);
 			sprintf(string, "SetEnv -u opl3port %s", hwport);
 			system(string);
 			printf("The FM port has been set to %s.\n", hwport);
-			printf("Press 1 to silence the emulation, or 0 to keep it running as normal.\n");
+		}
+		if (hwconfig == 2)
+		{
+			printf("Enable/disable silent emulation mode. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &silence);
 			if (silence == 0)
 			{
 				system("SetEnv -u -d oplemusilence");
-				printf("The emulator will be running as normal.\n");
+				printf("Silent emulation mode has been disabled.\n");
 			}
 			if (silence == 1)
 			{
 				system("SetEnv -u oplemusilence -on");
-				printf("The emulator will be silent.\n");
+				printf("Silent emulation mode has been enabled.\n");
 			}
 		}
 		printf("Press any key to exit.\n");
@@ -503,7 +516,7 @@ int main()
 		}
 		if (audcfg == 4)
 		{
-			printf("Press 0 to disable the ring buffer, or press 1 to enable it.\n");
+			printf("Enable/disable ring buffer. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &ringbuf);
 			if (ringbuf == 0)
 			{
@@ -576,12 +589,12 @@ int main()
 			{
 				if (strstr(silence, "-on"))
 				{
-					printf("The emulator is silent.\n");
+					printf("Silent emulation mode is enabled.\n");
 				}
 			}
 			else
 			{
-				printf("The emulator is running as normal.\n");
+				printf("Silent emulation mode is disabled.\n");
 			}
 		}
 		else
