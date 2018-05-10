@@ -16,6 +16,7 @@
 #include "opl3class.h"
 
 	char *core;
+	char *silence;
 	char *hwsupport;
 	char *wavwrite;
 	char *vgmlog;
@@ -25,6 +26,7 @@ const Bit64u lat = (50 * 49716) / 1000;
 
 int opl3class::fm_init(unsigned int rate) {
 	core = getenv("OPL3CORE");
+	silence = getenv("OPLEMUSILENCE");
 	hwsupport = getenv("OPLHWSUPPORT");
 	wavwrite = getenv("WAVWRITE");
 	vgmlog = getenv("VGMLOG");
@@ -111,20 +113,60 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	{
 if (strstr(core, "-dbcompat"))
 {
+	if (silence)
+	{
+		if (strstr(silence, "-on"))
+		{
+            adlib_write(0x00, 0x00);
+		}
+	}
+else
+{
             adlib_write(command[strpos][0], command[strpos][1]);
+}
 }
 if (strstr(core, "-dbfast"))
 {
+	if (silence)
+	{
+		if (strstr(silence, "-on"))
+		{
+            chip2.WriteReg(0x00, 0x00);
+		}
+	}
+else
+{
             chip2.WriteReg(command[strpos][0], command[strpos][1]);
 }
+}
 if (strstr(core, "-mame"))
+{
+	if (silence)
+	{
+		if (strstr(silence, "-on"))
+		{
+            ymf262_write_reg(chip3, 0x00, 0x00);
+		}
+	}
+else
 {
             ymf262_write_reg(chip3, command[strpos][0], command[strpos][1]);
 }
 }
+}
+else
+{
+	if (silence)
+	{
+		if (strstr(silence, "-on"))
+		{
+            OPL3_WriteReg(&chip, 0x00, 0x00);
+		}
+	}
 else
 {
             OPL3_WriteReg(&chip, command[strpos][0], command[strpos][1]);
+}
 }
 	if (hwsupport)
 	{

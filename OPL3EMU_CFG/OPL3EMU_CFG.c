@@ -31,6 +31,7 @@ int main()
 	int core;
 	int hwsupport;
 	char hwport[100];
+	int silence;
 	int wavwrite;
 	int vgmlog;
 	int vgmloop;
@@ -362,6 +363,18 @@ int main()
 			sprintf(string, "SetEnv -u opl3port %s", hwport);
 			system(string);
 			printf("The FM port has been set to %s.\n", hwport);
+			printf("Press 1 to silence the emulation, or 0 to keep it running as normal.\n");
+			scanf("%d", &silence);
+			if (silence == 0)
+			{
+				system("SetEnv -u -d oplemusilence");
+				printf("The emulator will be running as normal.\n");
+			}
+			if (silence == 1)
+			{
+				system("SetEnv -u oplemusilence -on");
+				printf("The emulator will be silent.\n");
+			}
 		}
 		printf("Press any key to exit.\n");
 		getch();
@@ -510,6 +523,7 @@ int main()
 		char *core = getenv("OPL3CORE");
 		char *hwsupport = getenv("OPLHWSUPPORT");
 		char *hwport = getenv("OPL3PORT");
+		char *silence = getenv("OPLEMUSILENCE");
 		char *wavwrite = getenv("WAVWRITE");
 		char *vgmlog = getenv("VGMLOG");
 		char *vgmloop = getenv("VGMLOOP");
@@ -556,6 +570,17 @@ int main()
 				{
 					printf("The current FM port is 388.\n");
 				}
+			}
+			if (silence)
+			{
+				if (strstr(silence, "-on"))
+				{
+					printf("The emulator is silent.\n");
+				}
+			}
+			else
+			{
+				printf("The emulator is running as normal.\n");
 			}
 		}
 		else
@@ -718,6 +743,7 @@ int main()
 		system("SetEnv -u -d opl3core");
 		system("SetEnv -u -d oplhwsupport");
 		system("SetEnv -u -d opl3port");
+		system("SetEnv -u -d oplemusilence");
 		system("SetEnv -u -d wavwrite");
 		system("SetEnv -u -d vgmlog");
 		system("SetEnv -u -d vgmloop");
