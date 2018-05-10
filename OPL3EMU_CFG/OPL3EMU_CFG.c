@@ -351,6 +351,7 @@ int main()
 		{
 			system("SetEnv -u -d oplhwsupport");
 			system("SetEnv -u -d opl3port");
+			system("SetEnv -u -d oplemusilence");
 			printf("Hardware OPL passthrough has been disabled.\n");
 		}
 		if (hwsupport == 1)
