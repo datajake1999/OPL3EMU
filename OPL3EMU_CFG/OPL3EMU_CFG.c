@@ -585,21 +585,21 @@ int main()
 					printf("The current FM port is 388.\n");
 				}
 			}
-			if (silence)
-			{
-				if (strstr(silence, "-on"))
-				{
-					printf("Silent emulation mode is enabled.\n");
-				}
-			}
-			else
-			{
-				printf("Silent emulation mode is disabled.\n");
-			}
 		}
 		else
 		{
 			printf("Hardware OPL passthrough is disabled.\n");
+		}
+		if (silence)
+		{
+			if (strstr(silence, "-on"))
+			{
+				printf("Silent emulation mode is enabled.\n");
+			}
+		}
+		else
+		{
+			printf("Silent emulation mode is disabled.\n");
 		}
 		if (wavwrite)
 		{
