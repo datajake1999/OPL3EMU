@@ -112,6 +112,8 @@ private:
 
 public:
 	int Init(Bit16s *buffer, unsigned int bufferSize, unsigned int chunkSize, bool useRingBuffer, unsigned int sampleRate) {
+		char *auddev = getenv("OPL3AUDDEV");
+		int wResult;
 		DWORD callbackType = CALLBACK_NULL;
 		DWORD_PTR callback = NULL;
 		hEvent = NULL;
@@ -124,7 +126,17 @@ public:
 		PCMWAVEFORMAT wFormat = {WAVE_FORMAT_PCM, 2, sampleRate, sampleRate * 4, 4, 16};
 
 		// Open waveout device
-		int wResult = waveOutOpen(&hWaveOut, WAVE_MAPPER, (LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
+		if (auddev)
+		{
+			if (strstr(auddev, getenv("OPL3AUDDEV")))
+			{
+				wResult = waveOutOpen(&hWaveOut, atoi(auddev), (LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
+			}
+		}
+		else
+		{
+			wResult = waveOutOpen(&hWaveOut, WAVE_MAPPER, (LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
+		}
 		if (wResult != MMSYSERR_NOERROR) {
 			MessageBoxW(NULL, L"Failed to open waveform output device", L"OPL3", MB_OK | MB_ICONEXCLAMATION);
 			return 2;

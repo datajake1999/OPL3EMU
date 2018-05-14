@@ -42,6 +42,7 @@ int main()
 	int csize;
 	int latency;
 	int ringbuf;
+	int auddev;
 	LPCTSTR lpPath = TEXT("C:\\OPLSynth");
 	if (PathFileExists(lpPath) == FALSE)
 	{
@@ -453,6 +454,7 @@ int main()
 		printf("2 = Change chunk size.\n");
 		printf("3 = Change MIDI latency.\n");
 		printf("4 = Enable/disable ring buffer.\n");
+		printf("5 = Change audio device.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -529,6 +531,22 @@ int main()
 				printf("ring buffer has been enabled.\n");
 			}
 		}
+		if (audcfg == 5)
+		{
+			printf("Enter device ID.\n");
+			scanf("%d", &auddev);
+			if (auddev == -1)
+			{
+				system("SetEnv -u -d opl3auddev");
+				printf("The driver will send output to the default audio device.\n", auddev);
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u opl3auddev %d", auddev);
+				system(string);
+				printf("The driver will send output to the audio device with id %d.\n", auddev);
+			}
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -548,6 +566,7 @@ int main()
 		char *csize = getenv("OPL3CHUNKSIZE");
 		char *latency = getenv("OPL3LATENCY");
 		char *ringbuf = getenv("OPL3RINGBUF");
+		char *auddev = getenv("OPL3AUDDEV");
 		printf("General driver configuration.\n");
 		if (core)
 		{
@@ -745,6 +764,17 @@ int main()
 		{
 			printf("The ring buffer is disabled.\n");
 		}
+		if (auddev)
+		{
+			if (strstr(auddev, getenv("OPL3AUDDEV")))
+			{
+				printf("The driver sends output to the audio device with id%s.\n", auddev);
+			}
+		}
+		else
+		{
+			printf("The driver sends output to the default audio device.\n", auddev);
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -766,6 +796,7 @@ int main()
 		system("SetEnv -u -d opl3chunksize");
 		system("SetEnv -u -d opl3latency");
 		system("SetEnv -u -d opl3ringbuf");
+		system("SetEnv -u -d opl3auddev");
 		printf("Driver configuration has been reset.\n");
 		printf("Press any key to exit.\n");
 		getch();
