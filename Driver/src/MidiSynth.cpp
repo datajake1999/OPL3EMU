@@ -441,7 +441,7 @@ int MidiSynth::Init() {
 int MidiSynth::Reset() {
 //#ifdef DRIVER_MODE
 
-//		return 0;
+		//return 0;
 //#endif
 
 	UINT wResult = waveOut.Pause();
