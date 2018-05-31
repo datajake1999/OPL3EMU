@@ -1,10 +1,10 @@
 /*
- * OPL Hardware Passthrough support functions
- * (C) 2013-2014 James Alan Nguyen
- * Original code adapted from MidiPlay/VGMPlay (C) 201X ValleyBell
- * 
- * Released under LGPL
- */
+* OPL Hardware Passthrough support functions
+* (C) 2013-2014 James Alan Nguyen
+* Original code adapted from MidiPlay/VGMPlay (C) 201X ValleyBell
+* 
+* Released under LGPL
+*/
 
 #include "opl_hw.h"
 
@@ -26,12 +26,12 @@ void OPL_Hardware_Detection(void)
 	
 	HWusTime = 0;
 
-   Status1 = OpenInpOut32();
+	Status1 = OpenInpOut32();
 	
 	if (Status1)
 	{
 		OPL_MODE = 0x00;
-      MessageBoxW(NULL, L"Error opening FM Port! Permission denied!", L"OPL3_HW", MB_OK | MB_ICONEXCLAMATION);
+		MessageBoxW(NULL, L"Error opening FM Port! Permission denied!", L"OPL3_HW", MB_OK | MB_ICONEXCLAMATION);
 		goto FinishDetection;
 	}
 	
@@ -120,7 +120,7 @@ FinishDetection:
 	printf("us per ms: %I64u\n", TempQudFreq.QuadPart / (HWusTime * 1000));
 	HWusTime = TempQudFreq.QuadPart / 1000000;*/
 	
-   CloseInpOut32();
+	CloseInpOut32();
 
 #endif /*DISABLE_HW_SUPPORT*/
 	return;
@@ -167,7 +167,7 @@ void OPL_HW_WriteReg(WORD Reg, BYTE Data)
 	//	OPL_HW_WriteReg(0x52, OPLReg[0x52]);	// Ch 8 Mod TL
 	//}
 	
-   /*
+	/*
 	DataOld = Data;
 	if ((Reg & 0xE0) == 0x40)
 	{
@@ -197,12 +197,12 @@ void OPL_HW_WriteReg(WORD Reg, BYTE Data)
 			Data = (Data & 0xC0) | TempVol;
 		}
 	}
-   
+
 
 	if (Data == DataOld && Data == OPLReg[Reg] && ! OPLRegForce[Reg])
 		return;	// only write neccessary registers (avoid spamming)
 
-   */
+*/
 	//OPLReg[Reg] = DataOld;
 	//OPLRegForce[Reg] = (Data != DataOld) ? 0x01 : 0x00;	// force next write
 	
@@ -216,26 +216,26 @@ void OPL_HW_WriteReg(WORD Reg, BYTE Data)
 	QueryPerformanceCounter(&StartTime);
 	outportb(Port + 0x00, Reg & 0xFF);
 	
-   //switch(OPL_MODE)
+	//switch(OPL_MODE)
 	//{
 	//case 0x02:
 	//	OPL_HW_WaitDelay(StartTime.QuadPart, DELAY_OPL2_REG);
 	//	break;
 	//case 0x03:
-		OPL_HW_WaitDelay(StartTime.QuadPart, DELAY_OPL3_REG);
+	OPL_HW_WaitDelay(StartTime.QuadPart, DELAY_OPL3_REG);
 	//	break;
 	//}
 
 	QueryPerformanceCounter(&StartTime);
 	outportb(Port + 0x01, Data);
 	
-   //switch(OPL_MODE)
+	//switch(OPL_MODE)
 	//{
 	//case 0x02:
 	//	OPL_HW_WaitDelay(StartTime.QuadPart, DELAY_OPL2_DATA);
 	//	break;
 	//case 0x03:
-		OPL_HW_WaitDelay(StartTime.QuadPart, DELAY_OPL3_DATA);
+	OPL_HW_WaitDelay(StartTime.QuadPart, DELAY_OPL3_DATA);
 	//	break;
 	//}
 
@@ -260,7 +260,7 @@ inline UINT8 OPL_HW_GetStatus(void)
 	}
 	UINT8 RetStatus;
 	
-   RetStatus = inportb(FMPort);
+	RetStatus = inportb(FMPort);
 	
 	return RetStatus;
 #endif	// DISABLE_HW_SUPPORT
@@ -287,7 +287,7 @@ inline void OPL_HW_WaitDelay(INT64 StartTime, float Delay)
 	else if (Delay >= 1.0f)
 	{
 		for (CurUS = 0x00; CurUS < Delay; CurUS ++)
-			OPL_HW_GetStatus();
+		OPL_HW_GetStatus();
 	}
 	else
 	{
@@ -325,7 +325,7 @@ void opl_chip_reset(void)
 	for (Reg = 0x00; Reg < 0x16; Reg ++)
 	{
 		if ((Reg & 0x07) >= 0x06)
-			continue;
+		continue;
 		OPL_HW_WriteReg(0x040 | Reg, 0x3F);	// silence all notes (OPL2)
 		OPL_HW_WriteReg(0x140 | Reg, 0x3F);
 		
@@ -359,7 +359,7 @@ void opl_chip_reset(void)
 	for (Reg = 0x040; Reg < 0x0A0; Reg ++)
 	{
 		if ((Reg & 0x07) >= 0x06 || (Reg & 0x1F) >= 0x18)
-			continue;
+		continue;
 		OPL_HW_WriteReg(0x000 | Reg, 0x00);
 		OPL_HW_WriteReg(0x100 | Reg, 0x00);
 	}
@@ -379,16 +379,16 @@ void opl_chip_reset(void)
 void OPL_HW_Init() 
 {
 #ifndef DISABLE_HW_SUPPORT
-   opl_chip_reset();
-   OpenInpOut32(); 
+	opl_chip_reset();
+	OpenInpOut32(); 
 #endif	// DISABLE_HW_SUPPORT
 };
 
 void OPL_HW_Close()
 {
 #ifndef DISABLE_HW_SUPPORT
-   opl_chip_reset();
-   CloseInpOut32(); 
+	opl_chip_reset();
+	CloseInpOut32(); 
 #endif	// DISABLE_HW_SUPPORT
 };
 

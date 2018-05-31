@@ -21,7 +21,7 @@ namespace OPL3Emu {
 #define	DRIVER_MODE
 
 static MidiSynth &midiSynth = MidiSynth::getInstance();
-	static const unsigned int maxPos = 1024;
+static const unsigned int maxPos = 1024;
 
 static class MidiStream {
 private:

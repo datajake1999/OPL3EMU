@@ -60,7 +60,7 @@ typedef struct _vgm_file_header
 	UINT32 lngHzPokey;
 	UINT32 lngHzQSound;
 	UINT32 lngHzSCSP;
-//	UINT32 lngHzOKIM6376;
+	//	UINT32 lngHzOKIM6376;
 	//UINT8 bytReserved[0x04];
 	UINT32 lngExtraOffset;
 } VGM_HEADER;

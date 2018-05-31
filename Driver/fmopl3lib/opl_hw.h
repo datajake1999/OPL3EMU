@@ -1,10 +1,10 @@
 /*
- * Header for OPL Hardware Passthrough support
- * (C) 2013-2014 James Alan Nguyen
- * Original code adapted from MidiPlay/VGMPlay (C) 201X ValleyBell
- * 
- * Released under LGPL
- */
+* Header for OPL Hardware Passthrough support
+* (C) 2013-2014 James Alan Nguyen
+* Original code adapted from MidiPlay/VGMPlay (C) 201X ValleyBell
+* 
+* Released under LGPL
+*/
 
 #ifndef OPL_HW_H
 #define OPL_HW_H
