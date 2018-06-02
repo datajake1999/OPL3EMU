@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <math.h>
 #include <shlwapi.h>
+#pragma comment (lib, "shlwapi.lib")
 #ifndef VGM_LOGGING_H
 #define VGM_LOGGING_H
 
