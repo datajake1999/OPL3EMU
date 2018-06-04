@@ -9,7 +9,7 @@ Compression=lzma
 SolidCompression=yes
 ArchitecturesInstallIn64BitMode=X64 IA64
 LicenseFile=Docs\COPYING.LESSER.TXT
-InfoBeforeFile=64bit.txt
+;InfoBeforeFile=64bit.txt
 
 [Languages]
 Name: en; MessagesFile: "compiler:Default.isl"
@@ -91,35 +91,35 @@ Root: HKCU; Subkey: "Software\Microsoft\ActiveMovie\devenum 64-bit\{{4EFE2452-16
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\MultiMedia\MIDIMap"; Components: "MidiSel"
 
 [Run]
-Filename: "{app}\Apogee\drvsetup"; Parameters: "install"; Components: "Apogee"
-Filename: "{app}\Doom\drvsetup"; Parameters: "install"; Components: "Doom"
-Filename: "{app}\Doom_Ext\drvsetup"; Parameters: "install"; Components: "Doom_Ext"
-Filename: "{app}\Windows\drvsetup"; Parameters: "install"; Components: "Windows"
-Filename: "{app}\IA64\Apogee\drvsetup"; Parameters: "install"; Components: "Apogee"; Check: IsIA64
-Filename: "{app}\IA64\Doom\drvsetup"; Parameters: "install"; Components: "Doom"; Check: IsIA64
-Filename: "{app}\IA64\Doom_Ext\drvsetup"; Parameters: "install"; Components: "Doom_Ext"; Check: IsIA64
-Filename: "{app}\IA64\Windows\drvsetup"; Parameters: "install"; Components: "Windows"; Check: IsIA64
-Filename: "{app}\X64\Apogee\drvsetup"; Parameters: "install"; Components: "Apogee"; Check: IsX64
-Filename: "{app}\X64\Doom\drvsetup"; Parameters: "install"; Components: "Doom"; Check: IsX64
-Filename: "{app}\X64\Doom_Ext\drvsetup"; Parameters: "install"; Components: "Doom_Ext"; Check: IsX64
-Filename: "{app}\X64\Windows\drvsetup"; Parameters: "install"; Components: "Windows"; Check: IsX64
+Filename: "{app}\Apogee\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Apogee"
+Filename: "{app}\Doom\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Doom"
+Filename: "{app}\Doom_Ext\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Doom_Ext"
+Filename: "{app}\Windows\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Windows"
+Filename: "{app}\IA64\Apogee\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Apogee"; Check: IsIA64
+Filename: "{app}\IA64\Doom\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Doom"; Check: IsIA64
+Filename: "{app}\IA64\Doom_Ext\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Doom_Ext"; Check: IsIA64
+Filename: "{app}\IA64\Windows\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Windows"; Check: IsIA64
+Filename: "{app}\X64\Apogee\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Apogee"; Check: IsX64
+Filename: "{app}\X64\Doom\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Doom"; Check: IsX64
+Filename: "{app}\X64\Doom_Ext\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Doom_Ext"; Check: IsX64
+Filename: "{app}\X64\Windows\drvsetup"; Parameters: "install"; Flags: runhidden; Components: "Windows"; Check: IsX64
 Filename: "{app}\MidiPlyr"; Description: "{cm:LaunchProgram,MIDI Player}"; Components: "MidiPlyr"; Flags: postinstall nowait unchecked
 Filename: "{app}\MidiSel"; Description: "{cm:LaunchProgram,MIDI Selector}"; Components: "MidiSel"; Flags: postinstall nowait unchecked
 Filename: "{app}\OPL3EMU_CFG"; WorkingDir: "{app}"; Description: "{cm:LaunchProgram,OPL3EMU MIDI Driver Configuration Utility}"; Components: "Configuration"; Flags: postinstall nowait unchecked
 
 [UninstallRun]
-Filename: "{app}\Apogee\drvsetup"; Parameters: "uninstall"; Components: "Apogee"
-Filename: "{app}\Doom\drvsetup"; Parameters: "uninstall"; Components: "Doom"
-Filename: "{app}\Doom_Ext\drvsetup"; Parameters: "uninstall"; Components: "Doom_Ext"
-Filename: "{app}\Windows\drvsetup"; Parameters: "uninstall"; Components: "Windows"
-Filename: "{app}\IA64\Apogee\drvsetup"; Parameters: "uninstall"; Components: "Apogee"; Check: IsIA64
-Filename: "{app}\IA64\Doom\drvsetup"; Parameters: "uninstall"; Components: "Doom"; Check: IsIA64
-Filename: "{app}\IA64\Doom_Ext\drvsetup"; Parameters: "uninstall"; Components: "Doom_Ext"; Check: IsIA64
-Filename: "{app}\IA64\Windows\drvsetup"; Parameters: "uninstall"; Components: "Windows"; Check: IsIA64
-Filename: "{app}\X64\Apogee\drvsetup"; Parameters: "uninstall"; Components: "Apogee"; Check: IsX64
-Filename: "{app}\X64\Doom\drvsetup"; Parameters: "uninstall"; Components: "Doom"; Check: IsX64
-Filename: "{app}\X64\Doom_Ext\drvsetup"; Parameters: "uninstall"; Components: "Doom_Ext"; Check: IsX64
-Filename: "{app}\X64\Windows\drvsetup"; Parameters: "uninstall"; Components: "Windows"; Check: IsX64
+Filename: "{app}\Apogee\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Apogee"
+Filename: "{app}\Doom\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Doom"
+Filename: "{app}\Doom_Ext\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Doom_Ext"
+Filename: "{app}\Windows\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Windows"
+Filename: "{app}\IA64\Apogee\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Apogee"; Check: IsIA64
+Filename: "{app}\IA64\Doom\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Doom"; Check: IsIA64
+Filename: "{app}\IA64\Doom_Ext\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Doom_Ext"; Check: IsIA64
+Filename: "{app}\IA64\Windows\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Windows"; Check: IsIA64
+Filename: "{app}\X64\Apogee\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Apogee"; Check: IsX64
+Filename: "{app}\X64\Doom\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Doom"; Check: IsX64
+Filename: "{app}\X64\Doom_Ext\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Doom_Ext"; Check: IsX64
+Filename: "{app}\X64\Windows\drvsetup"; Parameters: "uninstall"; Flags: runhidden; Components: "Windows"; Check: IsX64
 
 [Components]
 Name: "Apogee"; Description: "Apogee Driver"; Types: "full"

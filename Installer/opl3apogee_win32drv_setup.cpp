@@ -1,18 +1,18 @@
 /* Copyright (C) 2011, 2012 Sergey V. Mikayev
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser General Public License as published by
- *  the Free Software Foundation, either version 2.1 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU Lesser General Public License as published by
+*  the Free Software Foundation, either version 2.1 of the License, or
+*  (at your option) any later version.
+*
+*  This program is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU Lesser General Public License for more details.
+*
+*  You should have received a copy of the GNU Lesser General Public License
+*  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include "stdafx.h"
 
@@ -46,7 +46,9 @@ const char FILE_ERROR_TITLE[] = "File error";
 bool registerDriver(bool &installMode) {
 	HKEY hReg;
 	if (RegOpenKeyA(HKEY_LOCAL_MACHINE, DRIVERS_REGISTRY_KEY, &hReg)) {
+		#ifdef NOTSILENT
 		MessageBoxA(NULL, CANNOT_OPEN_REGISTRY_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#endif
 		return false;
 	}
 	char str[255];
@@ -86,7 +88,9 @@ bool registerDriver(bool &installMode) {
 		}
 	}
 	if (freeEntry == -1) {
+		#ifdef NOTSILENT
 		MessageBoxA(NULL, CANNOT_INSTALL_NO_PORTS_ERR, ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#endif
 		RegCloseKey(hReg);
 		return false;
 	}
@@ -97,7 +101,9 @@ bool registerDriver(bool &installMode) {
 	}
 	res = RegSetValueExA(hReg, drvName, NULL, REG_SZ, (LPBYTE)OPL3EMU_DRIVER_NAME, sizeof(OPL3EMU_DRIVER_NAME));
 	if (res != ERROR_SUCCESS) {
+		#ifdef NOTSILENT
 		MessageBoxA(NULL, CANNOT_REGISTER_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#endif
 		RegCloseKey(hReg);
 		return false;
 	}
@@ -108,7 +114,9 @@ bool registerDriver(bool &installMode) {
 void unregisterDriver() {
 	HKEY hReg;
 	if (RegOpenKeyA(HKEY_LOCAL_MACHINE, DRIVERS_REGISTRY_KEY, &hReg)) {
+		#ifdef NOTSILENT
 		MessageBoxA(NULL, CANNOT_OPEN_REGISTRY_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#endif
 		return;
 	}
 	char str[255];
@@ -128,16 +136,22 @@ void unregisterDriver() {
 		if (!_stricmp(str, OPL3EMU_DRIVER_NAME)) {
 			res = RegDeleteValueA(hReg, drvName);
 			if (res != ERROR_SUCCESS) {
+				#ifdef NOTSILENT
 				MessageBoxA(NULL, CANNOT_UNINSTALL_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+				#endif
 				RegCloseKey(hReg);
 				return;
 			}
+			#ifdef NOTSILENT
 			MessageBoxA(NULL, SUCCESSFULLY_UNINSTALLED_MSG, INFORMATION_TITLE, MB_OK | MB_ICONINFORMATION);
+			#endif
 			RegCloseKey(hReg);
 			return;
 		}
 	}
+	#ifdef NOTSILENT
 	MessageBoxA(NULL, CANNOT_UNINSTALL_NOT_FOUND_ERR, ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+#endif
 	RegCloseKey(hReg);
 }
 
@@ -178,7 +192,9 @@ void deleteFileReliably(char *pathName) {
 
 int main(int argc, char *argv[]) {
 	if (argc != 2 || _stricmp(INSTALL_COMMAND, argv[1]) != 0 && _stricmp(UNINSTALL_COMMAND, argv[1]) != 0) {
+		#ifdef NOTSILENT
 		MessageBoxA(NULL, USAGE_MSG, INFORMATION_TITLE, MB_OK | MB_ICONINFORMATION);
+		#endif
 		return 1;
 	}
 	if (_stricmp(UNINSTALL_COMMAND, argv[1]) == 0) {
@@ -190,7 +206,9 @@ int main(int argc, char *argv[]) {
 	}
 	int setupPathLen = strrchr(argv[0], '\\') - argv[0];
 	if (setupPathLen > MAX_PATH - sizeof(OPL3EMU_DRIVER_NAME) - 2) {
+		#ifdef NOTSILENT
 		MessageBoxA(NULL, CANNOT_INSTALL_PATH_TOO_LONG_ERR, ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#endif
 		return 2;
 	}
 	bool installMode = true;
@@ -206,9 +224,13 @@ int main(int argc, char *argv[]) {
 	strncat(setupPathName, PATH_SEPARATOR, MAX_PATH - strlen(setupPathName));
 	strncat(setupPathName, OPL3EMU_DRIVER_NAME, MAX_PATH - strlen(setupPathName));
 	if (!CopyFileA(setupPathName, driverPathName, FALSE)) {
+		#ifdef NOTSILENT
 		MessageBoxA(NULL, CANNOT_INSTALL_FILE_COPY_ERR, FILE_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#endif
 		return 4;
 	}
+	#ifdef NOTSILENT
 	MessageBoxA(NULL, installMode ? SUCCESSFULLY_INSTALLED_MSG : SUCCESSFULLY_UPDATED_MSG, INFORMATION_TITLE, MB_OK | MB_ICONINFORMATION);
+	#endif
 	return 0;
 }
