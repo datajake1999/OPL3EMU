@@ -329,9 +329,9 @@ const unsigned int channel_map_table[MIDI_CHANNELS_PER_TRACK] = {
     0, 1, 2, 3, 4, 5, 6, 7, 8, 15, 9, 10, 11, 12, 13, 14
 };
 
-    opl_driver_ver_t opl_drv_ver = opl_doom_1_9;
-    unsigned int voice_free_num = 0;
-    unsigned int voice_alloced_num = 0;
+opl_driver_ver_t opl_drv_ver = opl_doom_1_9;
+unsigned int voice_free_num = 0;
+unsigned int voice_alloced_num = 0;
 class DoomOPL : public midisynth {
 private:
     fm_chip *opl;
