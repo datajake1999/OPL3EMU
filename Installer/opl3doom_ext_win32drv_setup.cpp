@@ -46,8 +46,10 @@ const char FILE_ERROR_TITLE[] = "File error";
 bool registerDriver(bool &installMode) {
 	HKEY hReg;
 	if (RegOpenKeyA(HKEY_LOCAL_MACHINE, DRIVERS_REGISTRY_KEY, &hReg)) {
-		#ifdef NOTSILENT
+		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_OPEN_REGISTRY_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#else
+		printf("%s", CANNOT_OPEN_REGISTRY_ERR);
 		#endif
 		return false;
 	}
@@ -88,8 +90,10 @@ bool registerDriver(bool &installMode) {
 		}
 	}
 	if (freeEntry == -1) {
-		#ifdef NOTSILENT
+		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_INSTALL_NO_PORTS_ERR, ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#else
+		printf("%s", CANNOT_INSTALL_NO_PORTS_ERR);
 		#endif
 		RegCloseKey(hReg);
 		return false;
@@ -101,8 +105,10 @@ bool registerDriver(bool &installMode) {
 	}
 	res = RegSetValueExA(hReg, drvName, NULL, REG_SZ, (LPBYTE)OPL3EMU_DRIVER_NAME, sizeof(OPL3EMU_DRIVER_NAME));
 	if (res != ERROR_SUCCESS) {
-		#ifdef NOTSILENT
+		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_REGISTER_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#else
+		printf("%s", CANNOT_REGISTER_ERR);
 		#endif
 		RegCloseKey(hReg);
 		return false;
@@ -114,8 +120,10 @@ bool registerDriver(bool &installMode) {
 void unregisterDriver() {
 	HKEY hReg;
 	if (RegOpenKeyA(HKEY_LOCAL_MACHINE, DRIVERS_REGISTRY_KEY, &hReg)) {
-		#ifdef NOTSILENT
+		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_OPEN_REGISTRY_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#else
+		printf("%s", CANNOT_OPEN_REGISTRY_ERR);
 		#endif
 		return;
 	}
@@ -136,21 +144,27 @@ void unregisterDriver() {
 		if (!_stricmp(str, OPL3EMU_DRIVER_NAME)) {
 			res = RegDeleteValueA(hReg, drvName);
 			if (res != ERROR_SUCCESS) {
-				#ifdef NOTSILENT
+				#ifdef GUI
 				MessageBoxA(NULL, CANNOT_UNINSTALL_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+				#else
+				printf("%s", CANNOT_UNINSTALL_ERR);
 				#endif
 				RegCloseKey(hReg);
 				return;
 			}
-			#ifdef NOTSILENT
+			#ifdef GUI
 			MessageBoxA(NULL, SUCCESSFULLY_UNINSTALLED_MSG, INFORMATION_TITLE, MB_OK | MB_ICONINFORMATION);
+			#else
+			printf("%s", SUCCESSFULLY_UNINSTALLED_MSG);
 			#endif
 			RegCloseKey(hReg);
 			return;
 		}
 	}
-	#ifdef NOTSILENT
+	#ifdef GUI
 	MessageBoxA(NULL, CANNOT_UNINSTALL_NOT_FOUND_ERR, ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+	#else
+	printf("%s", CANNOT_UNINSTALL_NOT_FOUND_ERR);
 #endif
 	RegCloseKey(hReg);
 }
@@ -192,8 +206,10 @@ void deleteFileReliably(char *pathName) {
 
 int main(int argc, char *argv[]) {
 	if (argc != 2 || _stricmp(INSTALL_COMMAND, argv[1]) != 0 && _stricmp(UNINSTALL_COMMAND, argv[1]) != 0) {
-		#ifdef NOTSILENT
+		#ifdef GUI
 		MessageBoxA(NULL, USAGE_MSG, INFORMATION_TITLE, MB_OK | MB_ICONINFORMATION);
+		#else
+		printf("%s", USAGE_MSG);
 		#endif
 		return 1;
 	}
@@ -206,8 +222,10 @@ int main(int argc, char *argv[]) {
 	}
 	int setupPathLen = strrchr(argv[0], '\\') - argv[0];
 	if (setupPathLen > MAX_PATH - sizeof(OPL3EMU_DRIVER_NAME) - 2) {
-		#ifdef NOTSILENT
+		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_INSTALL_PATH_TOO_LONG_ERR, ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#else
+		printf("%s", CANNOT_INSTALL_PATH_TOO_LONG_ERR);
 		#endif
 		return 2;
 	}
@@ -224,13 +242,17 @@ int main(int argc, char *argv[]) {
 	strncat(setupPathName, PATH_SEPARATOR, MAX_PATH - strlen(setupPathName));
 	strncat(setupPathName, OPL3EMU_DRIVER_NAME, MAX_PATH - strlen(setupPathName));
 	if (!CopyFileA(setupPathName, driverPathName, FALSE)) {
-		#ifdef NOTSILENT
+		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_INSTALL_FILE_COPY_ERR, FILE_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
+		#else
+		printf("%s", CANNOT_INSTALL_FILE_COPY_ERR);
 		#endif
 		return 4;
 	}
-	#ifdef NOTSILENT
+	#ifdef GUI
 	MessageBoxA(NULL, installMode ? SUCCESSFULLY_INSTALLED_MSG : SUCCESSFULLY_UPDATED_MSG, INFORMATION_TITLE, MB_OK | MB_ICONINFORMATION);
+	#else
+	printf("%s", installMode ? SUCCESSFULLY_INSTALLED_MSG : SUCCESSFULLY_UPDATED_MSG);
 	#endif
 	return 0;
 }
