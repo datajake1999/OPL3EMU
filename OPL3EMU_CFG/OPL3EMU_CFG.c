@@ -34,6 +34,7 @@ int main()
 	char hwport[100];
 	int silence;
 	int wavwrite;
+	int vgmconfig;
 	int vgmlog;
 	int vgmloop;
 	int audcfg;
@@ -56,11 +57,10 @@ int main()
 	printf("3 = Select OPL3 core\n");
 	printf("4 = Configure Hardware OPL passthrough\n");
 	printf("5 = Enable/disable WAV file writing\n");
-	printf("6 = Enable/disable VGM logging\n");
-	printf("7 = Enable/disable VGM looping\n");
-	printf("8 = Audio configuration\n");
-	printf("9 = Read current driver configuration\n");
-	printf("10 = Reset driver configuration\n");
+	printf("6 = Configure VGM logging\n");
+	printf("7 = Audio configuration\n");
+	printf("8 = Read current driver configuration\n");
+	printf("9 = Reset driver configuration\n");
 	scanf("%d", &num);
 	if (num == 0)
 	{
@@ -413,39 +413,44 @@ int main()
 	}
 	if (num == 6)
 	{
-		printf("Enable/disable VGM logging. Press 0 to disable or 1 to enable, and press enter to apply.\n");
-		scanf("%d", &vgmlog);
-		if (vgmlog == 0)
+		printf("VGM logging configuration.\n");
+		printf("0 = Enable/disable VGM logging.\n");
+		printf("1 = Enable/disable VGM looping.\n");
+		scanf("%d", &vgmconfig);
+		if (vgmconfig == 0)
 		{
-			system("SetEnv -u -d vgmlog");
-			printf("VGM logging has been disabled.\n");
+			printf("Enable/disable VGM logging. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			scanf("%d", &vgmlog);
+			if (vgmlog == 0)
+			{
+				system("SetEnv -u -d vgmlog");
+				printf("VGM logging has been disabled.\n");
+			}
+			if (vgmlog == 1)
+			{
+				system("SetEnv -u vgmlog -on");
+				printf("VGM logging has been enabled. The log is stored in C:\\OPLSynth\\opl3vgmlog.vgm.\n");
+			}
 		}
-		if (vgmlog == 1)
+		if (vgmconfig == 1)
 		{
-			system("SetEnv -u vgmlog -on");
-			printf("VGM logging has been enabled. The log is stored in C:\\OPLSynth\\opl3vgmlog.vgm.\n");
+			printf("Enable/disable VGM looping. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			scanf("%d", &vgmloop);
+			if (vgmloop == 0)
+			{
+				system("SetEnv -u -d vgmloop");
+				printf("VGM looping has been disabled.\n");
+			}
+			if (vgmloop == 1)
+			{
+				system("SetEnv -u vgmloop -on");
+				printf("VGM looping has been enabled. A VGM loop Start marker will be placed at the beginning of the Resulting VGM file.\n");
+			}
 		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
 	if (num == 7)
-	{
-		printf("Enable/disable VGM looping. Press 0 to disable or 1 to enable, and press enter to apply.\n");
-		scanf("%d", &vgmloop);
-		if (vgmloop == 0)
-		{
-			system("SetEnv -u -d vgmloop");
-			printf("VGM looping has been disabled.\n");
-		}
-		if (vgmloop == 1)
-		{
-			system("SetEnv -u vgmloop -on");
-			printf("VGM looping has been enabled. A VGM loop Start marker will be placed at the beginning of the Resulting VGM file.\n");
-		}
-		printf("Press any key to exit.\n");
-		getch();
-	}
-	if (num == 8)
 	{
 		char string[100];
 		printf("Audio configuration.\n");
@@ -550,7 +555,7 @@ int main()
 		printf("Press any key to exit.\n");
 		getch();
 	}
-	if (num == 9)
+	if (num == 8)
 	{
 		char *core = getenv("OPL3CORE");
 		char *hwsupport = getenv("OPLHWSUPPORT");
@@ -636,22 +641,22 @@ int main()
 			if (strstr(vgmlog, "-on"))
 			{
 				printf("VGM logging is enabled.\n");
+				if (vgmloop)
+				{
+					if (strstr(vgmloop, "-on"))
+					{
+						printf("VGM looping is enabled.\n");
+					}
+				}
+				else
+				{
+					printf("VGM looping is disabled.\n");
+				}
 			}
 		}
 		else
 		{
 			printf("VGM logging is disabled.\n");
-		}
-		if (vgmloop)
-		{
-			if (strstr(vgmloop, "-on"))
-			{
-				printf("VGM looping is enabled.\n");
-			}
-		}
-		else
-		{
-			printf("VGM looping is disabled.\n");
 		}
 		printf("Doom driver configuration.\n");
 		if (env)
@@ -778,7 +783,7 @@ int main()
 		printf("Press any key to exit.\n");
 		getch();
 	}
-	if (num == 10)
+	if (num == 9)
 	{
 		system("del c:\\OPLSynth\\apogee.tmb");
 		system("copy GENMIDI\\dmx_dmx.op2 c:\\OPLSynth\\genmidi.op2");

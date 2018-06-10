@@ -70,13 +70,13 @@ int opl3class::fm_init(unsigned int rate) {
 		if (strstr(vgmlog, "-on"))
 		{
 			VGMLog_Init(rate);
-		}
-	}
-	if (vgmloop)
-	{
-		if (strstr(vgmloop, "-on"))
-		{
-			VGMLog_MarkLoopStartNow();
+			if (vgmloop)
+			{
+				if (strstr(vgmloop, "-on"))
+				{
+					VGMLog_MarkLoopStartNow();
+				}
+			}
 		}
 	}
 
