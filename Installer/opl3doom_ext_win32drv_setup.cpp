@@ -49,7 +49,7 @@ bool registerDriver(bool &installMode) {
 		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_OPEN_REGISTRY_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
 		#else
-		printf("%s", CANNOT_OPEN_REGISTRY_ERR);
+		printf("%s\n", CANNOT_OPEN_REGISTRY_ERR);
 		#endif
 		return false;
 	}
@@ -93,7 +93,7 @@ bool registerDriver(bool &installMode) {
 		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_INSTALL_NO_PORTS_ERR, ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
 		#else
-		printf("%s", CANNOT_INSTALL_NO_PORTS_ERR);
+		printf("%s\n", CANNOT_INSTALL_NO_PORTS_ERR);
 		#endif
 		RegCloseKey(hReg);
 		return false;
@@ -108,7 +108,7 @@ bool registerDriver(bool &installMode) {
 		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_REGISTER_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
 		#else
-		printf("%s", CANNOT_REGISTER_ERR);
+		printf("%s\n", CANNOT_REGISTER_ERR);
 		#endif
 		RegCloseKey(hReg);
 		return false;
@@ -123,7 +123,7 @@ void unregisterDriver() {
 		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_OPEN_REGISTRY_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
 		#else
-		printf("%s", CANNOT_OPEN_REGISTRY_ERR);
+		printf("%s\n", CANNOT_OPEN_REGISTRY_ERR);
 		#endif
 		return;
 	}
@@ -147,7 +147,7 @@ void unregisterDriver() {
 				#ifdef GUI
 				MessageBoxA(NULL, CANNOT_UNINSTALL_ERR, REGISTRY_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
 				#else
-				printf("%s", CANNOT_UNINSTALL_ERR);
+				printf("%s\n", CANNOT_UNINSTALL_ERR);
 				#endif
 				RegCloseKey(hReg);
 				return;
@@ -155,7 +155,7 @@ void unregisterDriver() {
 			#ifdef GUI
 			MessageBoxA(NULL, SUCCESSFULLY_UNINSTALLED_MSG, INFORMATION_TITLE, MB_OK | MB_ICONINFORMATION);
 			#else
-			printf("%s", SUCCESSFULLY_UNINSTALLED_MSG);
+			printf("%s\n", SUCCESSFULLY_UNINSTALLED_MSG);
 			#endif
 			RegCloseKey(hReg);
 			return;
@@ -164,7 +164,7 @@ void unregisterDriver() {
 	#ifdef GUI
 	MessageBoxA(NULL, CANNOT_UNINSTALL_NOT_FOUND_ERR, ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
 	#else
-	printf("%s", CANNOT_UNINSTALL_NOT_FOUND_ERR);
+	printf("%s\n", CANNOT_UNINSTALL_NOT_FOUND_ERR);
 #endif
 	RegCloseKey(hReg);
 }
@@ -209,7 +209,7 @@ int main(int argc, char *argv[]) {
 		#ifdef GUI
 		MessageBoxA(NULL, USAGE_MSG, INFORMATION_TITLE, MB_OK | MB_ICONINFORMATION);
 		#else
-		printf("%s", USAGE_MSG);
+		printf("%s\n", USAGE_MSG);
 		#endif
 		return 1;
 	}
@@ -225,7 +225,7 @@ int main(int argc, char *argv[]) {
 		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_INSTALL_PATH_TOO_LONG_ERR, ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
 		#else
-		printf("%s", CANNOT_INSTALL_PATH_TOO_LONG_ERR);
+		printf("%s\n", CANNOT_INSTALL_PATH_TOO_LONG_ERR);
 		#endif
 		return 2;
 	}
@@ -245,14 +245,14 @@ int main(int argc, char *argv[]) {
 		#ifdef GUI
 		MessageBoxA(NULL, CANNOT_INSTALL_FILE_COPY_ERR, FILE_ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
 		#else
-		printf("%s", CANNOT_INSTALL_FILE_COPY_ERR);
+		printf("%s\n", CANNOT_INSTALL_FILE_COPY_ERR);
 		#endif
 		return 4;
 	}
 	#ifdef GUI
 	MessageBoxA(NULL, installMode ? SUCCESSFULLY_INSTALLED_MSG : SUCCESSFULLY_UPDATED_MSG, INFORMATION_TITLE, MB_OK | MB_ICONINFORMATION);
 	#else
-	printf("%s", installMode ? SUCCESSFULLY_INSTALLED_MSG : SUCCESSFULLY_UPDATED_MSG);
+	printf("%s\n", installMode ? SUCCESSFULLY_INSTALLED_MSG : SUCCESSFULLY_UPDATED_MSG);
 	#endif
 	return 0;
 }

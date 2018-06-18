@@ -1,0 +1,1 @@
+.\drvsetup.exe install >> ..\drvsetup.log
