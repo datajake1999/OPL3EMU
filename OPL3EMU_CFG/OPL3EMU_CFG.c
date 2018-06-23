@@ -51,31 +51,31 @@ int main()
 		printf("Creating C:\\OPLSynth Directory.\n");
 	}
 	printf("OPL3EMU MIDI driver configuration utility. Type the number that is assosiated to what you want to configure and press enter to continue. Otherwise, press any other key followed by enter to exit.\n");
-	printf("0 = Copy patch to Apogee driver\n");
-	printf("1 = Copy patch to Doom driver\n");
-	printf("2 = Configure Doom driver\n");
-	printf("3 = Select OPL3 core\n");
-	printf("4 = Configure Hardware OPL passthrough\n");
-	printf("5 = Enable/disable WAV file writing\n");
-	printf("6 = Configure VGM logging\n");
-	printf("7 = Audio configuration\n");
-	printf("8 = Read current driver configuration\n");
-	printf("9 = Reset driver configuration\n");
+	printf("0 = Copy patch to Apogee driver.\n");
+	printf("1 = Copy patch to Doom driver.\n");
+	printf("2 = Configure Doom driver.\n");
+	printf("3 = Select OPL3 core.\n");
+	printf("4 = Configure Hardware OPL passthrough.\n");
+	printf("5 = Enable/disable WAV file writing.\n");
+	printf("6 = Configure VGM logging.\n");
+	printf("7 = Audio configuration.\n");
+	printf("8 = Read current driver configuration.\n");
+	printf("9 = Reset driver configuration.\n");
 	scanf("%d", &num);
 	if (num == 0)
 	{
 		printf("Copy patch to Apogee driver. Type the number that is assosiated to your desired patch set and press enter to copy. Otherwise, press any other key followed by enter to exit.\n");
-		printf("0 = ROTT 1.3, Build engine games setup utility\n");
-		printf("1 = Blood\n");
-		printf("2 = Duke Nukem 3D\n");
-		printf("3 = ROTT 1.0-1.2\n");
-		printf("4 = NAM\n");
-		printf("5 = Shadow Warrior(Shareware)\n");
-		printf("6 = Cyberpuck\n");
-		printf("7 = Drumopl\n");
-		printf("8 = Gmoconel\n");
-		printf("9 = Gmoplmod\n");
-		printf("10 = Wallence\n");
+		printf("0 = ROTT 1.3, Build engine games setup utility.\n");
+		printf("1 = Blood.\n");
+		printf("2 = Duke Nukem 3D.\n");
+		printf("3 = ROTT 1.0-1.2.\n");
+		printf("4 = NAM.\n");
+		printf("5 = Shadow Warrior(Shareware).\n");
+		printf("6 = Cyberpuck.\n");
+		printf("7 = Drumopl.\n");
+		printf("8 = Gmoconel.\n");
+		printf("9 = Gmoplmod.\n");
+		printf("10 = Wallence.\n");
 		scanf("%d", &apgcopy);
 		if (apgcopy == 0)
 		{
@@ -138,16 +138,16 @@ int main()
 	if (num == 1)
 	{
 		printf("Copy Patch to Doom driver. Type the number that is assosiated to your desired patch set and press enter to copy. Otherwise, press any other key followed by enter to exit.\n");
-		printf("0 = DMX, Heretic, Hexen, Doom Beta, Strife Demo\n");
-		printf("1 = Doom, Ultimate Doom, Chex Quest\n");
-		printf("2 = Doom II, Final Doom\n");
-		printf("3 = Strife\n");
-		printf("4 = Raptor\n");
-		printf("5 = Wolfinstein 3D\n");
-		printf("6 = DMXOPL by Sneakernets\n");
-		printf("7 = GENMID01 by Dan L'Ecuyer\n");
-		printf("8 = Hisymak's GENMIDI\n");
-		printf("9 = Freedoom\n");
+		printf("0 = DMX, Heretic, Hexen, Doom Beta, Strife Demo.\n");
+		printf("1 = Doom, Ultimate Doom, Chex Quest.\n");
+		printf("2 = Doom II, Final Doom.\n");
+		printf("3 = Strife.\n");
+		printf("4 = Raptor.\n");
+		printf("5 = Wolfinstein 3D.\n");
+		printf("6 = DMXOPL by Sneakernets.\n");
+		printf("7 = GENMID01 by Dan L'Ecuyer.\n");
+		printf("8 = Hisymak's GENMIDI.\n");
+		printf("9 = Freedoom.\n");
 		scanf("%d", &doomcopy);
 		if (doomcopy == 0)
 		{
@@ -205,15 +205,15 @@ int main()
 	if (num == 2)
 	{
 		printf("Configure Doom driver. Type the number that is assosiated to your desired configuration and press enter to apply. Otherwise, press any other key followed by enter to exit.\n");
-		printf("0 = Default\n");
-		printf("1 = Doom1\n");
-		printf("2 = Doom2\n");
-		printf("3 = OPL3 mode\n");
-		printf("4 = Doom1 (OPL3 mode)\n");
-		printf("5 = Doom2 (OPL3 mode)\n");
-		printf("6 = OPL3 mode, with full stereo panpot\n");
-		printf("7 = Doom1 (OPL3 mode, with full stereo panpot)\n");
-		printf("8 = Doom2 (OPL3 mode, with full stereo panpot)\n");
+		printf("0 = Default.\n");
+		printf("1 = Doom1.\n");
+		printf("2 = Doom2.\n");
+		printf("3 = OPL3 mode.\n");
+		printf("4 = Doom1 (OPL3 mode).\n");
+		printf("5 = Doom2 (OPL3 mode).\n");
+		printf("6 = OPL3 mode, with full stereo panpot.\n");
+		printf("7 = Doom1 (OPL3 mode, with full stereo panpot).\n");
+		printf("8 = Doom2 (OPL3 mode, with full stereo panpot).\n");
 		scanf("%d", &doomcfg);
 		if (doomcfg == 0)
 		{
@@ -317,10 +317,10 @@ int main()
 	if (num == 3)
 	{
 		printf("Select OPL3 core. Type the number that is assosiated to your desired OPL3 Emulator Core and press enter to apply.\n");
-		printf("0 = Nuked\n");
-		printf("1 = DOSBox compat\n");
-		printf("2 = DOSBox fast\n");
-		printf("3 = MAME\n");
+		printf("0 = Nuked.\n");
+		printf("1 = DOSBox compat.\n");
+		printf("2 = DOSBox fast.\n");
+		printf("3 = MAME.\n");
 		scanf("%d", &core);
 		if (core == 0)
 		{
