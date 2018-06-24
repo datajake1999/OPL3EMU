@@ -40,6 +40,7 @@ int opl3class::fm_init(unsigned int rate) {
 		if (strstr(core, "-dbfast"))
 		{
 			chip2.Init(rate);
+			chip2.WriteReg(0x105, 0x01);
 		}
 		if (strstr(core, "-mame"))
 		{
