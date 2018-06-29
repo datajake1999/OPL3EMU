@@ -543,7 +543,7 @@ int main()
 			if (auddev == -1)
 			{
 				system("SetEnv -u -d opl3auddev");
-				printf("The driver will send output to the default audio device.\n", auddev);
+				printf("The driver will send output to the default audio device.\n");
 			}
 			else
 			{
@@ -778,7 +778,7 @@ int main()
 		}
 		else
 		{
-			printf("The driver sends output to the default audio device.\n", auddev);
+			printf("The driver sends output to the default audio device.\n");
 		}
 		printf("Press any key to exit.\n");
 		getch();
