@@ -64,18 +64,18 @@ default:
 	if (hFileVGM == NULL)
 	{
 		CreateDirectory("C:\\OPLSynth", NULL);
-		LPCTSTR lpPath = TEXT("C:\\OPLSynth\\opl3vgmlog.vgm");
-		if (PathFileExists(lpPath) == FALSE)
+		char filename[100];
+		sprintf(filename, "C:\\OPLSynth\\opl3vgmlog.vgm");
+		if (fopen(filename, "r") == FALSE)
 		{
-			hFileVGM = fopen(lpPath, "wb");
+			hFileVGM = fopen(filename, "wb");
 		}
 		else
 		{
 			for (int i = 0; i >= 0; i++)
 			{
-				char filename[100];
 				sprintf(filename, "C:\\OPLSynth\\opl3vgmlog%d.vgm", i);
-				if (PathFileExists(filename) == FALSE)
+				if (fopen(filename, "r") == FALSE)
 				{
 					hFileVGM = fopen(filename, "wb");
 					break;

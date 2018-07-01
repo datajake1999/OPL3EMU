@@ -50,19 +50,19 @@ void WavFileOpen(unsigned int rate)
 	{
 		//file open routines:
 		CreateDirectory("C:\\OPLSynth", NULL);
-		LPCTSTR lpPath = TEXT("C:\\OPLSynth\\output.wav");
-		if (PathFileExists(lpPath) == FALSE)
+		char filename[100];
+		sprintf(filename, "C:\\OPLSynth\\output.wav");
+		if (fopen(filename, "r") == FALSE)
 		{
-			out = fopen(lpPath, "wb");
+			out = fopen(filename, "wb");
 		}
 		else
 		{
 			//if the file already exists, try opening the file with a number appended to the end of the filename:
 			for (int i = 0; i >= 0; i++)
 			{
-				char filename[100];
 				sprintf(filename, "C:\\OPLSynth\\output%d.wav", i);
-				if (PathFileExists(filename) == FALSE)
+				if (fopen(filename, "r") == FALSE)
 				{
 					out = fopen(filename, "wb");
 					break;

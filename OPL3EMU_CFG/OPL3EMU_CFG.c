@@ -19,8 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include <stdio.h>
-#include <shlwapi.h>
-#pragma comment (lib, "shlwapi.lib")
+#include <windows.h>
 int main()
 {
 	int num;
@@ -44,12 +43,7 @@ int main()
 	int latency;
 	int ringbuf;
 	int auddev;
-	LPCTSTR lpPath = TEXT("C:\\OPLSynth");
-	if (PathFileExists(lpPath) == FALSE)
-	{
-		CreateDirectory("C:\\OPLSynth", NULL);
-		printf("Creating C:\\OPLSynth Directory.\n");
-	}
+	CreateDirectory("C:\\OPLSynth", NULL);
 	printf("OPL3EMU MIDI driver configuration utility. Type the number that is assosiated to what you want to configure and press enter to continue. Otherwise, press any other key followed by enter to exit.\n");
 	printf("0 = Copy patch to Apogee driver.\n");
 	printf("1 = Copy patch to Doom driver.\n");
