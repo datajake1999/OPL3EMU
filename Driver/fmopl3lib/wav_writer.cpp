@@ -45,7 +45,7 @@ waveheader head =
 };
 
 //file exists function:
-int wavfileexists(const char * filename)
+inline int fileexists(const char * filename)
 {
 	FILE *check;
 	if (check = fopen(filename, "r"))
@@ -67,7 +67,7 @@ void WavFileOpen(unsigned int rate)
 		CreateDirectory("C:\\OPLSynth", NULL);
 		char filename[100];
 		sprintf(filename, "C:\\OPLSynth\\output.wav");
-		if (wavfileexists(filename) == 0)
+		if (fileexists(filename) == 0)
 		{
 			out = fopen(filename, "wb");
 		}
@@ -77,7 +77,7 @@ void WavFileOpen(unsigned int rate)
 			for (int i = 0; i >= 0; i++)
 			{
 				sprintf(filename, "C:\\OPLSynth\\output%d.wav", i);
-				if (wavfileexists(filename) == 0)
+				if (fileexists(filename) == 0)
 				{
 					out = fopen(filename, "wb");
 					break;
