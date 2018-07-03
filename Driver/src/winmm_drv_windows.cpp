@@ -1,19 +1,19 @@
 /* Copyright (C) 2003, 2004, 2005 Dean Beeler, Jerome Fisher
- * Copyright (C) 2011, 2012 Dean Beeler, Jerome Fisher, Sergey V. Mikayev
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser General Public License as published by
- *  the Free Software Foundation, either version 2.1 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+* Copyright (C) 2011, 2012 Dean Beeler, Jerome Fisher, Sergey V. Mikayev
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU Lesser General Public License as published by
+*  the Free Software Foundation, either version 2.1 of the License, or
+*  (at your option) any later version.
+*
+*  This program is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU Lesser General Public License for more details.
+*
+*  You should have received a copy of the GNU Lesser General Public License
+*  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include "stdafx.h"
 
@@ -38,7 +38,8 @@ struct Driver {
 	} clients[MAX_CLIENTS];
 } drivers[MAX_DRIVERS];
 
-STDAPI_(LONG) DriverProc(DWORD dwDriverID, HDRVR hdrvr, WORD wMessage, DWORD dwParam1, DWORD dwParam2) {
+extern "C" __declspec(dllexport) LONG __stdcall DriverProc(DWORD dwDriverID, HDRVR hdrvr, UINT wMessage, LONG dwParam1, LONG dwParam2)
+{
 	switch(wMessage) {
 	case DRV_LOAD:
 		memset(drivers, 0, sizeof(drivers));
@@ -203,7 +204,8 @@ LONG CloseDriver(Driver *driver, UINT uDeviceID, UINT uMsg, DWORD_PTR dwUser, DW
 	return MMSYSERR_NOERROR;
 }
 
-STDAPI_(DWORD) modMessage(DWORD uDeviceID, DWORD uMsg, DWORD_PTR dwUser, DWORD_PTR dwParam1, DWORD_PTR dwParam2) {
+extern "C" __declspec(dllexport) DWORD __stdcall modMessage(UINT uDeviceID, UINT uMsg, DWORD_PTR dwUser, DWORD_PTR dwParam1, DWORD_PTR dwParam2)
+{
 	MIDIHDR *midiHdr;
 	Driver *driver = &drivers[uDeviceID];
 	DWORD instance;
@@ -254,7 +256,7 @@ STDAPI_(DWORD) modMessage(DWORD uDeviceID, DWORD uMsg, DWORD_PTR dwUser, DWORD_P
 		midiHdr->dwFlags |= MHDR_DONE;
 		midiHdr->dwFlags &= ~MHDR_INQUEUE;
 		DoCallback(uDeviceID, dwUser, MOM_DONE, dwParam1, NULL);
- 		return MMSYSERR_NOERROR;
+		return MMSYSERR_NOERROR;
 
 	case MODM_GETNUMDEVS:
 		return 0x1;
