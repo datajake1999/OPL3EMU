@@ -10,4 +10,4 @@ g++ -c ..\..\fmopl3lib\ymf262.cpp
 g++ -c ..\..\src\MidiSynth.cpp
 g++ -c ..\..\src\winmm_drv_doom.cpp
 g++ -c ..\..\synthlib\i_oplmusic.cpp
-g++ -shared -Wl,--add-stdcall-alias *.o C:\MinGW\lib\libwinmm.a -o opl3doom.dll
+g++ -shared -Wl,--add-stdcall-alias *.o -lwinmm -o opl3doom.dll
