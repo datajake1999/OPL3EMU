@@ -160,7 +160,7 @@ inline void VGMLog_FlushWait()
 }
 
 // helper function
-inline void VGMLog_CmdWrite(BYTE Cmd, BYTE Reg, BYTE Data)
+void VGMLog_CmdWrite(BYTE Cmd, BYTE Reg, BYTE Data)
 {
 	if (hFileVGM == NULL) 
 	return;
