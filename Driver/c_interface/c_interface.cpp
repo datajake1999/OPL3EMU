@@ -47,4 +47,36 @@ extern "C" {
 		context->synth->midi_close();
 	}
 
+	void opl3emu_boardreset(opl3emu_context context) {
+		return;
+	}
+
+	void opl3emu_playsysex(opl3emu_context context, Bit8u *bufpos, DWORD len) {
+		return;
+	}
+
+	void opl3emu_setpatch_sbi(opl3emu_context context, Bit8u bankNum, Bit8u patchNum, Bit8u *buf, DWORD len) {
+		return;
+	}
+
+	void opl3emu_setbank(opl3emu_context context, int banknum) {
+		return;
+	}
+
+	int opl3emu_getactivevoicecount(opl3emu_context context) {
+		return 0;
+	}
+
+	void opl3emu_setvolume(opl3emu_context context, WORD volume_atten) {
+		return;
+	}
+
+	BYTE opl3emu_getpatch(opl3emu_context context, BYTE channel) {
+		return 0;
+	}
+
+	void opl3emu_usenukedopl3(opl3emu_context context, bool value) {
+		return;
+	}
+
 } // extern "C"
