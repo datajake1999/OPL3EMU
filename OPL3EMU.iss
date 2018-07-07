@@ -68,6 +68,18 @@ Source: "Driver\IA64\Windows\Release\opl3windows.dll"; DestDir: "{app}\IA64\Wind
 Source: "Installer\IA64\Windows\Release\drvsetup.exe"; DestDir: "{app}\IA64\Windows"; Components: "Windows"; Check: IsIA64
 Source: "Driver\X64\Windows\Release\opl3windows.dll"; DestDir: "{app}\X64\Windows"; Components: "Windows"; Check: IsX64
 Source: "Installer\X64\Windows\Release\drvsetup.exe"; DestDir: "{app}\X64\Windows"; Components: "Windows"; Check: IsX64
+Source: "Driver\Apogee_standallown\Release\opl3apogee.dll"; DestDir: "{app}\Standallown"; Components: "Apogee"
+Source: "Driver\Doom_standallown\Release\opl3doom.dll"; DestDir: "{app}\Standallown"; Components: "Doom"
+Source: "Driver\Doom_Ext_standallown\Release\opl3doom_ext.dll"; DestDir: "{app}\Standallown"; Components: "Doom_Ext"
+Source: "Driver\Windows_standallown\Release\opl3windows.dll"; DestDir: "{app}\Standallown"; Components: "Windows"
+Source: "Driver\IA64\Apogee_standallown\Release\opl3apogee.dll"; DestDir: "{app}\IA64\Standallown"; Components: "Apogee"; Check: IsIA64
+Source: "Driver\IA64\Doom_standallown\Release\opl3doom.dll"; DestDir: "{app}\IA64\Standallown"; Components: "Doom"; Check: IsIA64
+Source: "Driver\IA64\Doom_Ext_standallown\Release\opl3doom_ext.dll"; DestDir: "{app}\IA64\Standallown"; Components: "Doom_Ext"; Check: IsIA64
+Source: "Driver\IA64\Windows_standallown\Release\opl3windows.dll"; DestDir: "{app}\IA64\Standallown"; Components: "Windows"; Check: IsIA64
+Source: "Driver\X64\Apogee_standallown\Release\opl3apogee.dll"; DestDir: "{app}\X64\Standallown"; Components: "Apogee"; Check: IsX64
+Source: "Driver\X64\Doom_standallown\Release\opl3doom.dll"; DestDir: "{app}\X64\Standallown"; Components: "Doom"; Check: IsX64
+Source: "Driver\X64\Doom_Ext_standallown\Release\opl3doom_ext.dll"; DestDir: "{app}\X64\Standallown"; Components: "Doom_Ext"; Check: IsX64
+Source: "Driver\X64\Windows_standallown\Release\opl3windows.dll"; DestDir: "{app}\X64\Standallown"; Components: "Windows"; Check: IsX64
 Source: "Installer\install.bat"; DestDir: "{app}\Apogee"; Components: "Apogee"
 Source: "Installer\install.bat"; DestDir: "{app}\Doom"; Components: "Doom"
 Source: "Installer\install.bat"; DestDir: "{app}\Doom_Ext"; Components: "Doom_Ext"
