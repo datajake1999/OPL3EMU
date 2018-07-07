@@ -1,4 +1,3 @@
-
 #include <stddef.h>
 #include "c_types.h"
 
@@ -24,6 +23,23 @@ extern "C" {
 	OPL3EMU_EXPORT void opl3emu_getsample(opl3emu_context context, short *samplem, int len);
 
 	OPL3EMU_EXPORT void opl3emu_close(opl3emu_context context);
+
+	OPL3EMU_EXPORT void opl3emu_boardreset(opl3emu_context context);
+
+	OPL3EMU_EXPORT void opl3emu_playsysex(opl3emu_context context, Bit8u *bufpos, DWORD len);
+
+	OPL3EMU_EXPORT void opl3emu_setpatch_sbi(opl3emu_context context, Bit8u bankNum, Bit8u patchNum, Bit8u *buf, DWORD len);
+
+	OPL3EMU_EXPORT void opl3emu_setbank(opl3emu_context context, int banknum);
+
+	OPL3EMU_EXPORT int opl3emu_getactivevoicecount(opl3emu_context context);
+
+	OPL3EMU_EXPORT void opl3emu_setvolume(opl3emu_context context, WORD volume_atten);
+
+	OPL3EMU_EXPORT BYTE opl3emu_getpatch(opl3emu_context context, BYTE channel);
+
+	OPL3EMU_EXPORT void opl3emu_usenukedopl3(opl3emu_context context, bool value);
+
 
 #ifdef __cplusplus
 } // extern "C"
