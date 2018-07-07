@@ -1,0 +1,69 @@
+# Microsoft Developer Studio Generated Dependency File, included by opl3doom.mak
+
+..\c_interface\c_interface.cpp : \
+	"..\c_interface\c_interface.h"\
+	"..\c_interface\c_types.h"\
+	"..\interface.h"\
+	
+
+..\fmopl3lib\dbopl.cpp : \
+	"..\fmopl3lib\dbopl.h"\
+	"..\include\stdint.h"\
+	
+
+..\synthlib\i_oplmusic.cpp : \
+	"..\interface.h"\
+	"..\synthlib\i_oplmusic.h"\
+	
+
+..\fmopl3lib\InpOut32Helper.cpp : \
+	"..\fmopl3lib\InpOut32Helper.h"\
+	
+
+..\fmopl3lib\opl.cpp : \
+	"..\fmopl3lib\opl.h"\
+	"..\include\stdint.h"\
+	
+
+..\fmopl3lib\opl3.cpp : \
+	"..\fmopl3lib\opl3.h"\
+	"..\include\inttypes.h"\
+	"..\include\stdint.h"\
+	
+
+..\fmopl3lib\opl3class.cpp : \
+	"..\fmopl3lib\dbopl.h"\
+	"..\fmopl3lib\InpOut32Helper.h"\
+	"..\fmopl3lib\opl.h"\
+	"..\fmopl3lib\opl3.h"\
+	"..\fmopl3lib\opl3class.h"\
+	"..\fmopl3lib\opl_hw.h"\
+	"..\fmopl3lib\vgm_logging.h"\
+	"..\fmopl3lib\VGMFile.h"\
+	"..\fmopl3lib\wav_writer.h"\
+	"..\fmopl3lib\wavhdr.h"\
+	"..\fmopl3lib\ymf262.h"\
+	"..\include\inttypes.h"\
+	"..\include\stdint.h"\
+	"..\interface.h"\
+	
+
+..\fmopl3lib\opl_hw.cpp : \
+	"..\fmopl3lib\InpOut32Helper.h"\
+	"..\fmopl3lib\opl_hw.h"\
+	
+
+..\fmopl3lib\vgm_logging.cpp : \
+	"..\fmopl3lib\vgm_logging.h"\
+	"..\fmopl3lib\VGMFile.h"\
+	
+
+..\fmopl3lib\wav_writer.cpp : \
+	"..\fmopl3lib\wav_writer.h"\
+	"..\fmopl3lib\wavhdr.h"\
+	
+
+..\fmopl3lib\ymf262.cpp : \
+	"..\fmopl3lib\ymf262.h"\
+	"..\include\stdint.h"\
+	
