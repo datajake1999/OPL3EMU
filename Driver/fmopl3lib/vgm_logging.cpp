@@ -19,7 +19,7 @@ typedef struct
 	RegLSB;
 } vgmcmd_t;
 
-inline int fileexists(const char * filename)
+static inline int fileexists(const char * filename)
 {
 	FILE *check;
 	if (check = fopen(filename, "r"))

@@ -23,10 +23,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "wav_writer.h"
 
 //create the file object:
-FILE *out;
+static FILE *out;
 
 //fill in the wave header:
-waveheader head = 
+static waveheader head = 
 {
 	0x46464952,	//rID = "RIFF"
 	0,	//rSize (dummy value)
@@ -45,7 +45,7 @@ waveheader head =
 };
 
 //file exists function:
-inline int fileexists(const char * filename)
+static inline int fileexists(const char * filename)
 {
 	FILE *check;
 	if (check = fopen(filename, "r"))
