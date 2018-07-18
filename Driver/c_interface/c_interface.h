@@ -2,7 +2,7 @@
 #include "c_types.h"
 
 #undef OPL3EMU_EXPORT
-#define OPL3EMU_EXPORT  _declspec(dllexport)
+#define OPL3EMU_EXPORT  __declspec(dllexport)
 
 #ifdef __cplusplus
 extern "C" {
