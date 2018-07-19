@@ -27,12 +27,6 @@ private:
 	opl3_chip chip;
 	DBOPL::Handler chip2;
 	void *chip3;
-	Bit64u counter;
-	Bit64u lastwrite;
-	Bit16u command[8192][2];
-	Bit64u time[8192];
-	Bit16u strpos;
-	Bit16s endpos;
 public:
 	int fm_init(unsigned int rate);
 	void fm_writereg(unsigned short reg, unsigned char data);

@@ -15,22 +15,14 @@
 #include <string.h>
 #include "opl3class.h"
 
-char *core;
-char *silence;
-char *hwsupport;
-char *wavwrite;
-char *vgmlog;
-char *vgmloop;
-const Bit64u lat = (50 * 49716) / 1000;
-
+char *core = getenv("OPL3CORE");
+char *silence = getenv("OPLEMUSILENCE");
+char *hwsupport = getenv("OPLHWSUPPORT");
+char *wavwrite = getenv("WAVWRITE");
+char *vgmlog = getenv("VGMLOG");
+char *vgmloop = getenv("VGMLOOP");
 
 int opl3class::fm_init(unsigned int rate) {
-	core = getenv("OPL3CORE");
-	silence = getenv("OPLEMUSILENCE");
-	hwsupport = getenv("OPLHWSUPPORT");
-	wavwrite = getenv("WAVWRITE");
-	vgmlog = getenv("VGMLOG");
-	vgmloop = getenv("VGMLOOP");
 	if (core)
 	{
 		if (strstr(core, "-dbcompat"))
@@ -81,145 +73,118 @@ int opl3class::fm_init(unsigned int rate) {
 		}
 	}
 
-	memset(command,0,sizeof(command));
-	memset(time, 0, sizeof(time));
-	counter = 0;
-	lastwrite = 0;
-	strpos = 0;
-	endpos = 0;
-
 	return 1;
 }
 
 void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
-	command[endpos % 8192][0] = reg;
-	command[endpos % 8192][1] = data;
-	Bit64u t1 = lastwrite + 2;
-	Bit64u t2 = counter + lat;
-	if (t2 > t1)
+	if (core)
 	{
-		t1 = t2;
-	}
-	time[endpos % 8192] = t1;
-	lastwrite = t1;
-	endpos = (endpos + 1) % 8192;
-}
-
-void opl3class::fm_generate(signed short *buffer, unsigned int len) {
-	for (unsigned int i = 0; i < len; i++)
-	{
-		while (strpos != endpos && time[strpos] < counter)
+		if (strstr(core, "-dbcompat"))
 		{
-			if (core)
+			if (silence)
 			{
-				if (strstr(core, "-dbcompat"))
+				if (strstr(silence, "-on"))
 				{
-					if (silence)
-					{
-						if (strstr(silence, "-on"))
-						{
-							adlib_write(0x00, 0x00);
-						}
-					}
-					else
-					{
-						adlib_write(command[strpos][0], command[strpos][1]);
-					}
-				}
-				if (strstr(core, "-dbfast"))
-				{
-					if (silence)
-					{
-						if (strstr(silence, "-on"))
-						{
-							chip2.WriteReg(0x00, 0x00);
-						}
-					}
-					else
-					{
-						chip2.WriteReg(command[strpos][0], command[strpos][1]);
-					}
-				}
-				if (strstr(core, "-mame"))
-				{
-					if (silence)
-					{
-						if (strstr(silence, "-on"))
-						{
-							ymf262_write_reg(chip3, 0x00, 0x00);
-						}
-					}
-					else
-					{
-						ymf262_write_reg(chip3, command[strpos][0], command[strpos][1]);
-					}
+					adlib_write(0x00, 0x00);
 				}
 			}
 			else
 			{
-				if (silence)
-				{
-					if (strstr(silence, "-on"))
-					{
-						OPL3_WriteReg(&chip, 0x00, 0x00);
-					}
-				}
-				else
-				{
-					OPL3_WriteReg(&chip, command[strpos][0], command[strpos][1]);
-				}
+				adlib_write(reg, data);
 			}
-			if (hwsupport)
-			{
-				if (strstr(hwsupport, "-on"))
-				{
-					OPL_HW_WriteReg(command[strpos][0], command[strpos][1]);
-				}
-			}
-			if (vgmlog)
-			{
-				if (strstr(vgmlog, "-on"))
-				{
-					VGMLog_CmdWrite((0x5E | (command[strpos][0]>>8)), (BYTE)command[strpos][0], command[strpos][1]);
-				}
-			}
-			strpos = (strpos + 1) % 8192;
 		}
-		if (core)
+		if (strstr(core, "-dbfast"))
 		{
-			if (strstr(core, "-dbcompat"))
+			if (silence)
 			{
-				adlib_getsample((Bit16s*)buffer, 1);
+				if (strstr(silence, "-on"))
+				{
+					chip2.WriteReg(0x00, 0x00);
+				}
 			}
-			if (strstr(core, "-dbfast"))
+			else
 			{
-				chip2.Generate(buffer, 1);
+				chip2.WriteReg(reg, data);
 			}
-			if (strstr(core, "-mame"))
+		}
+		if (strstr(core, "-mame"))
+		{
+			if (silence)
 			{
-				ymf262_update_one(chip3, buffer, 1);
+				if (strstr(silence, "-on"))
+				{
+					ymf262_write_reg(chip3, 0x00, 0x00);
+				}
+			}
+			else
+			{
+				ymf262_write_reg(chip3, reg, data);
+			}
+		}
+	}
+	else
+	{
+		if (silence)
+		{
+			if (strstr(silence, "-on"))
+			{
+				OPL3_WriteReg(&chip, 0x00, 0x00);
 			}
 		}
 		else
 		{
-			OPL3_GenerateStream(&chip, (Bit16s*)buffer, 1);
+			OPL3_WriteReg(&chip, reg, data);
 		}
-		if (wavwrite)
+	}
+	if (hwsupport)
+	{
+		if (strstr(hwsupport, "-on"))
 		{
-			if (strstr(wavwrite, "-on"))
-			{
-				WavFileWrite(buffer, 1);
-			}
+			OPL_HW_WriteReg(reg, data);
 		}
-		if (vgmlog)
+	}
+	if (vgmlog)
+	{
+		if (strstr(vgmlog, "-on"))
 		{
-			if (strstr(vgmlog, "-on"))
-			{
-				VGMLog_IncrementSamples(1);
-			}
+			VGMLog_CmdWrite((0x5E | (reg>>8)), (BYTE)reg, data);
 		}
-		buffer += 2;
-		counter++;
+	}
+}
+
+void opl3class::fm_generate(signed short *buffer, unsigned int len) {
+	if (core)
+	{
+		if (strstr(core, "-dbcompat"))
+		{
+			adlib_getsample(buffer, len);
+		}
+		if (strstr(core, "-dbfast"))
+		{
+			chip2.Generate(buffer, len);
+		}
+		if (strstr(core, "-mame"))
+		{
+			ymf262_update_one(chip3, buffer, len);
+		}
+	}
+	else
+	{
+		OPL3_GenerateStream(&chip, buffer, len);
+	}
+	if (wavwrite)
+	{
+		if (strstr(wavwrite, "-on"))
+		{
+			WavFileWrite(buffer, len);
+		}
+	}
+	if (vgmlog)
+	{
+		if (strstr(vgmlog, "-on"))
+		{
+			VGMLog_IncrementSamples(len);
+		}
 	}
 }
 
