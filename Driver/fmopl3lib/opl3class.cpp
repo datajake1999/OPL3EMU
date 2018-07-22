@@ -128,12 +128,12 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 		{
 			if (strstr(silence, "-on"))
 			{
-				OPL3_WriteReg(&chip, 0x00, 0x00);
+				OPL3_WriteRegBuffered(&chip, 0x00, 0x00);
 			}
 		}
 		else
 		{
-			OPL3_WriteReg(&chip, reg, data);
+			OPL3_WriteRegBuffered(&chip, reg, data);
 		}
 	}
 	if (hwsupport)
