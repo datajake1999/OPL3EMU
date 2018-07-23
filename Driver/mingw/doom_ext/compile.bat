@@ -1,3 +1,4 @@
+g++ -c ..\..\c_interface\c_interface.cpp
 g++ -c ..\..\fmopl3lib_ext\opl3.cpp
 g++ -c ..\..\fmopl3lib_ext\opl3class.cpp
 g++ -c ..\..\src\MidiSynth.cpp

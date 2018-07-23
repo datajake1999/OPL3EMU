@@ -37,6 +37,7 @@ ALL : "$(OUTDIR)\opl3doom_ext.dll"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\i_oplmusic.obj"
 	-@erase "$(INTDIR)\MidiSynth.obj"
 	-@erase "$(INTDIR)\opl3.obj"
@@ -95,6 +96,7 @@ LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi3
 DEF_FILE= \
 	"..\..\src\winmm_drv.def"
 LINK32_OBJS= \
+	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\i_oplmusic.obj" \
 	"$(INTDIR)\MidiSynth.obj" \
 	"$(INTDIR)\opl3.obj" \
@@ -118,6 +120,7 @@ ALL : "$(OUTDIR)\opl3doom_ext.dll"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\i_oplmusic.obj"
 	-@erase "$(INTDIR)\MidiSynth.obj"
 	-@erase "$(INTDIR)\opl3.obj"
@@ -179,6 +182,7 @@ LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi3
 DEF_FILE= \
 	"..\..\src\winmm_drv.def"
 LINK32_OBJS= \
+	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\i_oplmusic.obj" \
 	"$(INTDIR)\MidiSynth.obj" \
 	"$(INTDIR)\opl3.obj" \
@@ -203,6 +207,12 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "opl3doom_ext - Win32 Release" || "$(CFG)" == "opl3doom_ext - Win32 Debug"
+SOURCE=..\..\c_interface\c_interface.cpp
+
+"$(INTDIR)\c_interface.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=..\..\synthlib_ext\i_oplmusic.cpp
 
 "$(INTDIR)\i_oplmusic.obj" : $(SOURCE) "$(INTDIR)"

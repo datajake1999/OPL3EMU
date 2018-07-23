@@ -1,3 +1,4 @@
+g++ -c ..\..\c_interface\c_interface.cpp
 g++ -c ..\..\fmopl3lib\dbopl.cpp
 g++ -c ..\..\fmopl3lib\InpOut32Helper.cpp
 g++ -c ..\..\fmopl3lib\opl.cpp

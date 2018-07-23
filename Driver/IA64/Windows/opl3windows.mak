@@ -37,6 +37,7 @@ ALL : "$(OUTDIR)\opl3windows.dll"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\InpOut32Helper.obj"
 	-@erase "$(INTDIR)\MidiSynth.obj"
@@ -102,6 +103,7 @@ LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi3
 DEF_FILE= \
 	"..\..\src\winmm_drv.def"
 LINK32_OBJS= \
+	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\InpOut32Helper.obj" \
 	"$(INTDIR)\MidiSynth.obj" \
@@ -132,6 +134,7 @@ ALL : "$(OUTDIR)\opl3windows.dll"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\InpOut32Helper.obj"
 	-@erase "$(INTDIR)\MidiSynth.obj"
@@ -200,6 +203,7 @@ LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi3
 DEF_FILE= \
 	"..\..\src\winmm_drv.def"
 LINK32_OBJS= \
+	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\InpOut32Helper.obj" \
 	"$(INTDIR)\MidiSynth.obj" \
@@ -231,6 +235,12 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "opl3windows - Win32 Release" || "$(CFG)" == "opl3windows - Win32 Debug"
+SOURCE=..\..\c_interface\c_interface.cpp
+
+"$(INTDIR)\c_interface.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=..\..\fmopl3lib\dbopl.cpp
 
 "$(INTDIR)\dbopl.obj" : $(SOURCE) "$(INTDIR)"

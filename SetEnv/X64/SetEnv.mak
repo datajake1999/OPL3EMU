@@ -203,14 +203,14 @@ SOURCE=..\SetEnv.rc
 
 
 "$(INTDIR)\SetEnv.res" : $(SOURCE) "$(INTDIR)"
-	$(RSC) /l 0x409 /fo"$(INTDIR)\SetEnv.res" /i "\opl3emu\SetEnv" /d "NDEBUG" $(SOURCE)
+	$(RSC) /l 0x409 /fo"$(INTDIR)\SetEnv.res" /i "\OPL3EMU\SetEnv" /d "NDEBUG" $(SOURCE)
 
 
 !ELSEIF  "$(CFG)" == "SetEnv - Win32 Debug"
 
 
 "$(INTDIR)\SetEnv.res" : $(SOURCE) "$(INTDIR)"
-	$(RSC) /l 0x409 /fo"$(INTDIR)\SetEnv.res" /i "\opl3emu\SetEnv" /d "_DEBUG" $(SOURCE)
+	$(RSC) /l 0x409 /fo"$(INTDIR)\SetEnv.res" /i "\OPL3EMU\SetEnv" /d "_DEBUG" $(SOURCE)
 
 
 !ENDIF 

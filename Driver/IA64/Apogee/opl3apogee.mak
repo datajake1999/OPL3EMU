@@ -38,6 +38,7 @@ ALL : "$(OUTDIR)\opl3apogee.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\al_midi.obj"
+	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\InpOut32Helper.obj"
 	-@erase "$(INTDIR)\MidiSynth.obj"
@@ -103,6 +104,7 @@ DEF_FILE= \
 	"..\..\src\winmm_drv.def"
 LINK32_OBJS= \
 	"$(INTDIR)\al_midi.obj" \
+	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\InpOut32Helper.obj" \
 	"$(INTDIR)\MidiSynth.obj" \
@@ -133,6 +135,7 @@ ALL : "$(OUTDIR)\opl3apogee.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\al_midi.obj"
+	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\InpOut32Helper.obj"
 	-@erase "$(INTDIR)\MidiSynth.obj"
@@ -201,6 +204,7 @@ DEF_FILE= \
 	"..\..\src\winmm_drv.def"
 LINK32_OBJS= \
 	"$(INTDIR)\al_midi.obj" \
+	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\InpOut32Helper.obj" \
 	"$(INTDIR)\MidiSynth.obj" \
@@ -234,6 +238,12 @@ LINK32_OBJS= \
 SOURCE=..\..\synthlib\al_midi.cpp
 
 "$(INTDIR)\al_midi.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=..\..\c_interface\c_interface.cpp
+
+"$(INTDIR)\c_interface.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

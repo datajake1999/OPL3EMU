@@ -10,14 +10,6 @@ cd..\Doom_Ext
 NMAKE /f "opl3doom_ext.mak" CFG="opl3doom_ext - Win32 Release"
 cd..\Windows
 NMAKE /f "opl3windows.mak" CFG="opl3windows - Win32 Release"
-cd..\Apogee_standallown
-NMAKE /f "opl3apogee.mak" CFG="opl3apogee - Win32 Release"
-cd..\Doom_standallown
-NMAKE /f "opl3doom.mak" CFG="opl3doom - Win32 Release"
-cd..\Doom_Ext_standallown
-NMAKE /f "opl3doom_ext.mak" CFG="opl3doom_ext - Win32 Release"
-cd..\Windows_standallown
-NMAKE /f "opl3windows.mak" CFG="opl3windows - Win32 Release"
 cd..\..\Installer\Apogee
 NMAKE /f "drvsetup.mak" CFG="drvsetup - Win32 Release"
 cd..\Doom
@@ -43,14 +35,6 @@ cd..\Doom_Ext
 NMAKE /f "opl3doom_ext.mak" CFG="opl3doom_ext - Win32 Release"
 cd..\Windows
 NMAKE /f "opl3windows.mak" CFG="opl3windows - Win32 Release"
-cd..\Apogee_standallown
-NMAKE /f "opl3apogee.mak" CFG="opl3apogee - Win32 Release"
-cd..\Doom_standallown
-NMAKE /f "opl3doom.mak" CFG="opl3doom - Win32 Release"
-cd..\Doom_Ext_standallown
-NMAKE /f "opl3doom_ext.mak" CFG="opl3doom_ext - Win32 Release"
-cd..\Windows_standallown
-NMAKE /f "opl3windows.mak" CFG="opl3windows - Win32 Release"
 cd..\..\..\Installer\IA64\Apogee
 NMAKE /f "drvsetup.mak" CFG="drvsetup - Win32 Release"
 cd..\Doom
@@ -75,14 +59,6 @@ NMAKE /f "opl3doom.mak" CFG="opl3doom - Win32 Release"
 cd..\Doom_Ext
 NMAKE /f "opl3doom_ext.mak" CFG="opl3doom_ext - Win32 Release"
 cd..\Windows
-NMAKE /f "opl3windows.mak" CFG="opl3windows - Win32 Release"
-cd..\Apogee_standallown
-NMAKE /f "opl3apogee.mak" CFG="opl3apogee - Win32 Release"
-cd..\Doom_standallown
-NMAKE /f "opl3doom.mak" CFG="opl3doom - Win32 Release"
-cd..\Doom_Ext_standallown
-NMAKE /f "opl3doom_ext.mak" CFG="opl3doom_ext - Win32 Release"
-cd..\Windows_standallown
 NMAKE /f "opl3windows.mak" CFG="opl3windows - Win32 Release"
 cd..\..\..\Installer\X64\Apogee
 NMAKE /f "drvsetup.mak" CFG="drvsetup - Win32 Release"

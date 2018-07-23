@@ -237,14 +237,14 @@ SOURCE=..\src\MidiPlyr.Rc
 
 
 "$(INTDIR)\MidiPlyr.res" : $(SOURCE) "$(INTDIR)"
-	$(RSC) /l 0x409 /fo"$(INTDIR)\MidiPlyr.res" /i "\opl3emu\MidiPlyr\src" /d "NDEBUG" $(SOURCE)
+	$(RSC) /l 0x409 /fo"$(INTDIR)\MidiPlyr.res" /i "\OPL3EMU\MidiPlyr\src" /d "NDEBUG" $(SOURCE)
 
 
 !ELSEIF  "$(CFG)" == "MidiPlyr - Win32 Debug"
 
 
 "$(INTDIR)\MidiPlyr.res" : $(SOURCE) "$(INTDIR)"
-	$(RSC) /l 0x409 /fo"$(INTDIR)\MidiPlyr.res" /i "\opl3emu\MidiPlyr\src" /d "_DEBUG" $(SOURCE)
+	$(RSC) /l 0x409 /fo"$(INTDIR)\MidiPlyr.res" /i "\OPL3EMU\MidiPlyr\src" /d "_DEBUG" $(SOURCE)
 
 
 !ENDIF 

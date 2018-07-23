@@ -96,6 +96,10 @@ SOURCE=..\..\synthlib\al_midi.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\c_interface\c_interface.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\fmopl3lib\dbopl.cpp
 # End Source File
 # Begin Source File

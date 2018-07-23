@@ -1,5 +1,11 @@
 # Microsoft Developer Studio Generated Dependency File, included by opl3doom.mak
 
+..\..\c_interface\c_interface.cpp : \
+	"..\..\c_interface\c_interface.h"\
+	"..\..\c_interface\c_types.h"\
+	"..\..\interface.h"\
+	
+
 ..\..\fmopl3lib\dbopl.cpp : \
 	"..\..\fmopl3lib\dbopl.h"\
 	"..\..\include\stdint.h"\
