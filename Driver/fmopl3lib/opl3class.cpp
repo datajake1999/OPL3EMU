@@ -81,60 +81,20 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 	{
 		if (strstr(core, "-dbcompat"))
 		{
-			if (silence)
-			{
-				if (strstr(silence, "-on"))
-				{
-					adlib_write(0x00, 0x00);
-				}
-			}
-			else
-			{
-				adlib_write(reg, data);
-			}
+			adlib_write(reg, data);
 		}
 		if (strstr(core, "-dbfast"))
 		{
-			if (silence)
-			{
-				if (strstr(silence, "-on"))
-				{
-					chip2.WriteReg(0x00, 0x00);
-				}
-			}
-			else
-			{
-				chip2.WriteReg(reg, data);
-			}
+			chip2.WriteReg(reg, data);
 		}
 		if (strstr(core, "-mame"))
 		{
-			if (silence)
-			{
-				if (strstr(silence, "-on"))
-				{
-					ymf262_write_reg(chip3, 0x00, 0x00);
-				}
-			}
-			else
-			{
-				ymf262_write_reg(chip3, reg, data);
-			}
+			ymf262_write_reg(chip3, reg, data);
 		}
 	}
 	else
 	{
-		if (silence)
-		{
-			if (strstr(silence, "-on"))
-			{
-				OPL3_WriteRegBuffered(&chip, 0x00, 0x00);
-			}
-		}
-		else
-		{
-			OPL3_WriteRegBuffered(&chip, reg, data);
-		}
+		OPL3_WriteRegBuffered(&chip, reg, data);
 	}
 	if (hwsupport)
 	{
@@ -152,25 +112,45 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 	}
 }
 
-void opl3class::fm_generate(signed short *buffer, unsigned int len) {
-	if (core)
+static void GenerateSilence(signed short *buffer, unsigned int len)
+{
+	for(unsigned int i = 0; i < len; i++)
 	{
-		if (strstr(core, "-dbcompat"))
+		buffer[0] = 0;
+		buffer[1] = 0;
+		buffer += 2;
+	}
+}
+
+void opl3class::fm_generate(signed short *buffer, unsigned int len) {
+	if (silence)
+	{
+		if (strstr(silence, "-on"))
 		{
-			adlib_getsample(buffer, len);
-		}
-		if (strstr(core, "-dbfast"))
-		{
-			chip2.Generate(buffer, len);
-		}
-		if (strstr(core, "-mame"))
-		{
-			ymf262_update_one(chip3, buffer, len);
+			GenerateSilence(buffer, len);
 		}
 	}
 	else
 	{
-		OPL3_GenerateStream(&chip, buffer, len);
+		if (core)
+		{
+			if (strstr(core, "-dbcompat"))
+			{
+				adlib_getsample(buffer, len);
+			}
+			if (strstr(core, "-dbfast"))
+			{
+				chip2.Generate(buffer, len);
+			}
+			if (strstr(core, "-mame"))
+			{
+				ymf262_update_one(chip3, buffer, len);
+			}
+		}
+		else
+		{
+			OPL3_GenerateStream(&chip, buffer, len);
+		}
 	}
 	if (wavwrite)
 	{
