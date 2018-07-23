@@ -22,26 +22,54 @@ char *wavwrite = getenv("WAVWRITE");
 char *vgmlog = getenv("VGMLOG");
 char *vgmloop = getenv("VGMLOOP");
 
-int opl3class::fm_init(unsigned int rate) {
-	if (core)
+static void SilentInit(unsigned int rate)
+{
+}
+
+static void SilentWrite(unsigned short reg, unsigned char data)
+{
+}
+
+static void GenerateSilence(signed short *buffer, unsigned int len)
+{
+	for(unsigned int i = 0; i < len; i++)
 	{
-		if (strstr(core, "-dbcompat"))
+		buffer[0] = 0;
+		buffer[1] = 0;
+		buffer += 2;
+	}
+}
+
+int opl3class::fm_init(unsigned int rate) {
+	if (silence)
+	{
+		if (strstr(silence, "-on"))
 		{
-			adlib_init(rate);
-		}
-		if (strstr(core, "-dbfast"))
-		{
-			chip2.Init(rate);
-			chip2.WriteReg(0x105, 0x01);
-		}
-		if (strstr(core, "-mame"))
-		{
-			chip3 = ymf262_init(49716*288, rate);
+			SilentInit(rate);
 		}
 	}
 	else
 	{
-		OPL3_Reset(&chip, rate);
+		if (core)
+		{
+			if (strstr(core, "-dbcompat"))
+			{
+				adlib_init(rate);
+			}
+			if (strstr(core, "-dbfast"))
+			{
+				chip2.Init(rate);
+				chip2.WriteReg(0x105, 0x01);
+			}
+			if (strstr(core, "-mame"))
+			{
+				chip3 = ymf262_init(49716*288, rate);
+			}
+		}
+		else
+		{
+			OPL3_Reset(&chip, rate);
+		}
 	}
 	if (hwsupport)
 	{
@@ -77,24 +105,34 @@ int opl3class::fm_init(unsigned int rate) {
 }
 
 void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
-	if (core)
+	if (silence)
 	{
-		if (strstr(core, "-dbcompat"))
+		if (strstr(silence, "-on"))
 		{
-			adlib_write(reg, data);
-		}
-		if (strstr(core, "-dbfast"))
-		{
-			chip2.WriteReg(reg, data);
-		}
-		if (strstr(core, "-mame"))
-		{
-			ymf262_write_reg(chip3, reg, data);
+			SilentWrite(reg, data);
 		}
 	}
 	else
 	{
-		OPL3_WriteRegBuffered(&chip, reg, data);
+		if (core)
+		{
+			if (strstr(core, "-dbcompat"))
+			{
+				adlib_write(reg, data);
+			}
+			if (strstr(core, "-dbfast"))
+			{
+				chip2.WriteReg(reg, data);
+			}
+			if (strstr(core, "-mame"))
+			{
+				ymf262_write_reg(chip3, reg, data);
+			}
+		}
+		else
+		{
+			OPL3_WriteRegBuffered(&chip, reg, data);
+		}
 	}
 	if (hwsupport)
 	{
@@ -109,16 +147,6 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 		{
 			VGMLog_CmdWrite((0x5E | (reg>>8)), (BYTE)reg, data);
 		}
-	}
-}
-
-static void GenerateSilence(signed short *buffer, unsigned int len)
-{
-	for(unsigned int i = 0; i < len; i++)
-	{
-		buffer[0] = 0;
-		buffer[1] = 0;
-		buffer += 2;
 	}
 }
 
