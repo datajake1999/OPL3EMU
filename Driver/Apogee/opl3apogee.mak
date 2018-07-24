@@ -46,6 +46,7 @@ CLEAN :
 	-@erase "$(INTDIR)\opl3.obj"
 	-@erase "$(INTDIR)\opl3class.obj"
 	-@erase "$(INTDIR)\opl_hw.obj"
+	-@erase "$(INTDIR)\silence.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vgm_logging.obj"
 	-@erase "$(INTDIR)\wav_writer.obj"
@@ -112,6 +113,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\opl3.obj" \
 	"$(INTDIR)\opl3class.obj" \
 	"$(INTDIR)\opl_hw.obj" \
+	"$(INTDIR)\silence.obj" \
 	"$(INTDIR)\vgm_logging.obj" \
 	"$(INTDIR)\wav_writer.obj" \
 	"$(INTDIR)\winmm_drv_apogee.obj" \
@@ -143,6 +145,7 @@ CLEAN :
 	-@erase "$(INTDIR)\opl3.obj"
 	-@erase "$(INTDIR)\opl3class.obj"
 	-@erase "$(INTDIR)\opl_hw.obj"
+	-@erase "$(INTDIR)\silence.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
 	-@erase "$(INTDIR)\vgm_logging.obj"
@@ -212,6 +215,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\opl3.obj" \
 	"$(INTDIR)\opl3class.obj" \
 	"$(INTDIR)\opl_hw.obj" \
+	"$(INTDIR)\silence.obj" \
 	"$(INTDIR)\vgm_logging.obj" \
 	"$(INTDIR)\wav_writer.obj" \
 	"$(INTDIR)\winmm_drv_apogee.obj" \
@@ -286,6 +290,12 @@ SOURCE=..\fmopl3lib\opl3class.cpp
 SOURCE=..\fmopl3lib\opl_hw.cpp
 
 "$(INTDIR)\opl_hw.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=..\fmopl3lib\silence.cpp
+
+"$(INTDIR)\silence.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

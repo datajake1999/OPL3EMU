@@ -41,6 +41,7 @@
 	"..\..\fmopl3lib\opl3.h"\
 	"..\..\fmopl3lib\opl3class.h"\
 	"..\..\fmopl3lib\opl_hw.h"\
+	"..\..\fmopl3lib\silence.h"\
 	"..\..\fmopl3lib\vgm_logging.h"\
 	"..\..\fmopl3lib\VGMFile.h"\
 	"..\..\fmopl3lib\wav_writer.h"\
@@ -62,6 +63,10 @@
 ..\..\fmopl3lib\opl_hw.cpp : \
 	"..\..\fmopl3lib\InpOut32Helper.h"\
 	"..\..\fmopl3lib\opl_hw.h"\
+	
+
+..\..\fmopl3lib\silence.cpp : \
+	"..\..\fmopl3lib\silence.h"\
 	
 
 ..\..\fmopl3lib\vgm_logging.cpp : \

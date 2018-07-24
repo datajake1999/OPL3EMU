@@ -17,6 +17,7 @@
 #include "opl.h"
 #include "dbopl.h"
 #include "ymf262.h"
+#include "silence.h"
 #include "opl_hw.h"
 #include "wav_writer.h"
 #include "vgm_logging.h"

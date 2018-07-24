@@ -22,30 +22,11 @@ char *wavwrite = getenv("WAVWRITE");
 char *vgmlog = getenv("VGMLOG");
 char *vgmloop = getenv("VGMLOOP");
 
-static void SilentInit(unsigned int rate)
-{
-}
-
-static void SilentWrite(unsigned short reg, unsigned char data)
-{
-}
-
-static void GenerateSilence(signed short *buffer, unsigned int len)
-{
-	for(unsigned int i = 0; i < len; i++)
-	{
-		buffer[0] = 0;
-		buffer[1] = 0;
-		buffer += 2;
-	}
-}
-
 int opl3class::fm_init(unsigned int rate) {
 	if (silence)
 	{
 		if (strstr(silence, "-on"))
 		{
-			SilentInit(rate);
 		}
 	}
 	else
@@ -109,7 +90,6 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 	{
 		if (strstr(silence, "-on"))
 		{
-			SilentWrite(reg, data);
 		}
 	}
 	else

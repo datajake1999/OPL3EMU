@@ -128,6 +128,10 @@ SOURCE=..\..\fmopl3lib\opl_hw.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\fmopl3lib\silence.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\fmopl3lib\vgm_logging.cpp
 # End Source File
 # Begin Source File
