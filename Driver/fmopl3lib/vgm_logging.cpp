@@ -19,18 +19,15 @@ typedef struct
 	RegLSB;
 } vgmcmd_t;
 
-static inline int fileexists(const char * filename)
+static inline bool fileexists(const char * filename)
 {
 	FILE *check;
 	if (check = fopen(filename, "r"))
 	{
 		fclose(check);
-		return 1;
+		return true;
 	}
-	else
-	{
-		return 0;
-	}
+	return false;
 }
 
 void VGMLog_Init(unsigned int rate)
@@ -80,7 +77,7 @@ default:
 		CreateDirectory("C:\\OPLSynth", NULL);
 		char filename[100];
 		sprintf(filename, "C:\\OPLSynth\\opl3vgmlog.vgm");
-		if (fileexists(filename) == 0)
+		if (fileexists(filename) == false)
 		{
 			hFileVGM = fopen(filename, "wb");
 		}
@@ -89,7 +86,7 @@ default:
 			for (int i = 0; i >= 0; i++)
 			{
 				sprintf(filename, "C:\\OPLSynth\\opl3vgmlog%d.vgm", i);
-				if (fileexists(filename) == 0)
+				if (fileexists(filename) == false)
 				{
 					hFileVGM = fopen(filename, "wb");
 					break;
