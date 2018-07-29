@@ -59,6 +59,10 @@ int opl3class::fm_init(unsigned int rate) {
 			OPL_Hardware_Detection();
 			OPL_HW_Init();
 		}
+		if (strstr(hwsupport, "-lpt"))
+		{
+			OPL_LPT_Init();
+		}
 	}
 	if (wavwrite)
 	{
@@ -119,6 +123,10 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 		if (strstr(hwsupport, "-on"))
 		{
 			OPL_HW_WriteReg(reg, data);
+		}
+		if (strstr(hwsupport, "-lpt"))
+		{
+			opl3lpt_write(reg, data);
 		}
 	}
 	if (vgmlog)
@@ -182,6 +190,10 @@ void opl3class::fm_close() {
 		if (strstr(hwsupport, "-on"))
 		{
 			OPL_HW_Close();
+		}
+		if (strstr(hwsupport, "-lpt"))
+		{
+			OPL_LPT_Close();
 		}
 	}
 	if (wavwrite)

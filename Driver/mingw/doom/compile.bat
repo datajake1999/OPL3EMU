@@ -5,6 +5,7 @@ g++ -c ..\..\fmopl3lib\opl.cpp
 g++ -c ..\..\fmopl3lib\opl3.cpp
 g++ -c ..\..\fmopl3lib\opl3class.cpp
 g++ -c ..\..\fmopl3lib\opl_hw.cpp
+g++ -c ..\..\fmopl3lib\opl_lpt.cpp
 g++ -c ..\..\fmopl3lib\silence.cpp
 g++ -c ..\..\fmopl3lib\vgm_logging.cpp
 g++ -c ..\..\fmopl3lib\wav_writer.cpp
