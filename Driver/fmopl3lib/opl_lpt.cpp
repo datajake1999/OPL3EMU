@@ -105,7 +105,7 @@ void opl2lpt_write(char reg, char data) {
 
 	/* Wait at least 3.3 microseconds */
 	for (int i = 0; i < 6; i++) {
-		(volatile) inportb(lpt_ctrl);
+		inportb(lpt_ctrl);
 	}
 
 	/* Set value */
@@ -116,7 +116,7 @@ void opl2lpt_write(char reg, char data) {
 
 	/* Wait at least 23 microseconds */
 	for (int i = 0; i < 35; i++) {
-		(volatile) inportb(lpt_ctrl);
+		inportb(lpt_ctrl);
 	}
 }
 
@@ -152,7 +152,7 @@ void opl3lpt_write(int reg, char data) {
 
 	/* Wait at least 3.3 microseconds */
 	for (int i = 0; i < 6; i++) {
-		(volatile) inportb(lpt_ctrl);
+		inportb(lpt_ctrl);
 	}
 
 	/* Set value */
@@ -163,7 +163,7 @@ void opl3lpt_write(int reg, char data) {
 
 	/* 3.3 microseconds is sufficient here as well for OPL3 */
 	for (int i = 0; i < 6; i++) {
-		(volatile) inportb(lpt_ctrl);
+		inportb(lpt_ctrl);
 	}
 }
 
