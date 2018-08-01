@@ -632,220 +632,219 @@ int main()
 					printf("The current FM port is 388.\n");
 				}
 			}
-		}
-		if (strstr(hwsupport, "-lpt"))
-		{
-			printf("OPL3LPT mode is enabled.\n");
-			if (lptport)
+			if (strstr(hwsupport, "-lpt"))
 			{
-				if (strstr(lptport, getenv("LPTPORT")))
+				printf("OPL3LPT mode is enabled.\n");
+				if (lptport)
 				{
-					printf("The current LPT port is %s.\n", lptport);
+					if (strstr(lptport, getenv("LPTPORT")))
+					{
+						printf("The current LPT port is %s.\n", lptport);
+					}
+				}
+				else
+				{
+					printf("The current LPT port is 378.\n");
 				}
 			}
-			else
+		}
+		else
+		{
+			printf("Hardware OPL passthrough is disabled.\n");
+		}
+		if (silence)
+		{
+			if (strstr(silence, "-on"))
 			{
-				printf("The current LPT port is 378.\n");
+				printf("Silent emulation mode is enabled.\n");
 			}
 		}
-	}
-	else
-	{
-		printf("Hardware OPL passthrough is disabled.\n");
-	}
-	if (silence)
-	{
-		if (strstr(silence, "-on"))
+		else
 		{
-			printf("Silent emulation mode is enabled.\n");
+			printf("Silent emulation mode is disabled.\n");
 		}
-	}
-	else
-	{
-		printf("Silent emulation mode is disabled.\n");
-	}
-	if (wavwrite)
-	{
-		if (strstr(wavwrite, "-on"))
+		if (wavwrite)
 		{
-			printf("WAV file writing is enabled.\n");
-		}
-	}
-	else
-	{
-		printf("WAV file writing is disabled.\n");
-	}
-	if (vgmlog)
-	{
-		if (strstr(vgmlog, "-on"))
-		{
-			printf("VGM logging is enabled.\n");
-			if (vgmloop)
+			if (strstr(wavwrite, "-on"))
 			{
-				if (strstr(vgmloop, "-on"))
+				printf("WAV file writing is enabled.\n");
+			}
+		}
+		else
+		{
+			printf("WAV file writing is disabled.\n");
+		}
+		if (vgmlog)
+		{
+			if (strstr(vgmlog, "-on"))
+			{
+				printf("VGM logging is enabled.\n");
+				if (vgmloop)
 				{
-					printf("VGM looping is enabled.\n");
+					if (strstr(vgmloop, "-on"))
+					{
+						printf("VGM looping is enabled.\n");
+					}
+				}
+				else
+				{
+					printf("VGM looping is disabled.\n");
 				}
 			}
-			else
+		}
+		else
+		{
+			printf("VGM logging is disabled.\n");
+		}
+		printf("Doom driver configuration.\n");
+		if (env)
+		{
+			if (strstr(env, "-opl3"))
 			{
-				printf("VGM looping is disabled.\n");
+				printf("OPL3 mode is enabled.\n");
+			}
+			if (strstr(env, "-extstereo"))
+			{
+				printf("Full stereo panpot is enabled.\n");
+			}
+			if (strstr(env, "-doom1"))
+			{
+				printf("Doom1 configuration is set.\n");
+			}
+			if (strstr(env, "-doom2"))
+			{
+				printf("Doom2 configuration is set.\n");
 			}
 		}
+		if (chips)
+		{
+			if (strstr(chips, "1"))
+			{
+				printf("1 Chip is emulated.\n");
+			}
+			if (strstr(chips, "2"))
+			{
+				printf("2 Chips are emulated.\n");
+			}
+			if (strstr(chips, "3"))
+			{
+				printf("3 Chips are emulated.\n");
+			}
+			if (strstr(chips, "4"))
+			{
+				printf("4 Chips are emulated.\n");
+			}
+			if (strstr(chips, "5"))
+			{
+				printf("5 Chips are emulated.\n");
+			}
+			if (strstr(chips, "6"))
+			{
+				printf("6 Chips are emulated.\n");
+			}
+			if (strstr(chips, "7"))
+			{
+				printf("7 Chips are emulated.\n");
+			}
+			if (strstr(chips, "8"))
+			{
+				printf("8 Chips are emulated.\n");
+			}
+		}
+		printf("Driver audio configuration.\n");
+		if (rate)
+		{
+			if (strstr(rate, getenv("OPL3RATE")))
+			{
+				printf("The current sample rate is %s.\n", rate);
+			}
+		}
+		else
+		{
+			printf("The current sample rate is 49716.\n");
+		}
+		if (bsize)
+		{
+			if (strstr(bsize, getenv("OPL3BUFSIZE")))
+			{
+				printf("The current buffer size is %s.\n", bsize);
+			}
+		}
+		else
+		{
+			printf("The current buffer size is 100.\n");
+		}
+		if (csize)
+		{
+			if (strstr(csize, getenv("OPL3CHUNKSIZE")))
+			{
+				printf("The current chunk size is %s.\n", csize);
+			}
+		}
+		else
+		{
+			printf("The current chunk size is 10.\n");
+		}
+		if (latency)
+		{
+			if (strstr(latency, getenv("OPL3LATENCY")))
+			{
+				printf("The current MIDI latency is %s.\n", latency);
+			}
+		}
+		else
+		{
+			printf("The current MIDI latency is 0.\n");
+		}
+		if (ringbuf)
+		{
+			if (strstr(ringbuf, getenv("OPL3RINGBUF")))
+			{
+				printf("The ring buffer is enabled.\n");
+			}
+		}
+		else
+		{
+			printf("The ring buffer is disabled.\n");
+		}
+		if (auddev)
+		{
+			if (strstr(auddev, getenv("OPL3AUDDEV")))
+			{
+				printf("The driver sends output to the audio device with id%s.\n", auddev);
+			}
+		}
+		else
+		{
+			printf("The driver sends output to the default audio device.\n");
+		}
+		printf("Press any key to exit.\n");
+		getch();
 	}
-	else
+	if (num == 9)
 	{
-		printf("VGM logging is disabled.\n");
+		system("del c:\\OPLSynth\\apogee.tmb");
+		system("copy GENMIDI\\dmx_dmx.op2 c:\\OPLSynth\\genmidi.op2");
+		system("SetEnv -u -d dmxoption");
+		system("SetEnv -u -d chips");
+		system("SetEnv -u -d opl3core");
+		system("SetEnv -u -d oplhwsupport");
+		system("SetEnv -u -d opl3port");
+		system("SetEnv -u -d lptport");
+		system("SetEnv -u -d oplemusilence");
+		system("SetEnv -u -d wavwrite");
+		system("SetEnv -u -d vgmlog");
+		system("SetEnv -u -d vgmloop");
+		system("SetEnv -u -d opl3rate");
+		system("SetEnv -u -d opl3bufsize");
+		system("SetEnv -u -d opl3chunksize");
+		system("SetEnv -u -d opl3latency");
+		system("SetEnv -u -d opl3ringbuf");
+		system("SetEnv -u -d opl3auddev");
+		printf("Driver configuration has been reset.\n");
+		printf("Press any key to exit.\n");
+		getch();
 	}
-	printf("Doom driver configuration.\n");
-	if (env)
-	{
-		if (strstr(env, "-opl3"))
-		{
-			printf("OPL3 mode is enabled.\n");
-		}
-		if (strstr(env, "-extstereo"))
-		{
-			printf("Full stereo panpot is enabled.\n");
-		}
-		if (strstr(env, "-doom1"))
-		{
-			printf("Doom1 configuration is set.\n");
-		}
-		if (strstr(env, "-doom2"))
-		{
-			printf("Doom2 configuration is set.\n");
-		}
-	}
-	if (chips)
-	{
-		if (strstr(chips, "1"))
-		{
-			printf("1 Chip is emulated.\n");
-		}
-		if (strstr(chips, "2"))
-		{
-			printf("2 Chips are emulated.\n");
-		}
-		if (strstr(chips, "3"))
-		{
-			printf("3 Chips are emulated.\n");
-		}
-		if (strstr(chips, "4"))
-		{
-			printf("4 Chips are emulated.\n");
-		}
-		if (strstr(chips, "5"))
-		{
-			printf("5 Chips are emulated.\n");
-		}
-		if (strstr(chips, "6"))
-		{
-			printf("6 Chips are emulated.\n");
-		}
-		if (strstr(chips, "7"))
-		{
-			printf("7 Chips are emulated.\n");
-		}
-		if (strstr(chips, "8"))
-		{
-			printf("8 Chips are emulated.\n");
-		}
-	}
-	printf("Driver audio configuration.\n");
-	if (rate)
-	{
-		if (strstr(rate, getenv("OPL3RATE")))
-		{
-			printf("The current sample rate is %s.\n", rate);
-		}
-	}
-	else
-	{
-		printf("The current sample rate is 49716.\n");
-	}
-	if (bsize)
-	{
-		if (strstr(bsize, getenv("OPL3BUFSIZE")))
-		{
-			printf("The current buffer size is %s.\n", bsize);
-		}
-	}
-	else
-	{
-		printf("The current buffer size is 100.\n");
-	}
-	if (csize)
-	{
-		if (strstr(csize, getenv("OPL3CHUNKSIZE")))
-		{
-			printf("The current chunk size is %s.\n", csize);
-		}
-	}
-	else
-	{
-		printf("The current chunk size is 10.\n");
-	}
-	if (latency)
-	{
-		if (strstr(latency, getenv("OPL3LATENCY")))
-		{
-			printf("The current MIDI latency is %s.\n", latency);
-		}
-	}
-	else
-	{
-		printf("The current MIDI latency is 0.\n");
-	}
-	if (ringbuf)
-	{
-		if (strstr(ringbuf, getenv("OPL3RINGBUF")))
-		{
-			printf("The ring buffer is enabled.\n");
-		}
-	}
-	else
-	{
-		printf("The ring buffer is disabled.\n");
-	}
-	if (auddev)
-	{
-		if (strstr(auddev, getenv("OPL3AUDDEV")))
-		{
-			printf("The driver sends output to the audio device with id%s.\n", auddev);
-		}
-	}
-	else
-	{
-		printf("The driver sends output to the default audio device.\n");
-	}
-	printf("Press any key to exit.\n");
-	getch();
-}
-if (num == 9)
-{
-	system("del c:\\OPLSynth\\apogee.tmb");
-	system("copy GENMIDI\\dmx_dmx.op2 c:\\OPLSynth\\genmidi.op2");
-	system("SetEnv -u -d dmxoption");
-	system("SetEnv -u -d chips");
-	system("SetEnv -u -d opl3core");
-	system("SetEnv -u -d oplhwsupport");
-	system("SetEnv -u -d opl3port");
-	system("SetEnv -u -d lptport");
-	system("SetEnv -u -d oplemusilence");
-	system("SetEnv -u -d wavwrite");
-	system("SetEnv -u -d vgmlog");
-	system("SetEnv -u -d vgmloop");
-	system("SetEnv -u -d opl3rate");
-	system("SetEnv -u -d opl3bufsize");
-	system("SetEnv -u -d opl3chunksize");
-	system("SetEnv -u -d opl3latency");
-	system("SetEnv -u -d opl3ringbuf");
-	system("SetEnv -u -d opl3auddev");
-	printf("Driver configuration has been reset.\n");
-	printf("Press any key to exit.\n");
-	getch();
-}
-printf("Exiting.\n");
-return 0;
+	printf("Exiting.\n");
+	return 0;
 }
