@@ -1,3 +1,12 @@
+/*
+* OPL3LPT support functions
+* (C) 2018 Datajake
+* (C) 2013-2014 James Alan Nguyen
+* Original code adapted from MidiPlay/VGMPlay (C) 201X ValleyBell
+* 
+* Released under LGPL
+*/
+
 #include "opl_lpt.h"
 
 char *lptport = getenv("LPTPORT");

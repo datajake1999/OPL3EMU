@@ -1,3 +1,12 @@
+/*
+* Header for OPL3LPT support
+* (C) 2018 Datajake
+* (C) 2013-2014 James Alan Nguyen
+* Original code adapted from MidiPlay/VGMPlay (C) 201X ValleyBell
+* 
+* Released under LGPL
+*/
+
 #ifndef OPL_LPT_H
 #define OPL_LPT_H
 
