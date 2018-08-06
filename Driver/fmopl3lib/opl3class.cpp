@@ -127,7 +127,7 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 		}
 		if (strstr(hwsupport, "-lpt"))
 		{
-			opl3lpt_write(reg, data);
+			opl_lpt_write(reg, data);
 		}
 	}
 	if (vgmlog)

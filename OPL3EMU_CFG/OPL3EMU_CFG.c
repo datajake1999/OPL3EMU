@@ -376,7 +376,7 @@ int main()
 		}
 		if (hwconfig == 2)
 		{
-			printf("Enable/disable OPL3LPT mode. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			printf("Enable/disable OPL3LPT mode. Press 0 to disable or 1 to enable, and press enter to apply. Note: if you have an OPL2LPT, you can press 2 to tell the LPT driver to go into OPL2LPT mode.\n");
 			scanf("%d", &lptsupport);
 			if (lptsupport == 0)
 			{
@@ -387,6 +387,11 @@ int main()
 			{
 				system("SetEnv -u oplhwsupport -lpt");
 				printf("OPL3LPT mode has been enabled.\n");
+			}
+			if (lptsupport == 2)
+			{
+				system("SetEnv -u opl2lptmode -on");
+				printf("OPL2LPT mode has been enabled.\n");
 			}
 		}
 		if (hwconfig == 3)
@@ -583,6 +588,7 @@ int main()
 		char *hwsupport = getenv("OPLHWSUPPORT");
 		char *hwport = getenv("OPL3PORT");
 		char *lptport = getenv("LPTPORT");
+		char *opl2lptmode = getenv("OPL2LPTMODE");
 		char *silence = getenv("OPLEMUSILENCE");
 		char *wavwrite = getenv("WAVWRITE");
 		char *vgmlog = getenv("VGMLOG");
@@ -645,6 +651,13 @@ int main()
 				else
 				{
 					printf("The current LPT port is 378.\n");
+				}
+				if (opl2lptmode)
+				{
+					if (strstr(opl2lptmode, "-on"))
+					{
+						printf("The LPT driver  is in OPL2LPT mode.\n");
+					}
 				}
 			}
 		}
@@ -831,6 +844,7 @@ int main()
 		system("SetEnv -u -d oplhwsupport");
 		system("SetEnv -u -d opl3port");
 		system("SetEnv -u -d lptport");
+		system("SetEnv -u -d opl2lptmode");
 		system("SetEnv -u -d oplemusilence");
 		system("SetEnv -u -d wavwrite");
 		system("SetEnv -u -d vgmlog");
