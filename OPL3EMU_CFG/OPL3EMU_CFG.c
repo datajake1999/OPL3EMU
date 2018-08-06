@@ -376,7 +376,7 @@ int main()
 		}
 		if (hwconfig == 2)
 		{
-			printf("Enable/disable OPL3LPT mode. Press 0 to disable or 1 to enable, and press enter to apply. Note: if you have an OPL2LPT, you can press 2 to tell the LPT driver to go into OPL2LPT mode.\n");
+			printf("Enable/disable OPL3LPT mode. Press 0 to disable or 1 to enable, and press enter to apply. Note: if you have an OPL2LPT, you can press 2 to tell the LPT driver to go into OPL2LPT mode. Press 3 to disable OPL2LPT mode\n");
 			scanf("%d", &lptsupport);
 			if (lptsupport == 0)
 			{
@@ -392,6 +392,11 @@ int main()
 			{
 				system("SetEnv -u opl2lptmode -on");
 				printf("OPL2LPT mode has been enabled.\n");
+			}
+			if (lptsupport == 3)
+			{
+				system("SetEnv -u -d opl2lptmode");
+				printf("OPL2LPT mode has been disabled.\n");
 			}
 		}
 		if (hwconfig == 3)
