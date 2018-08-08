@@ -492,7 +492,7 @@ int main()
 		printf("2 = Change chunk size.\n");
 		printf("3 = Change MIDI latency.\n");
 		printf("4 = Enable/disable ring buffer.\n");
-		printf("5 = Enable/disable high quolity resampler.\n");
+		printf("5 = Enable/disable hq resampler.\n");
 		printf("6 = Change audio device.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
@@ -572,17 +572,17 @@ int main()
 		}
 		if (audcfg == 5)
 		{
-			printf("Enable/disable high quolity resampler. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			printf("Enable/disable hq resampler. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &hqresampler);
 			if (hqresampler == 0)
 			{
 				system("SetEnv -u -d hqresampler");
-				printf("High quolity resampler has been disabled.\n");
+				printf("hq resampler has been disabled.\n");
 			}
 			if (hqresampler == 1)
 			{
 				system("SetEnv -u hqresampler -on");
-				printf("High quolity resampler has been enabled.\n");
+				printf("hq resampler has been enabled.\n");
 			}
 		}
 		if (audcfg == 6)
@@ -847,12 +847,12 @@ int main()
 		{
 			if (strstr(hqresampler, "-on"))
 			{
-				printf("The high quolity resampler is enabled.\n");
+				printf("The hq resampler is enabled.\n");
 			}
 		}
 		else
 		{
-			printf("The high quolity resampler is disabled.\n");
+			printf("The hq resampler is disabled.\n");
 		}
 		if (auddev)
 		{
