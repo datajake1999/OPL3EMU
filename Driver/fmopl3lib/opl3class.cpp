@@ -232,6 +232,20 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 					if ((rs + 0x8000) & 0xFFFF0000) rs = (rs >> 31) ^ 0x7FFF;
 					buffer[0] = (short)ls;
 					buffer[1] = (short)rs;
+					if (wavwrite)
+					{
+						if (strstr(wavwrite, "-on"))
+						{
+							WavFileWrite(buffer, 1);
+						}
+					}
+					if (vgmlog)
+					{
+						if (strstr(vgmlog, "-on"))
+						{
+							VGMLog_IncrementSamples(1);
+						}
+					}
 					buffer += 2;
 				}
 			}
@@ -257,20 +271,20 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 			{
 				OPL3_GenerateStream(&chip, buffer, len);
 			}
-		}
-	}
-	if (wavwrite)
-	{
-		if (strstr(wavwrite, "-on"))
-		{
-			WavFileWrite(buffer, len);
-		}
-	}
-	if (vgmlog)
-	{
-		if (strstr(vgmlog, "-on"))
-		{
-			VGMLog_IncrementSamples(len);
+			if (wavwrite)
+			{
+				if (strstr(wavwrite, "-on"))
+				{
+					WavFileWrite(buffer, len);
+				}
+			}
+			if (vgmlog)
+			{
+				if (strstr(vgmlog, "-on"))
+				{
+					VGMLog_IncrementSamples(len);
+				}
+			}
 		}
 	}
 }
