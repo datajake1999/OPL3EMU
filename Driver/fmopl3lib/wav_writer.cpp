@@ -71,7 +71,7 @@ void WavFileOpen(unsigned int rate)
 		else
 		{
 			//if the file already exists, try opening the file with a number appended to the end of the filename:
-			for (int i = 0; i >= 0; i++)
+			for (unsigned int i = 0; i >= 0; i++)
 			{
 				sprintf(filename, "C:\\OPLSynth\\output%d.wav", i);
 				if (fileexists(filename) == false)

@@ -83,7 +83,7 @@ default:
 		}
 		else
 		{
-			for (int i = 0; i >= 0; i++)
+			for (unsigned int i = 0; i >= 0; i++)
 			{
 				sprintf(filename, "C:\\OPLSynth\\opl3vgmlog%d.vgm", i);
 				if (fileexists(filename) == false)
