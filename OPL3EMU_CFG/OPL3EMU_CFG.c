@@ -44,6 +44,7 @@ int main()
 	int csize;
 	int latency;
 	int ringbuf;
+	int hqresampler;
 	int auddev;
 	CreateDirectory("C:\\OPLSynth", NULL);
 	printf("OPL3EMU MIDI driver configuration utility. Type the number that is assosiated to what you want to configure and press enter to continue. Otherwise, press any other key followed by enter to exit.\n");
@@ -491,7 +492,8 @@ int main()
 		printf("2 = Change chunk size.\n");
 		printf("3 = Change MIDI latency.\n");
 		printf("4 = Enable/disable ring buffer.\n");
-		printf("5 = Change audio device.\n");
+		printf("5 = Enable/disable high quolity resampler.\n");
+		printf("6 = Change audio device.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -565,10 +567,25 @@ int main()
 			if (ringbuf == 1)
 			{
 				system("SetEnv -u opl3ringbuf true");
-				printf("ring buffer has been enabled.\n");
+				printf("Ring buffer has been enabled.\n");
 			}
 		}
 		if (audcfg == 5)
+		{
+			printf("Enable/disable high quolity resampler. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			scanf("%d", &hqresampler);
+			if (hqresampler == 0)
+			{
+				system("SetEnv -u -d hqresampler");
+				printf("High quolity resampler has been disabled.\n");
+			}
+			if (hqresampler == 1)
+			{
+				system("SetEnv -u hqresampler -on");
+				printf("High quolity resampler has been enabled.\n");
+			}
+		}
+		if (audcfg == 6)
 		{
 			printf("Enter device ID.\n");
 			scanf("%d", &auddev);
@@ -605,6 +622,7 @@ int main()
 		char *csize = getenv("OPL3CHUNKSIZE");
 		char *latency = getenv("OPL3LATENCY");
 		char *ringbuf = getenv("OPL3RINGBUF");
+		char *hqresampler = getenv("HQRESAMPLER");
 		char *auddev = getenv("OPL3AUDDEV");
 		printf("General driver configuration.\n");
 		if (core)
@@ -825,6 +843,17 @@ int main()
 		{
 			printf("The ring buffer is disabled.\n");
 		}
+		if (hqresampler)
+		{
+			if (strstr(hqresampler, "-on"))
+			{
+				printf("The high quolity resampler is enabled.\n");
+			}
+		}
+		else
+		{
+			printf("The high quolity resampler is disabled.\n");
+		}
 		if (auddev)
 		{
 			if (strstr(auddev, getenv("OPL3AUDDEV")))
@@ -859,6 +888,7 @@ int main()
 		system("SetEnv -u -d opl3chunksize");
 		system("SetEnv -u -d opl3latency");
 		system("SetEnv -u -d opl3ringbuf");
+		system("SetEnv -u -d hqresampler");
 		system("SetEnv -u -d opl3auddev");
 		printf("Driver configuration has been reset.\n");
 		printf("Press any key to exit.\n");
