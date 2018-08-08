@@ -132,6 +132,10 @@ SOURCE=..\..\fmopl3lib\opl_lpt.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\fmopl3lib\resampler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\fmopl3lib\silence.cpp
 # End Source File
 # Begin Source File
