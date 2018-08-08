@@ -17,6 +17,7 @@
 #include "opl3class.h"
 
 char *core = getenv("OPL3CORE");
+char *hqresampler = getenv("HQRESAMPLER");
 char *silence = getenv("OPLEMUSILENCE");
 char *hwsupport = getenv("OPLHWSUPPORT");
 char *wavwrite = getenv("WAVWRITE");
@@ -32,25 +33,54 @@ int opl3class::fm_init(unsigned int rate) {
 	}
 	else
 	{
-		if (core)
+		if (hqresampler)
 		{
-			if (strstr(core, "-dbcompat"))
+			if (strstr(hqresampler, "-on"))
 			{
-				adlib_init(rate);
-			}
-			if (strstr(core, "-dbfast"))
-			{
-				chip2.Init(rate);
-				chip2.WriteReg(0x105, 0x01);
-			}
-			if (strstr(core, "-mame"))
-			{
-				chip3 = ymf262_init(49716*288, rate);
+				if (core)
+				{
+					if (strstr(core, "-dbcompat"))
+					{
+						adlib_init(49716);
+					}
+					if (strstr(core, "-dbfast"))
+					{
+						chip2.Init(49716);
+						chip2.WriteReg(0x105, 0x01);
+					}
+					if (strstr(core, "-mame"))
+					{
+						chip3 = ymf262_init(49716*288, 49716);
+					}
+				}
+				else
+				{
+					OPL3_Reset(&chip, 49716);
+				}
 			}
 		}
 		else
 		{
-			OPL3_Reset(&chip, rate);
+			if (core)
+			{
+				if (strstr(core, "-dbcompat"))
+				{
+					adlib_init(rate);
+				}
+				if (strstr(core, "-dbfast"))
+				{
+					chip2.Init(rate);
+					chip2.WriteReg(0x105, 0x01);
+				}
+				if (strstr(core, "-mame"))
+				{
+					chip3 = ymf262_init(49716*288, rate);
+				}
+			}
+			else
+			{
+				OPL3_Reset(&chip, rate);
+			}
 		}
 	}
 	if (hwsupport)
@@ -84,6 +114,17 @@ int opl3class::fm_init(unsigned int rate) {
 					VGMLog_MarkLoopStartNow();
 				}
 			}
+		}
+	}
+
+	if (hqresampler)
+	{
+		if (strstr(hqresampler, "-on"))
+		{
+			memset(samples, 0, sizeof(samples));
+			resampler = resampler_create();
+			if (!resampler) return 0;
+			resampler_set_rate(resampler, 49716.0 / (double)rate);
 		}
 	}
 
@@ -139,6 +180,29 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 	}
 }
 
+void opl3class::fm_generate_one(signed short *buffer) {
+	if (core)
+	{
+		if (strstr(core, "-dbcompat"))
+		{
+			adlib_getsample(buffer, 1);
+		}
+		if (strstr(core, "-dbfast"))
+		{
+			chip2.Generate(buffer, 1);
+		}
+		if (strstr(core, "-mame"))
+		{
+			ymf262_update_one(chip3, buffer, 1);
+		}
+	}
+	else
+	{
+		OPL3_GenerateStream(&chip, buffer, 1);
+	}
+	buffer += 2;
+}
+
 void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	if (silence)
 	{
@@ -149,24 +213,50 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	}
 	else
 	{
-		if (core)
+		if (hqresampler)
 		{
-			if (strstr(core, "-dbcompat"))
+			if (strstr(hqresampler, "-on"))
 			{
-				adlib_getsample(buffer, len);
-			}
-			if (strstr(core, "-dbfast"))
-			{
-				chip2.Generate(buffer, len);
-			}
-			if (strstr(core, "-mame"))
-			{
-				ymf262_update_one(chip3, buffer, len);
+				for (; len--;)
+				{
+					sample_t ls, rs;
+					unsigned int to_write = resampler_get_min_fill(resampler);
+					while (to_write)
+					{
+						fm_generate_one(samples);
+						resampler_write_pair(resampler, samples[0], samples[1]);
+						--to_write;
+					}
+					resampler_read_pair(resampler, &ls, &rs);
+					if ((ls + 0x8000) & 0xFFFF0000) ls = (ls >> 31) ^ 0x7FFF;
+					if ((rs + 0x8000) & 0xFFFF0000) rs = (rs >> 31) ^ 0x7FFF;
+					buffer[0] = (short)ls;
+					buffer[1] = (short)rs;
+					buffer += 2;
+				}
 			}
 		}
 		else
 		{
-			OPL3_GenerateStream(&chip, buffer, len);
+			if (core)
+			{
+				if (strstr(core, "-dbcompat"))
+				{
+					adlib_getsample(buffer, len);
+				}
+				if (strstr(core, "-dbfast"))
+				{
+					chip2.Generate(buffer, len);
+				}
+				if (strstr(core, "-mame"))
+				{
+					ymf262_update_one(chip3, buffer, len);
+				}
+			}
+			else
+			{
+				OPL3_GenerateStream(&chip, buffer, len);
+			}
 		}
 	}
 	if (wavwrite)

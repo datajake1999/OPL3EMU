@@ -18,6 +18,7 @@
 #include "opl.h"
 #include "dbopl.h"
 #include "ymf262.h"
+#include "resampler.h"
 #include "silence.h"
 #include "opl_hw.h"
 #include "opl_lpt.h"
@@ -30,6 +31,9 @@ private:
 	opl3_chip chip;
 	DBOPL::Handler chip2;
 	void *chip3;
+	void *resampler;
+	Bit16s samples[2];
+	void fm_generate_one(signed short *buffer);
 public:
 	int fm_init(unsigned int rate);
 	void fm_writereg(unsigned short reg, unsigned char data);
