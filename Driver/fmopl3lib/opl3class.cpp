@@ -183,10 +183,6 @@ void opl3class::fm_generate_stream(signed short *buffer, unsigned int len) {
 	buffer += 2;
 }
 
-void opl3class::fm_generate_one(signed short *buffer) {
-	fm_generate_stream(buffer, 1);
-}
-
 void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
 	for (; len--;)
 	{
@@ -194,7 +190,7 @@ void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
 		unsigned int to_write = resampler_get_min_fill(resampler);
 		while (to_write)
 		{
-			fm_generate_one(samples);
+			fm_generate_stream(samples, 1);
 			resampler_write_pair(resampler, samples[0], samples[1]);
 			--to_write;
 		}
