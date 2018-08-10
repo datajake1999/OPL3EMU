@@ -203,6 +203,29 @@ void opl3class::fm_generate_one(signed short *buffer) {
 	buffer += 2;
 }
 
+void opl3class::fm_generate_stream(signed short *buffer, unsigned int len) {
+	if (core)
+	{
+		if (strstr(core, "-dbcompat"))
+		{
+			adlib_getsample(buffer, len);
+		}
+		if (strstr(core, "-dbfast"))
+		{
+			chip2.Generate(buffer, len);
+		}
+		if (strstr(core, "-mame"))
+		{
+			ymf262_update_one(chip3, buffer, len);
+		}
+	}
+	else
+	{
+		OPL3_GenerateStream(&chip, buffer, len);
+	}
+	buffer += 2;
+}
+
 void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	if (silence)
 	{
@@ -266,25 +289,7 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 		}
 		else
 		{
-			if (core)
-			{
-				if (strstr(core, "-dbcompat"))
-				{
-					adlib_getsample(buffer, len);
-				}
-				if (strstr(core, "-dbfast"))
-				{
-					chip2.Generate(buffer, len);
-				}
-				if (strstr(core, "-mame"))
-				{
-					ymf262_update_one(chip3, buffer, len);
-				}
-			}
-			else
-			{
-				OPL3_GenerateStream(&chip, buffer, len);
-			}
+			fm_generate_stream(buffer, len);
 			if (wavwrite)
 			{
 				if (strstr(wavwrite, "-on"))
@@ -299,6 +304,7 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 					VGMLog_IncrementSamples(len);
 				}
 			}
+			buffer += 2;
 		}
 	}
 }
