@@ -35,6 +35,7 @@ private:
 	Bit16s samples[2];
 	void fm_generate_one(signed short *buffer);
 	void fm_generate_stream(signed short *buffer, unsigned int length);
+	void fm_generate_resampled(signed short *buffer, unsigned int length);
 public:
 	int fm_init(unsigned int rate);
 	void fm_writereg(unsigned short reg, unsigned char data);
