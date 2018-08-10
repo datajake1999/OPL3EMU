@@ -24,6 +24,31 @@ char *wavwrite = getenv("WAVWRITE");
 char *vgmlog = getenv("VGMLOG");
 char *vgmloop = getenv("VGMLOOP");
 
+int opl3class::fm_init_emu(unsigned int rate) {
+	if (core)
+	{
+		if (strstr(core, "-dbcompat"))
+		{
+			adlib_init(rate);
+		}
+		if (strstr(core, "-dbfast"))
+		{
+			chip2.Init(rate);
+			chip2.WriteReg(0x105, 0x01);
+		}
+		if (strstr(core, "-mame"))
+		{
+			chip3 = ymf262_init(49716*288, rate);
+		}
+	}
+	else
+	{
+		OPL3_Reset(&chip, rate);
+	}
+
+	return 1;
+}
+
 int opl3class::fm_init(unsigned int rate) {
 	if (silence)
 	{
@@ -37,26 +62,7 @@ int opl3class::fm_init(unsigned int rate) {
 		{
 			if (strstr(hqresampler, "-on"))
 			{
-				if (core)
-				{
-					if (strstr(core, "-dbcompat"))
-					{
-						adlib_init(49716);
-					}
-					if (strstr(core, "-dbfast"))
-					{
-						chip2.Init(49716);
-						chip2.WriteReg(0x105, 0x01);
-					}
-					if (strstr(core, "-mame"))
-					{
-						chip3 = ymf262_init(49716*288, 49716);
-					}
-				}
-				else
-				{
-					OPL3_Reset(&chip, 49716);
-				}
+				fm_init_emu(49716);
 				memset(samples, 0, sizeof(samples));
 				resampler = resampler_create();
 				if (!resampler) return 0;
@@ -65,26 +71,7 @@ int opl3class::fm_init(unsigned int rate) {
 		}
 		else
 		{
-			if (core)
-			{
-				if (strstr(core, "-dbcompat"))
-				{
-					adlib_init(rate);
-				}
-				if (strstr(core, "-dbfast"))
-				{
-					chip2.Init(rate);
-					chip2.WriteReg(0x105, 0x01);
-				}
-				if (strstr(core, "-mame"))
-				{
-					chip3 = ymf262_init(49716*288, rate);
-				}
-			}
-			else
-			{
-				OPL3_Reset(&chip, rate);
-			}
+			fm_init_emu(rate);
 		}
 	}
 	if (hwsupport)
