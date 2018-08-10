@@ -57,6 +57,10 @@ int opl3class::fm_init(unsigned int rate) {
 				{
 					OPL3_Reset(&chip, 49716);
 				}
+				memset(samples, 0, sizeof(samples));
+				resampler = resampler_create();
+				if (!resampler) return 0;
+				resampler_set_rate(resampler, 49716.0 / (double)rate);
 			}
 		}
 		else
@@ -114,17 +118,6 @@ int opl3class::fm_init(unsigned int rate) {
 					VGMLog_MarkLoopStartNow();
 				}
 			}
-		}
-	}
-
-	if (hqresampler)
-	{
-		if (strstr(hqresampler, "-on"))
-		{
-			memset(samples, 0, sizeof(samples));
-			resampler = resampler_create();
-			if (!resampler) return 0;
-			resampler_set_rate(resampler, 49716.0 / (double)rate);
 		}
 	}
 
