@@ -209,6 +209,20 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 		if (strstr(silence, "-on"))
 		{
 			GenerateSilence(buffer, len);
+			if (wavwrite)
+			{
+				if (strstr(wavwrite, "-on"))
+				{
+					WavFileWrite(buffer, len);
+				}
+			}
+			if (vgmlog)
+			{
+				if (strstr(vgmlog, "-on"))
+				{
+					VGMLog_IncrementSamples(len);
+				}
+			}
 		}
 	}
 	else
