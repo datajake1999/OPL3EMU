@@ -160,29 +160,6 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 	}
 }
 
-void opl3class::fm_generate_one(signed short *buffer) {
-	if (core)
-	{
-		if (strstr(core, "-dbcompat"))
-		{
-			adlib_getsample(buffer, 1);
-		}
-		if (strstr(core, "-dbfast"))
-		{
-			chip2.Generate(buffer, 1);
-		}
-		if (strstr(core, "-mame"))
-		{
-			ymf262_update_one(chip3, buffer, 1);
-		}
-	}
-	else
-	{
-		OPL3_GenerateStream(&chip, buffer, 1);
-	}
-	buffer += 2;
-}
-
 void opl3class::fm_generate_stream(signed short *buffer, unsigned int len) {
 	if (core)
 	{
@@ -204,6 +181,10 @@ void opl3class::fm_generate_stream(signed short *buffer, unsigned int len) {
 		OPL3_GenerateStream(&chip, buffer, len);
 	}
 	buffer += 2;
+}
+
+void opl3class::fm_generate_one(signed short *buffer) {
+	fm_generate_stream(buffer, 1);
 }
 
 void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
