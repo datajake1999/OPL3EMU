@@ -18,8 +18,8 @@
 #include "opl.h"
 #include "dbopl.h"
 #include "ymf262.h"
-#include "resampler.h"
 #include "silence.h"
+#include "resampler.h"
 #include "opl_hw.h"
 #include "opl_lpt.h"
 #include "wav_writer.h"
@@ -34,6 +34,7 @@ private:
 	void *resampler;
 	Bit16s samples[2];
 	int fm_init_emu(unsigned int rate);
+	void fm_writereg_emu(unsigned short reg, unsigned char data);
 	void fm_generate_stream(signed short *buffer, unsigned int length);
 	void fm_generate_resampled(signed short *buffer, unsigned int length);
 public:
