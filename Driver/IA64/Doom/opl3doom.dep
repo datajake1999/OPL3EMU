@@ -22,6 +22,13 @@
 	"..\..\include\stdint.h"\
 	
 
+..\..\fmopl3lib\hardware.cpp : \
+	"..\..\fmopl3lib\hardware.h"\
+	"..\..\fmopl3lib\InpOut32Helper.h"\
+	"..\..\fmopl3lib\opl_hw.h"\
+	"..\..\fmopl3lib\opl_lpt.h"\
+	
+
 ..\..\synthlib\i_oplmusic.cpp : \
 	"..\..\interface.h"\
 	"..\..\synthlib\i_oplmusic.h"\
@@ -53,6 +60,7 @@
 ..\..\fmopl3lib\opl3class.cpp : \
 	"..\..\fmopl3lib\dbopl.h"\
 	"..\..\fmopl3lib\emulator.h"\
+	"..\..\fmopl3lib\hardware.h"\
 	"..\..\fmopl3lib\InpOut32Helper.h"\
 	"..\..\fmopl3lib\opl.h"\
 	"..\..\fmopl3lib\opl3.h"\

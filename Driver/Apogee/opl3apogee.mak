@@ -41,6 +41,7 @@ CLEAN :
 	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\emulator.obj"
+	-@erase "$(INTDIR)\hardware.obj"
 	-@erase "$(INTDIR)\InpOut32Helper.obj"
 	-@erase "$(INTDIR)\MidiSynth.obj"
 	-@erase "$(INTDIR)\opl.obj"
@@ -111,6 +112,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\emulator.obj" \
+	"$(INTDIR)\hardware.obj" \
 	"$(INTDIR)\InpOut32Helper.obj" \
 	"$(INTDIR)\MidiSynth.obj" \
 	"$(INTDIR)\opl.obj" \
@@ -146,6 +148,7 @@ CLEAN :
 	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\emulator.obj"
+	-@erase "$(INTDIR)\hardware.obj"
 	-@erase "$(INTDIR)\InpOut32Helper.obj"
 	-@erase "$(INTDIR)\MidiSynth.obj"
 	-@erase "$(INTDIR)\opl.obj"
@@ -219,6 +222,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\emulator.obj" \
+	"$(INTDIR)\hardware.obj" \
 	"$(INTDIR)\InpOut32Helper.obj" \
 	"$(INTDIR)\MidiSynth.obj" \
 	"$(INTDIR)\opl.obj" \
@@ -272,6 +276,12 @@ SOURCE=..\fmopl3lib\dbopl.cpp
 SOURCE=..\fmopl3lib\emulator.cpp
 
 "$(INTDIR)\emulator.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=..\fmopl3lib\hardware.cpp
+
+"$(INTDIR)\hardware.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
