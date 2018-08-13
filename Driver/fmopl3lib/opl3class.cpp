@@ -17,7 +17,6 @@
 #include "opl3class.h"
 
 char *hqresampler = getenv("HQRESAMPLER");
-char *hwsupport = getenv("OPLHWSUPPORT");
 char *wavwrite = getenv("WAVWRITE");
 char *vgmlog = getenv("VGMLOG");
 char *vgmloop = getenv("VGMLOOP");
@@ -38,18 +37,7 @@ int opl3class::fm_init(unsigned int rate) {
 	{
 		emul.init(rate);
 	}
-	if (hwsupport)
-	{
-		if (strstr(hwsupport, "-on"))
-		{
-			OPL_Hardware_Detection();
-			OPL_HW_Init();
-		}
-		if (strstr(hwsupport, "-lpt"))
-		{
-			OPL_LPT_Init();
-		}
-	}
+	hardware_Init();
 	if (wavwrite)
 	{
 		if (strstr(wavwrite, "-on"))
@@ -77,17 +65,7 @@ int opl3class::fm_init(unsigned int rate) {
 
 void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 	emul.writereg(reg, data);
-	if (hwsupport)
-	{
-		if (strstr(hwsupport, "-on"))
-		{
-			OPL_HW_WriteReg(reg, data);
-		}
-		if (strstr(hwsupport, "-lpt"))
-		{
-			opl_lpt_write(reg, data);
-		}
-	}
+	hardware_write(reg, data);
 	if (vgmlog)
 	{
 		if (strstr(vgmlog, "-on"))
@@ -146,17 +124,7 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 }
 
 void opl3class::fm_close() {
-	if (hwsupport)
-	{
-		if (strstr(hwsupport, "-on"))
-		{
-			OPL_HW_Close();
-		}
-		if (strstr(hwsupport, "-lpt"))
-		{
-			OPL_LPT_Close();
-		}
-	}
+	hardware_Close();
 	if (wavwrite)
 	{
 		if (strstr(wavwrite, "-on"))
