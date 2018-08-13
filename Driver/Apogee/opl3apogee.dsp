@@ -104,6 +104,10 @@ SOURCE=..\fmopl3lib\dbopl.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\fmopl3lib\emulator.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\fmopl3lib\InpOut32Helper.cpp
 # End Source File
 # Begin Source File

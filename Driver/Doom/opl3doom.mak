@@ -39,6 +39,7 @@ ALL : "$(OUTDIR)\opl3doom.dll"
 CLEAN :
 	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
+	-@erase "$(INTDIR)\emulator.obj"
 	-@erase "$(INTDIR)\i_oplmusic.obj"
 	-@erase "$(INTDIR)\InpOut32Helper.obj"
 	-@erase "$(INTDIR)\MidiSynth.obj"
@@ -109,6 +110,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\i_oplmusic.obj" \
+	"$(INTDIR)\emulator.obj" \
 	"$(INTDIR)\InpOut32Helper.obj" \
 	"$(INTDIR)\MidiSynth.obj" \
 	"$(INTDIR)\opl.obj" \
@@ -142,6 +144,7 @@ ALL : "$(OUTDIR)\opl3doom.dll"
 CLEAN :
 	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
+	-@erase "$(INTDIR)\emulator.obj"
 	-@erase "$(INTDIR)\i_oplmusic.obj"
 	-@erase "$(INTDIR)\InpOut32Helper.obj"
 	-@erase "$(INTDIR)\MidiSynth.obj"
@@ -215,6 +218,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\i_oplmusic.obj" \
+	"$(INTDIR)\emulator.obj" \
 	"$(INTDIR)\InpOut32Helper.obj" \
 	"$(INTDIR)\MidiSynth.obj" \
 	"$(INTDIR)\opl.obj" \
@@ -256,6 +260,12 @@ SOURCE=..\c_interface\c_interface.cpp
 SOURCE=..\fmopl3lib\dbopl.cpp
 
 "$(INTDIR)\dbopl.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=..\fmopl3lib\emulator.cpp
+
+"$(INTDIR)\emulator.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

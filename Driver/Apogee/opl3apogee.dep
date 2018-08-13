@@ -17,6 +17,17 @@
 	"..\include\stdint.h"\
 	
 
+..\fmopl3lib\emulator.cpp : \
+	"..\fmopl3lib\dbopl.h"\
+	"..\fmopl3lib\emulator.h"\
+	"..\fmopl3lib\opl.h"\
+	"..\fmopl3lib\opl3.h"\
+	"..\fmopl3lib\silence.h"\
+	"..\fmopl3lib\ymf262.h"\
+	"..\include\inttypes.h"\
+	"..\include\stdint.h"\
+	
+
 ..\fmopl3lib\InpOut32Helper.cpp : \
 	"..\fmopl3lib\InpOut32Helper.h"\
 	
@@ -42,6 +53,7 @@
 
 ..\fmopl3lib\opl3class.cpp : \
 	"..\fmopl3lib\dbopl.h"\
+	"..\fmopl3lib\emulator.h"\
 	"..\fmopl3lib\InpOut32Helper.h"\
 	"..\fmopl3lib\opl.h"\
 	"..\fmopl3lib\opl3.h"\

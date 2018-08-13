@@ -197,14 +197,14 @@ SOURCE="..\MIDI Selector.rc"
 
 
 "$(INTDIR)\MIDI Selector.res" : $(SOURCE) "$(INTDIR)"
-	$(RSC) /l 0x409 /fo"$(INTDIR)\MIDI Selector.res" /i "\git\OPL3EMU\MidiSel" /d "NDEBUG" $(SOURCE)
+	$(RSC) /l 0x409 /fo"$(INTDIR)\MIDI Selector.res" /i "\OPL3EMU\MidiSel" /d "NDEBUG" $(SOURCE)
 
 
 !ELSEIF  "$(CFG)" == "MidiSel - Win32 Debug"
 
 
 "$(INTDIR)\MIDI Selector.res" : $(SOURCE) "$(INTDIR)"
-	$(RSC) /l 0x409 /fo"$(INTDIR)\MIDI Selector.res" /i "\git\OPL3EMU\MidiSel" /d "_DEBUG" $(SOURCE)
+	$(RSC) /l 0x409 /fo"$(INTDIR)\MIDI Selector.res" /i "\OPL3EMU\MidiSel" /d "_DEBUG" $(SOURCE)
 
 
 !ENDIF 
