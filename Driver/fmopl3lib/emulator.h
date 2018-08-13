@@ -1,5 +1,4 @@
 //
-// Copyright (C) 2015 Alexey Khokholov (Nuke.YKT)
 // Copyright (C) 2018 Datajake
 //
 // This program is free software; you can redistribute it and/or
@@ -13,24 +12,20 @@
 // GNU General Public License for more details.
 //
 
-#include "..\interface.h"
-#include "emulator.h"
-#include "resampler.h"
-#include "opl_hw.h"
-#include "opl_lpt.h"
-#include "wav_writer.h"
-#include "vgm_logging.h"
+#include "opl3.h"
+#include "opl.h"
+#include "dbopl.h"
+#include "ymf262.h"
+#include "silence.h"
 
 
-class opl3class : public fm_chip {
+class emulator {
 private:
-	emulator emul;
-	void *resampler;
-	Bit16s samples[2];
-	void fm_generate_resampled(signed short *buffer, unsigned int length);
+	opl3_chip chip;
+	DBOPL::Handler chip2;
+	void *chip3;
 public:
-	int fm_init(unsigned int rate);
-	void fm_writereg(unsigned short reg, unsigned char data);
-	void fm_generate(signed short *buffer, unsigned int length);
-	void fm_close();
+	void init(unsigned int rate);
+	void writereg(unsigned short reg, unsigned char data);
+	void generate(signed short *buffer, unsigned int length);
 };
