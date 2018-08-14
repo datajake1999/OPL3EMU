@@ -47,7 +47,7 @@ int main()
 	int hqresampler;
 	int auddev;
 	CreateDirectory("C:\\OPLSynth", NULL);
-	printf("OPL3EMU MIDI driver configuration utility. Type the number that is assosiated to what you want to configure and press enter to continue. Otherwise, press any other key followed by enter to exit.\n");
+	printf("OPL3EMU MIDI driver configuration utility. Type the number that is assosiated to what you want to configure and press enter to continue.\n");
 	printf("0 = Copy patch to Apogee driver.\n");
 	printf("1 = Copy patch to Doom driver.\n");
 	printf("2 = Configure Doom driver.\n");
@@ -61,7 +61,7 @@ int main()
 	scanf("%d", &num);
 	if (num == 0)
 	{
-		printf("Copy patch to Apogee driver. Type the number that is assosiated to your desired patch set and press enter to copy. Otherwise, press any other key followed by enter to exit.\n");
+		printf("Copy patch to Apogee driver. Type the number that is assosiated to your desired patch set and press enter to copy.\n");
 		printf("0 = ROTT 1.3, Build engine games setup utility.\n");
 		printf("1 = Blood.\n");
 		printf("2 = Duke Nukem 3D.\n");
@@ -134,7 +134,7 @@ int main()
 	}
 	if (num == 1)
 	{
-		printf("Copy Patch to Doom driver. Type the number that is assosiated to your desired patch set and press enter to copy. Otherwise, press any other key followed by enter to exit.\n");
+		printf("Copy Patch to Doom driver. Type the number that is assosiated to your desired patch set and press enter to copy.\n");
 		printf("0 = DMX, Heretic, Hexen, Doom Beta, Strife Demo.\n");
 		printf("1 = Doom, Ultimate Doom, Chex Quest.\n");
 		printf("2 = Doom II, Final Doom.\n");
@@ -201,7 +201,7 @@ int main()
 	}
 	if (num == 2)
 	{
-		printf("Configure Doom driver. Type the number that is assosiated to your desired configuration and press enter to apply. Otherwise, press any other key followed by enter to exit.\n");
+		printf("Configure Doom driver. Type the number that is assosiated to your desired configuration and press enter to apply.\n");
 		printf("0 = Default.\n");
 		printf("1 = Doom1.\n");
 		printf("2 = Doom2.\n");
@@ -377,7 +377,7 @@ int main()
 		}
 		if (hwconfig == 2)
 		{
-			printf("Enable/disable OPL3LPT mode. Press 0 to disable or 1 to enable, and press enter to apply. Note: if you have an OPL2LPT, you can press 2 to tell the LPT driver to go into OPL2LPT mode. Press 3 to disable OPL2LPT mode\n");
+			printf("Enable/disable OPL3LPT mode. Press 0 to disable or 1 to enable, and press enter to apply. Note: if you have an OPL2LPT, you can press 2 to tell the LPT driver to go into OPL2LPT mode. Press 3 to disable OPL2LPT mode.\n");
 			scanf("%d", &lptsupport);
 			if (lptsupport == 0)
 			{
@@ -492,7 +492,7 @@ int main()
 		printf("2 = Change chunk size.\n");
 		printf("3 = Change MIDI latency.\n");
 		printf("4 = Enable/disable ring buffer.\n");
-		printf("5 = Enable/disable hq resampler.\n");
+		printf("5 = Enable/disable HQ resampler.\n");
 		printf("6 = Change audio device.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
@@ -572,17 +572,17 @@ int main()
 		}
 		if (audcfg == 5)
 		{
-			printf("Enable/disable hq resampler. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			printf("Enable/disable HQ resampler. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &hqresampler);
 			if (hqresampler == 0)
 			{
 				system("SetEnv -u -d hqresampler");
-				printf("hq resampler has been disabled.\n");
+				printf("HQ resampler has been disabled.\n");
 			}
 			if (hqresampler == 1)
 			{
 				system("SetEnv -u hqresampler -on");
-				printf("hq resampler has been enabled.\n");
+				printf("HQ resampler has been enabled.\n");
 			}
 		}
 		if (audcfg == 6)
@@ -847,12 +847,12 @@ int main()
 		{
 			if (strstr(hqresampler, "-on"))
 			{
-				printf("The hq resampler is enabled.\n");
+				printf("The HQ resampler is enabled.\n");
 			}
 		}
 		else
 		{
-			printf("The hq resampler is disabled.\n");
+			printf("The HQ resampler is disabled.\n");
 		}
 		if (auddev)
 		{
