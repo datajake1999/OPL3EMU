@@ -25,11 +25,11 @@ void opl2lpt_write(char reg, char data) {
 	{
 		lpt_base = 0x378;
 	}
-	int lpt_data = lpt_base;
-	int lpt_ctrl = lpt_base + 2;
 	if (!lpt_base) {
 		return;
 	}
+	int lpt_data = lpt_base;
+	int lpt_ctrl = lpt_base + 2;
 
 	/* Select OPL2 register */
 	outportb(lpt_data, reg);
@@ -66,11 +66,11 @@ void opl3lpt_write(int reg, char data) {
 	{
 		lpt_base = 0x378;
 	}
-	int lpt_data = lpt_base;
-	int lpt_ctrl = lpt_base + 2;
 	if (!lpt_base) {
 		return;
 	}
+	int lpt_data = lpt_base;
+	int lpt_ctrl = lpt_base + 2;
 
 	/* Select OPL3 register */
 	outportb(lpt_data, reg & 0xFF);
