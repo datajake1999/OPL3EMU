@@ -1,4 +1,4 @@
 LIBRARY      opl3synth
 EXPORTS
-	DriverProc
-	modMessage
+DriverProc
+modMessage
