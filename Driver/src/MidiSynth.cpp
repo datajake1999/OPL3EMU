@@ -146,12 +146,14 @@ namespace OPL3Emu
 			{
 				if (strstr(auddev, getenv("OPL3AUDDEV")))
 				{
-					wResult = waveOutOpen(&hWaveOut, atoi(auddev), (LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
+					wResult = waveOutOpen(&hWaveOut, atoi(auddev),
+					(LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
 				}
 			}
 			else
 			{
-				wResult = waveOutOpen(&hWaveOut, WAVE_MAPPER, (LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
+				wResult = waveOutOpen(&hWaveOut, WAVE_MAPPER,
+				(LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
 			}
 			if (wResult != MMSYSERR_NOERROR)
 			{
@@ -561,7 +563,7 @@ namespace OPL3Emu
 	void MidiSynth::PlaySysex(Bit8u *bufpos, DWORD len) 
 	{
 		synthEvent.Wait();
-		//      synth->PlaySysex(bufpos, len);
+		//synth->PlaySysex(bufpos, len);
 		synthEvent.Release();
 	}
 
