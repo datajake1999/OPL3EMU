@@ -483,7 +483,7 @@ namespace OPL3Emu
 		}
 		if (ringbuf)
 		{
-			if (strstr(ringbuf, getenv("OPL3RINGBUF")))
+			if (strstr(ringbuf, "-on"))
 			{
 				useRingBuffer = true;
 			}

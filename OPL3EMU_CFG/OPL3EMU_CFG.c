@@ -566,7 +566,7 @@ int main()
 			}
 			if (ringbuf == 1)
 			{
-				system("SetEnv -u opl3ringbuf true");
+				system("SetEnv -u opl3ringbuf -on");
 				printf("Ring buffer has been enabled.\n");
 			}
 		}
@@ -834,7 +834,7 @@ int main()
 		}
 		if (ringbuf)
 		{
-			if (strstr(ringbuf, getenv("OPL3RINGBUF")))
+			if (strstr(ringbuf, "-on"))
 			{
 				printf("The ring buffer is enabled.\n");
 			}
