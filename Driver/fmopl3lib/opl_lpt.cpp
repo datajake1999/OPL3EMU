@@ -12,6 +12,7 @@
 char *lptport = getenv("LPTPORT");
 char *opl2lptmode = getenv("OPL2LPTMODE");
 int lpt_base;
+int i;
 
 void opl2lpt_write(char reg, char data) {
 	if (lptport)
@@ -38,7 +39,7 @@ void opl2lpt_write(char reg, char data) {
 	outportb(lpt_ctrl, 13);
 
 	/* Wait at least 3.3 microseconds */
-	for (int i = 0; i < 6; i++) {
+	for (i = 0; i < 6; i++) {
 		inportb(lpt_ctrl);
 	}
 
@@ -49,7 +50,7 @@ void opl2lpt_write(char reg, char data) {
 	outportb(lpt_ctrl, 12);
 
 	/* Wait at least 23 microseconds */
-	for (int i = 0; i < 35; i++) {
+	for (i = 0; i < 35; i++) {
 		inportb(lpt_ctrl);
 	}
 }
@@ -85,7 +86,7 @@ void opl3lpt_write(int reg, char data) {
 	}
 
 	/* Wait at least 3.3 microseconds */
-	for (int i = 0; i < 6; i++) {
+	for (i = 0; i < 6; i++) {
 		inportb(lpt_ctrl);
 	}
 
@@ -96,7 +97,7 @@ void opl3lpt_write(int reg, char data) {
 	outportb(lpt_ctrl, 12);
 
 	/* 3.3 microseconds is sufficient here as well for OPL3 */
-	for (int i = 0; i < 6; i++) {
+	for (i = 0; i < 6; i++) {
 		inportb(lpt_ctrl);
 	}
 }
