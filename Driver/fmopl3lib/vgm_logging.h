@@ -1,3 +1,12 @@
+/*
+* Header for VGM Logging
+* (C) 2018 Datajake
+* (C) 2013-2014 James Alan Nguyen
+* Original code adapted from MidiPlay/VGMPlay (C) 201X ValleyBell
+* 
+* Released under LGPL
+*/
+
 #include <stdio.h>
 #include <windows.h>
 #include <math.h>
