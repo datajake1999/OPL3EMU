@@ -46,7 +46,6 @@ struct Driver
 extern "C" __declspec(dllexport) LONG __stdcall DriverProc(DWORD dwDriverID, HDRVR hdrvr, UINT wMessage,
 LONG dwParam1, LONG dwParam2)
 {
-
 	switch (wMessage)
 	{
 	case DRV_LOAD:
