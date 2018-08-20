@@ -569,7 +569,7 @@ namespace OPL3Emu
 
 	void MidiSynth::Close()
 	{
-		waveOut.Pause();
+		//waveOut.Pause();
 		synthEvent.Wait();
 		synth->midi_close();
 
