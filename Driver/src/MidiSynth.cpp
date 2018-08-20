@@ -569,16 +569,16 @@ namespace OPL3Emu
 
 	void MidiSynth::Close()
 	{
+		waveOut.Pause();
 		synthEvent.Wait();
 		synth->midi_close();
 
 		// Cleanup memory
 		delete synth;
 		delete buffer;
-		waveOut.Pause();
-		waveOut.Close();
 
 		synthEvent.Close();
+		waveOut.Close();
 	}
 
 }
