@@ -537,6 +537,15 @@ namespace OPL3Emu
 		//      return 0;
 		//#endif
 
+		//Set a delay on reset
+		char *delay = getenv("OPL3DELAY");
+		if (delay)
+		{
+			if (strstr(delay, getenv("OPL3DELAY")))
+			{
+				Sleep(atoi(delay));
+			}
+		}
 		UINT wResult = waveOut.Pause();
 		if (wResult) return wResult;
 
@@ -569,6 +578,15 @@ namespace OPL3Emu
 
 	void MidiSynth::Close()
 	{
+		//Set a delay on close
+		char *delay = getenv("OPL3DELAY");
+		if (delay)
+		{
+			if (strstr(delay, getenv("OPL3DELAY")))
+			{
+				Sleep(atoi(delay));
+			}
+		}
 		//waveOut.Pause();
 		waveOut.Close();
 		synthEvent.Wait();
