@@ -46,6 +46,7 @@ int main()
 	int ringbuf;
 	int hqresampler;
 	int auddev;
+	int delay;
 	CreateDirectory("C:\\OPLSynth", NULL);
 	printf("OPL3EMU MIDI driver configuration utility. Type the number that is assosiated to what you want to configure and press enter to continue.\n");
 	printf("0 = Copy patch to Apogee driver.\n");
@@ -494,6 +495,7 @@ int main()
 		printf("4 = Enable/disable ring buffer.\n");
 		printf("5 = Enable/disable HQ resampler.\n");
 		printf("6 = Change audio device.\n");
+		printf("7 = Set delay on close.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -601,6 +603,14 @@ int main()
 				printf("The driver will send output to the audio device with id %d.\n", auddev);
 			}
 		}
+		if (audcfg == 7)
+		{
+			printf("Enter delay in MS.\n");
+			scanf("%d", &delay);
+			sprintf(string, "SetEnv -u opl3delay %d", delay);
+			system(string);
+			printf("The delay on close has been set to %d.\n", delay);
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -624,6 +634,7 @@ int main()
 		char *ringbuf = getenv("OPL3RINGBUF");
 		char *hqresampler = getenv("HQRESAMPLER");
 		char *auddev = getenv("OPL3AUDDEV");
+		char *delay = getenv("OPL3DELAY");
 		printf("General driver configuration.\n");
 		if (core)
 		{
@@ -865,6 +876,13 @@ int main()
 		{
 			printf("The driver sends output to the default audio device.\n");
 		}
+		if (delay)
+		{
+			if (strstr(delay, getenv("OPL3DELAY")))
+			{
+				printf("The driver will close after %s MS.\n", delay);
+			}
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -890,6 +908,7 @@ int main()
 		system("SetEnv -u -d opl3ringbuf");
 		system("SetEnv -u -d hqresampler");
 		system("SetEnv -u -d opl3auddev");
+		system("SetEnv -u -d opl3delay");
 		printf("Driver configuration has been reset.\n");
 		printf("Press any key to exit.\n");
 		getch();
