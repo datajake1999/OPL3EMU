@@ -607,8 +607,15 @@ int main()
 		{
 			printf("Enter delay in MS.\n");
 			scanf("%d", &delay);
-			sprintf(string, "SetEnv -u opl3delay %d", delay);
-			system(string);
+			if (delay == 0)
+			{
+				system("SetEnv -u -d opl3delay");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u opl3delay %d", delay);
+				system(string);
+			}
 			printf("The delay on close has been set to %d.\n", delay);
 		}
 		printf("Press any key to exit.\n");
