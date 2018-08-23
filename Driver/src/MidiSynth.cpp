@@ -234,7 +234,7 @@ namespace OPL3Emu {
 			MMTIME mmTime;
 			mmTime.wType = TIME_SAMPLES;
 
-			if (waveOutGetPosition(hWaveOut, &mmTime, sizeof MMTIME) != MMSYSERR_NOERROR) {
+			if (waveOutGetPosition(hWaveOut, &mmTime, sizeof (MMTIME)) != MMSYSERR_NOERROR) {
 				MessageBoxW(NULL, L"Failed to get current playback position", L"OPL3", MB_OK | MB_ICONEXCLAMATION);
 				return 10;
 			}
@@ -256,26 +256,27 @@ namespace OPL3Emu {
 			return mmTime.u.sample + getPosWraps * (1 << 27);
 		}
 
-		static void RenderingThread(void *) {
-			if (waveOut.chunks == 1) {
+		static void RenderingThread(void *arg) {
+			WaveOutWin32 *waveOut = (WaveOutWin32*)arg;
+			if (waveOut->chunks == 1) {
 				// Rendering using single looped ring buffer
-				while (!waveOut.stopProcessing) {
+				while (!waveOut->stopProcessing) {
 					midiSynth.RenderAvailableSpace();
 				}
 			} else {
-				while (!waveOut.stopProcessing) {
+				while (!waveOut->stopProcessing) {
 					bool allBuffersRendered = true;
-					for (UINT i = 0; i < waveOut.chunks; i++) {
-						if (waveOut.WaveHdr[i].dwFlags & WHDR_DONE) {
+					for (UINT i = 0; i < waveOut->chunks; i++) {
+						if (waveOut->WaveHdr[i].dwFlags & WHDR_DONE) {
 							allBuffersRendered = false;
-							midiSynth.Render((Bit16s *)waveOut.WaveHdr[i].lpData, waveOut.WaveHdr[i].dwBufferLength / 4);
-							if (waveOutWrite(waveOut.hWaveOut, &waveOut.WaveHdr[i], sizeof(WAVEHDR)) != MMSYSERR_NOERROR) {
+							midiSynth.Render((Bit16s *)waveOut->WaveHdr[i].lpData, waveOut->WaveHdr[i].dwBufferLength / 4);
+							if (waveOutWrite(waveOut->hWaveOut, &waveOut->WaveHdr[i], sizeof(WAVEHDR)) != MMSYSERR_NOERROR) {
 								MessageBoxW(NULL, L"Failed to write block to device", L"OPL3", MB_OK | MB_ICONEXCLAMATION);
 							}
 						}
 					}
 					if (allBuffersRendered) {
-						WaitForSingleObject(waveOut.hEvent, INFINITE);
+						WaitForSingleObject(waveOut->hEvent, INFINITE);
 					}
 				}
 			}
