@@ -38,8 +38,7 @@ struct Driver {
 	} clients[MAX_CLIENTS];
 } drivers[MAX_DRIVERS];
 
-extern "C" __declspec(dllexport) LONG __stdcall DriverProc(DWORD dwDriverID, HDRVR hdrvr, UINT wMessage, LONG dwParam1, LONG dwParam2)
-{
+extern "C" __declspec(dllexport) LONG __stdcall DriverProc(DWORD dwDriverID, HDRVR hdrvr, UINT wMessage, LONG dwParam1, LONG dwParam2) {
 	switch(wMessage) {
 	case DRV_LOAD:
 		memset(drivers, 0, sizeof(drivers));
@@ -204,8 +203,7 @@ LONG CloseDriver(Driver *driver, UINT uDeviceID, UINT uMsg, DWORD_PTR dwUser, DW
 	return MMSYSERR_NOERROR;
 }
 
-extern "C" __declspec(dllexport) DWORD __stdcall modMessage(UINT uDeviceID, UINT uMsg, DWORD_PTR dwUser, DWORD_PTR dwParam1, DWORD_PTR dwParam2)
-{
+extern "C" __declspec(dllexport) DWORD __stdcall modMessage(UINT uDeviceID, UINT uMsg, DWORD_PTR dwUser, DWORD_PTR dwParam1, DWORD_PTR dwParam2) {
 	MIDIHDR *midiHdr;
 	Driver *driver = &drivers[uDeviceID];
 	DWORD instance;
