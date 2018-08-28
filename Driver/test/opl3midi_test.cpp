@@ -58,6 +58,7 @@ void generate(signed short*buffer, unsigned int length)
 	for(unsigned int i = 0; i < length; i++)
 	{
 		synth->midi_generate(buffer, 1);
+		buffer += 2;
 	}
 }
 
@@ -151,7 +152,7 @@ int main(int argc, char *argv[])
 	//get the time taken to perform the test.
 	end = clock();
 	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("The OPL3MIDI test took %f seconds to complete.\n", time_spent);
+	printf("The OPL3MIDI test took %f seconds to complete. Press enter to exit.\n", time_spent);
 	getchar();
 	return 0;
 }
