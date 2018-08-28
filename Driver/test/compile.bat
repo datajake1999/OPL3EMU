@@ -14,4 +14,4 @@ g++ -c ..\fmopl3lib\vgm_logging.cpp
 g++ -c ..\fmopl3lib\wav_writer.cpp
 g++ -c ..\fmopl3lib\ymf262.cpp
 g++ -c ..\synthlib\opl3midi.cpp
-g++ *.o -o opl3midi_test.exe
+g++ -s -static *.o -o opl3midi_test.exe

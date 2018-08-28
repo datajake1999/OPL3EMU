@@ -16,4 +16,4 @@ g++ -c ..\..\fmopl3lib\ymf262.cpp
 g++ -c ..\..\src\MidiSynth.cpp
 g++ -c ..\..\src\winmm_drv_apogee.cpp
 g++ -c ..\..\synthlib\al_midi.cpp
-g++ -shared -Wl,--add-stdcall-alias *.o -lwinmm -o opl3apogee.dll
+g++ -s -static -shared -Wl,--add-stdcall-alias *.o -lwinmm -o opl3apogee.dll
