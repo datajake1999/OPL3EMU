@@ -24,164 +24,14 @@
  * Ken Silverman's official web site: "http://www.advsys.net/ken"
  */
 
+/*
+ * Modified for AdPlug
+ */
 
 #include <math.h>
-#include <string.h>
 #include <stdlib.h> // rand()
+#include <string.h> // memset
 #include "opl.h"
-
-
-/*
-	define attribution that inlines/forces inlining of a function (optional)
-*/
-#define OPL_INLINE __forceinline
-
-#define OPLTYPE_IS_OPL3
-
-
-#undef NUM_CHANNELS
-#if defined(OPLTYPE_IS_OPL3)
-#define NUM_CHANNELS	18
-#else
-#define NUM_CHANNELS	9
-#endif
-
-#define MAXOPERATORS	(NUM_CHANNELS*2)
-
-
-#define FL05	((fltype)0.5)
-#define FL2		((fltype)2.0)
-#define PI		((fltype)3.1415926535897932384626433832795)
-
-
-#define FIXEDPT			0x10000		// fixed-point calculations using 16+16
-#define FIXEDPT_LFO		0x1000000	// fixed-point calculations using 8+24
-
-#define WAVEPREC		1024		// waveform precision (10 bits)
-
-#define INTFREQU		(49716.0)		// clocking of the chip
-
-
-#define OF_TYPE_ATT			0
-#define OF_TYPE_DEC			1
-#define OF_TYPE_REL			2
-#define OF_TYPE_SUS			3
-#define OF_TYPE_SUS_NOKEEP	4
-#define OF_TYPE_OFF			5
-
-#define ARC_CONTROL			0x00
-#define ARC_TVS_KSR_MUL		0x20
-#define ARC_KSL_OUTLEV		0x40
-#define ARC_ATTR_DECR		0x60
-#define ARC_SUSL_RELR		0x80
-#define ARC_FREQ_NUM		0xa0
-#define ARC_KON_BNUM		0xb0
-#define ARC_PERC_MODE		0xbd
-#define ARC_FEEDBACK		0xc0
-#define ARC_WAVE_SEL		0xe0
-
-#define ARC_SECONDSET		0x100	// second operator set for OPL3
-
-
-#define OP_ACT_OFF			0x00
-#define OP_ACT_NORMAL		0x01	// regular channel activated (bitmasked)
-#define OP_ACT_PERC			0x02	// percussion channel activated (bitmasked)
-
-#define BLOCKBUF_SIZE		512
-
-
-// vibrato constants
-#define VIBTAB_SIZE			8
-#define VIBFAC				70/50000		// no braces, integer mul/div
-
-// tremolo constants and table
-#define TREMTAB_SIZE		53
-#define TREM_FREQ			((fltype)(3.7))			// tremolo at 3.7hz
-
-
-/* operator struct definition
-     For OPL2 all 9 channels consist of two operators each, carrier and modulator.
-     Channel x has operators x as modulator and operators (9+x) as carrier.
-     For OPL3 all 18 channels consist either of two operators (2op mode) or four
-     operators (4op mode) which is determined through register4 of the second
-     adlib register set.
-     Only the channels 0,1,2 (first set) and 9,10,11 (second set) can act as
-     4op channels. The two additional operators for a channel y come from the
-     2op channel y+3 so the operatorss y, (9+y), y+3, (9+y)+3 make up a 4op
-     channel.
-*/
-typedef struct operator_struct {
-	Bit32s cval, lastcval;			// current output/last output (used for feedback)
-	Bit32u tcount, wfpos, tinc;		// time (position in waveform) and time increment
-	fltype amp, step_amp;			// and amplification (envelope)
-	fltype vol;						// volume
-	fltype sustain_level;			// sustain level
-	Bit32s mfbi;					// feedback amount
-	fltype a0, a1, a2, a3;			// attack rate function coefficients
-	fltype decaymul, releasemul;	// decay/release rate functions
-	Bit32u op_state;				// current state of operator (attack/decay/sustain/release/off)
-	Bit32u toff;
-	Bit32s freq_high;				// highest three bits of the frequency, used for vibrato calculations
-	Bit16s* cur_wform;				// start of selected waveform
-	Bit32u cur_wmask;				// mask for selected waveform
-	Bit32u act_state;				// activity state (regular, percussion)
-	bool sus_keep;					// keep sustain level when decay finished
-	bool vibrato,tremolo;			// vibrato/tremolo enable bits
-	
-	// variables used to provide non-continuous envelopes
-	Bit32u generator_pos;			// for non-standard sample rates we need to determine how many samples have passed
-	Bits cur_env_step;				// current (standardized) sample position
-	Bits env_step_a,env_step_d,env_step_r;	// number of std samples of one step (for attack/decay/release mode)
-	Bit8u step_skip_pos_a;			// position of 8-cyclic step skipping (always 2^x to check against mask)
-	Bits env_step_skip_a;			// bitmask that determines if a step is skipped (respective bit is zero then)
-
-#if defined(OPLTYPE_IS_OPL3)
-	bool is_4op,is_4op_attached;	// base of a 4op channel/part of a 4op channel
-	Bit32s left_pan,right_pan;		// opl3 stereo panning amount
-#endif
-} op_type;
-
-// per-chip variables
-Bitu chip_num;
-op_type op[MAXOPERATORS];
-
-Bits int_samplerate;
-	
-Bit8u status;
-Bit32u opl_index;
-#if defined(OPLTYPE_IS_OPL3)
-Bit8u adlibreg[512];	// adlib register set (including second set)
-Bit8u wave_sel[44];		// waveform selection
-#else
-Bit8u adlibreg[256];	// adlib register set
-Bit8u wave_sel[22];		// waveform selection
-#endif
-
-
-// vibrato/tremolo increment/counter
-Bit32u vibtab_pos;
-Bit32u vibtab_add;
-Bit32u tremtab_pos;
-Bit32u tremtab_add;
-
-
-// enable an operator
-void enable_operator(Bitu regbase, op_type* op_pt);
-
-// functions to change parameters of an operator
-void change_frequency(Bitu chanbase, Bitu regbase, op_type* op_pt);
-
-void change_attackrate(Bitu regbase, op_type* op_pt);
-void change_decayrate(Bitu regbase, op_type* op_pt);
-void change_releaserate(Bitu regbase, op_type* op_pt);
-void change_sustainlevel(Bitu regbase, op_type* op_pt);
-void change_waveform(Bitu regbase, op_type* op_pt);
-void change_keepsustain(Bitu regbase, op_type* op_pt);
-void change_vibrato(Bitu regbase, op_type* op_pt);
-void change_feedback(Bitu chanbase, op_type* op_pt);
-
-
-static Bit32u generator_add;	// should be a chip parameter
 
 
 static fltype recipsamp;	// inverse of sampling rate
@@ -300,7 +150,7 @@ static fltype decrelconst[4] = {
 
 void operator_advance(op_type* op_pt, Bit32s vib) {
 	op_pt->wfpos = op_pt->tcount;						// waveform position
-	
+
 	// advance waveform time
 	op_pt->tcount += op_pt->tinc;
 	op_pt->tcount += (Bit32s)(op_pt->tinc)*vib/FIXEDPT;
@@ -465,7 +315,7 @@ optype_fptr opfuncs[6] = {
 	operator_off
 };
 
-void change_attackrate(Bitu regbase, op_type* op_pt) {
+void OPLChipClass::change_attackrate(Bitu regbase, op_type* op_pt) {
 	Bits attackrate = adlibreg[ARC_ATTR_DECR+regbase]>>4;
 	if (attackrate) {
 		fltype f = (fltype)(pow(FL2,(fltype)attackrate+(op_pt->toff>>2)-1)*attackconst[op_pt->toff&3]*recipsamp);
@@ -504,7 +354,7 @@ void change_attackrate(Bitu regbase, op_type* op_pt) {
 	}
 }
 
-void change_decayrate(Bitu regbase, op_type* op_pt) {
+void OPLChipClass::change_decayrate(Bitu regbase, op_type* op_pt) {
 	Bits decayrate = adlibreg[ARC_ATTR_DECR+regbase]&15;
 	// decaymul should be 1.0 when decayrate==0
 	if (decayrate) {
@@ -518,7 +368,7 @@ void change_decayrate(Bitu regbase, op_type* op_pt) {
 	}
 }
 
-void change_releaserate(Bitu regbase, op_type* op_pt) {
+void OPLChipClass::change_releaserate(Bitu regbase, op_type* op_pt) {
 	Bits releaserate = adlibreg[ARC_SUSL_RELR+regbase]&15;
 	// releasemul should be 1.0 when releaserate==0
 	if (releaserate) {
@@ -532,7 +382,7 @@ void change_releaserate(Bitu regbase, op_type* op_pt) {
 	}
 }
 
-void change_sustainlevel(Bitu regbase, op_type* op_pt) {
+void OPLChipClass::change_sustainlevel(Bitu regbase, op_type* op_pt) {
 	Bits sustainlevel = adlibreg[ARC_SUSL_RELR+regbase]>>4;
 	// sustainlevel should be 0.0 when sustainlevel==15 (max)
 	if (sustainlevel<15) {
@@ -542,7 +392,7 @@ void change_sustainlevel(Bitu regbase, op_type* op_pt) {
 	}
 }
 
-void change_waveform(Bitu regbase, op_type* op_pt) {
+void OPLChipClass::change_waveform(Bitu regbase, op_type* op_pt) {
 #if defined(OPLTYPE_IS_OPL3)
 	if (regbase>=ARC_SECONDSET) regbase -= (ARC_SECONDSET-22);	// second set starts at 22
 #endif
@@ -552,7 +402,7 @@ void change_waveform(Bitu regbase, op_type* op_pt) {
 	// (might need to be adapted to waveform type here...)
 }
 
-void change_keepsustain(Bitu regbase, op_type* op_pt) {
+void OPLChipClass::change_keepsustain(Bitu regbase, op_type* op_pt) {
 	op_pt->sus_keep = (adlibreg[ARC_TVS_KSR_MUL+regbase]&0x20)>0;
 	if (op_pt->op_state==OF_TYPE_SUS) {
 		if (!op_pt->sus_keep) op_pt->op_state = OF_TYPE_SUS_NOKEEP;
@@ -562,19 +412,19 @@ void change_keepsustain(Bitu regbase, op_type* op_pt) {
 }
 
 // enable/disable vibrato/tremolo LFO effects
-void change_vibrato(Bitu regbase, op_type* op_pt) {
+void OPLChipClass::change_vibrato(Bitu regbase, op_type* op_pt) {
 	op_pt->vibrato = (adlibreg[ARC_TVS_KSR_MUL+regbase]&0x40)!=0;
 	op_pt->tremolo = (adlibreg[ARC_TVS_KSR_MUL+regbase]&0x80)!=0;
 }
 
 // change amount of self-feedback
-void change_feedback(Bitu chanbase, op_type* op_pt) {
+void OPLChipClass::change_feedback(Bitu chanbase, op_type* op_pt) {
 	Bits feedback = adlibreg[ARC_FEEDBACK+chanbase]&14;
 	if (feedback) op_pt->mfbi = (Bit32s)(pow(FL2,(fltype)((feedback>>1)+8)));
 	else op_pt->mfbi = 0;
 }
 
-void change_frequency(Bitu chanbase, Bitu regbase, op_type* op_pt) {
+void OPLChipClass::change_frequency(Bitu chanbase, Bitu regbase, op_type* op_pt) {
 	// frequency
 	Bit32u frn = ((((Bit32u)adlibreg[ARC_KON_BNUM+chanbase])&3)<<8) + (Bit32u)adlibreg[ARC_FREQ_NUM+chanbase];
 	// block number/octave
@@ -602,7 +452,7 @@ void change_frequency(Bitu chanbase, Bitu regbase, op_type* op_pt) {
 	change_releaserate(regbase,op_pt);
 }
 
-void enable_operator(Bitu regbase, op_type* op_pt, Bit32u act_type) {
+void OPLChipClass::enable_operator(Bitu regbase, op_type* op_pt, Bit32u act_type) {
 	// check if this is really an off-on transition
 	if (op_pt->act_state == OP_ACT_OFF) {
 		Bits wselbase = regbase;
@@ -626,10 +476,12 @@ void disable_operator(op_type* op_pt, Bit32u act_type) {
 	}
 }
 
-void adlib_init(Bit32u samplerate) {
+void OPLChipClass::adlib_init(Bit32u samplerate, Bit32u numchannels, Bit32u bytespersample) {
 	Bits i, j, oct;
 
 	int_samplerate = samplerate;
+	int_numsamplechannels = numchannels;
+	int_bytespersample = bytespersample;
 
 	generator_add = (Bit32u)(INTFREQU*FIXEDPT/int_samplerate);
 
@@ -749,7 +601,7 @@ void adlib_init(Bit32u samplerate) {
 
 
 
-void adlib_write(Bitu idx, Bit8u val) {
+void OPLChipClass::adlib_write(Bitu idx, Bit8u val) {
 	Bit32u second_set = idx&0x100;
 	adlibreg[idx] = val;
 
@@ -1045,7 +897,7 @@ void adlib_write(Bitu idx, Bit8u val) {
 }
 
 
-Bitu adlib_reg_read(Bitu port) {
+Bitu OPLChipClass::adlib_reg_read(Bitu port) {
 #if defined(OPLTYPE_IS_OPL3)
 	// opl3-detection routines require ret&6 to be zero
 	if ((port&1)==0) {
@@ -1061,7 +913,7 @@ Bitu adlib_reg_read(Bitu port) {
 #endif
 }
 
-void adlib_write_index(Bitu port, Bit8u val) {
+void OPLChipClass::adlib_write_index(Bitu port, Bit8u val) {
 	opl_index = val;
 #if defined(OPLTYPE_IS_OPL3)
 	if ((port&3)!=0) {
@@ -1080,6 +932,20 @@ static void OPL_INLINE clipit16(Bit32s ival, Bit16s* outval) {
 		}
 	} else {
 		*outval = 32767;
+	}
+}
+
+static void OPL_INLINE clipit8(Bit32s ival, Bit8s* outval) {
+	ival/=256;
+	ival+=128;
+	if(ival<256) {
+		if (ival>=0) {
+			*outval=(Bit8s)ival;
+		} else {
+			*outval = 0;
+		}
+	} else {
+		*outval = 255;
 	}
 }
 
@@ -1102,9 +968,10 @@ static void OPL_INLINE clipit16(Bit32s ival, Bit16s* outval) {
 	outbufl[i] += chanval;
 #endif
 
-void adlib_getsample(Bit16s* sndptr, Bits numsamples) {
+void OPLChipClass::adlib_getsample(Bit16s* sndptr, Bits numsamples) {
 	Bits i, endsamples;
 	op_type* cptr;
+	Bit8s* sndptr1 = (Bit8s *)sndptr;
 
 	Bit32s outbufl[BLOCKBUF_SIZE];
 #if defined(OPLTYPE_IS_OPL3)
@@ -1592,23 +1459,54 @@ void adlib_getsample(Bit16s* sndptr, Bits numsamples) {
 
 #if defined(OPLTYPE_IS_OPL3)
 		if (adlibreg[0x105]&1) {
-			// convert to 16bit samples (stereo)
-			for (i=0;i<endsamples;i++) {
-				clipit16(outbufl[i],sndptr++);
-				clipit16(outbufr[i],sndptr++);
+			if (int_numsamplechannels == 1) {
+				if (int_bytespersample == 1) {
+					for (i=0;i<endsamples;i++) {
+						clipit8((outbufl[i]+outbufr[i])/2,sndptr1++);
+					}
+				} else {
+					for (i=0;i<endsamples;i++) {
+						clipit16((outbufl[i]+outbufr[i])/2,sndptr++);
+					}
+				}
+			} else {
+				if (int_bytespersample == 1) {
+					for (i=0;i<endsamples;i++) {
+						clipit8(outbufl[i],sndptr1++);
+						clipit8(outbufr[i],sndptr1++);
+					}
+				} else {
+					for (i=0;i<endsamples;i++) {
+						clipit16(outbufl[i],sndptr++);
+						clipit16(outbufr[i],sndptr++);
+					}
+				}
+			}
+		} else
+#endif
+		if (int_numsamplechannels == 1) {
+			if (int_bytespersample == 1) {
+				for (i=0;i<endsamples;i++) {
+					clipit8(outbufl[i],sndptr1++);
+				}
+			} else {
+				for (i=0;i<endsamples;i++) {
+					clipit16(outbufl[i],sndptr++);
+				}
 			}
 		} else {
-			// convert to 16bit samples (mono)
-			for (i=0;i<endsamples;i++) {
-				clipit16(outbufl[i],sndptr++);
-				clipit16(outbufl[i],sndptr++);
+			if (int_bytespersample == 1) {
+				for (i=0;i<endsamples;i++) {
+					clipit8(outbufl[i],sndptr1++);
+					clipit8(outbufl[i],sndptr1++);
+				}
+			} else {
+				for (i=0;i<endsamples;i++) {
+					clipit16(outbufl[i],sndptr++);
+					clipit16(outbufl[i],sndptr++);
+				}
 			}
 		}
-#else
-		// convert to 16bit samples
-		for (i=0;i<endsamples;i++)
-			clipit16(outbufl[i],sndptr++);
-#endif
 
 	}
 }

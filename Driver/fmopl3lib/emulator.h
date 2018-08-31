@@ -22,8 +22,9 @@
 class emulator {
 private:
 	opl3_chip chip;
-	DBOPL::Handler chip2;
-	void *chip3;
+	OPLChipClass chip2;
+	DBOPL::Handler chip3;
+	void *chip4;
 public:
 	void init(unsigned int rate);
 	void writereg(unsigned short reg, unsigned char data);
