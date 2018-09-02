@@ -128,6 +128,7 @@ void opl3class::fm_close() {
 	{
 		if (strstr(hqresampler, "-on"))
 		{
+			resampler_clear(resampler);
 			resampler_destroy(resampler);
 		}
 	}
