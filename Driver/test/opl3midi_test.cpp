@@ -146,8 +146,10 @@ int main(int argc, char *argv[])
 	//close the synth
 	synth->midi_close();
 	//clear the synth object
+	delete synth;
 	synth = NULL;
 	//clear the audio buffer
+	delete buffer;
 	buffer = NULL;
 	//get the time taken to perform the test.
 	end = clock();
