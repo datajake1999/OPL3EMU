@@ -80,11 +80,10 @@ void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
 	{
 		sample_t ls, rs;
 		unsigned int to_write = resampler_get_min_fill(resampler);
-		while (to_write)
+		for (; to_write--;)
 		{
 			emul.generate(samples, 1);
 			resampler_write_pair(resampler, samples[0], samples[1]);
-			--to_write;
 		}
 		resampler_peek_pair(resampler, &ls, &rs);
 		resampler_read_pair(resampler, &ls, &rs);
