@@ -76,11 +76,10 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 }
 
 void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
-	for (; len--;)
+	for(unsigned int i = 0; i < len; i++)
 	{
 		sample_t ls, rs;
-		unsigned int to_write = resampler_get_min_fill(resampler);
-		for (; to_write--;)
+		for(unsigned int j = 0; j = resampler_get_min_fill(resampler); j++)
 		{
 			emul.generate(samples, 1);
 			resampler_write_pair(resampler, samples[0], samples[1]);
