@@ -124,6 +124,13 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 }
 
 void opl3class::fm_close() {
+	if (hqresampler)
+	{
+		if (strstr(hqresampler, "-on"))
+		{
+			resampler_destroy(resampler);
+		}
+	}
 	hardware_Close();
 	if (wavwrite)
 	{
