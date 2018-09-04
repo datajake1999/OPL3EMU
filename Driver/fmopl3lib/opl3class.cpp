@@ -27,9 +27,7 @@ int opl3class::fm_init(unsigned int rate) {
 		if (strstr(hqresampler, "-on"))
 		{
 			emul.init(49716);
-			memset(samples, 0, sizeof(samples));
 			resampler = resampler_create();
-			if (!resampler) return 0;
 			resampler_set_rate(resampler, 49716.0 / (double)rate);
 		}
 	}
