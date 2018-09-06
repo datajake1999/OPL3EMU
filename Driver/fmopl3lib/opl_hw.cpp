@@ -13,7 +13,7 @@ BYTE OPL_MODE = 0x03;
 BYTE OPL_CHIPS = 0x01;
 INT64 HWusTime;
 char *hwport = getenv("OPL3PORT");
-WORD FMPort;
+UINT32 FMPort;
 
 void OPL_Hardware_Detection(void)
 {
