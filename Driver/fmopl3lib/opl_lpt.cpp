@@ -11,10 +11,10 @@
 
 char *lptport = getenv("LPTPORT");
 char *opl2lptmode = getenv("OPL2LPTMODE");
-int lpt_base;
-int i;
+unsigned int lpt_base;
+unsigned int i;
 
-void opl2lpt_write(char reg, char data) {
+void opl2lpt_write(unsigned char reg, unsigned char data) {
 	if (lptport)
 	{
 		if (strstr(lptport, getenv("LPTPORT")))
@@ -29,8 +29,8 @@ void opl2lpt_write(char reg, char data) {
 	if (!lpt_base) {
 		return;
 	}
-	int lpt_data = lpt_base;
-	int lpt_ctrl = lpt_base + 2;
+	unsigned int lpt_data = lpt_base;
+	unsigned int lpt_ctrl = lpt_base + 2;
 
 	/* Select OPL2 register */
 	outportb(lpt_data, reg);
@@ -55,7 +55,7 @@ void opl2lpt_write(char reg, char data) {
 	}
 }
 
-void opl3lpt_write(int reg, char data) {
+void opl3lpt_write(unsigned int reg, unsigned char data) {
 	if (lptport)
 	{
 		if (strstr(lptport, getenv("LPTPORT")))
@@ -70,8 +70,8 @@ void opl3lpt_write(int reg, char data) {
 	if (!lpt_base) {
 		return;
 	}
-	int lpt_data = lpt_base;
-	int lpt_ctrl = lpt_base + 2;
+	unsigned int lpt_data = lpt_base;
+	unsigned int lpt_ctrl = lpt_base + 2;
 
 	/* Select OPL3 register */
 	outportb(lpt_data, reg & 0xFF);
@@ -102,7 +102,7 @@ void opl3lpt_write(int reg, char data) {
 	}
 }
 
-void opl_lpt_write(int reg, char data) {
+void opl_lpt_write(unsigned int reg, unsigned char data) {
 	if (opl2lptmode)
 	{
 		if (strstr(opl2lptmode, "-on"))
@@ -118,7 +118,7 @@ void opl_lpt_write(int reg, char data) {
 
 void opl_lpt_reset(void)
 {
-	UINT16 Reg;
+	unsigned int Reg;
 	//float FnlVolBak;
 	
 	//FnlVolBak = FinalVol;

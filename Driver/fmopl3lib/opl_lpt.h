@@ -12,9 +12,9 @@
 
 #include "InpOut32Helper.h"
 
-void opl2lpt_write(char reg, char data);
-void opl3lpt_write(int reg, char data);
-void opl_lpt_write(int reg, char data);
+void opl2lpt_write(unsigned char reg, unsigned char data);
+void opl3lpt_write(unsigned int reg, unsigned char data);
+void opl_lpt_write(unsigned int reg, unsigned char data);
 void opl_lpt_reset(void);
 void OPL_LPT_Init();
 void OPL_LPT_Close();
