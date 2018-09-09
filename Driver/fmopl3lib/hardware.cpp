@@ -16,20 +16,6 @@
 
 char *hwsupport = getenv("OPLHWSUPPORT");
 
-void hardware_write(int reg, char data) {
-	if (hwsupport)
-	{
-		if (strstr(hwsupport, "-on"))
-		{
-			OPL_HW_WriteReg(reg, data);
-		}
-		if (strstr(hwsupport, "-lpt"))
-		{
-			opl_lpt_write(reg, data);
-		}
-	}
-}
-
 void hardware_Init() 
 {
 	if (hwsupport)
@@ -45,6 +31,20 @@ void hardware_Init()
 		}
 	}
 };
+
+void hardware_writereg(unsigned short reg, unsigned char data) {
+	if (hwsupport)
+	{
+		if (strstr(hwsupport, "-on"))
+		{
+			OPL_HW_WriteReg(reg, data);
+		}
+		if (strstr(hwsupport, "-lpt"))
+		{
+			opl_lpt_write(reg, data);
+		}
+	}
+}
 
 void hardware_Close()
 {

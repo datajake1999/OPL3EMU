@@ -63,7 +63,7 @@ int opl3class::fm_init(unsigned int rate) {
 
 void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 	emul.writereg(reg, data);
-	hardware_write(reg, data);
+	hardware_writereg(reg, data);
 	if (vgmlog)
 	{
 		if (strstr(vgmlog, "-on"))

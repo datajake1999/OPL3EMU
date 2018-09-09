@@ -18,8 +18,8 @@
 #include "opl_hw.h"
 #include "opl_lpt.h"
 
-void hardware_write(int reg, char data);
 void hardware_Init();
+void hardware_writereg(unsigned short reg, unsigned char data);
 void hardware_Close();
 
 #endif /*HARDWARE_H*/
