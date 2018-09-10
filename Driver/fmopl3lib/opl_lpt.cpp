@@ -14,7 +14,7 @@ char *opl2lptmode = getenv("OPL2LPTMODE");
 unsigned int lpt_base;
 unsigned int i;
 
-void opl2lpt_write(unsigned char reg, unsigned char data) {
+void opl2lpt_write(unsigned short reg, unsigned char data) {
 	if (lptport)
 	{
 		if (strstr(lptport, getenv("LPTPORT")))
@@ -55,7 +55,7 @@ void opl2lpt_write(unsigned char reg, unsigned char data) {
 	}
 }
 
-void opl3lpt_write(unsigned int reg, unsigned char data) {
+void opl3lpt_write(unsigned short reg, unsigned char data) {
 	if (lptport)
 	{
 		if (strstr(lptport, getenv("LPTPORT")))
@@ -102,7 +102,7 @@ void opl3lpt_write(unsigned int reg, unsigned char data) {
 	}
 }
 
-void opl_lpt_write(unsigned int reg, unsigned char data) {
+void opl_lpt_write(unsigned short reg, unsigned char data) {
 	if (opl2lptmode)
 	{
 		if (strstr(opl2lptmode, "-on"))
@@ -118,7 +118,7 @@ void opl_lpt_write(unsigned int reg, unsigned char data) {
 
 void opl_lpt_reset(void)
 {
-	unsigned int Reg;
+	unsigned short Reg;
 	//float FnlVolBak;
 	
 	//FnlVolBak = FinalVol;
