@@ -47,6 +47,7 @@ int main()
 	int hqresampler;
 	int auddev;
 	int delay;
+	char string[100];
 	CreateDirectory("C:\\OPLSynth", NULL);
 	printf("OPL3EMU MIDI driver configuration utility. Type the number that is assosiated to what you want to configure and press enter to continue.\n");
 	printf("0 = Copy patch to Apogee driver.\n");
@@ -369,7 +370,6 @@ int main()
 		}
 		if (hwconfig == 1)
 		{
-			char string[100];
 			printf("Enter address of FM port.\n");
 			scanf("%s", &hwport);
 			sprintf(string, "SetEnv -u opl3port %s", hwport);
@@ -403,7 +403,6 @@ int main()
 		}
 		if (hwconfig == 3)
 		{
-			char string[100];
 			printf("Enter address of LPT port.\n");
 			scanf("%s", &lptport);
 			sprintf(string, "SetEnv -u lptport %s", lptport);
@@ -486,7 +485,6 @@ int main()
 	}
 	if (num == 7)
 	{
-		char string[100];
 		printf("Audio configuration.\n");
 		printf("0 = Change sample rate.\n");
 		printf("1 = Change buffer size.\n");
