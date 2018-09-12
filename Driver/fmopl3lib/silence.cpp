@@ -22,7 +22,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 void GenerateSilence(signed short *buffer, unsigned int length)
 {
-	for(unsigned int i = 0; i < length; i++)
+	unsigned int i;
+	for(i = 0; i < length; i++)
 	{
 		buffer[0] = 0;
 		buffer[1] = 0;
