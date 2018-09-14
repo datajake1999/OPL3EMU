@@ -53,12 +53,11 @@ void noteon(unsigned int channel, unsigned int note, unsigned int velocity)
 	synth->midi_write(msg);
 }
 
-void noteoff(unsigned int channel, unsigned int note, unsigned int velocity)
+void noteoff(unsigned int channel, unsigned int note)
 {
-	byte1 = velocity;
-	byte2 = note;
-	byte3 = 0x80 + (channel);
-	msg = (byte1<<16) | (byte2<<8) | byte3;
+	byte1 = note;
+	byte2 = 0x80 + (channel);
+	msg = (byte1<<8) | byte2;
 	synth->midi_write(msg);
 }
 
@@ -107,35 +106,35 @@ int main(int argc, char *argv[])
 		noteon(0, 48, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note c3, turn on note d3 and generate half a second of audio
-		noteoff(0, 48, 0);
+		noteoff(0, 48);
 		noteon(0, 50, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note d3, turn on note e3 and generate half a second of audio
-		noteoff(0, 50, 0);
+		noteoff(0, 50);
 		noteon(0, 52, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note e3, turn on note f3 and generate half a second of audio
-		noteoff(0, 52, 0);
+		noteoff(0, 52);
 		noteon(0, 53, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note f3, turn on note g3 and generate half a second of audio
-		noteoff(0, 53, 0);
+		noteoff(0, 53);
 		noteon(0, 55, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note g3, turn on note a4 and generate half a second of audio
-		noteoff(0, 55, 0);
+		noteoff(0, 55);
 		noteon(0, 57, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note a4, turn on note b4 and generate half a second of audio
-		noteoff(0, 57, 0);
+		noteoff(0, 57);
 		noteon(0, 59, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note b4, turn on note c4 and generate 4 seconds of audio
-		noteoff(0, 59, 0);
+		noteoff(0, 59);
 		noteon(0, 60, 127);
 		generate(buffer, (samplerate)*4);
 		//turn off note c4 and generate 2 seconds of audio
-		noteoff(0, 60, 0);
+		noteoff(0, 60);
 		generate(buffer, (samplerate)*2);
 	}
 	//Test drum kit
@@ -149,12 +148,12 @@ int main(int argc, char *argv[])
 	//since we don't have to skip notes as we did for the melotic instruments, we can do this exact process until the last drum is turned on
 	for (i = 35; i < 81; i++)
 	{
-		noteoff(9, i, 0);
+		noteoff(9, i);
 		noteon(9, (i) + 1, 127);
 		generate(buffer, (samplerate)/2);
 	}
 	//turn off last drum and generate 2 seconds of audio
-	noteoff(9, 81, 0);
+	noteoff(9, 81);
 	generate(buffer, (samplerate)*2);
 	//close the synth
 	synth->midi_close();
