@@ -27,26 +27,35 @@ midisynth *synth;
 unsigned int byte1, byte2, byte3;
 unsigned int msg;
 
-void setprogram(unsigned int program)
+void setprogram(unsigned int channel, unsigned int program)
 {
 	byte1 = program;
-	byte2 = 0xc0;
+	byte2 = 0xc0 + (channel);
 	msg = (byte1<<8) | byte2;
 	synth->midi_write(msg);
 }
 
-void noteon(unsigned int channel, unsigned int note)
+void setcontroll(unsigned int channel, unsigned int type, unsigned int data)
 {
-	byte1 = 127;
+	byte1 = data;
+	byte2 = type;
+	byte3 = 0xb0 + (channel);
+	msg = (byte1<<16) | (byte2<<8) | byte3;
+	synth->midi_write(msg);
+}
+
+void noteon(unsigned int channel, unsigned int note, unsigned int velocity)
+{
+	byte1 = velocity;
 	byte2 = note;
 	byte3 = 0x90 + (channel);
 	msg = (byte1<<16) | (byte2<<8) | byte3;
 	synth->midi_write(msg);
 }
 
-void noteoff(unsigned int channel, unsigned int note)
+void noteoff(unsigned int channel, unsigned int note, unsigned int velocity)
 {
-	byte1 = 0;
+	byte1 = velocity;
 	byte2 = note;
 	byte3 = 0x80 + (channel);
 	msg = (byte1<<16) | (byte2<<8) | byte3;
@@ -87,61 +96,65 @@ int main(int argc, char *argv[])
 	synth->midi_init(samplerate);
 	//test melotic instruments
 	printf("Testing melotic instruments.\n");
+	//set channel volume
+	setcontroll(0, 7, 127);
 	for (i = 0; i < 128; i++)
 	{
 		//Set MIDI program and print the program number
-		setprogram(i);
+		setprogram(0, i);
 		printf("Testing program %d.\n", i);
 		//turn on note c3 and generate half a second of audio
-		noteon(0, 48);
+		noteon(0, 48, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note c3, turn on note d3 and generate half a second of audio
-		noteoff(0, 48);
-		noteon(0, 50);
+		noteoff(0, 48, 0);
+		noteon(0, 50, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note d3, turn on note e3 and generate half a second of audio
-		noteoff(0, 50);
-		noteon(0, 52);
+		noteoff(0, 50, 0);
+		noteon(0, 52, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note e3, turn on note f3 and generate half a second of audio
-		noteoff(0, 52);
-		noteon(0, 53);
+		noteoff(0, 52, 0);
+		noteon(0, 53, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note f3, turn on note g3 and generate half a second of audio
-		noteoff(0, 53);
-		noteon(0, 55);
+		noteoff(0, 53, 0);
+		noteon(0, 55, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note g3, turn on note a4 and generate half a second of audio
-		noteoff(0, 55);
-		noteon(0, 57);
+		noteoff(0, 55, 0);
+		noteon(0, 57, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note a4, turn on note b4 and generate half a second of audio
-		noteoff(0, 57);
-		noteon(0, 59);
+		noteoff(0, 57, 0);
+		noteon(0, 59, 127);
 		generate(buffer, (samplerate)/2);
 		//turn off note b4, turn on note c4 and generate 4 seconds of audio
-		noteoff(0, 59);
-		noteon(0, 60);
+		noteoff(0, 59, 0);
+		noteon(0, 60, 127);
 		generate(buffer, (samplerate)*4);
 		//turn off note c4 and generate 2 seconds of audio
-		noteoff(0, 60);
+		noteoff(0, 60, 0);
 		generate(buffer, (samplerate)*2);
 	}
 	//Test drum kit
 	printf("Testing drum kit.\n");
+	//set channel volume
+	setcontroll(9, 7, 127);
 	//turn on first drum and generate half a second of audio
-	noteon(9, 35);
+	noteon(9, 35, 127);
 	generate(buffer, (samplerate)/2);
 	//turn off first drum, turn on next drum and generate half a second of audio
 	//since we don't have to skip notes as we did for the melotic instruments, we can do this exact process until the last drum is turned on
 	for (i = 35; i < 81; i++)
 	{
-		noteoff(9, i);
-		noteon(9, (i) + 1);
+		noteoff(9, i, 0);
+		noteon(9, (i) + 1, 127);
 		generate(buffer, (samplerate)/2);
 	}
 	//turn off last drum and generate 2 seconds of audio
-	noteoff(9, 81);
+	noteoff(9, 81, 0);
 	generate(buffer, (samplerate)*2);
 	//close the synth
 	synth->midi_close();
