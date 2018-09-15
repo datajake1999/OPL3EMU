@@ -1218,6 +1218,7 @@ void OPL3_Reset(opl3_chip *chip, Bit32u samplerate)
 {
     Bit8u slotnum;
     Bit8u channum;
+    Bit32u i;
 
     memset(chip, 0, sizeof(opl3_chip));
     for (slotnum = 0; slotnum < 36; slotnum++)
@@ -1264,7 +1265,7 @@ void OPL3_Reset(opl3_chip *chip, Bit32u samplerate)
 
     if (!panpot_lut_build)
     {
-        for (int i = 0; i < 256; i++)
+        for (i = 0; i < 256; i++)
         {
             panpot_lut[i] = (Bit32u)(sin(i * M_PI / 512.0) * 0x10000);
         }
