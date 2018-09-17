@@ -32,7 +32,7 @@ void hardware_Init()
 	}
 };
 
-void hardware_writereg(unsigned short reg, unsigned char data) {
+void hardware_WriteReg(unsigned short reg, unsigned char data) {
 	if (hwsupport)
 	{
 		if (strstr(hwsupport, "-on"))
