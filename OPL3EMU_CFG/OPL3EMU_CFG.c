@@ -30,9 +30,9 @@ int main()
 	int core;
 	int hwconfig;
 	int hwsupport;
-	char hwport[100];
+	int hwport;
 	int lptsupport;
-	char lptport[100];
+	int lptport;
 	int silence;
 	int wavwrite;
 	int vgmconfig;
@@ -371,10 +371,17 @@ int main()
 		if (hwconfig == 1)
 		{
 			printf("Enter address of FM port.\n");
-			scanf("%s", &hwport);
-			sprintf(string, "SetEnv -u opl3port %s", hwport);
-			system(string);
-			printf("The FM port has been set to %s.\n", hwport);
+			scanf("%x", &hwport);
+			if (hwport == 0x388)
+			{
+				system("SetEnv -u -d opl3port");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u opl3port %x", hwport);
+				system(string);
+			}
+			printf("The FM port has been set to %x.\n", hwport);
 		}
 		if (hwconfig == 2)
 		{
@@ -404,10 +411,17 @@ int main()
 		if (hwconfig == 3)
 		{
 			printf("Enter address of LPT port.\n");
-			scanf("%s", &lptport);
-			sprintf(string, "SetEnv -u lptport %s", lptport);
-			system(string);
-			printf("The LPT port has been set to %s.\n", lptport);
+			scanf("%x", &lptport);
+			if (lptport == 0x378)
+			{
+				system("SetEnv -u -d lptport");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u lptport %x", lptport);
+				system(string);
+			}
+			printf("The LPT port has been set to %x.\n", lptport);
 		}
 		if (hwconfig == 4)
 		{
