@@ -25,6 +25,8 @@ private:
 	OPLChipClass chip2;
 	DBOPL::Handler chip3;
 	void *chip4;
+	void MonoMixdown(signed short *buffer, unsigned int length);
+	void Crush8Bit(signed short *buffer, unsigned int length);
 public:
 	void init(unsigned int rate);
 	void writereg(unsigned short reg, unsigned char data);

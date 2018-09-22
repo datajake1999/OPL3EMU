@@ -18,6 +18,8 @@
 
 char *core = getenv("OPL3CORE");
 char *silence = getenv("OPLEMUSILENCE");
+char *mono = getenv("OPLEMUMONO");
+char *bitcrush = getenv("OPLEMUBITCRUSH");
 
 void emulator::init(unsigned int rate) {
 	if (silence)
@@ -114,5 +116,40 @@ void emulator::generate(signed short *buffer, unsigned int len) {
 			OPL3_GenerateStream(&chip, buffer, len);
 		}
 	}
+	if (mono)
+	{
+		if (strstr(mono, "-on"))
+		{
+			MonoMixdown(buffer, len);
+		}
+	}
+	if (bitcrush)
+	{
+		if (strstr(bitcrush, "-on"))
+		{
+			Crush8Bit(buffer, len);
+		}
+	}
 }
 
+void emulator::MonoMixdown(signed short *buffer, unsigned int len) {
+	signed short mixdown;
+	for(unsigned int i = 0; i < len; i++)
+	{
+		mixdown = (buffer[0] + buffer[1]) / 2;
+		buffer[0] = mixdown;
+		buffer[1] = mixdown;
+		buffer += 2;
+	}
+}
+
+void emulator::Crush8Bit(signed short *buffer, unsigned int len) {
+	for(unsigned int i = 0; i < len; i++)
+	{
+		buffer[0] = buffer[0] >> 8;
+		buffer[0] = (buffer[0]) * 256;
+		buffer[1] = buffer[1] >> 8;
+		buffer[1] = (buffer[1]) * 256;
+		buffer += 2;
+	}
+}
