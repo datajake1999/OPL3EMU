@@ -46,6 +46,8 @@ int main()
 	int latency;
 	int ringbuf;
 	int hqresampler;
+	int mono;
+	int bitcrush;
 	int auddev;
 	int delay;
 	char string[100];
@@ -507,8 +509,10 @@ int main()
 		printf("3 = Change MIDI latency.\n");
 		printf("4 = Enable/disable ring buffer.\n");
 		printf("5 = Enable/disable HQ resampler.\n");
-		printf("6 = Change audio device.\n");
-		printf("7 = Set delay on close.\n");
+		printf("6 = Enable/disable mono mixdown.\n");
+		printf("7 = Enable/disable 8bit crusher.\n");
+		printf("8 = Change audio device.\n");
+		printf("9 = Set delay on close.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -602,6 +606,36 @@ int main()
 		}
 		if (audcfg == 6)
 		{
+			printf("Enable/disable mono mixdown. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			scanf("%d", &mono);
+			if (mono == 0)
+			{
+				system("SetEnv -u -d oplemumono");
+				printf("Mono mixdown has been disabled.\n");
+			}
+			if (mono == 1)
+			{
+				system("SetEnv -u oplemumono -on");
+				printf("Mono mixdown has been enabled.\n");
+			}
+		}
+		if (audcfg == 7)
+		{
+			printf("Enable/disable 8bit crusher. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			scanf("%d", &bitcrush);
+			if (bitcrush == 0)
+			{
+				system("SetEnv -u -d oplemubitcrush");
+				printf("8Bit crusher has been disabled.\n");
+			}
+			if (bitcrush == 1)
+			{
+				system("SetEnv -u oplemubitcrush -on");
+				printf("8Bit crusher has been enabled.\n");
+			}
+		}
+		if (audcfg == 8)
+		{
 			printf("Enter device ID.\n");
 			scanf("%d", &auddev);
 			if (auddev == -1)
@@ -616,7 +650,7 @@ int main()
 				printf("The driver will send output to the audio device with id %d.\n", auddev);
 			}
 		}
-		if (audcfg == 7)
+		if (audcfg == 9)
 		{
 			printf("Enter delay in ms.\n");
 			scanf("%d", &delay);
@@ -653,6 +687,8 @@ int main()
 		char *latency = getenv("OPL3LATENCY");
 		char *ringbuf = getenv("OPL3RINGBUF");
 		char *hqresampler = getenv("HQRESAMPLER");
+		char *mono = getenv("OPLEMUMONO");
+		char *bitcrush = getenv("OPLEMUBITCRUSH");
 		char *auddev = getenv("OPL3AUDDEV");
 		char *delay = getenv("OPL3DELAY");
 		printf("General driver configuration.\n");
@@ -885,6 +921,28 @@ int main()
 		{
 			printf("The HQ resampler is disabled.\n");
 		}
+		if (mono)
+		{
+			if (strstr(mono, "-on"))
+			{
+				printf("Mono mixdown is enabled.\n");
+			}
+		}
+		else
+		{
+			printf("Mono mixdown is disabled.\n");
+		}
+		if (bitcrush)
+		{
+			if (strstr(bitcrush, "-on"))
+			{
+				printf("8Bit crusher is enabled.\n");
+			}
+		}
+		else
+		{
+			printf("8Bit crusher is disabled.\n");
+		}
 		if (auddev)
 		{
 			if (strstr(auddev, getenv("OPL3AUDDEV")))
@@ -927,6 +985,8 @@ int main()
 		system("SetEnv -u -d opl3latency");
 		system("SetEnv -u -d opl3ringbuf");
 		system("SetEnv -u -d hqresampler");
+		system("SetEnv -u -d oplemumono");
+		system("SetEnv -u -d oplemubitcrush");
 		system("SetEnv -u -d opl3auddev");
 		system("SetEnv -u -d opl3delay");
 		printf("Driver configuration has been reset.\n");
