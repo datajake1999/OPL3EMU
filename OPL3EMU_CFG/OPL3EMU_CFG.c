@@ -371,7 +371,7 @@ int main()
 		}
 		if (hwconfig == 1)
 		{
-			printf("Enter address of FM port.\n");
+			printf("Enter address of FM port in Hex.\n");
 			scanf("%x", &hwport);
 			if (hwport == 0x388)
 			{
@@ -411,7 +411,7 @@ int main()
 		}
 		if (hwconfig == 3)
 		{
-			printf("Enter address of LPT port.\n");
+			printf("Enter address of LPT port in Hex.\n");
 			scanf("%x", &lptport);
 			if (lptport == 0x378)
 			{
@@ -512,7 +512,7 @@ int main()
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
-			printf("Enter sample rate in HZ.\n");
+			printf("Enter sample rate in Hz.\n");
 			scanf("%d", &rate);
 			if (rate == 49716)
 			{
@@ -527,7 +527,7 @@ int main()
 		}
 		if (audcfg == 1)
 		{
-			printf("Enter buffer size in MS.\n");
+			printf("Enter buffer size in ms.\n");
 			scanf("%d", &bsize);
 			if (bsize == 100)
 			{
@@ -542,7 +542,7 @@ int main()
 		}
 		if (audcfg == 2)
 		{
-			printf("Enter chunk size in MS.\n");
+			printf("Enter chunk size in ms.\n");
 			scanf("%d", &csize);
 			if (csize == 10)
 			{
@@ -557,7 +557,7 @@ int main()
 		}
 		if (audcfg == 3)
 		{
-			printf("Enter MIDI latency in MS.\n");
+			printf("Enter MIDI latency in ms.\n");
 			scanf("%d", &latency);
 			if (latency == 0)
 			{
@@ -618,7 +618,7 @@ int main()
 		}
 		if (audcfg == 7)
 		{
-			printf("Enter delay in MS.\n");
+			printf("Enter delay in ms.\n");
 			scanf("%d", &delay);
 			if (delay == 0)
 			{
@@ -900,7 +900,7 @@ int main()
 		{
 			if (strstr(delay, getenv("OPL3DELAY")))
 			{
-				printf("The driver will close after %s MS.\n", delay);
+				printf("The driver will close after %s ms.\n", delay);
 			}
 		}
 		printf("Press any key to exit.\n");
