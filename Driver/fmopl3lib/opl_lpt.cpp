@@ -12,9 +12,9 @@
 char *lptport = getenv("LPTPORT");
 char *opl2lptmode = getenv("OPL2LPTMODE");
 unsigned int lpt_base;
-unsigned int i;
 
 void opl2lpt_write(unsigned short reg, unsigned char data) {
+	unsigned int i;
 	if (lptport)
 	{
 		if (strstr(lptport, getenv("LPTPORT")))
@@ -56,6 +56,7 @@ void opl2lpt_write(unsigned short reg, unsigned char data) {
 }
 
 void opl3lpt_write(unsigned short reg, unsigned char data) {
+	unsigned int i;
 	if (lptport)
 	{
 		if (strstr(lptport, getenv("LPTPORT")))
