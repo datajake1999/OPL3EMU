@@ -38,6 +38,7 @@ ALL : "$(OUTDIR)\opl3apogee.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\al_midi.obj"
+	-@erase "$(INTDIR)\bitcrush.obj"
 	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\emulator.obj"
@@ -109,6 +110,7 @@ DEF_FILE= \
 	"..\..\src\winmm_drv.def"
 LINK32_OBJS= \
 	"$(INTDIR)\al_midi.obj" \
+	"$(INTDIR)\bitcrush.obj" \
 	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\emulator.obj" \
@@ -145,6 +147,7 @@ ALL : "$(OUTDIR)\opl3apogee.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\al_midi.obj"
+	-@erase "$(INTDIR)\bitcrush.obj"
 	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\emulator.obj"
@@ -219,6 +222,7 @@ DEF_FILE= \
 	"..\..\src\winmm_drv.def"
 LINK32_OBJS= \
 	"$(INTDIR)\al_midi.obj" \
+	"$(INTDIR)\bitcrush.obj" \
 	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\emulator.obj" \
@@ -258,6 +262,12 @@ LINK32_OBJS= \
 SOURCE=..\..\synthlib\al_midi.cpp
 
 "$(INTDIR)\al_midi.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=..\..\fmopl3lib\bitcrush.cpp
+
+"$(INTDIR)\bitcrush.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

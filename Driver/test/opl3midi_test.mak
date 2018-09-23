@@ -25,9 +25,6 @@ NULL=
 NULL=nul
 !ENDIF 
 
-CPP=cl.exe
-RSC=rc.exe
-
 !IF  "$(CFG)" == "opl3midi_test - Win32 Release"
 
 OUTDIR=.\Release
@@ -40,6 +37,7 @@ ALL : "$(OUTDIR)\opl3midi_test.exe"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\bitcrush.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\emulator.obj"
 	-@erase "$(INTDIR)\hardware.obj"
@@ -62,104 +60,8 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
+CPP=cl.exe
 CPP_PROJ=/nologo /ML /W3 /GX /O2 /I "..\include" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\opl3midi_test.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
-BSC32=bscmake.exe
-BSC32_FLAGS=/nologo /o"$(OUTDIR)\opl3midi_test.bsc" 
-BSC32_SBRS= \
-	
-LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"$(OUTDIR)\opl3midi_test.pdb" /machine:I386 /out:"$(OUTDIR)\opl3midi_test.exe" 
-LINK32_OBJS= \
-	"$(INTDIR)\opl3midi_test.obj" \
-	"$(INTDIR)\dbopl.obj" \
-	"$(INTDIR)\emulator.obj" \
-	"$(INTDIR)\hardware.obj" \
-	"$(INTDIR)\InpOut32Helper.obj" \
-	"$(INTDIR)\opl.obj" \
-	"$(INTDIR)\opl_hw.obj" \
-	"$(INTDIR)\opl_lpt.obj" \
-	"$(INTDIR)\opl3.obj" \
-	"$(INTDIR)\opl3class.obj" \
-	"$(INTDIR)\resampler.obj" \
-	"$(INTDIR)\silence.obj" \
-	"$(INTDIR)\vgm_logging.obj" \
-	"$(INTDIR)\wav_writer.obj" \
-	"$(INTDIR)\ymf262.obj" \
-	"$(INTDIR)\opl3midi.obj"
-
-"$(OUTDIR)\opl3midi_test.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
-    $(LINK32) @<<
-  $(LINK32_FLAGS) $(LINK32_OBJS)
-<<
-
-!ELSEIF  "$(CFG)" == "opl3midi_test - Win32 Debug"
-
-OUTDIR=.\Debug
-INTDIR=.\Debug
-# Begin Custom Macros
-OutDir=.\Debug
-# End Custom Macros
-
-ALL : "$(OUTDIR)\opl3midi_test.exe"
-
-
-CLEAN :
-	-@erase "$(INTDIR)\dbopl.obj"
-	-@erase "$(INTDIR)\emulator.obj"
-	-@erase "$(INTDIR)\hardware.obj"
-	-@erase "$(INTDIR)\InpOut32Helper.obj"
-	-@erase "$(INTDIR)\opl.obj"
-	-@erase "$(INTDIR)\opl3.obj"
-	-@erase "$(INTDIR)\opl3class.obj"
-	-@erase "$(INTDIR)\opl3midi.obj"
-	-@erase "$(INTDIR)\opl3midi_test.obj"
-	-@erase "$(INTDIR)\opl_hw.obj"
-	-@erase "$(INTDIR)\opl_lpt.obj"
-	-@erase "$(INTDIR)\resampler.obj"
-	-@erase "$(INTDIR)\silence.obj"
-	-@erase "$(INTDIR)\vc60.idb"
-	-@erase "$(INTDIR)\vc60.pdb"
-	-@erase "$(INTDIR)\vgm_logging.obj"
-	-@erase "$(INTDIR)\wav_writer.obj"
-	-@erase "$(INTDIR)\ymf262.obj"
-	-@erase "$(OUTDIR)\opl3midi_test.exe"
-	-@erase "$(OUTDIR)\opl3midi_test.ilk"
-	-@erase "$(OUTDIR)\opl3midi_test.pdb"
-
-"$(OUTDIR)" :
-    if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
-
-CPP_PROJ=/nologo /MLd /W3 /Gm /GX /ZI /Od /I "..\include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\opl3midi_test.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ  /c 
-BSC32=bscmake.exe
-BSC32_FLAGS=/nologo /o"$(OUTDIR)\opl3midi_test.bsc" 
-BSC32_SBRS= \
-	
-LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\opl3midi_test.pdb" /debug /machine:I386 /out:"$(OUTDIR)\opl3midi_test.exe" /pdbtype:sept 
-LINK32_OBJS= \
-	"$(INTDIR)\opl3midi_test.obj" \
-	"$(INTDIR)\dbopl.obj" \
-	"$(INTDIR)\emulator.obj" \
-	"$(INTDIR)\hardware.obj" \
-	"$(INTDIR)\InpOut32Helper.obj" \
-	"$(INTDIR)\opl.obj" \
-	"$(INTDIR)\opl_hw.obj" \
-	"$(INTDIR)\opl_lpt.obj" \
-	"$(INTDIR)\opl3.obj" \
-	"$(INTDIR)\opl3class.obj" \
-	"$(INTDIR)\resampler.obj" \
-	"$(INTDIR)\silence.obj" \
-	"$(INTDIR)\vgm_logging.obj" \
-	"$(INTDIR)\wav_writer.obj" \
-	"$(INTDIR)\ymf262.obj" \
-	"$(INTDIR)\opl3midi.obj"
-
-"$(OUTDIR)\opl3midi_test.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
-    $(LINK32) @<<
-  $(LINK32_FLAGS) $(LINK32_OBJS)
-<<
-
-!ENDIF 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -191,6 +93,141 @@ LINK32_OBJS= \
    $(CPP_PROJ) $< 
 <<
 
+RSC=rc.exe
+BSC32=bscmake.exe
+BSC32_FLAGS=/nologo /o"$(OUTDIR)\opl3midi_test.bsc" 
+BSC32_SBRS= \
+	
+LINK32=link.exe
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"$(OUTDIR)\opl3midi_test.pdb" /machine:I386 /out:"$(OUTDIR)\opl3midi_test.exe" 
+LINK32_OBJS= \
+	"$(INTDIR)\bitcrush.obj" \
+	"$(INTDIR)\dbopl.obj" \
+	"$(INTDIR)\emulator.obj" \
+	"$(INTDIR)\hardware.obj" \
+	"$(INTDIR)\InpOut32Helper.obj" \
+	"$(INTDIR)\opl.obj" \
+	"$(INTDIR)\opl3.obj" \
+	"$(INTDIR)\opl3class.obj" \
+	"$(INTDIR)\opl3midi.obj" \
+	"$(INTDIR)\opl3midi_test.obj" \
+	"$(INTDIR)\opl_hw.obj" \
+	"$(INTDIR)\opl_lpt.obj" \
+	"$(INTDIR)\resampler.obj" \
+	"$(INTDIR)\silence.obj" \
+	"$(INTDIR)\vgm_logging.obj" \
+	"$(INTDIR)\wav_writer.obj" \
+	"$(INTDIR)\ymf262.obj"
+
+"$(OUTDIR)\opl3midi_test.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+    $(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
+
+!ELSEIF  "$(CFG)" == "opl3midi_test - Win32 Debug"
+
+OUTDIR=.\Debug
+INTDIR=.\Debug
+# Begin Custom Macros
+OutDir=.\Debug
+# End Custom Macros
+
+ALL : "$(OUTDIR)\opl3midi_test.exe"
+
+
+CLEAN :
+	-@erase "$(INTDIR)\bitcrush.obj"
+	-@erase "$(INTDIR)\dbopl.obj"
+	-@erase "$(INTDIR)\emulator.obj"
+	-@erase "$(INTDIR)\hardware.obj"
+	-@erase "$(INTDIR)\InpOut32Helper.obj"
+	-@erase "$(INTDIR)\opl.obj"
+	-@erase "$(INTDIR)\opl3.obj"
+	-@erase "$(INTDIR)\opl3class.obj"
+	-@erase "$(INTDIR)\opl3midi.obj"
+	-@erase "$(INTDIR)\opl3midi_test.obj"
+	-@erase "$(INTDIR)\opl_hw.obj"
+	-@erase "$(INTDIR)\opl_lpt.obj"
+	-@erase "$(INTDIR)\resampler.obj"
+	-@erase "$(INTDIR)\silence.obj"
+	-@erase "$(INTDIR)\vc60.idb"
+	-@erase "$(INTDIR)\vc60.pdb"
+	-@erase "$(INTDIR)\vgm_logging.obj"
+	-@erase "$(INTDIR)\wav_writer.obj"
+	-@erase "$(INTDIR)\ymf262.obj"
+	-@erase "$(OUTDIR)\opl3midi_test.exe"
+	-@erase "$(OUTDIR)\opl3midi_test.ilk"
+	-@erase "$(OUTDIR)\opl3midi_test.pdb"
+
+"$(OUTDIR)" :
+    if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
+
+CPP=cl.exe
+CPP_PROJ=/nologo /MLd /W3 /Gm /GX /ZI /Od /I "..\include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\opl3midi_test.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+RSC=rc.exe
+BSC32=bscmake.exe
+BSC32_FLAGS=/nologo /o"$(OUTDIR)\opl3midi_test.bsc" 
+BSC32_SBRS= \
+	
+LINK32=link.exe
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\opl3midi_test.pdb" /debug /machine:I386 /out:"$(OUTDIR)\opl3midi_test.exe" /pdbtype:sept 
+LINK32_OBJS= \
+	"$(INTDIR)\bitcrush.obj" \
+	"$(INTDIR)\dbopl.obj" \
+	"$(INTDIR)\emulator.obj" \
+	"$(INTDIR)\hardware.obj" \
+	"$(INTDIR)\InpOut32Helper.obj" \
+	"$(INTDIR)\opl.obj" \
+	"$(INTDIR)\opl3.obj" \
+	"$(INTDIR)\opl3class.obj" \
+	"$(INTDIR)\opl3midi.obj" \
+	"$(INTDIR)\opl3midi_test.obj" \
+	"$(INTDIR)\opl_hw.obj" \
+	"$(INTDIR)\opl_lpt.obj" \
+	"$(INTDIR)\resampler.obj" \
+	"$(INTDIR)\silence.obj" \
+	"$(INTDIR)\vgm_logging.obj" \
+	"$(INTDIR)\wav_writer.obj" \
+	"$(INTDIR)\ymf262.obj"
+
+"$(OUTDIR)\opl3midi_test.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+    $(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
+
+!ENDIF 
+
 
 !IF "$(NO_EXTERNAL_DEPS)" != "1"
 !IF EXISTS("opl3midi_test.dep")
@@ -202,6 +239,12 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "opl3midi_test - Win32 Release" || "$(CFG)" == "opl3midi_test - Win32 Debug"
+SOURCE=..\fmopl3lib\bitcrush.cpp
+
+"$(INTDIR)\bitcrush.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=..\fmopl3lib\dbopl.cpp
 
 "$(INTDIR)\dbopl.obj" : $(SOURCE) "$(INTDIR)"

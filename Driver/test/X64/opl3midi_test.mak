@@ -37,6 +37,7 @@ ALL : "$(OUTDIR)\opl3midi_test.exe"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\bitcrush.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\emulator.obj"
 	-@erase "$(INTDIR)\hardware.obj"
@@ -100,6 +101,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib bufferoverflowU.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib bufferoverflowU.lib /nologo /subsystem:console /incremental:no /pdb:"$(OUTDIR)\opl3midi_test.pdb" /machine:IX86 /out:"$(OUTDIR)\opl3midi_test.exe" /machine:AMD64 
 LINK32_OBJS= \
+	"$(INTDIR)\bitcrush.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\emulator.obj" \
 	"$(INTDIR)\hardware.obj" \
@@ -134,6 +136,7 @@ ALL : "$(OUTDIR)\opl3midi_test.exe"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\bitcrush.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\emulator.obj"
 	-@erase "$(INTDIR)\hardware.obj"
@@ -200,6 +203,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib bufferoverflowU.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib bufferoverflowU.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\opl3midi_test.pdb" /debug /machine:IX86 /out:"$(OUTDIR)\opl3midi_test.exe" /pdbtype:sept /machine:AMD64 
 LINK32_OBJS= \
+	"$(INTDIR)\bitcrush.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\emulator.obj" \
 	"$(INTDIR)\hardware.obj" \
@@ -235,6 +239,12 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "opl3midi_test - Win32 Release" || "$(CFG)" == "opl3midi_test - Win32 Debug"
+SOURCE=..\..\fmopl3lib\bitcrush.cpp
+
+"$(INTDIR)\bitcrush.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=..\..\fmopl3lib\dbopl.cpp
 
 "$(INTDIR)\dbopl.obj" : $(SOURCE) "$(INTDIR)"

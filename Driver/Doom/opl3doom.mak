@@ -37,6 +37,7 @@ ALL : "$(OUTDIR)\opl3doom.dll"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\bitcrush.obj"
 	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\emulator.obj"
@@ -108,6 +109,7 @@ LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi3
 DEF_FILE= \
 	"..\src\winmm_drv.def"
 LINK32_OBJS= \
+	"$(INTDIR)\bitcrush.obj" \
 	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\i_oplmusic.obj" \
@@ -144,6 +146,7 @@ ALL : "$(OUTDIR)\opl3doom.dll"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\bitcrush.obj"
 	-@erase "$(INTDIR)\c_interface.obj"
 	-@erase "$(INTDIR)\dbopl.obj"
 	-@erase "$(INTDIR)\emulator.obj"
@@ -218,6 +221,7 @@ LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi3
 DEF_FILE= \
 	"..\src\winmm_drv.def"
 LINK32_OBJS= \
+	"$(INTDIR)\bitcrush.obj" \
 	"$(INTDIR)\c_interface.obj" \
 	"$(INTDIR)\dbopl.obj" \
 	"$(INTDIR)\i_oplmusic.obj" \
@@ -255,6 +259,12 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "opl3doom - Win32 Release" || "$(CFG)" == "opl3doom - Win32 Debug"
+SOURCE=..\fmopl3lib\bitcrush.cpp
+
+"$(INTDIR)\bitcrush.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=..\c_interface\c_interface.cpp
 
 "$(INTDIR)\c_interface.obj" : $(SOURCE) "$(INTDIR)"

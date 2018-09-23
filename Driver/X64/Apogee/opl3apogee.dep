@@ -6,6 +6,10 @@
 	"..\..\synthlib\al_midi.h"\
 	
 
+..\..\fmopl3lib\bitcrush.cpp : \
+	"..\..\fmopl3lib\bitcrush.h"\
+	
+
 ..\..\c_interface\c_interface.cpp : \
 	"..\..\c_interface\c_interface.h"\
 	"..\..\c_interface\c_types.h"\
@@ -18,6 +22,7 @@
 	
 
 ..\..\fmopl3lib\emulator.cpp : \
+	"..\..\fmopl3lib\bitcrush.h"\
 	"..\..\fmopl3lib\dbopl.h"\
 	"..\..\fmopl3lib\emulator.h"\
 	"..\..\fmopl3lib\opl.h"\
@@ -59,6 +64,7 @@
 	
 
 ..\..\fmopl3lib\opl3class.cpp : \
+	"..\..\fmopl3lib\bitcrush.h"\
 	"..\..\fmopl3lib\dbopl.h"\
 	"..\..\fmopl3lib\emulator.h"\
 	"..\..\fmopl3lib\hardware.h"\

@@ -1,4 +1,5 @@
 g++ -c ..\opl3midi_test.cpp
+g++ -c ..\..\fmopl3lib\bitcrush.cpp
 g++ -c ..\..\fmopl3lib\dbopl.cpp
 g++ -c ..\..\fmopl3lib\emulator.cpp
 g++ -c ..\..\fmopl3lib\hardware.cpp

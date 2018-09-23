@@ -1,11 +1,16 @@
 # Microsoft Developer Studio Generated Dependency File, included by opl3midi_test.mak
 
+..\fmopl3lib\bitcrush.cpp : \
+	"..\fmopl3lib\bitcrush.h"\
+	
+
 ..\fmopl3lib\dbopl.cpp : \
 	"..\fmopl3lib\dbopl.h"\
 	"..\include\stdint.h"\
 	
 
 ..\fmopl3lib\emulator.cpp : \
+	"..\fmopl3lib\bitcrush.h"\
 	"..\fmopl3lib\dbopl.h"\
 	"..\fmopl3lib\emulator.h"\
 	"..\fmopl3lib\opl.h"\
@@ -39,6 +44,7 @@
 	
 
 ..\fmopl3lib\opl3class.cpp : \
+	"..\fmopl3lib\bitcrush.h"\
 	"..\fmopl3lib\dbopl.h"\
 	"..\fmopl3lib\emulator.h"\
 	"..\fmopl3lib\hardware.h"\
