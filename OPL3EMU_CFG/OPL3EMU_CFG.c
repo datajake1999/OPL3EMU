@@ -48,6 +48,7 @@ int main()
 	int hqresampler;
 	int mono;
 	int bitcrush;
+	int crushamount;
 	int auddev;
 	int delay;
 	char string[100];
@@ -510,7 +511,7 @@ int main()
 		printf("4 = Enable/disable ring buffer.\n");
 		printf("5 = Enable/disable HQ resampler.\n");
 		printf("6 = Enable/disable mono mixdown.\n");
-		printf("7 = Enable/disable 8bit crusher.\n");
+		printf("7 = Enable/disable bit crusher.\n");
 		printf("8 = Change audio device.\n");
 		printf("9 = Set delay on close.\n");
 		scanf("%d", &audcfg);
@@ -621,17 +622,29 @@ int main()
 		}
 		if (audcfg == 7)
 		{
-			printf("Enable/disable 8bit crusher. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			printf("Enable/disable bit crusher. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &bitcrush);
 			if (bitcrush == 0)
 			{
 				system("SetEnv -u -d oplemubitcrush");
-				printf("8Bit crusher has been disabled.\n");
+				printf("Bit crusher has been disabled.\n");
 			}
 			if (bitcrush == 1)
 			{
 				system("SetEnv -u oplemubitcrush -on");
-				printf("8Bit crusher has been enabled.\n");
+				printf("Bit crusher has been enabled.\n");
+				printf("Enter number of bits to crush down to.\n");
+				scanf("%d", &crushamount);
+				if (crushamount == 8)
+				{
+					system("SetEnv -u -d crushamount");
+				}
+				else
+				{
+					sprintf(string, "SetEnv -u crushamount %d", crushamount);
+					system(string);
+				}
+				printf("The bit crusher will crush the output to %d bits.\n", crushamount);
 			}
 		}
 		if (audcfg == 8)
@@ -689,6 +702,7 @@ int main()
 		char *hqresampler = getenv("HQRESAMPLER");
 		char *mono = getenv("OPLEMUMONO");
 		char *bitcrush = getenv("OPLEMUBITCRUSH");
+		char *crushamount = getenv("CRUSHAMOUNT");
 		char *auddev = getenv("OPL3AUDDEV");
 		char *delay = getenv("OPL3DELAY");
 		printf("General driver configuration.\n");
@@ -936,12 +950,23 @@ int main()
 		{
 			if (strstr(bitcrush, "-on"))
 			{
-				printf("8Bit crusher is enabled.\n");
+				printf("Bit crusher is enabled.\n");
+				if (crushamount)
+				{
+					if (strstr(crushamount, getenv("CRUSHAMOUNT")))
+					{
+						printf("The bit crusher crushes the output to %s bits.\n", crushamount);
+					}
+				}
+				else
+				{
+					printf("The bit crusher crushes the output to 8 bits.\n");
+				}
 			}
 		}
 		else
 		{
-			printf("8Bit crusher is disabled.\n");
+			printf("Bit crusher is disabled.\n");
 		}
 		if (auddev)
 		{
