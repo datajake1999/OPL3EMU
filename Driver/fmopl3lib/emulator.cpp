@@ -14,6 +14,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "emulator.h"
 
 char *core = getenv("OPL3CORE");
@@ -144,12 +145,11 @@ void emulator::MonoMixdown(signed short *buffer, unsigned int len) {
 }
 
 void emulator::Crush8Bit(signed short *buffer, unsigned int len) {
+	unsigned int crush = 8;
 	for(unsigned int i = 0; i < len; i++)
 	{
-		buffer[0] = buffer[0] >> 8;
-		buffer[0] = (buffer[0]) * 256;
-		buffer[1] = buffer[1] >> 8;
-		buffer[1] = (buffer[1]) * 256;
+		buffer[0] = (buffer[0] >> crush) * pow(2, crush);
+		buffer[1] = (buffer[1] >> crush) * pow(2, crush);
 		buffer += 2;
 	}
 }
