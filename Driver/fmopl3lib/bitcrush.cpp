@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <math.h>
 #include "bitcrush.h"
 
-unsigned int bits;
+unsigned int bits = 8;
 
 void MonoMixdown(signed short *buffer, unsigned int len) {
 	unsigned int i;
@@ -57,10 +57,6 @@ void SetCrushAmount()
 		{
 			bits = atoi(crushamount);
 		}
-	}
-	else
-	{
-		bits = 8;
 	}
 	if (bits > 16)
 	{
