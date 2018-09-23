@@ -21,7 +21,6 @@ char *core = getenv("OPL3CORE");
 char *silence = getenv("OPLEMUSILENCE");
 char *mono = getenv("OPLEMUMONO");
 char *bitcrush = getenv("OPLEMUBITCRUSH");
-char *crushamount = getenv("CRUSHAMOUNT");
 
 void emulator::init(unsigned int rate) {
 	if (silence)
@@ -52,6 +51,13 @@ void emulator::init(unsigned int rate) {
 		else
 		{
 			OPL3_Reset(&chip, rate);
+		}
+	}
+	if (bitcrush)
+	{
+		if (strstr(bitcrush, "-on"))
+		{
+			SetCrushAmount();
 		}
 	}
 }
@@ -134,39 +140,3 @@ void emulator::generate(signed short *buffer, unsigned int len) {
 	}
 }
 
-void emulator::MonoMixdown(signed short *buffer, unsigned int len) {
-	signed short mixdown;
-	for(unsigned int i = 0; i < len; i++)
-	{
-		mixdown = (buffer[0] + buffer[1]) / 2;
-		buffer[0] = mixdown;
-		buffer[1] = mixdown;
-		buffer += 2;
-	}
-}
-
-void emulator::BitCrush(signed short *buffer, unsigned int len) {
-	unsigned int bits = 8;
-	if (crushamount)
-	{
-		if (strstr(crushamount, getenv("CRUSHAMOUNT")))
-		{
-			bits = atoi(crushamount);
-		}
-	}
-	if (bits > 16)
-	{
-		bits = 16;
-	}
-	else if (bits < 1)
-	{
-		bits = 1;
-	}
-	unsigned int crush = 16 - bits;
-	for(unsigned int i = 0; i < len; i++)
-	{
-		buffer[0] = (buffer[0] >> crush) * pow((double)2, (double)crush);
-		buffer[1] = (buffer[1] >> crush) * pow((double)2, (double)crush);
-		buffer += 2;
-	}
-}

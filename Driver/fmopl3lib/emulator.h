@@ -17,6 +17,7 @@
 #include "dbopl.h"
 #include "ymf262.h"
 #include "silence.h"
+#include "bitcrush.h"
 
 
 class emulator {
@@ -25,8 +26,6 @@ private:
 	OPLChipClass chip2;
 	DBOPL::Handler chip3;
 	void *chip4;
-	void MonoMixdown(signed short *buffer, unsigned int length);
-	void BitCrush(signed short *buffer, unsigned int length);
 public:
 	void init(unsigned int rate);
 	void writereg(unsigned short reg, unsigned char data);
