@@ -512,8 +512,9 @@ int main()
 		printf("5 = Enable/disable HQ resampler.\n");
 		printf("6 = Enable/disable mono mixdown.\n");
 		printf("7 = Enable/disable bit crusher.\n");
-		printf("8 = Change audio device.\n");
-		printf("9 = Set delay on close.\n");
+		printf("8 = Set bit crushing amount.\n");
+		printf("9 = Change audio device.\n");
+		printf("10 = Set delay on close.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -633,21 +634,24 @@ int main()
 			{
 				system("SetEnv -u oplemubitcrush -on");
 				printf("Bit crusher has been enabled.\n");
-				printf("Enter number of bits to crush down to.\n");
-				scanf("%d", &crushamount);
-				if (crushamount == 8)
-				{
-					system("SetEnv -u -d crushamount");
-				}
-				else
-				{
-					sprintf(string, "SetEnv -u crushamount %d", crushamount);
-					system(string);
-				}
-				printf("The bit crusher will crush the output to %d bits.\n", crushamount);
 			}
 		}
 		if (audcfg == 8)
+		{
+			printf("Enter number of bits to crush down to.\n");
+			scanf("%d", &crushamount);
+			if (crushamount == 8)
+			{
+				system("SetEnv -u -d crushamount");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u crushamount %d", crushamount);
+				system(string);
+			}
+			printf("The bit crusher will crush the output to %d bits.\n", crushamount);
+		}
+		if (audcfg == 9)
 		{
 			printf("Enter device ID.\n");
 			scanf("%d", &auddev);
@@ -663,7 +667,7 @@ int main()
 				printf("The driver will send output to the audio device with id %d.\n", auddev);
 			}
 		}
-		if (audcfg == 9)
+		if (audcfg == 10)
 		{
 			printf("Enter delay in ms.\n");
 			scanf("%d", &delay);
