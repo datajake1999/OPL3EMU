@@ -21,7 +21,7 @@ char *core = getenv("OPL3CORE");
 char *silence = getenv("OPLEMUSILENCE");
 char *mono = getenv("OPLEMUMONO");
 char *bitcrush = getenv("OPLEMUBITCRUSH");
-char *crushammount = getenv("CRUSHAMMOUNT");
+char *crushamount = getenv("CRUSHAMOUNT");
 
 void emulator::init(unsigned int rate) {
 	if (silence)
@@ -147,11 +147,11 @@ void emulator::MonoMixdown(signed short *buffer, unsigned int len) {
 
 void emulator::BitCrush(signed short *buffer, unsigned int len) {
 	unsigned int bits = 8;
-	if (crushammount)
+	if (crushamount)
 	{
-		if (strstr(crushammount, getenv("CRUSHAMMOUNT")))
+		if (strstr(crushamount, getenv("CRUSHAMOUNT")))
 		{
-			bits = atoi(crushammount);
+			bits = atoi(crushamount);
 		}
 	}
 	unsigned int crush = 16 - bits;
