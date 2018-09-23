@@ -154,11 +154,19 @@ void emulator::BitCrush(signed short *buffer, unsigned int len) {
 			bits = atoi(crushamount);
 		}
 	}
+	if (bits > 16)
+	{
+		bits = 16;
+	}
+	else if (bits < 1)
+	{
+		bits = 1;
+	}
 	unsigned int crush = 16 - bits;
 	for(unsigned int i = 0; i < len; i++)
 	{
-		buffer[0] = (buffer[0] >> crush) * pow(2, crush);
-		buffer[1] = (buffer[1] >> crush) * pow(2, crush);
+		buffer[0] = (buffer[0] >> crush) * pow((double)2, (double)crush);
+		buffer[1] = (buffer[1] >> crush) * pow((double)2, (double)crush);
 		buffer += 2;
 	}
 }
