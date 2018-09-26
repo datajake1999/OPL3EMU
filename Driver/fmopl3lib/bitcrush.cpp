@@ -25,6 +25,48 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 unsigned int bits = 8;
 
+static int Gen_Random()
+{
+	return   (rand() - RAND_MAX/2);
+}
+
+static int Gen_RectPDF()
+{
+	return Gen_Random();
+}
+
+static int Gen_TriPDF()
+{
+	int s1 = Gen_Random();
+	int s2 = Gen_Random();
+	int out = s1+s2;
+	return out;
+}
+
+void RectangleDither(signed short *buffer, unsigned int len) {
+	unsigned int i;
+	signed short noise;
+	for(i = 0; i < len; i++)
+	{
+		noise = (Gen_RectPDF()) / pow((double)2, (double)bits);
+		buffer[0] = (buffer[0]) + noise;
+		buffer[1] = (buffer[1]) + noise;
+		buffer += 2;
+	}
+}
+
+void TriangleDither(signed short *buffer, unsigned int len) {
+	unsigned int i;
+	signed short noise;
+	for(i = 0; i < len; i++)
+	{
+		noise = (Gen_RectPDF()) / pow((double)2, (double)bits);
+		buffer[0] = (buffer[0]) + noise;
+		buffer[1] = (buffer[1]) + noise;
+		buffer += 2;
+	}
+}
+
 void MonoMixdown(signed short *buffer, unsigned int len) {
 	unsigned int i;
 	signed short mixdown;

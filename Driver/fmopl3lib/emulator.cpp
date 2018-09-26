@@ -21,6 +21,7 @@ char *core = getenv("OPL3CORE");
 char *silence = getenv("OPLEMUSILENCE");
 char *mono = getenv("OPLEMUMONO");
 char *bitcrush = getenv("OPLEMUBITCRUSH");
+char *dither = getenv("DITHER");
 
 void emulator::init(unsigned int rate) {
 	if (silence)
@@ -135,6 +136,17 @@ void emulator::generate(signed short *buffer, unsigned int len) {
 	{
 		if (strstr(bitcrush, "-on"))
 		{
+			if (dither)
+			{
+				if (strstr(dither, "-rectangle"))
+				{
+					RectangleDither(buffer, len);
+				}
+				if (strstr(dither, "-triangle"))
+				{
+					TriangleDither(buffer, len);
+				}
+			}
 			BitCrush(buffer, len);
 		}
 	}
