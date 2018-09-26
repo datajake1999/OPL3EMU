@@ -14,14 +14,10 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include "emulator.h"
 
 char *core = getenv("OPL3CORE");
 char *silence = getenv("OPLEMUSILENCE");
-char *mono = getenv("OPLEMUMONO");
-char *bitcrush = getenv("OPLEMUBITCRUSH");
-char *dither = getenv("DITHER");
 
 void emulator::init(unsigned int rate) {
 	if (silence)
@@ -52,13 +48,6 @@ void emulator::init(unsigned int rate) {
 		else
 		{
 			OPL3_Reset(&chip, rate);
-		}
-	}
-	if (bitcrush)
-	{
-		if (strstr(bitcrush, "-on"))
-		{
-			SetCrushAmount();
 		}
 	}
 }
@@ -123,31 +112,6 @@ void emulator::generate(signed short *buffer, unsigned int len) {
 		else
 		{
 			OPL3_GenerateStream(&chip, buffer, len);
-		}
-	}
-	if (mono)
-	{
-		if (strstr(mono, "-on"))
-		{
-			MonoMixdown(buffer, len);
-		}
-	}
-	if (bitcrush)
-	{
-		if (strstr(bitcrush, "-on"))
-		{
-			if (dither)
-			{
-				if (strstr(dither, "-rectangle"))
-				{
-					RectangleDither(buffer, len);
-				}
-				if (strstr(dither, "-triangle"))
-				{
-					TriangleDither(buffer, len);
-				}
-			}
-			BitCrush(buffer, len);
 		}
 	}
 }

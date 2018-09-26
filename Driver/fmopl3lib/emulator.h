@@ -17,7 +17,6 @@
 #include "dbopl.h"
 #include "ymf262.h"
 #include "silence.h"
-#include "bitcrush.h"
 
 
 class emulator {

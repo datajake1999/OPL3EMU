@@ -17,6 +17,9 @@
 #include "opl3class.h"
 
 char *hqresampler = getenv("HQRESAMPLER");
+char *bitcrush = getenv("BITCRUSH");
+char *dither = getenv("DITHER");
+char *mono = getenv("MONO");
 char *wavwrite = getenv("WAVWRITE");
 char *vgmlog = getenv("VGMLOG");
 char *vgmloop = getenv("VGMLOOP");
@@ -34,6 +37,13 @@ int opl3class::fm_init(unsigned int rate) {
 	else
 	{
 		emul.init(rate);
+	}
+	if (bitcrush)
+	{
+		if (strstr(bitcrush, "-on"))
+		{
+			SetCrushAmount();
+		}
 	}
 	hardware_Init();
 	if (wavwrite)
@@ -101,6 +111,31 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	else
 	{
 		emul.generate(buffer, len);
+	}
+	if (bitcrush)
+	{
+		if (strstr(bitcrush, "-on"))
+		{
+			if (dither)
+			{
+				if (strstr(dither, "-rectangle"))
+				{
+					RectangleDither(buffer, len);
+				}
+				if (strstr(dither, "-triangle"))
+				{
+					TriangleDither(buffer, len);
+				}
+			}
+			BitCrush(buffer, len);
+		}
+	}
+	if (mono)
+	{
+		if (strstr(mono, "-on"))
+		{
+			MonoMixdown(buffer, len);
+		}
 	}
 	if (wavwrite)
 	{

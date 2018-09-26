@@ -16,6 +16,7 @@
 #include "..\interface.h"
 #include "emulator.h"
 #include "resampler.h"
+#include "bitcrush.h"
 #include "hardware.h"
 #include "wav_writer.h"
 #include "vgm_logging.h"
