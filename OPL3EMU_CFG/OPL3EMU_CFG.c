@@ -49,6 +49,7 @@ int main()
 	int mono;
 	int bitcrush;
 	int crushamount;
+	int dither;
 	int auddev;
 	int delay;
 	char string[100];
@@ -513,8 +514,9 @@ int main()
 		printf("6 = Enable/disable mono mixdown.\n");
 		printf("7 = Enable/disable bit crusher.\n");
 		printf("8 = Set bit crushing amount.\n");
-		printf("9 = Change audio device.\n");
-		printf("10 = Set delay on close.\n");
+		printf("9 = Set dither mode.\n");
+		printf("10 = Change audio device.\n");
+		printf("11 = Set delay on close.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -653,6 +655,29 @@ int main()
 		}
 		if (audcfg == 9)
 		{
+			printf("Set dither mode. Type the number that is assosiated to your desired  dithering mode and press enter to apply.\n");
+			printf("0 = None.\n");
+			printf("1 = Rectangle dither.\n");
+			printf("2 = Triangle dither.\n");
+			scanf("%d", &dither);
+			if (dither == 0)
+			{
+				system("SetEnv -u -d dither");
+				printf("No dithering is applied.\n");
+			}
+			if (dither == 1)
+			{
+				system("SetEnv -u dither -rectangle");
+				printf("Rectangle dithering is applied.\n");
+			}
+			if (dither == 2)
+			{
+				system("SetEnv -u dither -triangle");
+				printf("Triangle dithering is applied.\n");
+			}
+		}
+		if (audcfg == 10)
+		{
 			printf("Enter device ID.\n");
 			scanf("%d", &auddev);
 			if (auddev == -1)
@@ -667,7 +692,7 @@ int main()
 				printf("The driver will send output to the audio device with id %d.\n", auddev);
 			}
 		}
-		if (audcfg == 10)
+		if (audcfg == 11)
 		{
 			printf("Enter delay in ms.\n");
 			scanf("%d", &delay);
@@ -707,6 +732,7 @@ int main()
 		char *mono = getenv("OPLEMUMONO");
 		char *bitcrush = getenv("OPLEMUBITCRUSH");
 		char *crushamount = getenv("CRUSHAMOUNT");
+		char *dither = getenv("DITHER");
 		char *auddev = getenv("OPL3AUDDEV");
 		char *delay = getenv("OPL3DELAY");
 		printf("General driver configuration.\n");
@@ -966,6 +992,17 @@ int main()
 				{
 					printf("The bit crusher crushes the output to 8 bits.\n");
 				}
+				if (dither)
+				{
+					if (strstr(dither, "-rectangle"))
+					{
+						printf("Rectangle dithering is applied.\n");
+					}
+					if (strstr(dither, "-triangle"))
+					{
+						printf("Triangle dithering is applied.\n");
+					}
+				}
 			}
 		}
 		else
@@ -1016,6 +1053,8 @@ int main()
 		system("SetEnv -u -d hqresampler");
 		system("SetEnv -u -d oplemumono");
 		system("SetEnv -u -d oplemubitcrush");
+		system("SetEnv -u -d crushamount");
+		system("SetEnv -u -d dither");
 		system("SetEnv -u -d opl3auddev");
 		system("SetEnv -u -d opl3delay");
 		printf("Driver configuration has been reset.\n");
