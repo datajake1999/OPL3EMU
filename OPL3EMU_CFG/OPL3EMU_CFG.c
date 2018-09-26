@@ -614,12 +614,12 @@ int main()
 			scanf("%d", &mono);
 			if (mono == 0)
 			{
-				system("SetEnv -u -d oplemumono");
+				system("SetEnv -u -d mono");
 				printf("Mono mixdown has been disabled.\n");
 			}
 			if (mono == 1)
 			{
-				system("SetEnv -u oplemumono -on");
+				system("SetEnv -u mono -on");
 				printf("Mono mixdown has been enabled.\n");
 			}
 		}
@@ -629,12 +629,12 @@ int main()
 			scanf("%d", &bitcrush);
 			if (bitcrush == 0)
 			{
-				system("SetEnv -u -d oplemubitcrush");
+				system("SetEnv -u -d bitcrush");
 				printf("Bit crusher has been disabled.\n");
 			}
 			if (bitcrush == 1)
 			{
-				system("SetEnv -u oplemubitcrush -on");
+				system("SetEnv -u bitcrush -on");
 				printf("Bit crusher has been enabled.\n");
 			}
 		}
@@ -729,8 +729,8 @@ int main()
 		char *latency = getenv("OPL3LATENCY");
 		char *ringbuf = getenv("OPL3RINGBUF");
 		char *hqresampler = getenv("HQRESAMPLER");
-		char *mono = getenv("OPLEMUMONO");
-		char *bitcrush = getenv("OPLEMUBITCRUSH");
+		char *mono = getenv("MONO");
+		char *bitcrush = getenv("BITCRUSH");
 		char *crushamount = getenv("CRUSHAMOUNT");
 		char *dither = getenv("DITHER");
 		char *auddev = getenv("OPL3AUDDEV");
@@ -1051,8 +1051,8 @@ int main()
 		system("SetEnv -u -d opl3latency");
 		system("SetEnv -u -d opl3ringbuf");
 		system("SetEnv -u -d hqresampler");
-		system("SetEnv -u -d oplemumono");
-		system("SetEnv -u -d oplemubitcrush");
+		system("SetEnv -u -d mono");
+		system("SetEnv -u -d bitcrush");
 		system("SetEnv -u -d crushamount");
 		system("SetEnv -u -d dither");
 		system("SetEnv -u -d opl3auddev");
