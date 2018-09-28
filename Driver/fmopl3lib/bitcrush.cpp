@@ -43,6 +43,43 @@ static int Gen_TriPDF()
 	return out;
 }
 
+#define PI 3.1415926536
+
+static double AWGN_generator()
+{/* Generates additive white Gaussian Noise samples with zero mean and a standard deviation of 1. */
+
+	double temp1;
+	double temp2;
+	double result;
+	int p;
+
+	p = 1;
+
+	while( p > 0 )
+	{
+		temp2 = ( rand() / ( (double)RAND_MAX ) ); /*  rand() function generates an
+													integer between 0 and  RAND_MAX,
+													which is defined in stdlib.h.
+												*/
+
+		if ( temp2 == 0 )
+		{// temp2 is >= (RAND_MAX / 2)
+			p = 1;
+		}// end if
+		else
+		{// temp2 is < (RAND_MAX / 2)
+			p = -1;
+		}// end else
+
+	}// end while()
+
+	temp1 = cos( ( 2.0 * (double)PI ) * rand() / ( (double)RAND_MAX ) );
+	result = sqrt( -2.0 * log( temp2 ) ) * temp1;
+
+	return result;	// return the generated random sample to the caller
+
+}// end AWGN_generator()
+
 void RectangleDither(signed short *buffer, unsigned int len) {
 	unsigned int i;
 	signed short noise;
@@ -61,6 +98,18 @@ void TriangleDither(signed short *buffer, unsigned int len) {
 	for(i = 0; i < len; i++)
 	{
 		noise = (Gen_TriPDF()) / pow((double)2, (double)bits);
+		buffer[0] = (buffer[0]) + noise;
+		buffer[1] = (buffer[1]) + noise;
+		buffer += 2;
+	}
+}
+
+void GaussianDither(signed short *buffer, unsigned int len) {
+	unsigned int i;
+	signed short noise;
+	for(i = 0; i < len; i++)
+	{
+		noise = (AWGN_generator()) * (pow((double)2, (double)16 - bits)) / 4;
 		buffer[0] = (buffer[0]) + noise;
 		buffer[1] = (buffer[1]) + noise;
 		buffer += 2;

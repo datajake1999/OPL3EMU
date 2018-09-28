@@ -126,6 +126,10 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 				{
 					TriangleDither(buffer, len);
 				}
+				if (strstr(dither, "-gaussian"))
+				{
+					GaussianDither(buffer, len);
+				}
 			}
 			BitCrush(buffer, len);
 		}
