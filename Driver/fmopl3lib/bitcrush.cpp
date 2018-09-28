@@ -87,6 +87,7 @@ void RectangleDither(signed short *buffer, unsigned int len) {
 	{
 		noise = (Gen_RectPDF()) / pow((double)2, (double)bits);
 		buffer[0] = (buffer[0]) + noise;
+		noise = (Gen_RectPDF()) / pow((double)2, (double)bits);
 		buffer[1] = (buffer[1]) + noise;
 		buffer += 2;
 	}
@@ -99,6 +100,7 @@ void TriangleDither(signed short *buffer, unsigned int len) {
 	{
 		noise = (Gen_TriPDF()) / pow((double)2, (double)bits);
 		buffer[0] = (buffer[0]) + noise;
+		noise = (Gen_TriPDF()) / pow((double)2, (double)bits);
 		buffer[1] = (buffer[1]) + noise;
 		buffer += 2;
 	}
@@ -111,6 +113,7 @@ void GaussianDither(signed short *buffer, unsigned int len) {
 	{
 		noise = (AWGN_generator()) * (pow((double)2, (double)16 - bits)) / 4;
 		buffer[0] = (buffer[0]) + noise;
+		noise = (AWGN_generator()) * (pow((double)2, (double)16 - bits)) / 4;
 		buffer[1] = (buffer[1]) + noise;
 		buffer += 2;
 	}
