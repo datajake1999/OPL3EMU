@@ -659,6 +659,7 @@ int main()
 			printf("0 = None.\n");
 			printf("1 = Rectangle dither.\n");
 			printf("2 = Triangle dither.\n");
+			printf("3 = Gaussian dither.\n");
 			scanf("%d", &dither);
 			if (dither == 0)
 			{
@@ -674,6 +675,11 @@ int main()
 			{
 				system("SetEnv -u dither -triangle");
 				printf("Triangle dithering is applied.\n");
+			}
+			if (dither == 3)
+			{
+				system("SetEnv -u dither -gaussian");
+				printf("Gaussian dithering is applied.\n");
 			}
 		}
 		if (audcfg == 10)
@@ -1001,6 +1007,10 @@ int main()
 					if (strstr(dither, "-triangle"))
 					{
 						printf("Triangle dithering is applied.\n");
+					}
+					if (strstr(dither, "-gaussian"))
+					{
+						printf("Gaussian dithering is applied.\n");
 					}
 				}
 			}
