@@ -8,6 +8,7 @@ cyberpuck.tmb - Cyberpuck
 drumopl.tmb - Drumopl
 gmoconel.tmb - Gmoconel
 gmoplmod.tmb - Gmoplmod
+themepark.tmb - Themepark
 wallence.tmb - Wallence
 
 OPL Patch installation:

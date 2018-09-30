@@ -8,6 +8,7 @@ dmxopl.op2 - DMXOPL by Sneakernets
 genmid01.op2 - GENMID01 by Dan L'Ecuyer
 hisymak.op2 - Hisymak's GENMIDI
 freedoom.op2 - Freedoom
+dansgm.op2 - Daniel's GENMIDI
 
 GENMIDI.OP2 installation:
 1. Create OPLSynth folder in C:\ disk root.
