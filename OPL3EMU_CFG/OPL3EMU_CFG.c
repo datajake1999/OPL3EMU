@@ -79,7 +79,8 @@ int main()
 		printf("7 = Drumopl.\n");
 		printf("8 = Gmoconel.\n");
 		printf("9 = Gmoplmod.\n");
-		printf("10 = Wallence.\n");
+		printf("10 = Themepark.\n");
+		printf("11 = Wallence.\n");
 		scanf("%d", &apgcopy);
 		if (apgcopy == 0)
 		{
@@ -133,6 +134,11 @@ int main()
 		}
 		if (apgcopy == 10)
 		{
+			system("copy Apogee_TMB\\themepark.tmb c:\\OPLSynth\\apogee.tmb");
+			printf("Patch copied to Apogee driver.\n");
+		}
+		if (apgcopy == 11)
+		{
 			system("copy Apogee_TMB\\wallence.tmb c:\\OPLSynth\\apogee.tmb");
 			printf("Patch copied to Apogee driver.\n");
 		}
@@ -152,6 +158,7 @@ int main()
 		printf("7 = GENMID01 by Dan L'Ecuyer.\n");
 		printf("8 = Hisymak's GENMIDI.\n");
 		printf("9 = Freedoom.\n");
+		printf("10 = Daniel's GENMIDI.\n");
 		scanf("%d", &doomcopy);
 		if (doomcopy == 0)
 		{
@@ -201,6 +208,11 @@ int main()
 		if (doomcopy == 9)
 		{
 			system("copy GENMIDI\\freedoom.op2 c:\\OPLSynth\\genmidi.op2");
+			printf("Patch copied to Doom driver.\n");
+		}
+		if (doomcopy == 10)
+		{
+			system("copy GENMIDI\\dansgm.op2 c:\\OPLSynth\\genmidi.op2");
 			printf("Patch copied to Doom driver.\n");
 		}
 		printf("Press any key to exit.\n");
