@@ -85,9 +85,9 @@ void RectangleDither(signed short *buffer, unsigned int len) {
 	signed short noise;
 	for(i = 0; i < len; i++)
 	{
-		noise = (Gen_RectPDF()) / pow((double)2, (double)bits);
+		noise = Gen_RectPDF() >> bits;
 		buffer[0] = (buffer[0]) + noise;
-		noise = (Gen_RectPDF()) / pow((double)2, (double)bits);
+		noise = Gen_RectPDF() >> bits;
 		buffer[1] = (buffer[1]) + noise;
 		buffer += 2;
 	}
@@ -98,9 +98,9 @@ void TriangleDither(signed short *buffer, unsigned int len) {
 	signed short noise;
 	for(i = 0; i < len; i++)
 	{
-		noise = (Gen_TriPDF()) / pow((double)2, (double)bits);
+		noise = Gen_TriPDF() >> bits;
 		buffer[0] = (buffer[0]) + noise;
-		noise = (Gen_TriPDF()) / pow((double)2, (double)bits);
+		noise = Gen_TriPDF() >> bits;
 		buffer[1] = (buffer[1]) + noise;
 		buffer += 2;
 	}
@@ -111,9 +111,9 @@ void GaussianDither(signed short *buffer, unsigned int len) {
 	signed short noise;
 	for(i = 0; i < len; i++)
 	{
-		noise = (AWGN_generator()) * (pow((double)2, (double)16 - bits)) / 4;
+		noise = (AWGN_generator()) * (1 << (16 - bits)) / 4;
 		buffer[0] = (buffer[0]) + noise;
-		noise = (AWGN_generator()) * (pow((double)2, (double)16 - bits)) / 4;
+		noise = (AWGN_generator()) * (1 << (16 - bits)) / 4;
 		buffer[1] = (buffer[1]) + noise;
 		buffer += 2;
 	}
@@ -136,8 +136,8 @@ void BitCrush(signed short *buffer, unsigned int len) {
 	unsigned int crush = 16 - bits;
 	for(i = 0; i < len; i++)
 	{
-		buffer[0] = (buffer[0] >> crush) * pow((double)2, (double)crush);
-		buffer[1] = (buffer[1] >> crush) * pow((double)2, (double)crush);
+		buffer[0] = (buffer[0] >> crush) << crush;
+		buffer[1] = (buffer[1] >> crush) << crush;
 		buffer += 2;
 	}
 }
