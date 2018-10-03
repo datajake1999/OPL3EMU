@@ -47,6 +47,7 @@ int main()
 	int ringbuf;
 	int hqresampler;
 	int mono;
+	int surround;
 	int bitcrush;
 	int crushamount;
 	int dither;
@@ -524,11 +525,12 @@ int main()
 		printf("4 = Enable/disable ring buffer.\n");
 		printf("5 = Enable/disable HQ resampler.\n");
 		printf("6 = Enable/disable mono mixdown.\n");
-		printf("7 = Enable/disable bit crusher.\n");
-		printf("8 = Set bit crushing amount.\n");
-		printf("9 = Set dither mode.\n");
-		printf("10 = Change audio device.\n");
-		printf("11 = Set delay on close.\n");
+		printf("7 = Enable/disable surround sound.\n");
+		printf("8 = Enable/disable bit crusher.\n");
+		printf("9 = Set bit crushing amount.\n");
+		printf("10 = Set dither mode.\n");
+		printf("11 = Change audio device.\n");
+		printf("12 = Set delay on close.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -637,6 +639,21 @@ int main()
 		}
 		if (audcfg == 7)
 		{
+			printf("Enable/disable surround sound. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			scanf("%d", &surround);
+			if (surround == 0)
+			{
+				system("SetEnv -u -d surround");
+				printf("Surround sound has been disabled.\n");
+			}
+			if (surround == 1)
+			{
+				system("SetEnv -u surround -on");
+				printf("Surround sound has been enabled.\n");
+			}
+		}
+		if (audcfg == 8)
+		{
 			printf("Enable/disable bit crusher. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &bitcrush);
 			if (bitcrush == 0)
@@ -650,7 +667,7 @@ int main()
 				printf("Bit crusher has been enabled.\n");
 			}
 		}
-		if (audcfg == 8)
+		if (audcfg == 9)
 		{
 			printf("Enter number of bits to crush down to.\n");
 			scanf("%d", &crushamount);
@@ -665,7 +682,7 @@ int main()
 			}
 			printf("The bit crusher will crush the output to %d bits.\n", crushamount);
 		}
-		if (audcfg == 9)
+		if (audcfg == 10)
 		{
 			printf("Set dither mode. Type the number that is assosiated to your desired  dithering mode and press enter to apply.\n");
 			printf("0 = None.\n");
@@ -694,7 +711,7 @@ int main()
 				printf("Gaussian dithering is applied.\n");
 			}
 		}
-		if (audcfg == 10)
+		if (audcfg == 11)
 		{
 			printf("Enter device ID.\n");
 			scanf("%d", &auddev);
@@ -710,7 +727,7 @@ int main()
 				printf("The driver will send output to the audio device with id %d.\n", auddev);
 			}
 		}
-		if (audcfg == 11)
+		if (audcfg == 12)
 		{
 			printf("Enter delay in ms.\n");
 			scanf("%d", &delay);
@@ -748,6 +765,7 @@ int main()
 		char *ringbuf = getenv("OPL3RINGBUF");
 		char *hqresampler = getenv("HQRESAMPLER");
 		char *mono = getenv("MONO");
+		char *surround = getenv("SURROUND");
 		char *bitcrush = getenv("BITCRUSH");
 		char *crushamount = getenv("CRUSHAMOUNT");
 		char *dither = getenv("DITHER");
@@ -994,6 +1012,17 @@ int main()
 		{
 			printf("Mono mixdown is disabled.\n");
 		}
+		if (surround)
+		{
+			if (strstr(surround, "-on"))
+			{
+				printf("Surround sound  is enabled.\n");
+			}
+		}
+		else
+		{
+			printf("Surround sound is disabled.\n");
+		}
 		if (bitcrush)
 		{
 			if (strstr(bitcrush, "-on"))
@@ -1074,6 +1103,7 @@ int main()
 		system("SetEnv -u -d opl3ringbuf");
 		system("SetEnv -u -d hqresampler");
 		system("SetEnv -u -d mono");
+		system("SetEnv -u -d surround");
 		system("SetEnv -u -d bitcrush");
 		system("SetEnv -u -d crushamount");
 		system("SetEnv -u -d dither");
