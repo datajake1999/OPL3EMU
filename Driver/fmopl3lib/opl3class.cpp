@@ -20,6 +20,7 @@ char *hqresampler = getenv("HQRESAMPLER");
 char *bitcrush = getenv("BITCRUSH");
 char *dither = getenv("DITHER");
 char *mono = getenv("MONO");
+char *surround = getenv("SURROUND");
 char *wavwrite = getenv("WAVWRITE");
 char *vgmlog = getenv("VGMLOG");
 char *vgmloop = getenv("VGMLOOP");
@@ -139,6 +140,13 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 		if (strstr(mono, "-on"))
 		{
 			MonoMixdown(buffer, len);
+		}
+	}
+	if (surround)
+	{
+		if (strstr(surround, "-on"))
+		{
+			SurroundSound(buffer, len);
 		}
 	}
 	if (wavwrite)

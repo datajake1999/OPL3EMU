@@ -131,6 +131,15 @@ void MonoMixdown(signed short *buffer, unsigned int len) {
 	}
 }
 
+void SurroundSound(signed short *buffer, unsigned int len) {
+	unsigned int i;
+	for(i = 0; i < len; i++)
+	{
+		buffer[1] = (buffer[1]) * -1;
+		buffer += 2;
+	}
+}
+
 void BitCrush(signed short *buffer, unsigned int len) {
 	unsigned int i;
 	unsigned int crush = 16 - bits;

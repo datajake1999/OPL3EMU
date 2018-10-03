@@ -25,6 +25,7 @@ void RectangleDither(signed short *buffer, unsigned int length);
 void TriangleDither(signed short *buffer, unsigned int length);
 void GaussianDither(signed short *buffer, unsigned int length);
 void MonoMixdown(signed short *buffer, unsigned int length);
+void SurroundSound(signed short *buffer, unsigned int length);
 void BitCrush(signed short *buffer, unsigned int length);
 void SetCrushAmount();
 
