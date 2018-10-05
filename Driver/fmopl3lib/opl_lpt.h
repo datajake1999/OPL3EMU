@@ -16,6 +16,7 @@ void opl2lpt_write(unsigned short reg, unsigned char data);
 void opl3lpt_write(unsigned short reg, unsigned char data);
 void opl_lpt_write(unsigned short reg, unsigned char data);
 void opl_lpt_reset(void);
+void SetLPTPort(void);
 void OPL_LPT_Init();
 void OPL_LPT_Close();
 

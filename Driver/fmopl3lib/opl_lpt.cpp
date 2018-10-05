@@ -9,23 +9,11 @@
 
 #include "opl_lpt.h"
 
-char *lptport = getenv("LPTPORT");
 char *opl2lptmode = getenv("OPL2LPTMODE");
-unsigned int lpt_base;
+unsigned int lpt_base = 0x378;
 
 void opl2lpt_write(unsigned short reg, unsigned char data) {
 	unsigned int i;
-	if (lptport)
-	{
-		if (strstr(lptport, getenv("LPTPORT")))
-		{
-			lpt_base = strtoul(lptport, 0, 16);
-		}
-	}
-	else
-	{
-		lpt_base = 0x378;
-	}
 	if (!lpt_base) {
 		return;
 	}
@@ -57,17 +45,6 @@ void opl2lpt_write(unsigned short reg, unsigned char data) {
 
 void opl3lpt_write(unsigned short reg, unsigned char data) {
 	unsigned int i;
-	if (lptport)
-	{
-		if (strstr(lptport, getenv("LPTPORT")))
-		{
-			lpt_base = strtoul(lptport, 0, 16);
-		}
-	}
-	else
-	{
-		lpt_base = 0x378;
-	}
 	if (!lpt_base) {
 		return;
 	}
@@ -193,8 +170,21 @@ void opl_lpt_reset(void)
 	return;
 }
 
+void SetLPTPort(void) 
+{
+	char *lptport = getenv("LPTPORT");
+	if (lptport)
+	{
+		if (strstr(lptport, getenv("LPTPORT")))
+		{
+			lpt_base = strtoul(lptport, 0, 16);
+		}
+	}
+};
+
 void OPL_LPT_Init() 
 {
+	SetLPTPort();
 	opl_lpt_reset();
 	OpenInpOut32(); 
 };
