@@ -9,7 +9,6 @@
 
 #include "opl_lpt.h"
 
-char *opl2lptmode = getenv("OPL2LPTMODE");
 unsigned int lpt_base = 0x378;
 
 void opl2lpt_write(unsigned short reg, unsigned char data) {
@@ -81,6 +80,7 @@ void opl3lpt_write(unsigned short reg, unsigned char data) {
 }
 
 void opl_lpt_write(unsigned short reg, unsigned char data) {
+	char *opl2lptmode = getenv("OPL2LPTMODE");
 	if (opl2lptmode)
 	{
 		if (strstr(opl2lptmode, "-on"))
