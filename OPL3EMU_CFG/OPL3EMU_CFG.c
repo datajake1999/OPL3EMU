@@ -45,14 +45,14 @@ int main()
 	int csize;
 	int latency;
 	int ringbuf;
+	int auddev;
+	int delay;
 	int hqresampler;
 	int mono;
 	int surround;
 	int bitcrush;
 	int crushamount;
 	int dither;
-	int auddev;
-	int delay;
 	char string[100];
 	CreateDirectory("C:\\OPLSynth", NULL);
 	printf("OPL3EMU MIDI driver configuration utility. Type the number that is assosiated to what you want to configure and press enter to continue.\n");
@@ -523,14 +523,14 @@ int main()
 		printf("2 = Change chunk size.\n");
 		printf("3 = Change MIDI latency.\n");
 		printf("4 = Enable/disable ring buffer.\n");
-		printf("5 = Enable/disable HQ resampler.\n");
-		printf("6 = Enable/disable mono mixdown.\n");
-		printf("7 = Enable/disable surround sound.\n");
-		printf("8 = Enable/disable bit crusher.\n");
-		printf("9 = Set bit crushing amount.\n");
-		printf("10 = Set dither mode.\n");
-		printf("11 = Change audio device.\n");
-		printf("12 = Set delay on close.\n");
+		printf("5 = Change audio device.\n");
+		printf("6 = Set delay on close.\n");
+		printf("7 = Enable/disable HQ resampler.\n");
+		printf("8 = Enable/disable mono mixdown.\n");
+		printf("9 = Enable/disable surround sound.\n");
+		printf("10 = Enable/disable bit crusher.\n");
+		printf("11 = Set bit crushing amount.\n");
+		printf("12 = Set dither mode.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -609,6 +609,37 @@ int main()
 		}
 		if (audcfg == 5)
 		{
+			printf("Enter device ID.\n");
+			scanf("%d", &auddev);
+			if (auddev == -1)
+			{
+				system("SetEnv -u -d opl3auddev");
+				printf("The driver will send output to the default audio device.\n");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u opl3auddev %d", auddev);
+				system(string);
+				printf("The driver will send output to the audio device with id %d.\n", auddev);
+			}
+		}
+		if (audcfg == 6)
+		{
+			printf("Enter delay in ms.\n");
+			scanf("%d", &delay);
+			if (delay == 0)
+			{
+				system("SetEnv -u -d opl3delay");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u opl3delay %d", delay);
+				system(string);
+			}
+			printf("The delay on close has been set to %d.\n", delay);
+		}
+		if (audcfg == 7)
+		{
 			printf("Enable/disable HQ resampler. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &hqresampler);
 			if (hqresampler == 0)
@@ -622,7 +653,7 @@ int main()
 				printf("HQ resampler has been enabled.\n");
 			}
 		}
-		if (audcfg == 6)
+		if (audcfg == 8)
 		{
 			printf("Enable/disable mono mixdown. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &mono);
@@ -637,7 +668,7 @@ int main()
 				printf("Mono mixdown has been enabled.\n");
 			}
 		}
-		if (audcfg == 7)
+		if (audcfg == 9)
 		{
 			printf("Enable/disable surround sound. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &surround);
@@ -652,7 +683,7 @@ int main()
 				printf("Surround sound has been enabled.\n");
 			}
 		}
-		if (audcfg == 8)
+		if (audcfg == 10)
 		{
 			printf("Enable/disable bit crusher. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &bitcrush);
@@ -667,7 +698,7 @@ int main()
 				printf("Bit crusher has been enabled.\n");
 			}
 		}
-		if (audcfg == 9)
+		if (audcfg == 11)
 		{
 			printf("Enter number of bits to crush down to.\n");
 			scanf("%d", &crushamount);
@@ -682,7 +713,7 @@ int main()
 			}
 			printf("The bit crusher will crush the output to %d bits.\n", crushamount);
 		}
-		if (audcfg == 10)
+		if (audcfg == 12)
 		{
 			printf("Set dither mode. Type the number that is assosiated to your desired  dithering mode and press enter to apply.\n");
 			printf("0 = None.\n");
@@ -711,37 +742,6 @@ int main()
 				printf("Gaussian dithering is applied.\n");
 			}
 		}
-		if (audcfg == 11)
-		{
-			printf("Enter device ID.\n");
-			scanf("%d", &auddev);
-			if (auddev == -1)
-			{
-				system("SetEnv -u -d opl3auddev");
-				printf("The driver will send output to the default audio device.\n");
-			}
-			else
-			{
-				sprintf(string, "SetEnv -u opl3auddev %d", auddev);
-				system(string);
-				printf("The driver will send output to the audio device with id %d.\n", auddev);
-			}
-		}
-		if (audcfg == 12)
-		{
-			printf("Enter delay in ms.\n");
-			scanf("%d", &delay);
-			if (delay == 0)
-			{
-				system("SetEnv -u -d opl3delay");
-			}
-			else
-			{
-				sprintf(string, "SetEnv -u opl3delay %d", delay);
-				system(string);
-			}
-			printf("The delay on close has been set to %d.\n", delay);
-		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -763,14 +763,14 @@ int main()
 		char *csize = getenv("OPL3CHUNKSIZE");
 		char *latency = getenv("OPL3LATENCY");
 		char *ringbuf = getenv("OPL3RINGBUF");
+		char *auddev = getenv("OPL3AUDDEV");
+		char *delay = getenv("OPL3DELAY");
 		char *hqresampler = getenv("HQRESAMPLER");
 		char *mono = getenv("MONO");
 		char *surround = getenv("SURROUND");
 		char *bitcrush = getenv("BITCRUSH");
 		char *crushamount = getenv("CRUSHAMOUNT");
 		char *dither = getenv("DITHER");
-		char *auddev = getenv("OPL3AUDDEV");
-		char *delay = getenv("OPL3DELAY");
 		printf("General driver configuration.\n");
 		if (core)
 		{
@@ -990,6 +990,24 @@ int main()
 		{
 			printf("The ring buffer is disabled.\n");
 		}
+		if (auddev)
+		{
+			if (strstr(auddev, getenv("OPL3AUDDEV")))
+			{
+				printf("The driver sends output to the audio device with id%s.\n", auddev);
+			}
+		}
+		else
+		{
+			printf("The driver sends output to the default audio device.\n");
+		}
+		if (delay)
+		{
+			if (strstr(delay, getenv("OPL3DELAY")))
+			{
+				printf("The driver will close after %s ms.\n", delay);
+			}
+		}
 		if (hqresampler)
 		{
 			if (strstr(hqresampler, "-on"))
@@ -1060,24 +1078,6 @@ int main()
 		{
 			printf("Bit crusher is disabled.\n");
 		}
-		if (auddev)
-		{
-			if (strstr(auddev, getenv("OPL3AUDDEV")))
-			{
-				printf("The driver sends output to the audio device with id%s.\n", auddev);
-			}
-		}
-		else
-		{
-			printf("The driver sends output to the default audio device.\n");
-		}
-		if (delay)
-		{
-			if (strstr(delay, getenv("OPL3DELAY")))
-			{
-				printf("The driver will close after %s ms.\n", delay);
-			}
-		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -1101,14 +1101,14 @@ int main()
 		system("SetEnv -u -d opl3chunksize");
 		system("SetEnv -u -d opl3latency");
 		system("SetEnv -u -d opl3ringbuf");
+		system("SetEnv -u -d opl3auddev");
+		system("SetEnv -u -d opl3delay");
 		system("SetEnv -u -d hqresampler");
 		system("SetEnv -u -d mono");
 		system("SetEnv -u -d surround");
 		system("SetEnv -u -d bitcrush");
 		system("SetEnv -u -d crushamount");
 		system("SetEnv -u -d dither");
-		system("SetEnv -u -d opl3auddev");
-		system("SetEnv -u -d opl3delay");
 		printf("Driver configuration has been reset.\n");
 		printf("Press any key to exit.\n");
 		getch();
