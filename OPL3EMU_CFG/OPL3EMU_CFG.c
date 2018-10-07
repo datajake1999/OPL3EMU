@@ -53,6 +53,7 @@ int main()
 	int bitcrush;
 	int crushamount;
 	int dither;
+	int reset;
 	char string[100];
 	CreateDirectory("C:\\OPLSynth", NULL);
 	printf("OPL3EMU MIDI driver configuration utility. Type the number that is assosiated to what you want to configure and press enter to continue.\n");
@@ -1083,33 +1084,42 @@ int main()
 	}
 	if (num == 9)
 	{
-		system("del c:\\OPLSynth\\apogee.tmb");
-		system("copy GENMIDI\\dmx_dmx.op2 c:\\OPLSynth\\genmidi.op2");
-		system("SetEnv -u -d dmxoption");
-		system("SetEnv -u -d chips");
-		system("SetEnv -u -d opl3core");
-		system("SetEnv -u -d oplhwsupport");
-		system("SetEnv -u -d opl3port");
-		system("SetEnv -u -d lptport");
-		system("SetEnv -u -d opl2lptmode");
-		system("SetEnv -u -d oplemusilence");
-		system("SetEnv -u -d wavwrite");
-		system("SetEnv -u -d vgmlog");
-		system("SetEnv -u -d vgmloop");
-		system("SetEnv -u -d opl3rate");
-		system("SetEnv -u -d opl3bufsize");
-		system("SetEnv -u -d opl3chunksize");
-		system("SetEnv -u -d opl3latency");
-		system("SetEnv -u -d opl3ringbuf");
-		system("SetEnv -u -d opl3auddev");
-		system("SetEnv -u -d opl3delay");
-		system("SetEnv -u -d hqresampler");
-		system("SetEnv -u -d mono");
-		system("SetEnv -u -d surround");
-		system("SetEnv -u -d bitcrush");
-		system("SetEnv -u -d crushamount");
-		system("SetEnv -u -d dither");
-		printf("Driver configuration has been reset.\n");
+		printf("Reset driver configuration. Press 1 to reset, or 0 to cancel.\n");
+		scanf("%d", &reset);
+		if(reset == 0)
+		{
+			printf("Driver configuration hasn't been reset.\n");
+		}
+		if(reset == 1)
+		{
+			system("del c:\\OPLSynth\\apogee.tmb");
+			system("copy GENMIDI\\dmx_dmx.op2 c:\\OPLSynth\\genmidi.op2");
+			system("SetEnv -u -d dmxoption");
+			system("SetEnv -u -d chips");
+			system("SetEnv -u -d opl3core");
+			system("SetEnv -u -d oplhwsupport");
+			system("SetEnv -u -d opl3port");
+			system("SetEnv -u -d lptport");
+			system("SetEnv -u -d opl2lptmode");
+			system("SetEnv -u -d oplemusilence");
+			system("SetEnv -u -d wavwrite");
+			system("SetEnv -u -d vgmlog");
+			system("SetEnv -u -d vgmloop");
+			system("SetEnv -u -d opl3rate");
+			system("SetEnv -u -d opl3bufsize");
+			system("SetEnv -u -d opl3chunksize");
+			system("SetEnv -u -d opl3latency");
+			system("SetEnv -u -d opl3ringbuf");
+			system("SetEnv -u -d opl3auddev");
+			system("SetEnv -u -d opl3delay");
+			system("SetEnv -u -d hqresampler");
+			system("SetEnv -u -d mono");
+			system("SetEnv -u -d surround");
+			system("SetEnv -u -d bitcrush");
+			system("SetEnv -u -d crushamount");
+			system("SetEnv -u -d dither");
+			printf("Driver configuration has been reset.\n");
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
