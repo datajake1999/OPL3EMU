@@ -80,6 +80,26 @@ static double AWGN_generator()
 
 }// end AWGN_generator()
 
+void SetCrushAmount()
+{
+	char *crushamount = getenv("CRUSHAMOUNT");
+	if (crushamount)
+	{
+		if (strstr(crushamount, getenv("CRUSHAMOUNT")))
+		{
+			bits = atoi(crushamount);
+		}
+	}
+	if (bits > 16)
+	{
+		bits = 16;
+	}
+	else if (bits < 1)
+	{
+		bits = 1;
+	}
+}
+
 void RectangleDither(signed short *buffer, unsigned int len) {
 	unsigned int i;
 	signed short noise;
@@ -119,6 +139,17 @@ void GaussianDither(signed short *buffer, unsigned int len) {
 	}
 }
 
+void BitCrush(signed short *buffer, unsigned int len) {
+	unsigned int i;
+	unsigned int crush = 16 - bits;
+	for(i = 0; i < len; i++)
+	{
+		buffer[0] = (buffer[0] >> crush) << crush;
+		buffer[1] = (buffer[1] >> crush) << crush;
+		buffer += 2;
+	}
+}
+
 void SwopStereo(signed short *buffer, unsigned int len) {
 	unsigned int i;
 	signed short swop[2];
@@ -150,36 +181,5 @@ void SurroundSound(signed short *buffer, unsigned int len) {
 	{
 		buffer[1] = (buffer[1]) * -1;
 		buffer += 2;
-	}
-}
-
-void BitCrush(signed short *buffer, unsigned int len) {
-	unsigned int i;
-	unsigned int crush = 16 - bits;
-	for(i = 0; i < len; i++)
-	{
-		buffer[0] = (buffer[0] >> crush) << crush;
-		buffer[1] = (buffer[1] >> crush) << crush;
-		buffer += 2;
-	}
-}
-
-void SetCrushAmount()
-{
-	char *crushamount = getenv("CRUSHAMOUNT");
-	if (crushamount)
-	{
-		if (strstr(crushamount, getenv("CRUSHAMOUNT")))
-		{
-			bits = atoi(crushamount);
-		}
-	}
-	if (bits > 16)
-	{
-		bits = 16;
-	}
-	else if (bits < 1)
-	{
-		bits = 1;
 	}
 }

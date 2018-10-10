@@ -21,13 +21,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef BITCRUSH_H
 #define BITCRUSH_H
 
+void SetCrushAmount();
 void RectangleDither(signed short *buffer, unsigned int length);
 void TriangleDither(signed short *buffer, unsigned int length);
 void GaussianDither(signed short *buffer, unsigned int length);
+void BitCrush(signed short *buffer, unsigned int length);
 void SwopStereo(signed short *buffer, unsigned int length);
 void MonoMixdown(signed short *buffer, unsigned int length);
 void SurroundSound(signed short *buffer, unsigned int length);
-void BitCrush(signed short *buffer, unsigned int length);
-void SetCrushAmount();
 
 #endif //BITCRUSH_H
