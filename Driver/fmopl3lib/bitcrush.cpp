@@ -150,15 +150,15 @@ void BitCrush(signed short *buffer, unsigned int len) {
 	}
 }
 
-void SwopStereo(signed short *buffer, unsigned int len) {
+void SwapStereo(signed short *buffer, unsigned int len) {
 	unsigned int i;
-	signed short swop[2];
+	signed short swap[2];
 	for(i = 0; i < len; i++)
 	{
-		swop[0] = buffer[1];
-		swop[1] = buffer[0];
-		buffer[0] = swop[0];
-		buffer[1] = swop[1];
+		swap[0] = buffer[1];
+		swap[1] = buffer[0];
+		buffer[0] = swap[0];
+		buffer[1] = swap[1];
 		buffer += 2;
 	}
 }
