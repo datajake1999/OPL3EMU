@@ -19,6 +19,7 @@
 char *hqresampler = getenv("HQRESAMPLER");
 char *bitcrush = getenv("BITCRUSH");
 char *dither = getenv("DITHER");
+char *swopstereo = getenv("SWOPSTEREO");
 char *mono = getenv("MONO");
 char *surround = getenv("SURROUND");
 char *wavwrite = getenv("WAVWRITE");
@@ -133,6 +134,13 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 				}
 			}
 			BitCrush(buffer, len);
+		}
+	}
+	if (swopstereo)
+	{
+		if (strstr(swopstereo, "-on"))
+		{
+			SwopStereo(buffer, len);
 		}
 	}
 	if (mono)

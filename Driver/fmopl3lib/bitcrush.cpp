@@ -119,6 +119,19 @@ void GaussianDither(signed short *buffer, unsigned int len) {
 	}
 }
 
+void SwopStereo(signed short *buffer, unsigned int len) {
+	unsigned int i;
+	signed short swop[2];
+	for(i = 0; i < len; i++)
+	{
+		swop[0] = buffer[1];
+		swop[1] = buffer[0];
+		buffer[0] = swop[0];
+		buffer[1] = swop[1];
+		buffer += 2;
+	}
+}
+
 void MonoMixdown(signed short *buffer, unsigned int len) {
 	unsigned int i;
 	signed short mixdown;
