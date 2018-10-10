@@ -48,6 +48,7 @@ int main()
 	int auddev;
 	int delay;
 	int hqresampler;
+	int swapstereo;
 	int mono;
 	int surround;
 	int bitcrush;
@@ -527,11 +528,12 @@ int main()
 		printf("5 = Change audio device.\n");
 		printf("6 = Set delay on close.\n");
 		printf("7 = Enable/disable HQ resampler.\n");
-		printf("8 = Enable/disable mono mixdown.\n");
-		printf("9 = Enable/disable surround sound.\n");
-		printf("10 = Enable/disable bit crusher.\n");
-		printf("11 = Set bit crushing amount.\n");
-		printf("12 = Set dither mode.\n");
+		printf("8 = Enable/disable stereo swap.\n");
+		printf("9 = Enable/disable mono mixdown.\n");
+		printf("10 = Enable/disable surround sound.\n");
+		printf("11 = Enable/disable bit crusher.\n");
+		printf("12 = Set bit crushing amount.\n");
+		printf("13 = Set dither mode.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -656,6 +658,21 @@ int main()
 		}
 		if (audcfg == 8)
 		{
+			printf("Enable/disable stereo swap. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			scanf("%d", &swapstereo);
+			if (swapstereo == 0)
+			{
+				system("SetEnv -u -d swapstereo");
+				printf("Stereo swap has been disabled.\n");
+			}
+			if (swapstereo == 1)
+			{
+				system("SetEnv -u swapstereo -on");
+				printf("Stereo swap has been enabled.\n");
+			}
+		}
+		if (audcfg == 9)
+		{
 			printf("Enable/disable mono mixdown. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &mono);
 			if (mono == 0)
@@ -669,7 +686,7 @@ int main()
 				printf("Mono mixdown has been enabled.\n");
 			}
 		}
-		if (audcfg == 9)
+		if (audcfg == 10)
 		{
 			printf("Enable/disable surround sound. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &surround);
@@ -684,7 +701,7 @@ int main()
 				printf("Surround sound has been enabled.\n");
 			}
 		}
-		if (audcfg == 10)
+		if (audcfg == 11)
 		{
 			printf("Enable/disable bit crusher. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &bitcrush);
@@ -699,7 +716,7 @@ int main()
 				printf("Bit crusher has been enabled.\n");
 			}
 		}
-		if (audcfg == 11)
+		if (audcfg == 12)
 		{
 			printf("Enter number of bits to crush down to.\n");
 			scanf("%d", &crushamount);
@@ -714,7 +731,7 @@ int main()
 			}
 			printf("The bit crusher will crush the output to %d bits.\n", crushamount);
 		}
-		if (audcfg == 12)
+		if (audcfg == 13)
 		{
 			printf("Set dither mode. Type the number that is assosiated to your desired  dithering mode and press enter to apply.\n");
 			printf("0 = None.\n");
@@ -767,6 +784,7 @@ int main()
 		char *auddev = getenv("OPL3AUDDEV");
 		char *delay = getenv("OPL3DELAY");
 		char *hqresampler = getenv("HQRESAMPLER");
+		char *swapstereo = getenv("SWAPSTEREO");
 		char *mono = getenv("MONO");
 		char *surround = getenv("SURROUND");
 		char *bitcrush = getenv("BITCRUSH");
@@ -1020,6 +1038,17 @@ int main()
 		{
 			printf("The HQ resampler is disabled.\n");
 		}
+		if (swapstereo)
+		{
+			if (strstr(swapstereo, "-on"))
+			{
+				printf("Stereo swap is enabled.\n");
+			}
+		}
+		else
+		{
+			printf("Stereo swap is disabled.\n");
+		}
 		if (mono)
 		{
 			if (strstr(mono, "-on"))
@@ -1113,6 +1142,7 @@ int main()
 			system("SetEnv -u -d opl3auddev");
 			system("SetEnv -u -d opl3delay");
 			system("SetEnv -u -d hqresampler");
+			system("SetEnv -u -d swapstereo");
 			system("SetEnv -u -d mono");
 			system("SetEnv -u -d surround");
 			system("SetEnv -u -d bitcrush");
