@@ -175,7 +175,16 @@ void MonoMixdown(signed short *buffer, unsigned int len) {
 	}
 }
 
-void SurroundSound(signed short *buffer, unsigned int len) {
+void SurroundSoundLeft(signed short *buffer, unsigned int len) {
+	unsigned int i;
+	for(i = 0; i < len; i++)
+	{
+		buffer[0] = (buffer[0]) * -1;
+		buffer += 2;
+	}
+}
+
+void SurroundSoundRight(signed short *buffer, unsigned int len) {
 	unsigned int i;
 	for(i = 0; i < len; i++)
 	{

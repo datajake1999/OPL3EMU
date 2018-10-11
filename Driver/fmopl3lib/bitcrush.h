@@ -28,6 +28,7 @@ void GaussianDither(signed short *buffer, unsigned int length);
 void BitCrush(signed short *buffer, unsigned int length);
 void SwapStereo(signed short *buffer, unsigned int length);
 void MonoMixdown(signed short *buffer, unsigned int length);
-void SurroundSound(signed short *buffer, unsigned int length);
+void SurroundSoundLeft(signed short *buffer, unsigned int length);
+void SurroundSoundRight(signed short *buffer, unsigned int length);
 
 #endif //BITCRUSH_H

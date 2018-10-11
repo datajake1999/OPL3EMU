@@ -152,9 +152,13 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	}
 	if (surround)
 	{
-		if (strstr(surround, "-on"))
+		if (strstr(surround, "-left"))
 		{
-			SurroundSound(buffer, len);
+			SurroundSoundLeft(buffer, len);
+		}
+		if (strstr(surround, "-right"))
+		{
+			SurroundSoundRight(buffer, len);
 		}
 	}
 	if (wavwrite)
