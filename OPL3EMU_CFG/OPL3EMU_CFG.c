@@ -530,7 +530,7 @@ int main()
 		printf("7 = Enable/disable HQ resampler.\n");
 		printf("8 = Enable/disable stereo swap.\n");
 		printf("9 = Enable/disable mono mixdown.\n");
-		printf("10 = Enable/disable surround sound.\n");
+		printf("10 = Configure surround sound.\n");
 		printf("11 = Enable/disable bit crusher.\n");
 		printf("12 = Set bit crushing amount.\n");
 		printf("13 = Set dither mode.\n");
@@ -688,7 +688,10 @@ int main()
 		}
 		if (audcfg == 10)
 		{
-			printf("Enable/disable surround sound. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			printf("Configure surround sound. Type the number that is assosiated to your desired option and press enter to apply.\n");
+			printf("0 = Disable.\n");
+			printf("1 = Invert left channel.\n");
+			printf("2 = Invert right channel.\n");
 			scanf("%d", &surround);
 			if (surround == 0)
 			{
@@ -697,8 +700,13 @@ int main()
 			}
 			if (surround == 1)
 			{
-				system("SetEnv -u surround -on");
-				printf("Surround sound has been enabled.\n");
+				system("SetEnv -u surround -left");
+				printf("The left channel will be inverted.\n");
+			}
+			if (surround == 2)
+			{
+				system("SetEnv -u surround -right");
+				printf("The right channel will be inverted.\n");
 			}
 		}
 		if (audcfg == 11)
@@ -1062,9 +1070,13 @@ int main()
 		}
 		if (surround)
 		{
-			if (strstr(surround, "-on"))
+			if (strstr(surround, "-left"))
 			{
-				printf("Surround sound  is enabled.\n");
+				printf("The left channel is inverted.\n");
+			}
+			if (strstr(surround, "-right"))
+			{
+				printf("The right channel is inverted.\n");
 			}
 		}
 		else
