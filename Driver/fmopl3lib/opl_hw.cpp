@@ -26,6 +26,7 @@ void OPL_Hardware_Detection(void)
 	
 	HWusTime = 0;
 
+	SetFMPort();
 	Status1 = OpenInpOut32();
 	
 	if (Status1)
