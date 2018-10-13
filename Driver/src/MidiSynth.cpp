@@ -245,7 +245,7 @@ namespace OPL3Emu {
 			// even during 2^27 samples playback, so we have to ensure the difference is big enough...
 			int delta = mmTime.u.sample - prevPlayPos;
 			if (delta < -(1 << 26)) {
-				std::cout << "OPL3: GetPos() wrap: " << delta << "\n";
+				printf("OPL3: GetPos() wrap: %d\n", delta);
 				++getPosWraps;
 			}
 			prevPlayPos = mmTime.u.sample;

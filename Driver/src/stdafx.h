@@ -15,6 +15,7 @@
 #include <mmddk.h>
 #include <mmreg.h>
 #include <process.h>
-#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 #include "..\interface.h"
 #include "MidiSynth.h"
