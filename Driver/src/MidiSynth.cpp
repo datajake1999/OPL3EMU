@@ -113,7 +113,6 @@ namespace OPL3Emu {
 	public:
 		int Init(Bit16s *buffer, unsigned int bufferSize, unsigned int chunkSize, bool useRingBuffer, unsigned int sampleRate) {
 			char *auddev = getenv("OPL3AUDDEV");
-			int wResult;
 			DWORD callbackType = CALLBACK_NULL;
 			DWORD_PTR callback = NULL;
 			hEvent = NULL;
@@ -126,16 +125,13 @@ namespace OPL3Emu {
 			PCMWAVEFORMAT wFormat = {WAVE_FORMAT_PCM, 2, sampleRate, sampleRate * 4, 4, 16};
 
 			// Open waveout device
+			int wResult = waveOutOpen(&hWaveOut, WAVE_MAPPER, (LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
 			if (auddev)
 			{
 				if (strstr(auddev, getenv("OPL3AUDDEV")))
 				{
 					wResult = waveOutOpen(&hWaveOut, atoi(auddev), (LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
 				}
-			}
-			else
-			{
-				wResult = waveOutOpen(&hWaveOut, WAVE_MAPPER, (LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
 			}
 			if (wResult != MMSYSERR_NOERROR) {
 				MessageBoxW(NULL, L"Failed to open waveform output device", L"OPL3", MB_OK | MB_ICONEXCLAMATION);
@@ -351,6 +347,7 @@ namespace OPL3Emu {
 		char *csize = getenv("OPL3CHUNKSIZE");
 		char *latency = getenv("OPL3LATENCY");
 		char *ringbuf = getenv("OPL3RINGBUF");
+		sampleRate = 49716;
 		if (rate)
 		{
 			if (strstr(rate, getenv("OPL3RATE")))
@@ -358,10 +355,7 @@ namespace OPL3Emu {
 				sampleRate = atoi(rate);
 			}
 		}
-		else
-		{
-			sampleRate = 49716;
-		}
+		bufferSize = MillisToFrames(100);
 		if (bsize)
 		{
 			if (strstr(bsize, getenv("OPL3BUFSIZE")))
@@ -369,10 +363,7 @@ namespace OPL3Emu {
 				bufferSize = MillisToFrames(atoi(bsize));
 			}
 		}
-		else
-		{
-			bufferSize = MillisToFrames(100);
-		}
+		chunkSize = MillisToFrames(10);
 		if (csize)
 		{
 			if (strstr(csize, getenv("OPL3CHUNKSIZE")))
@@ -380,10 +371,7 @@ namespace OPL3Emu {
 				chunkSize = MillisToFrames(atoi(csize));
 			}
 		}
-		else
-		{
-			chunkSize = MillisToFrames(10);
-		}
+		midiLatency = MillisToFrames(0);
 		if (latency)
 		{
 			if (strstr(latency, getenv("OPL3LATENCY")))
@@ -391,20 +379,13 @@ namespace OPL3Emu {
 				midiLatency = MillisToFrames(atoi(latency));
 			}
 		}
-		else
-		{
-			midiLatency = MillisToFrames(0);
-		}
+		useRingBuffer = false;
 		if (ringbuf)
 		{
 			if (strstr(ringbuf, "-on"))
 			{
 				useRingBuffer = true;
 			}
-		}
-		else
-		{
-			useRingBuffer = false;
 		}
 		if (!useRingBuffer) {
 			// Number of chunks should be ceil(bufferSize / chunkSize)
