@@ -112,7 +112,6 @@ namespace OPL3Emu {
 
 	public:
 		int Init(Bit16s *buffer, unsigned int bufferSize, unsigned int chunkSize, bool useRingBuffer, unsigned int sampleRate) {
-			char *auddev = getenv("OPL3AUDDEV");
 			DWORD callbackType = CALLBACK_NULL;
 			DWORD_PTR callback = NULL;
 			hEvent = NULL;
@@ -126,6 +125,7 @@ namespace OPL3Emu {
 
 			// Open waveout device
 			int wResult = waveOutOpen(&hWaveOut, WAVE_MAPPER, (LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
+			char *auddev = getenv("OPL3AUDDEV");
 			if (auddev)
 			{
 				if (strstr(auddev, getenv("OPL3AUDDEV")))
