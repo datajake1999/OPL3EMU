@@ -342,12 +342,8 @@ namespace OPL3Emu {
 	}
 
 	void MidiSynth::LoadSettings() {
-		char *rate = getenv("OPL3RATE");
-		char *bsize = getenv("OPL3BUFSIZE");
-		char *csize = getenv("OPL3CHUNKSIZE");
-		char *latency = getenv("OPL3LATENCY");
-		char *ringbuf = getenv("OPL3RINGBUF");
 		sampleRate = 49716;
+		char *rate = getenv("OPL3RATE");
 		if (rate)
 		{
 			if (strstr(rate, getenv("OPL3RATE")))
@@ -356,6 +352,7 @@ namespace OPL3Emu {
 			}
 		}
 		bufferSize = MillisToFrames(100);
+		char *bsize = getenv("OPL3BUFSIZE");
 		if (bsize)
 		{
 			if (strstr(bsize, getenv("OPL3BUFSIZE")))
@@ -364,6 +361,7 @@ namespace OPL3Emu {
 			}
 		}
 		chunkSize = MillisToFrames(10);
+		char *csize = getenv("OPL3CHUNKSIZE");
 		if (csize)
 		{
 			if (strstr(csize, getenv("OPL3CHUNKSIZE")))
@@ -372,6 +370,7 @@ namespace OPL3Emu {
 			}
 		}
 		midiLatency = MillisToFrames(0);
+		char *latency = getenv("OPL3LATENCY");
 		if (latency)
 		{
 			if (strstr(latency, getenv("OPL3LATENCY")))
@@ -380,6 +379,7 @@ namespace OPL3Emu {
 			}
 		}
 		useRingBuffer = false;
+		char *ringbuf = getenv("OPL3RINGBUF");
 		if (ringbuf)
 		{
 			if (strstr(ringbuf, "-on"))
