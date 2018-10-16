@@ -856,6 +856,10 @@ int main()
 						printf("The LPT driver  is in OPL2LPT mode.\n");
 					}
 				}
+				else
+				{
+					printf("The LPT driver  is in OPL3LPT mode.\n");
+				}
 			}
 		}
 		else
@@ -1113,6 +1117,10 @@ int main()
 					{
 						printf("Gaussian dithering is applied.\n");
 					}
+				}
+				else
+				{
+					printf("No dithering is applied.\n");
 				}
 			}
 		}
