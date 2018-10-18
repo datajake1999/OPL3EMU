@@ -80,7 +80,20 @@ static double AWGN_generator()
 
 }// end AWGN_generator()
 
-void SetCrushAmount()
+void SetCrushAmount(unsigned int amount)
+{
+	bits = amount;
+	if (bits > 16)
+	{
+		bits = 16;
+	}
+	else if (bits < 1)
+	{
+		bits = 1;
+	}
+}
+
+void SetCrushAmountEnv()
 {
 	char *crushamount = getenv("CRUSHAMOUNT");
 	if (crushamount)

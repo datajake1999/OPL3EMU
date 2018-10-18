@@ -44,7 +44,7 @@ int opl3class::fm_init(unsigned int rate) {
 	{
 		if (strstr(bitcrush, "-on"))
 		{
-			SetCrushAmount();
+			SetCrushAmountEnv();
 		}
 	}
 	hardware_Init();
