@@ -32,14 +32,13 @@ static waveheader head =
 	0,	//rSize (dummy value)
 	0x45564157,	//wID = "WAVE"
 	0x20746D66,	//fID = "fmt "
-	18,	//fSize
+	16,	//fSize
 	1,	//fFormat
 	2,	//fChannels
 	0,	//fHertz (dummy value)
 	0,	//fBytesPerSec (dummy value)
 	4,	//fBlockAlign
 	16,	//fBits
-	0,	//fSpecific
 	0x61746164,	//dID = "data"
 	0,	//dSize (dummy value)
 };

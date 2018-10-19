@@ -28,7 +28,7 @@ struct waveheader{
 	UINT32 fID, fSize;
 	UINT16 fFormat, fChannels;
 	UINT32 fHertz, fBytesPerSec;
-	UINT16 fBlockAlign, fBits, fSpecific;
+	UINT16 fBlockAlign, fBits;
 	UINT32 dID, dSize;
 };
 #pragma pack()
