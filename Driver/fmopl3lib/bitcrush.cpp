@@ -100,16 +100,8 @@ void SetCrushAmountEnv()
 	{
 		if (strstr(crushamount, getenv("CRUSHAMOUNT")))
 		{
-			bits = atoi(crushamount);
+			SetCrushAmount(atoi(crushamount));
 		}
-	}
-	if (bits > 16)
-	{
-		bits = 16;
-	}
-	else if (bits < 1)
-	{
-		bits = 1;
 	}
 }
 
