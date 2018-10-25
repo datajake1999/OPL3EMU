@@ -175,10 +175,7 @@ void SetLPTPort(void)
 	char *lptport = getenv("LPTPORT");
 	if (lptport)
 	{
-		if (strstr(lptport, getenv("LPTPORT")))
-		{
-			lpt_base = strtoul(lptport, 0, 16);
-		}
+		lpt_base = strtoul(lptport, 0, 16);
 	}
 };
 

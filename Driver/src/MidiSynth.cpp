@@ -128,10 +128,7 @@ namespace OPL3Emu {
 			char *auddev = getenv("OPL3AUDDEV");
 			if (auddev)
 			{
-				if (strstr(auddev, getenv("OPL3AUDDEV")))
-				{
-					wResult = waveOutOpen(&hWaveOut, atoi(auddev), (LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
-				}
+				wResult = waveOutOpen(&hWaveOut, atoi(auddev), (LPWAVEFORMATEX)&wFormat, callback, (DWORD_PTR)&midiSynth, callbackType);
 			}
 			if (wResult != MMSYSERR_NOERROR) {
 				MessageBoxW(NULL, L"Failed to open waveform output device", L"OPL3", MB_OK | MB_ICONEXCLAMATION);
@@ -346,37 +343,25 @@ namespace OPL3Emu {
 		char *rate = getenv("OPL3RATE");
 		if (rate)
 		{
-			if (strstr(rate, getenv("OPL3RATE")))
-			{
-				sampleRate = atoi(rate);
-			}
+			sampleRate = atoi(rate);
 		}
 		bufferSize = MillisToFrames(100);
 		char *bsize = getenv("OPL3BUFSIZE");
 		if (bsize)
 		{
-			if (strstr(bsize, getenv("OPL3BUFSIZE")))
-			{
-				bufferSize = MillisToFrames(atoi(bsize));
-			}
+			bufferSize = MillisToFrames(atoi(bsize));
 		}
 		chunkSize = MillisToFrames(10);
 		char *csize = getenv("OPL3CHUNKSIZE");
 		if (csize)
 		{
-			if (strstr(csize, getenv("OPL3CHUNKSIZE")))
-			{
-				chunkSize = MillisToFrames(atoi(csize));
-			}
+			chunkSize = MillisToFrames(atoi(csize));
 		}
 		midiLatency = MillisToFrames(0);
 		char *latency = getenv("OPL3LATENCY");
 		if (latency)
 		{
-			if (strstr(latency, getenv("OPL3LATENCY")))
-			{
-				midiLatency = MillisToFrames(atoi(latency));
-			}
+			midiLatency = MillisToFrames(atoi(latency));
 		}
 		useRingBuffer = false;
 		char *ringbuf = getenv("OPL3RINGBUF");
@@ -430,10 +415,7 @@ namespace OPL3Emu {
 		char *delay = getenv("OPL3DELAY");
 		if (delay)
 		{
-			if (strstr(delay, getenv("OPL3DELAY")))
-			{
-				Sleep(atoi(delay));
-			}
+			Sleep(atoi(delay));
 		}
 		UINT wResult = waveOut.Pause();
 		if (wResult) return wResult;
@@ -467,10 +449,7 @@ namespace OPL3Emu {
 		char *delay = getenv("OPL3DELAY");
 		if (delay)
 		{
-			if (strstr(delay, getenv("OPL3DELAY")))
-			{
-				Sleep(atoi(delay));
-			}
+			Sleep(atoi(delay));
 		}
 		waveOut.Pause();
 		waveOut.Close();

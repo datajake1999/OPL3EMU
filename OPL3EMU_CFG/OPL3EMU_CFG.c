@@ -825,10 +825,7 @@ int main()
 				printf("Hardware OPL passthrough is enabled.\n");
 				if (hwport)
 				{
-					if (strstr(hwport, getenv("OPL3PORT")))
-					{
-						printf("The current FM port is %s.\n", hwport);
-					}
+					printf("The current FM port is %s.\n", hwport);
 				}
 				else
 				{
@@ -840,10 +837,7 @@ int main()
 				printf("OPL3LPT mode is enabled.\n");
 				if (lptport)
 				{
-					if (strstr(lptport, getenv("LPTPORT")))
-					{
-						printf("The current LPT port is %s.\n", lptport);
-					}
+					printf("The current LPT port is %s.\n", lptport);
 				}
 				else
 				{
@@ -968,10 +962,7 @@ int main()
 		printf("Driver audio configuration.\n");
 		if (rate)
 		{
-			if (strstr(rate, getenv("OPL3RATE")))
-			{
-				printf("The current sample rate is %s.\n", rate);
-			}
+			printf("The current sample rate is %s.\n", rate);
 		}
 		else
 		{
@@ -979,10 +970,7 @@ int main()
 		}
 		if (bsize)
 		{
-			if (strstr(bsize, getenv("OPL3BUFSIZE")))
-			{
-				printf("The current buffer size is %s.\n", bsize);
-			}
+			printf("The current buffer size is %s.\n", bsize);
 		}
 		else
 		{
@@ -990,10 +978,7 @@ int main()
 		}
 		if (csize)
 		{
-			if (strstr(csize, getenv("OPL3CHUNKSIZE")))
-			{
-				printf("The current chunk size is %s.\n", csize);
-			}
+			printf("The current chunk size is %s.\n", csize);
 		}
 		else
 		{
@@ -1001,10 +986,7 @@ int main()
 		}
 		if (latency)
 		{
-			if (strstr(latency, getenv("OPL3LATENCY")))
-			{
-				printf("The current MIDI latency is %s.\n", latency);
-			}
+			printf("The current MIDI latency is %s.\n", latency);
 		}
 		else
 		{
@@ -1023,10 +1005,7 @@ int main()
 		}
 		if (auddev)
 		{
-			if (strstr(auddev, getenv("OPL3AUDDEV")))
-			{
-				printf("The driver sends output to the audio device with id%s.\n", auddev);
-			}
+			printf("The driver sends output to the audio device with id%s.\n", auddev);
 		}
 		else
 		{
@@ -1034,10 +1013,7 @@ int main()
 		}
 		if (delay)
 		{
-			if (strstr(delay, getenv("OPL3DELAY")))
-			{
-				printf("The driver will close after %s ms.\n", delay);
-			}
+			printf("The driver will close after %s ms.\n", delay);
 		}
 		if (hqresampler)
 		{
@@ -1094,10 +1070,7 @@ int main()
 				printf("Bit crusher is enabled.\n");
 				if (crushamount)
 				{
-					if (strstr(crushamount, getenv("CRUSHAMOUNT")))
-					{
-						printf("The bit crusher crushes the output to %s bits.\n", crushamount);
-					}
+					printf("The bit crusher crushes the output to %s bits.\n", crushamount);
 				}
 				else
 				{

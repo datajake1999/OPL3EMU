@@ -98,10 +98,7 @@ void SetCrushAmountEnv()
 	char *crushamount = getenv("CRUSHAMOUNT");
 	if (crushamount)
 	{
-		if (strstr(crushamount, getenv("CRUSHAMOUNT")))
-		{
-			SetCrushAmount(atoi(crushamount));
-		}
+		SetCrushAmount(atoi(crushamount));
 	}
 }
 

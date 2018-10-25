@@ -361,10 +361,7 @@ void SetFMPort(void)
 	char *hwport = getenv("OPL3PORT");
 	if (hwport)
 	{
-		if (strstr(hwport, getenv("OPL3PORT")))
-		{
-			FMPort = strtoul(hwport, 0, 16);
-		}
+		FMPort = strtoul(hwport, 0, 16);
 	}
 #endif	// DISABLE_HW_SUPPORT
 };
