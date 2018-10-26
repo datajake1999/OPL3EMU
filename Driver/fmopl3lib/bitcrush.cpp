@@ -130,13 +130,13 @@ void TriangleDither(signed short *buffer, unsigned int len) {
 
 void GaussianDither(signed short *buffer, unsigned int len) {
 	unsigned int i;
-	unsigned int crush = 16 - bits;
+	unsigned int nmult = (1 << (16 - bits)) / 4;
 	signed short noise;
 	for(i = 0; i < len; i++)
 	{
-		noise = AWGN_generator() * (1 << crush) / 4;
+		noise = AWGN_generator() * nmult;
 		buffer[0] = (buffer[0]) + noise;
-		noise = AWGN_generator() * (1 << crush) / 4;
+		noise = AWGN_generator() * nmult;
 		buffer[1] = (buffer[1]) + noise;
 		buffer += 2;
 	}
