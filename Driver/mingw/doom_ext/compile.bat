@@ -1,6 +1,5 @@
 g++ -c ..\..\c_interface\c_interface.cpp
-g++ -c ..\..\fmopl3lib_ext\opl3.cpp
-g++ -c ..\..\fmopl3lib_ext\opl3class.cpp
+g++ -c ..\..\fmopl3lib_ext\*.cpp
 g++ -c ..\..\src\MidiSynth.cpp
 g++ -c ..\..\src\winmm_drv_doom_ext.cpp
 g++ -c ..\..\synthlib_ext\i_oplmusic.cpp
