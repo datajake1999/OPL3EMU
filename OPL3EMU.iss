@@ -39,35 +39,35 @@ Name: sp; MessagesFile: "compiler:Languages\Spanish.isl"
 Name: uk; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Files]
-Source: "Driver\Apogee\Release\opl3apogee.dll"; DestDir: "{app}\Apogee"; Components: "Apogee"
+Source: "Driver\X86\Apogee\opl3apogee.dll"; DestDir: "{app}\Apogee"; Components: "Apogee"
 Source: "Driver\opl3apogee.inf"; DestDir: "{app}\Apogee"; Components: "Apogee"
-Source: "Installer\Apogee\Release\drvsetup.exe"; DestDir: "{app}\Apogee"; Components: "Apogee"
-Source: "Driver\IA64\Apogee\Release\opl3apogee.dll"; DestDir: "{app}\IA64\Apogee"; Components: "Apogee"; Check: IsIA64
-Source: "Installer\IA64\Apogee\Release\drvsetup.exe"; DestDir: "{app}\IA64\Apogee"; Components: "Apogee"; Check: IsIA64
-Source: "Driver\X64\Apogee\Release\opl3apogee.dll"; DestDir: "{app}\X64\Apogee"; Components: "Apogee"; Check: IsX64
-Source: "Installer\X64\Apogee\Release\drvsetup.exe"; DestDir: "{app}\X64\Apogee"; Components: "Apogee"; Check: IsX64
-Source: "Driver\Doom\Release\opl3doom.dll"; DestDir: "{app}\Doom"; Components: "Doom"
+Source: "Installer\X86\Apogee\drvsetup.exe"; DestDir: "{app}\Apogee"; Components: "Apogee"
+Source: "Driver\IA64\Apogee\opl3apogee.dll"; DestDir: "{app}\IA64\Apogee"; Components: "Apogee"; Check: IsIA64
+Source: "Installer\IA64\Apogee\drvsetup.exe"; DestDir: "{app}\IA64\Apogee"; Components: "Apogee"; Check: IsIA64
+Source: "Driver\X64\Apogee\opl3apogee.dll"; DestDir: "{app}\X64\Apogee"; Components: "Apogee"; Check: IsX64
+Source: "Installer\X64\Apogee\drvsetup.exe"; DestDir: "{app}\X64\Apogee"; Components: "Apogee"; Check: IsX64
+Source: "Driver\X86\Doom\opl3doom.dll"; DestDir: "{app}\Doom"; Components: "Doom"
 Source: "Driver\opl3doom.inf"; DestDir: "{app}\Doom"; Components: "Doom"
-Source: "Installer\Doom\Release\drvsetup.exe"; DestDir: "{app}\Doom"; Components: "Doom"
-Source: "Driver\IA64\Doom\Release\opl3doom.dll"; DestDir: "{app}\IA64\Doom"; Components: "Doom"; Check: IsIA64
-Source: "Installer\IA64\Doom\Release\drvsetup.exe"; DestDir: "{app}\IA64\Doom"; Components: "Doom"; Check: IsIA64
-Source: "Driver\X64\Doom\Release\opl3doom.dll"; DestDir: "{app}\X64\Doom"; Components: "Doom"; Check: IsX64
-Source: "Installer\X64\Doom\Release\drvsetup.exe"; DestDir: "{app}\X64\Doom"; Components: "Doom"; Check: IsX64
-Source: "Driver\Doom_Ext\Release\opl3doom_ext.dll"; DestDir: "{app}\Doom_Ext"; Components: "Doom_Ext"
+Source: "Installer\X86\Doom\drvsetup.exe"; DestDir: "{app}\Doom"; Components: "Doom"
+Source: "Driver\IA64\Doom\opl3doom.dll"; DestDir: "{app}\IA64\Doom"; Components: "Doom"; Check: IsIA64
+Source: "Installer\IA64\Doom\drvsetup.exe"; DestDir: "{app}\IA64\Doom"; Components: "Doom"; Check: IsIA64
+Source: "Driver\X64\Doom\opl3doom.dll"; DestDir: "{app}\X64\Doom"; Components: "Doom"; Check: IsX64
+Source: "Installer\X64\Doom\drvsetup.exe"; DestDir: "{app}\X64\Doom"; Components: "Doom"; Check: IsX64
+Source: "Driver\X86\Doom_Ext\opl3doom_ext.dll"; DestDir: "{app}\Doom_Ext"; Components: "Doom_Ext"
 Source: "Driver\opl3doom_ext.inf"; DestDir: "{app}\Doom_Ext"; Components: "Doom_Ext"
-Source: "Installer\Doom_Ext\Release\drvsetup.exe"; DestDir: "{app}\Doom_Ext"; Components: "Doom_Ext"
-Source: "Driver\IA64\Doom_Ext\Release\opl3doom_ext.dll"; DestDir: "{app}\IA64\Doom_Ext"; Components: "Doom_Ext"; Check: IsIA64
-Source: "Installer\IA64\Doom_Ext\Release\drvsetup.exe"; DestDir: "{app}\IA64\Doom_Ext"; Components: "Doom_Ext"; Check: IsIA64
-Source: "Driver\X64\Doom_Ext\Release\opl3doom_ext.dll"; DestDir: "{app}\X64\Doom_Ext"; Components: "Doom_Ext"; Check: IsX64
-Source: "Installer\X64\Doom_Ext\Release\drvsetup.exe"; DestDir: "{app}\X64\Doom_Ext"; Components: "Doom_Ext"; Check: IsX64
+Source: "Installer\X86\Doom_Ext\drvsetup.exe"; DestDir: "{app}\Doom_Ext"; Components: "Doom_Ext"
+Source: "Driver\IA64\Doom_Ext\opl3doom_ext.dll"; DestDir: "{app}\IA64\Doom_Ext"; Components: "Doom_Ext"; Check: IsIA64
+Source: "Installer\IA64\Doom_Ext\drvsetup.exe"; DestDir: "{app}\IA64\Doom_Ext"; Components: "Doom_Ext"; Check: IsIA64
+Source: "Driver\X64\Doom_Ext\opl3doom_ext.dll"; DestDir: "{app}\X64\Doom_Ext"; Components: "Doom_Ext"; Check: IsX64
+Source: "Installer\X64\Doom_Ext\drvsetup.exe"; DestDir: "{app}\X64\Doom_Ext"; Components: "Doom_Ext"; Check: IsX64
 Source: "GENMIDI\dmx_dmx.op2"; DestDir: "C:\OPLSynth"; DestName: "GENMIDI.op2"; Components: "Doom Doom_Ext"; Flags: onlyifdoesntexist uninsneveruninstall
-Source: "Driver\Windows\Release\opl3windows.dll"; DestDir: "{app}\Windows"; Components: "Windows"
+Source: "Driver\X86\Windows\opl3windows.dll"; DestDir: "{app}\Windows"; Components: "Windows"
 Source: "Driver\opl3windows.inf"; DestDir: "{app}\Windows"; Components: "Windows"
-Source: "Installer\Windows\Release\drvsetup.exe"; DestDir: "{app}\Windows"; Components: "Windows"
-Source: "Driver\IA64\Windows\Release\opl3windows.dll"; DestDir: "{app}\IA64\Windows"; Components: "Windows"; Check: IsIA64
-Source: "Installer\IA64\Windows\Release\drvsetup.exe"; DestDir: "{app}\IA64\Windows"; Components: "Windows"; Check: IsIA64
-Source: "Driver\X64\Windows\Release\opl3windows.dll"; DestDir: "{app}\X64\Windows"; Components: "Windows"; Check: IsX64
-Source: "Installer\X64\Windows\Release\drvsetup.exe"; DestDir: "{app}\X64\Windows"; Components: "Windows"; Check: IsX64
+Source: "Installer\X86\Windows\drvsetup.exe"; DestDir: "{app}\Windows"; Components: "Windows"
+Source: "Driver\IA64\Windows\opl3windows.dll"; DestDir: "{app}\IA64\Windows"; Components: "Windows"; Check: IsIA64
+Source: "Installer\IA64\Windows\drvsetup.exe"; DestDir: "{app}\IA64\Windows"; Components: "Windows"; Check: IsIA64
+Source: "Driver\X64\Windows\opl3windows.dll"; DestDir: "{app}\X64\Windows"; Components: "Windows"; Check: IsX64
+Source: "Installer\X64\Windows\drvsetup.exe"; DestDir: "{app}\X64\Windows"; Components: "Windows"; Check: IsX64
 Source: "Installer\install.bat"; DestDir: "{app}\Apogee"; Components: "Apogee"
 Source: "Installer\install.bat"; DestDir: "{app}\Doom"; Components: "Doom"
 Source: "Installer\install.bat"; DestDir: "{app}\Doom_Ext"; Components: "Doom_Ext"
@@ -80,18 +80,18 @@ Source: "Installer\install.bat"; DestDir: "{app}\X64\Apogee"; Components: "Apoge
 Source: "Installer\install.bat"; DestDir: "{app}\X64\Doom"; Components: "Doom"; Check: IsX64
 Source: "Installer\install.bat"; DestDir: "{app}\X64\Doom_Ext"; Components: "Doom_Ext"; Check: IsX64
 Source: "Installer\install.bat"; DestDir: "{app}\X64\Windows"; Components: "Windows"; Check: IsX64
-Source: "MidiPlyr\Release\MidiPlyr.exe"; DestDir: "{app}"; Components: "MidiPlyr"; Check: IsOtherArch
-Source: "MidiPlyr\IA64\Release\MidiPlyr.exe"; DestDir: "{app}"; Components: "MidiPlyr"; Check: IsIA64
-Source: "MidiPlyr\X64\Release\MidiPlyr.exe"; DestDir: "{app}"; Components: "MidiPlyr"; Check: IsX64
-Source: "MidiSel\Release\MidiSel.exe"; DestDir: "{app}"; Components: "MidiSel"; Check: IsOtherArch
-Source: "MidiSel\IA64\Release\MidiSel.exe"; DestDir: "{app}"; Components: "MidiSel"; Check: IsIA64
-Source: "MidiSel\X64\Release\MidiSel.exe"; DestDir: "{app}"; Components: "MidiSel"; Check: IsX64
-Source: "OPL3EMU_CFG\Release\OPL3EMU_CFG.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsOtherArch
-Source: "OPL3EMU_CFG\IA64\Release\OPL3EMU_CFG.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsIA64
-Source: "OPL3EMU_CFG\X64\Release\OPL3EMU_CFG.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsX64
-Source: "SetEnv\Release\SetEnv.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsOtherArch
-Source: "SetEnv\IA64\Release\SetEnv.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsIA64
-Source: "SetEnv\X64\Release\SetEnv.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsX64
+Source: "MidiPlyr\X86\MidiPlyr.exe"; DestDir: "{app}"; Components: "MidiPlyr"; Check: IsOtherArch
+Source: "MidiPlyr\IA64\MidiPlyr.exe"; DestDir: "{app}"; Components: "MidiPlyr"; Check: IsIA64
+Source: "MidiPlyr\X64\MidiPlyr.exe"; DestDir: "{app}"; Components: "MidiPlyr"; Check: IsX64
+Source: "MidiSel\X86\MidiSel.exe"; DestDir: "{app}"; Components: "MidiSel"; Check: IsOtherArch
+Source: "MidiSel\IA64\MidiSel.exe"; DestDir: "{app}"; Components: "MidiSel"; Check: IsIA64
+Source: "MidiSel\X64\MidiSel.exe"; DestDir: "{app}"; Components: "MidiSel"; Check: IsX64
+Source: "OPL3EMU_CFG\X86\OPL3EMU_CFG.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsOtherArch
+Source: "OPL3EMU_CFG\IA64\OPL3EMU_CFG.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsIA64
+Source: "OPL3EMU_CFG\X64\OPL3EMU_CFG.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsX64
+Source: "SetEnv\X86\SetEnv.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsOtherArch
+Source: "SetEnv\IA64\SetEnv.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsIA64
+Source: "SetEnv\X64\SetEnv.exe"; DestDir: "{app}"; Components: "Configuration"; Check: IsX64
 Source: "Apogee_TMB\*"; DestDir: "{app}\Apogee_TMB"; Components: "Patches_Apogee"
 Source: "GENMIDI\*"; DestDir: "{app}\GENMIDI"; Components: "Patches_Doom"
 Source: "MIDI_Samples\*"; DestDir: "{app}\MIDI_Samples"; Components: "MIDI_Samples"

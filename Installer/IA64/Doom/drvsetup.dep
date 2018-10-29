@@ -1,9 +1,0 @@
-# Microsoft Developer Studio Generated Dependency File, included by drvsetup.mak
-
-..\..\opl3doom_win32drv_setup.cpp : \
-	"..\..\stdafx.h"\
-	
-
-..\..\stdafx.cpp : \
-	"..\..\stdafx.h"\
-	
