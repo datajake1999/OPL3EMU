@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 //just a quick hack, but it works...
 #pragma pack(2)//this gave me a headache...
-struct waveheader{
+typedef struct waveheader{
 	UINT32 rID, rSize;
 	UINT32 wID;
 	UINT32 fID, fSize;
@@ -30,5 +30,5 @@ struct waveheader{
 	UINT32 fHertz, fBytesPerSec;
 	UINT16 fBlockAlign, fBits;
 	UINT32 dID, dSize;
-};
+}waveheader;
 #pragma pack()
