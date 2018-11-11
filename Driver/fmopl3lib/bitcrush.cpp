@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <math.h>
 #include "bitcrush.h"
 
-unsigned int bits = 8;
+static unsigned int bits = 8;
 
 static int Gen_Random()
 {
