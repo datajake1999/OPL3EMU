@@ -27,7 +27,7 @@ typedef struct
 	RegLSB;
 } vgmcmd_t;
 
-static inline bool fileexists(const char * filename)
+static bool fileexists(const char * filename)
 {
 	FILE *check;
 	if (check = fopen(filename, "r"))
@@ -129,7 +129,7 @@ default:
 	fputc(0x60, hFileVGM);
 }
 
-inline void VGMLog_FlushWait()
+void VGMLog_FlushWait()
 {
 	DWORD CurPBSmpl, CurVGMSmpl;
 	DWORD DelayDiff;//, CurTime;

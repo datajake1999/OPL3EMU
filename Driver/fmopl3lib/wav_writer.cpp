@@ -44,7 +44,7 @@ static waveheader head =
 };
 
 //file exists function:
-static inline bool fileexists(const char * filename)
+static bool fileexists(const char * filename)
 {
 	FILE *check;
 	if (check = fopen(filename, "r"))

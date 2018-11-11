@@ -23,7 +23,7 @@ void opl_chip_reset(void);
 void SetFMPort(void);
 void OPL_HW_Init();
 void OPL_HW_Close();
-inline UINT8 OPL_HW_GetStatus(void);
-inline void OPL_HW_WaitDelay(INT64 StartTime, float Delay);
+UINT8 OPL_HW_GetStatus(void);
+void OPL_HW_WaitDelay(INT64 StartTime, float Delay);
 
 #endif /*OPL_HW_H*/

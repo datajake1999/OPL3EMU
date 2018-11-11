@@ -17,7 +17,7 @@
 
 void VGMLog_Init(unsigned int rate);
 void VGMLog_CmdWrite(BYTE Cmd, BYTE Reg, BYTE Data);
-inline void VGMLog_FlushWait();
+void VGMLog_FlushWait();
 void VGMLog_IncrementSamples(int len);
 void VGMLog_Close();
 void VGMLog_MarkLoopStartNow();

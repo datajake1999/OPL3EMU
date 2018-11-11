@@ -234,7 +234,7 @@ void OPL_HW_WriteReg(WORD Reg, BYTE Data)
 	return;
 }
 
-inline UINT8 OPL_HW_GetStatus(void)
+UINT8 OPL_HW_GetStatus(void)
 {
 #ifndef DISABLE_HW_SUPPORT
 	UINT8 RetStatus;
@@ -246,7 +246,7 @@ inline UINT8 OPL_HW_GetStatus(void)
 }
 
 
-inline void OPL_HW_WaitDelay(INT64 StartTime, float Delay)
+void OPL_HW_WaitDelay(INT64 StartTime, float Delay)
 {
 #ifndef DISABLE_HW_SUPPORT
 	LARGE_INTEGER CurTime;
