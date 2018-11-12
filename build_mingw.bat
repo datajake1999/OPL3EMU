@@ -1,3 +1,4 @@
+@ECHO OFF
 cd Driver\mingw
 call "compile_all.bat"
 cd..\..\Installer\mingw
