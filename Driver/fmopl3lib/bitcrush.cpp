@@ -195,3 +195,35 @@ void SurroundSoundRight(signed short *buffer, unsigned int len) {
 		buffer += 2;
 	}
 }
+
+void LimitOutput(signed short limit, signed short *buffer, unsigned int len) {
+	unsigned int i;
+	if (limit > 32767)
+	{
+		limit = 32767;
+	}
+	else if (limit < 0)
+	{
+		limit = 0;
+	}
+	for(i = 0; i < len; i++)
+	{
+		if (buffer[0] > limit)
+		{
+			buffer[0] = limit;
+		}
+		else if (buffer[0] < (limit) * -1)
+		{
+			buffer[0] = (limit) * -1;
+		}
+		if (buffer[1] > limit)
+		{
+			buffer[1] = limit;
+		}
+		else if (buffer[1] < (limit) * -1)
+		{
+			buffer[1] = (limit) * -1;
+		}
+		buffer += 2;
+	}
+}
