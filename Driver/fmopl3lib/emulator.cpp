@@ -16,8 +16,8 @@
 #include <string.h>
 #include "emulator.h"
 
-char *core = getenv("OPL3CORE");
-char *silence = getenv("OPLEMUSILENCE");
+static char *core = getenv("OPL3CORE");
+static char *silence = getenv("OPLEMUSILENCE");
 
 void emulator::init(unsigned int rate) {
 	if (silence)

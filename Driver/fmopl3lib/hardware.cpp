@@ -14,7 +14,7 @@
 
 #include "hardware.h"
 
-char *hwsupport = getenv("OPLHWSUPPORT");
+static char *hwsupport = getenv("OPLHWSUPPORT");
 
 void hardware_Init() 
 {

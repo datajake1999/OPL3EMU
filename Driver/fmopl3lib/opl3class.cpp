@@ -16,15 +16,15 @@
 #include <string.h>
 #include "opl3class.h"
 
-char *hqresampler = getenv("HQRESAMPLER");
-char *bitcrush = getenv("BITCRUSH");
-char *dither = getenv("DITHER");
-char *swapstereo = getenv("SWAPSTEREO");
-char *mono = getenv("MONO");
-char *surround = getenv("SURROUND");
-char *wavwrite = getenv("WAVWRITE");
-char *vgmlog = getenv("VGMLOG");
-char *vgmloop = getenv("VGMLOOP");
+static char *hqresampler = getenv("HQRESAMPLER");
+static char *bitcrush = getenv("BITCRUSH");
+static char *dither = getenv("DITHER");
+static char *swapstereo = getenv("SWAPSTEREO");
+static char *mono = getenv("MONO");
+static char *surround = getenv("SURROUND");
+static char *wavwrite = getenv("WAVWRITE");
+static char *vgmlog = getenv("VGMLOG");
+static char *vgmloop = getenv("VGMLOOP");
 
 int opl3class::fm_init(unsigned int rate) {
 	if (hqresampler)
