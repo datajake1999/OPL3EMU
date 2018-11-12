@@ -16,6 +16,7 @@
 #include <string.h>
 #include "opl3class.h"
 
+static void *resampler;
 static char *hqresampler = getenv("HQRESAMPLER");
 static char *bitcrush = getenv("BITCRUSH");
 static char *dither = getenv("DITHER");
