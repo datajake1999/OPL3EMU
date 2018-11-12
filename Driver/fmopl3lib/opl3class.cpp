@@ -86,6 +86,7 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 }
 
 void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
+	signed short samples[2];
 	for(unsigned int i = 0; i < len; i++)
 	{
 		sample_t ls, rs;
