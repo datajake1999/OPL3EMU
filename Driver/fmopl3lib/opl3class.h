@@ -24,7 +24,6 @@
 
 class opl3class : public fm_chip {
 private:
-	emulator emul;
 	void *resampler;
 	Bit16s samples[2];
 	void fm_generate_resampled(signed short *buffer, unsigned int length);

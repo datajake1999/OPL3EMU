@@ -31,14 +31,14 @@ int opl3class::fm_init(unsigned int rate) {
 	{
 		if (strstr(hqresampler, "-on"))
 		{
-			emul.init(49716);
+			emulator_Init(49716);
 			resampler = resampler_create();
 			resampler_set_rate(resampler, 49716.0 / (double)rate);
 		}
 	}
 	else
 	{
-		emul.init(rate);
+		emulator_Init(rate);
 	}
 	if (bitcrush)
 	{
@@ -74,7 +74,7 @@ int opl3class::fm_init(unsigned int rate) {
 }
 
 void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
-	emul.writereg(reg, data);
+	emulator_WriteReg(reg, data);
 	hardware_WriteReg(reg, data);
 	if (vgmlog)
 	{
@@ -91,7 +91,7 @@ void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
 		sample_t ls, rs;
 		for(unsigned int j = 0; j = resampler_get_min_fill(resampler); j++)
 		{
-			emul.generate(samples, 1);
+			emulator_Generate(samples, 1);
 			resampler_write_pair(resampler, samples[0], samples[1]);
 		}
 		resampler_peek_pair(resampler, &ls, &rs);
@@ -112,7 +112,7 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	}
 	else
 	{
-		emul.generate(buffer, len);
+		emulator_Generate(buffer, len);
 	}
 	if (bitcrush)
 	{
