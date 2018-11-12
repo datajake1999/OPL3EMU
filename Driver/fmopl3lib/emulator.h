@@ -12,21 +12,17 @@
 // GNU General Public License for more details.
 //
 
+#ifndef EMULATOR_H
+#define EMULATOR_H
+
 #include "opl3.h"
 #include "opl.h"
 #include "dbopl.h"
 #include "ymf262.h"
 #include "silence.h"
 
+void emulator_Init(unsigned int rate);
+void emulator_WriteReg(unsigned short reg, unsigned char data);
+void emulator_Generate(signed short *buffer, unsigned int length);
 
-class emulator {
-private:
-	opl3_chip chip;
-	OPLChipClass chip2;
-	DBOPL::Handler chip3;
-	void *chip4;
-public:
-	void init(unsigned int rate);
-	void writereg(unsigned short reg, unsigned char data);
-	void generate(signed short *buffer, unsigned int length);
-};
+#endif /*EMULATOR_H*/
