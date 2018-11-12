@@ -14,12 +14,12 @@ typedef short	(__stdcall *lpInp32)(short);
 typedef BOOL	(__stdcall *lpIsInpOutDriverOpen)(void);
 typedef BOOL	(__stdcall *lpIsXP64Bit)(void);
 
-lpOut32 gfpOut32 = 0;
-lpInp32 gfpInp32 = 0;
-lpIsInpOutDriverOpen gfpIsInpOutDriverOpen = 0;
-lpIsXP64Bit gfpIsXP64Bit = 0;
+static lpOut32 gfpOut32 = 0;
+static lpInp32 gfpInp32 = 0;
+static lpIsInpOutDriverOpen gfpIsInpOutDriverOpen = 0;
+static lpIsXP64Bit gfpIsXP64Bit = 0;
 
-HINSTANCE hInpOutDll ;
+static HINSTANCE hInpOutDll ;
 
 /*
 * Returns true if inpout32 failed to open (necessary for applications checking for non-zero failures)

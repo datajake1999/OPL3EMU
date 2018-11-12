@@ -9,7 +9,7 @@
 
 #include "opl_lpt.h"
 
-unsigned int lpt_base = 0x378;
+static unsigned int lpt_base = 0x378;
 
 void opl2lpt_write(unsigned short reg, unsigned char data) {
 	unsigned int i;

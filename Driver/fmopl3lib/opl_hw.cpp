@@ -9,10 +9,10 @@
 
 #include "opl_hw.h"
 
-BYTE OPL_MODE = 0x03;
-BYTE OPL_CHIPS = 0x01;
-INT64 HWusTime;
-UINT32 FMPort = 0x388;
+static BYTE OPL_MODE = 0x03;
+static BYTE OPL_CHIPS = 0x01;
+static INT64 HWusTime;
+static UINT32 FMPort = 0x388;
 
 void OPL_Hardware_Detection(void)
 {
