@@ -13,6 +13,8 @@
 //
 
 #include "hardware.h"
+#include "opl_hw.h"
+#include "opl_lpt.h"
 
 static char *hwsupport = getenv("OPLHWSUPPORT");
 

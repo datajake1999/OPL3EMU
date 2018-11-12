@@ -15,9 +15,6 @@
 #ifndef HARDWARE_H
 #define HARDWARE_H
 
-#include "opl_hw.h"
-#include "opl_lpt.h"
-
 void hardware_Init();
 void hardware_WriteReg(unsigned short reg, unsigned char data);
 void hardware_Close();

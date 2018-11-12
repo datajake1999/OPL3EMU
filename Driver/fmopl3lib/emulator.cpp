@@ -15,6 +15,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "emulator.h"
+#include "opl3.h"
+#include "opl.h"
+#include "dbopl.h"
+#include "ymf262.h"
+#include "silence.h"
 
 static opl3_chip chip;
 static OPLChipClass chip2;

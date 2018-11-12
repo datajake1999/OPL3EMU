@@ -15,12 +15,6 @@
 #ifndef EMULATOR_H
 #define EMULATOR_H
 
-#include "opl3.h"
-#include "opl.h"
-#include "dbopl.h"
-#include "ymf262.h"
-#include "silence.h"
-
 void emulator_Init(unsigned int rate);
 void emulator_WriteReg(unsigned short reg, unsigned char data);
 void emulator_Generate(signed short *buffer, unsigned int length);
