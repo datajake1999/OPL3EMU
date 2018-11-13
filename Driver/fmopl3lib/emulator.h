@@ -15,8 +15,22 @@
 #ifndef EMULATOR_H
 #define EMULATOR_H
 
-void emulator_Init(unsigned int rate);
-void emulator_WriteReg(unsigned short reg, unsigned char data);
-void emulator_Generate(signed short *buffer, unsigned int length);
+#include "opl3.h"
+#include "opl.h"
+#include "dbopl.h"
+#include "ymf262.h"
+#include "silence.h"
+
+class emulator {
+private:
+	opl3_chip chip;
+	OPLChipClass chip2;
+	DBOPL::Handler chip3;
+	void *chip4;
+public:
+	void Init(unsigned int rate);
+	void WriteReg(unsigned short reg, unsigned char data);
+	void Generate(signed short *buffer, unsigned int length);
+};
 
 #endif /*EMULATOR_H*/

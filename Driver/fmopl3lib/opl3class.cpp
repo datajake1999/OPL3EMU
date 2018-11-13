@@ -16,7 +16,6 @@
 #include <string.h>
 #include "opl3class.h"
 
-static void *resampler;
 static char *hqresampler = getenv("HQRESAMPLER");
 static char *bitcrush = getenv("BITCRUSH");
 static char *dither = getenv("DITHER");
@@ -32,14 +31,14 @@ int opl3class::fm_init(unsigned int rate) {
 	{
 		if (strstr(hqresampler, "-on"))
 		{
-			emulator_Init(49716);
+			emulator.Init(49716);
 			resampler = resampler_create();
 			resampler_set_rate(resampler, 49716.0 / (double)rate);
 		}
 	}
 	else
 	{
-		emulator_Init(rate);
+		emulator.Init(rate);
 	}
 	if (bitcrush)
 	{
@@ -75,7 +74,7 @@ int opl3class::fm_init(unsigned int rate) {
 }
 
 void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
-	emulator_WriteReg(reg, data);
+	emulator.WriteReg(reg, data);
 	hardware_WriteReg(reg, data);
 	if (vgmlog)
 	{
@@ -93,7 +92,7 @@ void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
 		sample_t ls, rs;
 		for(unsigned int j = 0; j = resampler_get_min_fill(resampler); j++)
 		{
-			emulator_Generate(samples, 1);
+			emulator.Generate(samples, 1);
 			resampler_write_pair(resampler, samples[0], samples[1]);
 		}
 		resampler_peek_pair(resampler, &ls, &rs);
@@ -114,7 +113,7 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	}
 	else
 	{
-		emulator_Generate(buffer, len);
+		emulator.Generate(buffer, len);
 	}
 	if (bitcrush)
 	{

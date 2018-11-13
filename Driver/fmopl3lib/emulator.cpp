@@ -15,20 +15,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "emulator.h"
-#include "opl3.h"
-#include "opl.h"
-#include "dbopl.h"
-#include "ymf262.h"
-#include "silence.h"
 
-static opl3_chip chip;
-static OPLChipClass chip2;
-static DBOPL::Handler chip3;
-static void *chip4;
 static char *core = getenv("OPL3CORE");
 static char *silence = getenv("OPLEMUSILENCE");
 
-void emulator_Init(unsigned int rate) {
+void emulator::Init(unsigned int rate) {
 	if (silence)
 	{
 		if (strstr(silence, "-on"))
@@ -61,7 +52,7 @@ void emulator_Init(unsigned int rate) {
 	}
 }
 
-void emulator_WriteReg(unsigned short reg, unsigned char data) {
+void emulator::WriteReg(unsigned short reg, unsigned char data) {
 	if (silence)
 	{
 		if (strstr(silence, "-on"))
@@ -93,7 +84,7 @@ void emulator_WriteReg(unsigned short reg, unsigned char data) {
 	}
 }
 
-void emulator_Generate(signed short *buffer, unsigned int len) {
+void emulator::Generate(signed short *buffer, unsigned int len) {
 	if (silence)
 	{
 		if (strstr(silence, "-on"))
@@ -124,4 +115,3 @@ void emulator_Generate(signed short *buffer, unsigned int len) {
 		}
 	}
 }
-
