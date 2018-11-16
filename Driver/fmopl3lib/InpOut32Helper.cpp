@@ -66,9 +66,9 @@ void outportb(unsigned short PortAddress, unsigned short Data)
 	{
 #ifdef DEBUG 
 #if defined(_X86_)
-		MessageBox(NULL, L"Cannot write to register %d; inpout32.dll not loaded.", L"DEBUG", MB_OK | MB_ICONERROR);
+		MessageBoxW(NULL, L"Cannot write to register %d; inpout32.dll not loaded.", L"DEBUG", MB_OK | MB_ICONERROR);
 #elif defined(_AMD64_)
-		MessageBox(NULL, L"Cannot write to register %d; inpoutx64.dll not loaded.", L"DEBUG", MB_OK | MB_ICONERROR);
+		MessageBoxW(NULL, L"Cannot write to register %d; inpoutx64.dll not loaded.", L"DEBUG", MB_OK | MB_ICONERROR);
 #endif
 #endif
 		return;
@@ -82,9 +82,9 @@ unsigned char inportb(unsigned short PortAddress)
 	{
 #ifdef DEBUG
 #if defined(_X86_)
-		MessageBox(NULL, L"Cannot read register; inpout32.dll not loaded.", L"DEBUG", MB_OK | MB_ICONERROR);
+		MessageBoxW(NULL, L"Cannot read register; inpout32.dll not loaded.", L"DEBUG", MB_OK | MB_ICONERROR);
 #elif defined(_AMD64_)
-		MessageBox(NULL, L"Cannot read register; inpoutx64.dll not loaded.", L"DEBUG", MB_OK | MB_ICONERROR);
+		MessageBoxW(NULL, L"Cannot read register; inpoutx64.dll not loaded.", L"DEBUG", MB_OK | MB_ICONERROR);
 #endif
 #endif
 		return ~0;
