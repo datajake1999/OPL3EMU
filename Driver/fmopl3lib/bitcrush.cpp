@@ -25,6 +25,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 static unsigned int bits = 8;
 
+/*
+Sources for dither noise generators
+Rectangle and Triangle probability density functions: http://github.com/Metabog/ADither/blob/master/DSP_dither.c
+Additive White Gaussian Noise Generator: http://www.embeddedrelated.com/showcode/311.php
+*/
+
 static int Gen_Random()
 {
 	return   (rand() - RAND_MAX/2);
