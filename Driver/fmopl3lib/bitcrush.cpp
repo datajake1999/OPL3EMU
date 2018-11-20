@@ -108,9 +108,9 @@ void RectangleDither(signed short *buffer, unsigned int len) {
 	for(i = 0; i < len; i++)
 	{
 		noise = Gen_RectPDF() >> bits;
-		buffer[0] = (buffer[0]) + noise;
+		buffer[0] = buffer[0] + noise;
 		noise = Gen_RectPDF() >> bits;
-		buffer[1] = (buffer[1]) + noise;
+		buffer[1] = buffer[1] + noise;
 		buffer += 2;
 	}
 }
@@ -121,9 +121,9 @@ void TriangleDither(signed short *buffer, unsigned int len) {
 	for(i = 0; i < len; i++)
 	{
 		noise = Gen_TriPDF() >> bits;
-		buffer[0] = (buffer[0]) + noise;
+		buffer[0] = buffer[0] + noise;
 		noise = Gen_TriPDF() >> bits;
-		buffer[1] = (buffer[1]) + noise;
+		buffer[1] = buffer[1] + noise;
 		buffer += 2;
 	}
 }
@@ -135,9 +135,9 @@ void GaussianDither(signed short *buffer, unsigned int len) {
 	for(i = 0; i < len; i++)
 	{
 		noise = AWGN_generator() * nmult;
-		buffer[0] = (buffer[0]) + noise;
+		buffer[0] = buffer[0] + noise;
 		noise = AWGN_generator() * nmult;
-		buffer[1] = (buffer[1]) + noise;
+		buffer[1] = buffer[1] + noise;
 		buffer += 2;
 	}
 }
@@ -147,8 +147,8 @@ void BitCrush(signed short *buffer, unsigned int len) {
 	unsigned int crush = 16 - bits;
 	for(i = 0; i < len; i++)
 	{
-		buffer[0] = (buffer[0] >> crush) << crush;
-		buffer[1] = (buffer[1] >> crush) << crush;
+		buffer[0] = buffer[0] >> crush << crush;
+		buffer[1] = buffer[1] >> crush << crush;
 		buffer += 2;
 	}
 }
@@ -182,7 +182,7 @@ void SurroundSoundLeft(signed short *buffer, unsigned int len) {
 	unsigned int i;
 	for(i = 0; i < len; i++)
 	{
-		buffer[0] = (buffer[0]) * -1;
+		buffer[0] = buffer[0] * -1;
 		buffer += 2;
 	}
 }
@@ -191,7 +191,7 @@ void SurroundSoundRight(signed short *buffer, unsigned int len) {
 	unsigned int i;
 	for(i = 0; i < len; i++)
 	{
-		buffer[1] = (buffer[1]) * -1;
+		buffer[1] = buffer[1] * -1;
 		buffer += 2;
 	}
 }
@@ -212,17 +212,17 @@ void LimitOutput(signed short limit, signed short *buffer, unsigned int len) {
 		{
 			buffer[0] = limit;
 		}
-		else if (buffer[0] < (limit) * -1)
+		else if (buffer[0] < limit * -1)
 		{
-			buffer[0] = (limit) * -1;
+			buffer[0] = limit * -1;
 		}
 		if (buffer[1] > limit)
 		{
 			buffer[1] = limit;
 		}
-		else if (buffer[1] < (limit) * -1)
+		else if (buffer[1] < limit * -1)
 		{
-			buffer[1] = (limit) * -1;
+			buffer[1] = limit * -1;
 		}
 		buffer += 2;
 	}
