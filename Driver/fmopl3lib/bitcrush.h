@@ -31,6 +31,6 @@ void SwapStereo(signed short *buffer, unsigned int length);
 void MonoMixdown(signed short *buffer, unsigned int length);
 void SurroundSoundLeft(signed short *buffer, unsigned int length);
 void SurroundSoundRight(signed short *buffer, unsigned int length);
-void LimitOutput(signed short limit, signed short *buffer, unsigned int length);
+void LimitOutput(signed long limit, signed short *buffer, unsigned int length);
 
 #endif //BITCRUSH_H
