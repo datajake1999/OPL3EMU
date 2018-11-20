@@ -171,7 +171,7 @@ void MonoMixdown(signed short *buffer, unsigned int len) {
 	signed short mixdown;
 	for(i = 0; i < len; i++)
 	{
-		mixdown = (buffer[0] + buffer[1]) / 2;
+		mixdown = buffer[0] + buffer[1];
 		buffer[0] = mixdown;
 		buffer[1] = mixdown;
 		buffer += 2;
