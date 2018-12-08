@@ -102,8 +102,8 @@ default:
 			}
 		}
 
-		//      ExpandEnvironmentStringsW(L"%TEMP%\\opl3vgmlog.vgm", (LPWSTR)&TempLogPath, BUFSIZ);
-		//      hFileVGM = _wfopen(TempLogPath, L"wb");
+		//ExpandEnvironmentStringsW(L"%TEMP%\\opl3vgmlog.vgm", (LPWSTR)&TempLogPath, BUFSIZ);
+		//hFileVGM = _wfopen(TempLogPath, L"wb");
 
 		//strcpy_s(TempLogPath, getenv("TEMP"));
 		//hFileVGM = fopen(TempLogPath, "wb");
