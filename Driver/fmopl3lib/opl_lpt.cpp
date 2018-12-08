@@ -191,3 +191,4 @@ void OPL_LPT_Close()
 	opl_lpt_reset();
 	CloseInpOut32(); 
 };
+
