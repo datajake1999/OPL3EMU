@@ -20,6 +20,9 @@ static lpIsInpOutDriverOpen gfpIsInpOutDriverOpen = 0;
 static lpIsXP64Bit gfpIsXP64Bit = 0;
 
 static HINSTANCE hInpOutDll ;
+#ifdef _DEBUG
+static FILE *hwlog;
+#endif
 
 /*
 * Returns true if inpout32 failed to open (necessary for applications checking for non-zero failures)
@@ -40,6 +43,9 @@ BOOL OpenInpOut32(void)
 		gfpIsXP64Bit = (lpIsXP64Bit)GetProcAddress(hInpOutDll, "IsXP64Bit");
 
 		if (gfpIsInpOutDriverOpen())
+#ifdef _DEBUG
+		hwlog = fopen("C:\\OPLSynth\\hwlog.log", "a");
+#endif
 		return FALSE; 
 	}
 
@@ -53,6 +59,9 @@ BOOL OpenInpOut32(void)
 
 void CloseInpOut32(void)
 {
+#ifdef _DEBUG
+	fclose(hwlog);
+#endif
 	FreeLibrary(hInpOutDll);
 	gfpOut32 = NULL;
 	gfpInp32 = NULL;
@@ -74,6 +83,9 @@ void outportb(unsigned short PortAddress, unsigned short Data)
 		return;
 	}
 	gfpOut32(PortAddress, Data);
+#ifdef _DEBUG
+	fprintf(hwlog, "Write: %d, %d\n", PortAddress, Data);
+#endif
 }
 
 unsigned char inportb(unsigned short PortAddress)
@@ -89,5 +101,8 @@ unsigned char inportb(unsigned short PortAddress)
 #endif
 		return ~0;
 	}
+#ifdef _DEBUG
+	fprintf(hwlog, "Read: %d\n", PortAddress);
+#endif
 	return (char)gfpInp32(PortAddress);
 }
