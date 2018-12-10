@@ -64,7 +64,7 @@ void outportb(unsigned short PortAddress, unsigned short Data)
 {
 	if (gfpOut32 == NULL)
 	{
-#ifdef DEBUG 
+#ifdef _DEBUG
 #if defined(_X86_)
 		MessageBoxW(NULL, L"Cannot write to register %d; inpout32.dll not loaded.", L"DEBUG", MB_OK | MB_ICONERROR);
 #elif defined(_AMD64_)
@@ -80,7 +80,7 @@ unsigned char inportb(unsigned short PortAddress)
 {
 	if (gfpInp32 == NULL)
 	{
-#ifdef DEBUG
+#ifdef _DEBUG
 #if defined(_X86_)
 		MessageBoxW(NULL, L"Cannot read register; inpout32.dll not loaded.", L"DEBUG", MB_OK | MB_ICONERROR);
 #elif defined(_AMD64_)
