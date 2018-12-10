@@ -112,7 +112,7 @@ void RectangleDither(signed short *buffer, unsigned int length)
 {
 	unsigned int i;
 	signed short noise;
-	for(i = 0; i < len; i++)
+	for(i = 0; i < length; i++)
 	{
 		noise = Gen_RectPDF() >> bits;
 		buffer[0] = buffer[0] + noise;
@@ -126,7 +126,7 @@ void TriangleDither(signed short *buffer, unsigned int length)
 {
 	unsigned int i;
 	signed short noise;
-	for(i = 0; i < len; i++)
+	for(i = 0; i < length; i++)
 	{
 		noise = Gen_TriPDF() >> bits;
 		buffer[0] = buffer[0] + noise;
@@ -141,7 +141,7 @@ void GaussianDither(signed short *buffer, unsigned int length)
 	unsigned int i;
 	unsigned int nmult = (1 << (16 - bits)) / 4;
 	signed short noise;
-	for(i = 0; i < len; i++)
+	for(i = 0; i < length; i++)
 	{
 		noise = AWGN_generator() * nmult;
 		buffer[0] = buffer[0] + noise;
@@ -155,7 +155,7 @@ void BitCrush(signed short *buffer, unsigned int length)
 {
 	unsigned int i;
 	unsigned int crush = 16 - bits;
-	for(i = 0; i < len; i++)
+	for(i = 0; i < length; i++)
 	{
 		buffer[0] = buffer[0] >> crush << crush;
 		buffer[1] = buffer[1] >> crush << crush;
@@ -167,7 +167,7 @@ void SwapStereo(signed short *buffer, unsigned int length)
 {
 	unsigned int i;
 	signed short swap[2];
-	for(i = 0; i < len; i++)
+	for(i = 0; i < length; i++)
 	{
 		swap[0] = buffer[1];
 		swap[1] = buffer[0];
@@ -181,7 +181,7 @@ void MonoMixdown(signed short *buffer, unsigned int length)
 {
 	unsigned int i;
 	signed short mixdown;
-	for(i = 0; i < len; i++)
+	for(i = 0; i < length; i++)
 	{
 		mixdown = (buffer[0] + buffer[1]) / 2;
 		buffer[0] = mixdown;
@@ -193,7 +193,7 @@ void MonoMixdown(signed short *buffer, unsigned int length)
 void SurroundSoundLeft(signed short *buffer, unsigned int length)
 {
 	unsigned int i;
-	for(i = 0; i < len; i++)
+	for(i = 0; i < length; i++)
 	{
 		buffer[0] = buffer[0] * -1;
 		buffer += 2;
@@ -203,7 +203,7 @@ void SurroundSoundLeft(signed short *buffer, unsigned int length)
 void SurroundSoundRight(signed short *buffer, unsigned int length)
 {
 	unsigned int i;
-	for(i = 0; i < len; i++)
+	for(i = 0; i < length; i++)
 	{
 		buffer[1] = buffer[1] * -1;
 		buffer += 2;
@@ -221,7 +221,7 @@ void LimitOutput(signed long limit, signed short *buffer, unsigned int length)
 	{
 		limit = 0;
 	}
-	for(i = 0; i < len; i++)
+	for(i = 0; i < length; i++)
 	{
 		if (buffer[0] > limit)
 		{
