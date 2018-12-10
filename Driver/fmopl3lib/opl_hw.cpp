@@ -369,9 +369,9 @@ void SetFMPort(void)
 void OPL_HW_Init() 
 {
 #ifndef DISABLE_HW_SUPPORT
+	OpenInpOut32(); 
 	SetFMPort();
 	opl_chip_reset();
-	OpenInpOut32(); 
 #endif	// DISABLE_HW_SUPPORT
 };
 

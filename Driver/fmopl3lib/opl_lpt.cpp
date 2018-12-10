@@ -181,9 +181,9 @@ void SetLPTPort(void)
 
 void OPL_LPT_Init() 
 {
+	OpenInpOut32(); 
 	SetLPTPort();
 	opl_lpt_reset();
-	OpenInpOut32(); 
 };
 
 void OPL_LPT_Close()
