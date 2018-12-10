@@ -108,7 +108,8 @@ void SetCrushAmountEnv()
 	}
 }
 
-void RectangleDither(signed short *buffer, unsigned int len) {
+void RectangleDither(signed short *buffer, unsigned int length)
+{
 	unsigned int i;
 	signed short noise;
 	for(i = 0; i < len; i++)
@@ -121,7 +122,8 @@ void RectangleDither(signed short *buffer, unsigned int len) {
 	}
 }
 
-void TriangleDither(signed short *buffer, unsigned int len) {
+void TriangleDither(signed short *buffer, unsigned int length)
+{
 	unsigned int i;
 	signed short noise;
 	for(i = 0; i < len; i++)
@@ -134,7 +136,8 @@ void TriangleDither(signed short *buffer, unsigned int len) {
 	}
 }
 
-void GaussianDither(signed short *buffer, unsigned int len) {
+void GaussianDither(signed short *buffer, unsigned int length)
+{
 	unsigned int i;
 	unsigned int nmult = (1 << (16 - bits)) / 4;
 	signed short noise;
@@ -148,7 +151,8 @@ void GaussianDither(signed short *buffer, unsigned int len) {
 	}
 }
 
-void BitCrush(signed short *buffer, unsigned int len) {
+void BitCrush(signed short *buffer, unsigned int length)
+{
 	unsigned int i;
 	unsigned int crush = 16 - bits;
 	for(i = 0; i < len; i++)
@@ -159,7 +163,8 @@ void BitCrush(signed short *buffer, unsigned int len) {
 	}
 }
 
-void SwapStereo(signed short *buffer, unsigned int len) {
+void SwapStereo(signed short *buffer, unsigned int length)
+{
 	unsigned int i;
 	signed short swap[2];
 	for(i = 0; i < len; i++)
@@ -172,7 +177,8 @@ void SwapStereo(signed short *buffer, unsigned int len) {
 	}
 }
 
-void MonoMixdown(signed short *buffer, unsigned int len) {
+void MonoMixdown(signed short *buffer, unsigned int length)
+{
 	unsigned int i;
 	signed short mixdown;
 	for(i = 0; i < len; i++)
@@ -184,7 +190,8 @@ void MonoMixdown(signed short *buffer, unsigned int len) {
 	}
 }
 
-void SurroundSoundLeft(signed short *buffer, unsigned int len) {
+void SurroundSoundLeft(signed short *buffer, unsigned int length)
+{
 	unsigned int i;
 	for(i = 0; i < len; i++)
 	{
@@ -193,7 +200,8 @@ void SurroundSoundLeft(signed short *buffer, unsigned int len) {
 	}
 }
 
-void SurroundSoundRight(signed short *buffer, unsigned int len) {
+void SurroundSoundRight(signed short *buffer, unsigned int length)
+{
 	unsigned int i;
 	for(i = 0; i < len; i++)
 	{
@@ -202,7 +210,8 @@ void SurroundSoundRight(signed short *buffer, unsigned int len) {
 	}
 }
 
-void LimitOutput(signed long limit, signed short *buffer, unsigned int len) {
+void LimitOutput(signed long limit, signed short *buffer, unsigned int length)
+{
 	unsigned int i;
 	if (limit > 32767)
 	{
