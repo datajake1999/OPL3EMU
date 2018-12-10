@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "wavhdr.h"
 
 void WavFileOpen(unsigned int rate);
-void WavFileWrite(signed short*buffer, unsigned int length);
+void WavFileWrite(signed short *buffer, unsigned int length);
 void WavFileClose();
 
 #endif //WAV_WRITER_H

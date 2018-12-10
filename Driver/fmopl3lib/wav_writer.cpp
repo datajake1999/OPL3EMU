@@ -96,7 +96,7 @@ void WavFileOpen(unsigned int rate)
 	fwrite(&head, sizeof(head), 1, out);
 }
 
-void WavFileWrite(signed short*buffer, unsigned int length)
+void WavFileWrite(signed short *buffer, unsigned int length)
 {
 	if (out == NULL)
 	return;
