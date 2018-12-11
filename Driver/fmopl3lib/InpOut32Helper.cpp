@@ -45,6 +45,7 @@ BOOL OpenInpOut32(void)
 		if (gfpIsInpOutDriverOpen())
 #ifdef _DEBUG
 		hwlog = fopen("C:\\OPLSynth\\hwlog.log", "a");
+		fprintf(hwlog, "Opened driver\n");
 #endif
 		return FALSE; 
 	}
@@ -60,6 +61,7 @@ BOOL OpenInpOut32(void)
 void CloseInpOut32(void)
 {
 #ifdef _DEBUG
+	fprintf(hwlog, "Closed driver\n");
 	fclose(hwlog);
 #endif
 	FreeLibrary(hInpOutDll);
