@@ -33,6 +33,9 @@ int opl3class::fm_init(unsigned int rate) {
 		if (strstr(hqresampler, "-on"))
 		{
 			emulator.Init(49716);
+#ifdef _DEBUG
+			rawsamples = fopen("C:\\OPLSynth\\rawsamples.pcm", "ab");
+#endif
 			resampler = resampler_create();
 			resampler_set_rate(resampler, 49716.0 / (double)rate);
 		}
@@ -94,6 +97,9 @@ void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
 		for(unsigned int j = 0; j = resampler_get_min_fill(resampler); j++)
 		{
 			emulator.Generate(samples, 1);
+#ifdef _DEBUG
+			fwrite(samples, 4, 1, rawsamples);
+#endif
 			resampler_write_pair(resampler, samples[0], samples[1]);
 		}
 		resampler_peek_pair(resampler, &ls, &rs);
@@ -184,6 +190,9 @@ void opl3class::fm_close() {
 	{
 		if (strstr(hqresampler, "-on"))
 		{
+#ifdef _DEBUG
+			fclose(rawsamples);
+#endif
 			resampler_clear(resampler);
 			resampler_destroy(resampler);
 		}
