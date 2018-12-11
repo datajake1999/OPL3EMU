@@ -84,7 +84,7 @@ void outportb(unsigned short PortAddress, unsigned short Data)
 	}
 	gfpOut32(PortAddress, Data);
 #ifdef _DEBUG
-	fprintf(hwlog, "Write: %d, %d\n", PortAddress, Data);
+	fprintf(hwlog, "Write: %x, %x\n", PortAddress, Data);
 #endif
 }
 
@@ -102,7 +102,7 @@ unsigned char inportb(unsigned short PortAddress)
 		return ~0;
 	}
 #ifdef _DEBUG
-	fprintf(hwlog, "Read: %d\n", PortAddress);
+	fprintf(hwlog, "Read: %x\n", PortAddress);
 #endif
 	return (char)gfpInp32(PortAddress);
 }
