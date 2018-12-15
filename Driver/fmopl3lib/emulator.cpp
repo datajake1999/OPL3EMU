@@ -27,28 +27,25 @@ void emulator::Init(unsigned int rate) {
 			return;
 		}
 	}
+	if (core)
+	{
+		if (strstr(core, "-dbcompat"))
+		{
+			chip2.adlib_init(rate, 2, 2);
+		}
+		if (strstr(core, "-dbfast"))
+		{
+			chip3.Init(rate);
+			chip3.WriteReg(0x105, 0x01);
+		}
+		if (strstr(core, "-mame"))
+		{
+			chip4 = ymf262_init(49716*288, rate);
+		}
+	}
 	else
 	{
-		if (core)
-		{
-			if (strstr(core, "-dbcompat"))
-			{
-				chip2.adlib_init(rate, 2, 2);
-			}
-			if (strstr(core, "-dbfast"))
-			{
-				chip3.Init(rate);
-				chip3.WriteReg(0x105, 0x01);
-			}
-			if (strstr(core, "-mame"))
-			{
-				chip4 = ymf262_init(49716*288, rate);
-			}
-		}
-		else
-		{
-			OPL3_Reset(&chip, rate);
-		}
+		OPL3_Reset(&chip, rate);
 	}
 }
 
@@ -60,27 +57,24 @@ void emulator::WriteReg(unsigned short reg, unsigned char data) {
 			return;
 		}
 	}
+	if (core)
+	{
+		if (strstr(core, "-dbcompat"))
+		{
+			chip2.adlib_write(reg, data);
+		}
+		if (strstr(core, "-dbfast"))
+		{
+			chip3.WriteReg(reg, data);
+		}
+		if (strstr(core, "-mame"))
+		{
+			ymf262_write_reg(chip4, reg, data);
+		}
+	}
 	else
 	{
-		if (core)
-		{
-			if (strstr(core, "-dbcompat"))
-			{
-				chip2.adlib_write(reg, data);
-			}
-			if (strstr(core, "-dbfast"))
-			{
-				chip3.WriteReg(reg, data);
-			}
-			if (strstr(core, "-mame"))
-			{
-				ymf262_write_reg(chip4, reg, data);
-			}
-		}
-		else
-		{
-			OPL3_WriteRegBuffered(&chip, reg, data);
-		}
+		OPL3_WriteRegBuffered(&chip, reg, data);
 	}
 }
 
@@ -90,28 +84,26 @@ void emulator::Generate(signed short *buffer, unsigned int len) {
 		if (strstr(silence, "-on"))
 		{
 			GenerateSilence(buffer, len);
+			return;
+		}
+	}
+	if (core)
+	{
+		if (strstr(core, "-dbcompat"))
+		{
+			chip2.adlib_getsample(buffer, len);
+		}
+		if (strstr(core, "-dbfast"))
+		{
+			chip3.Generate(buffer, len);
+		}
+		if (strstr(core, "-mame"))
+		{
+			ymf262_update_one(chip4, buffer, len);
 		}
 	}
 	else
 	{
-		if (core)
-		{
-			if (strstr(core, "-dbcompat"))
-			{
-				chip2.adlib_getsample(buffer, len);
-			}
-			if (strstr(core, "-dbfast"))
-			{
-				chip3.Generate(buffer, len);
-			}
-			if (strstr(core, "-mame"))
-			{
-				ymf262_update_one(chip4, buffer, len);
-			}
-		}
-		else
-		{
-			OPL3_GenerateStream(&chip, buffer, len);
-		}
+		OPL3_GenerateStream(&chip, buffer, len);
 	}
 }
