@@ -23,6 +23,7 @@ static char *dither = getenv("DITHER");
 static char *swapstereo = getenv("SWAPSTEREO");
 static char *mono = getenv("MONO");
 static char *surround = getenv("SURROUND");
+static char *limit = getenv("LIMIT");
 static char *wavwrite = getenv("WAVWRITE");
 static char *vgmlog = getenv("VGMLOG");
 static char *vgmloop = getenv("VGMLOOP");
@@ -168,6 +169,10 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 		{
 			SurroundSoundRight(buffer, len);
 		}
+	}
+	if (limit)
+	{
+		LimitOutput(atoi(limit), buffer, len);
 	}
 	if (wavwrite)
 	{

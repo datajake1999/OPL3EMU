@@ -54,6 +54,7 @@ int main()
 	int bitcrush;
 	int crushamount;
 	int dither;
+	int limit;
 	int reset;
 	char string[100];
 	CreateDirectory("C:\\OPLSynth", NULL);
@@ -534,6 +535,7 @@ int main()
 		printf("11 = Enable/disable bit crusher.\n");
 		printf("12 = Set bit crushing amount.\n");
 		printf("13 = Set dither mode.\n");
+		printf("14 = Limit maximum amplitude in final output.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -768,6 +770,21 @@ int main()
 				printf("Gaussian dithering is applied.\n");
 			}
 		}
+		if (audcfg == 14)
+		{
+			printf("Enter the maximum amplitude allowed in the final output.\n");
+			scanf("%d", &limit);
+			if (limit == 32767)
+			{
+				system("SetEnv -u -d limit");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u limit %d", limit);
+				system(string);
+			}
+			printf("The maximum amplitude allowed in the final output is%d.\n", limit);
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -798,6 +815,7 @@ int main()
 		char *bitcrush = getenv("BITCRUSH");
 		char *crushamount = getenv("CRUSHAMOUNT");
 		char *dither = getenv("DITHER");
+		char *limit = getenv("LIMIT");
 		printf("General driver configuration.\n");
 		if (core)
 		{
@@ -1101,6 +1119,10 @@ int main()
 		{
 			printf("Bit crusher is disabled.\n");
 		}
+		if (limit)
+		{
+			printf("The maximum amplitude allowed in the final output is %s.\n", limit);
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -1141,6 +1163,7 @@ int main()
 			system("SetEnv -u -d bitcrush");
 			system("SetEnv -u -d crushamount");
 			system("SetEnv -u -d dither");
+			system("SetEnv -u -d limit");
 			printf("Driver configuration has been reset.\n");
 		}
 		printf("Press any key to exit.\n");
