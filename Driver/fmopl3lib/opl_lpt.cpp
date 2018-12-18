@@ -86,12 +86,10 @@ void opl_lpt_write(unsigned short reg, unsigned char data) {
 		if (strstr(opl2lptmode, "-on"))
 		{
 			opl2lpt_write(reg, data);
+			return;
 		}
 	}
-	else
-	{
-		opl3lpt_write(reg, data);
-	}
+	opl3lpt_write(reg, data);
 }
 
 void opl_lpt_reset(void)
