@@ -32,21 +32,21 @@ void emulator::Init(unsigned int rate) {
 		if (strstr(core, "-dbcompat"))
 		{
 			chip2.adlib_init(rate, 2, 2);
+			return;
 		}
 		if (strstr(core, "-dbfast"))
 		{
 			chip3.Init(rate);
 			chip3.WriteReg(0x105, 0x01);
+			return;
 		}
 		if (strstr(core, "-mame"))
 		{
 			chip4 = ymf262_init(49716*288, rate);
+			return;
 		}
 	}
-	else
-	{
-		OPL3_Reset(&chip, rate);
-	}
+	OPL3_Reset(&chip, rate);
 }
 
 void emulator::WriteReg(unsigned short reg, unsigned char data) {
@@ -62,20 +62,20 @@ void emulator::WriteReg(unsigned short reg, unsigned char data) {
 		if (strstr(core, "-dbcompat"))
 		{
 			chip2.adlib_write(reg, data);
+			return;
 		}
 		if (strstr(core, "-dbfast"))
 		{
 			chip3.WriteReg(reg, data);
+			return;
 		}
 		if (strstr(core, "-mame"))
 		{
 			ymf262_write_reg(chip4, reg, data);
+			return;
 		}
 	}
-	else
-	{
-		OPL3_WriteRegBuffered(&chip, reg, data);
-	}
+	OPL3_WriteRegBuffered(&chip, reg, data);
 }
 
 void emulator::Generate(signed short *buffer, unsigned int len) {
@@ -92,18 +92,18 @@ void emulator::Generate(signed short *buffer, unsigned int len) {
 		if (strstr(core, "-dbcompat"))
 		{
 			chip2.adlib_getsample(buffer, len);
+			return;
 		}
 		if (strstr(core, "-dbfast"))
 		{
 			chip3.Generate(buffer, len);
+			return;
 		}
 		if (strstr(core, "-mame"))
 		{
 			ymf262_update_one(chip4, buffer, len);
+			return;
 		}
 	}
-	else
-	{
-		OPL3_GenerateStream(&chip, buffer, len);
-	}
+	OPL3_GenerateStream(&chip, buffer, len);
 }
