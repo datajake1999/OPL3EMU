@@ -165,7 +165,7 @@ void unregisterDriver() {
 	MessageBoxA(NULL, CANNOT_UNINSTALL_NOT_FOUND_ERR, ERROR_TITLE, MB_OK | MB_ICONEXCLAMATION);
 	#else
 	printf("%s\n", CANNOT_UNINSTALL_NOT_FOUND_ERR);
-#endif
+	#endif
 	RegCloseKey(hReg);
 }
 
