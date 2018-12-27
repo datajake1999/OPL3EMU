@@ -38,9 +38,9 @@ static int fileexists(const char * filename)
 	return 0;
 }
 
-void VGMLog_Init(unsigned int rate)
+void VGMLog_Init(int samplerate)
 {
-	FMToVGMSamples = ((long double)44100.0 / rate);
+	FMToVGMSamples = ((long double)44100.0 / samplerate);
 	LastVgmSmpl = 0;
 	LastPBSample = 0;
 	//VGMSmplPlayed = 0;
