@@ -63,11 +63,7 @@ void noteoff(unsigned int channel, unsigned int note)
 
 void generate(signed short*buffer, unsigned int length)
 {
-	for(unsigned int i = 0; i < length; i++)
-	{
-		synth->midi_generate(buffer, 1);
-		buffer += 2;
-	}
+	synth->midi_generate(buffer, length);
 }
 
 int main(int argc, char *argv[])

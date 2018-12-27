@@ -12,11 +12,7 @@ void writeopl(int r, int v)
 
 void generate(signed short*buffer, unsigned int length)
 {
-	for(unsigned int i = 0; i < length; i++)
-	{
-		chip->fm_generate(buffer, 1);
-		buffer += 2;
-	}
+	chip->fm_generate(buffer, length);
 }
 
 int main(int argc, char *argv[])

@@ -39,11 +39,7 @@ extern "C" {
 
 	void opl3emu_getsample(opl3emu_context context, short *samplem, int len) {
 		if (context == NULL) return;
-		for(int i = 0; i < len; i++)
-		{
-			context->synth->midi_generate(samplem, 1);
-			samplem += 2;
-		}
+		context->synth->midi_generate(samplem, len);
 	}
 
 	void opl3emu_close(opl3emu_context context) {
