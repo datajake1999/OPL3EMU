@@ -1521,6 +1521,7 @@ void Handler::Generate( Bit16s* chan, Bitu samples ) {
             *chan++ = buffer[i];
         }
 	}
+	delete buffer;
 }
 
 void Handler::Init( Bitu rate ) {
