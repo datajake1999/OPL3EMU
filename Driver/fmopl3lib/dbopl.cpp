@@ -1490,7 +1490,7 @@ void Handler::WriteReg( Bit32u addr, Bit8u val ) {
 }
 
 void Handler::Generate( Bit16s* chan, Bitu samples ) {
-	Bit32s buffer[ samples * 2 ];
+	Bit32s *buffer = new Bit32s[ samples * 2 ];
     Bit32u i;
 	if ( !chip.opl3Active ) {
 		chip.GenerateBlock2( samples, buffer );
