@@ -10,11 +10,6 @@ void writeopl(int r, int v)
 	chip->fm_writereg(r, v);
 }
 
-void generate(signed short*buffer, unsigned int length)
-{
-	chip->fm_generate(buffer, length);
-}
-
 int main(int argc, char *argv[])
 {
 	unsigned int samplerate = 49716;
@@ -37,7 +32,7 @@ int main(int argc, char *argv[])
 	writeopl(0xb0, 0x32);
 	Sleep(1);
 	writeopl(0x60, 0xf0);
-	generate(buffer, samplerate*10);
+	chip->fm_generate(buffer, samplerate*10);
 	printf("If you hear sine wave you have a real OPL3 or very accurate clone,\notherwise you have OPL clone.\nPress any key to close program.\n");
 	getch();
 	chip->fm_close();
