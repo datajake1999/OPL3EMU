@@ -45,6 +45,13 @@ void emulator::Init(unsigned int rate) {
 			chip4 = ymf262_init(49716*288, rate);
 			return;
 		}
+#ifdef __MINGW32__
+		if (strstr(core, "-rad"))
+		{
+			chip5.Init(rate);
+			return;
+		}
+#endif
 	}
 	OPL3_Reset(&chip, rate);
 }
@@ -74,6 +81,13 @@ void emulator::WriteReg(unsigned short reg, unsigned char data) {
 			ymf262_write_reg(chip4, reg, data);
 			return;
 		}
+#ifdef __MINGW32__
+		if (strstr(core, "-rad"))
+		{
+			chip5.WriteReg(reg, data);
+			return;
+		}
+#endif
 	}
 	OPL3_WriteRegBuffered(&chip, reg, data);
 }
@@ -104,6 +118,13 @@ void emulator::Generate(signed short *buffer, unsigned int len) {
 			ymf262_update_one(chip4, buffer, len);
 			return;
 		}
+#ifdef __MINGW32__
+		if (strstr(core, "-rad"))
+		{
+			chip5.Generate(buffer, len);
+			return;
+		}
+#endif
 	}
 	OPL3_GenerateStream(&chip, buffer, len);
 }
