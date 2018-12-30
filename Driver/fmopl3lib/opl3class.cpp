@@ -33,7 +33,7 @@ int opl3class::fm_init(unsigned int rate) {
 	{
 		if (strstr(hqresampler, "-on"))
 		{
-			emulator.Init(49716);
+			emul.Init(49716);
 #ifdef _DEBUG
 			rawsamples = fopen("C:\\OPLSynth\\rawsamples.pcm", "ab");
 #endif
@@ -43,7 +43,7 @@ int opl3class::fm_init(unsigned int rate) {
 	}
 	else
 	{
-		emulator.Init(rate);
+		emul.Init(rate);
 	}
 	if (bitcrush)
 	{
@@ -79,7 +79,7 @@ int opl3class::fm_init(unsigned int rate) {
 }
 
 void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
-	emulator.WriteReg(reg, data);
+	emul.WriteReg(reg, data);
 	hardware_WriteReg(reg, data);
 	if (vgmlog)
 	{
@@ -97,7 +97,7 @@ void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
 		sample_t ls, rs;
 		for(unsigned int j = 0; j = resampler_get_min_fill(resampler); j++)
 		{
-			emulator.Generate(samples, 1);
+			emul.Generate(samples, 1);
 #ifdef _DEBUG
 			fwrite(samples, 4, 1, rawsamples);
 #endif
@@ -121,7 +121,7 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	}
 	else
 	{
-		emulator.Generate(buffer, len);
+		emul.Generate(buffer, len);
 	}
 	if (bitcrush)
 	{

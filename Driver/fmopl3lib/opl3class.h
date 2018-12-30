@@ -24,7 +24,7 @@
 
 class opl3class : public fm_chip {
 private:
-	emulator emulator;
+	emulator emul;
 	void *resampler;
 #ifdef _DEBUG
 	FILE *rawsamples;
