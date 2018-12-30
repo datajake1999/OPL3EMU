@@ -1,0 +1,1 @@
+build_mingw.bat > build_mingw.log
