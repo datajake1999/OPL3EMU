@@ -42,3 +42,8 @@ cd..\..\SetEnv\X64
 call "compile.bat"
 cd..\..
 iscc "OPL3EMU.iss"
+cd driver\oplclone
+call "compile_msvc.bat"
+cd..\test
+call "compile_msvc.bat"
+cd..\..
