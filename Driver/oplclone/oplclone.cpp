@@ -12,7 +12,15 @@ void writeopl(int r, int v)
 
 int main(int argc, char *argv[])
 {
-	unsigned int samplerate = 49716;
+	unsigned int samplerate;
+	if (argc == 2)
+	{
+		samplerate = atoi(argv[1]);
+	}
+	else
+	{
+		samplerate = 49716;
+	}
 	short *buffer = new short[20 * samplerate];
 	chip = getchip();
 	chip->fm_init(samplerate);
