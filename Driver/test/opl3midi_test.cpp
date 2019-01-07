@@ -95,38 +95,38 @@ int main(int argc, char *argv[])
 		printf("Testing program %d.\n", i);
 		//turn on note c3 and generate half a second of audio
 		noteon(0, 48, 127);
-		synth->midi_generate(buffer, (samplerate)/2);
+		synth->midi_generate(buffer, samplerate/2);
 		//turn off note c3, turn on note d3 and generate half a second of audio
 		noteoff(0, 48);
 		noteon(0, 50, 127);
-		synth->midi_generate(buffer, (samplerate)/2);
+		synth->midi_generate(buffer, samplerate/2);
 		//turn off note d3, turn on note e3 and generate half a second of audio
 		noteoff(0, 50);
 		noteon(0, 52, 127);
-		synth->midi_generate(buffer, (samplerate)/2);
+		synth->midi_generate(buffer, samplerate/2);
 		//turn off note e3, turn on note f3 and generate half a second of audio
 		noteoff(0, 52);
 		noteon(0, 53, 127);
-		synth->midi_generate(buffer, (samplerate)/2);
+		synth->midi_generate(buffer, samplerate/2);
 		//turn off note f3, turn on note g3 and generate half a second of audio
 		noteoff(0, 53);
 		noteon(0, 55, 127);
-		synth->midi_generate(buffer, (samplerate)/2);
+		synth->midi_generate(buffer, samplerate/2);
 		//turn off note g3, turn on note a4 and generate half a second of audio
 		noteoff(0, 55);
 		noteon(0, 57, 127);
-		synth->midi_generate(buffer, (samplerate)/2);
+		synth->midi_generate(buffer, samplerate/2);
 		//turn off note a4, turn on note b4 and generate half a second of audio
 		noteoff(0, 57);
 		noteon(0, 59, 127);
-		synth->midi_generate(buffer, (samplerate)/2);
+		synth->midi_generate(buffer, samplerate/2);
 		//turn off note b4, turn on note c4 and generate 4 seconds of audio
 		noteoff(0, 59);
 		noteon(0, 60, 127);
-		synth->midi_generate(buffer, (samplerate)*4);
+		synth->midi_generate(buffer, samplerate*4);
 		//turn off note c4 and generate 2 seconds of audio
 		noteoff(0, 60);
-		synth->midi_generate(buffer, (samplerate)*2);
+		synth->midi_generate(buffer, samplerate*2);
 	}
 	//Test drum kit
 	printf("Testing drum kit.\n");
@@ -134,18 +134,18 @@ int main(int argc, char *argv[])
 	setcontroll(9, 7, 127);
 	//turn on first drum and generate half a second of audio
 	noteon(9, 35, 127);
-	synth->midi_generate(buffer, (samplerate)/2);
+	synth->midi_generate(buffer, samplerate/2);
 	//turn off first drum, turn on next drum and generate half a second of audio
 	//since we don't have to skip notes as we did for the melotic instruments, we can do this exact process until the last drum is turned on
 	for (i = 35; i < 81; i++)
 	{
 		noteoff(9, i);
-		noteon(9, (i) + 1, 127);
-		synth->midi_generate(buffer, (samplerate)/2);
+		noteon(9, i + 1, 127);
+		synth->midi_generate(buffer, samplerate/2);
 	}
 	//turn off last drum and generate 2 seconds of audio
 	noteoff(9, 81);
-	synth->midi_generate(buffer, (samplerate)*2);
+	synth->midi_generate(buffer, samplerate*2);
 	//close the synth
 	synth->midi_close();
 	//clear the synth object
