@@ -105,6 +105,8 @@ void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
 		}
 		resampler_peek_pair(resampler, &ls, &rs);
 		resampler_read_pair(resampler, &ls, &rs);
+		if ((ls + 0x8000) & 0xFFFF0000) ls = (ls >> 31) ^ 0x7FFF;
+		if ((rs + 0x8000) & 0xFFFF0000) rs = (rs >> 31) ^ 0x7FFF;
 		buffer[0] = ls;
 		buffer[1] = rs;
 		buffer += 2;
