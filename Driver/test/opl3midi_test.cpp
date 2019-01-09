@@ -30,7 +30,7 @@ unsigned int msg;
 void setprogram(unsigned int channel, unsigned int program)
 {
 	byte1 = program;
-	byte2 = 0xc0 + (channel);
+	byte2 = 0xc0 + channel;
 	msg = (byte1<<8) | byte2;
 	synth->midi_write(msg);
 }
@@ -39,7 +39,7 @@ void setcontroll(unsigned int channel, unsigned int type, unsigned int data)
 {
 	byte1 = data;
 	byte2 = type;
-	byte3 = 0xb0 + (channel);
+	byte3 = 0xb0 + channel;
 	msg = (byte1<<16) | (byte2<<8) | byte3;
 	synth->midi_write(msg);
 }
@@ -48,7 +48,7 @@ void noteon(unsigned int channel, unsigned int note, unsigned int velocity)
 {
 	byte1 = velocity;
 	byte2 = note;
-	byte3 = 0x90 + (channel);
+	byte3 = 0x90 + channel;
 	msg = (byte1<<16) | (byte2<<8) | byte3;
 	synth->midi_write(msg);
 }
@@ -56,7 +56,7 @@ void noteon(unsigned int channel, unsigned int note, unsigned int velocity)
 void noteoff(unsigned int channel, unsigned int note)
 {
 	byte1 = note;
-	byte2 = 0x80 + (channel);
+	byte2 = 0x80 + channel;
 	msg = (byte1<<8) | byte2;
 	synth->midi_write(msg);
 }
