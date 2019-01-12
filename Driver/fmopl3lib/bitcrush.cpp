@@ -31,21 +31,21 @@ Rectangle and Triangle probability density functions: http://github.com/Metabog/
 Additive White Gaussian Noise Generator: http://www.embeddedrelated.com/showcode/311.php
 */
 
-static int Gen_Random()
+static short Gen_Random()
 {
 	return   (rand() - RAND_MAX/2);
 }
 
-static int Gen_RectPDF()
+static short Gen_RectPDF()
 {
 	return Gen_Random();
 }
 
-static int Gen_TriPDF()
+static short Gen_TriPDF()
 {
-	int s1 = Gen_Random();
-	int s2 = Gen_Random();
-	int out = s1+s2;
+	short s1 = Gen_Random();
+	short s2 = Gen_Random();
+	short out = s1+s2;
 	return out;
 }
 
