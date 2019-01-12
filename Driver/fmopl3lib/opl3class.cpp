@@ -91,12 +91,12 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 }
 
 void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
-	signed short samples[2];
 	for(unsigned int i = 0; i < len; i++)
 	{
 		sample_t ls, rs;
 		for(unsigned int j = 0; j = resampler_get_min_fill(resampler); j++)
 		{
+			signed short samples[2];
 			emul.Generate(samples, 1);
 #ifdef _DEBUG
 			fwrite(samples, 4, 1, rawsamples);
