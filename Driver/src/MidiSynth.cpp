@@ -223,7 +223,7 @@ namespace OPL3Emu {
 			return 0;
 		}
 
-		UINT64 GetPos() {
+		UINT GetPos() {
 			MMTIME mmTime;
 			mmTime.wType = TIME_SAMPLES;
 
