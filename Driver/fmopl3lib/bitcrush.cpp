@@ -112,12 +112,31 @@ void RectangleDither(signed short *buffer, unsigned int length)
 {
 	unsigned int i;
 	signed short noise;
+	signed long add;
 	for(i = 0; i < length; i++)
 	{
 		noise = Gen_RectPDF() >> bits;
-		buffer[0] = buffer[0] + noise;
+		add = buffer[0] + noise;
+		if (add > 32767)
+		{
+			add = 32767;
+		}
+		else if (add < -32768)
+		{
+			add = -32768;
+		}
+		buffer[0] = (short)add;
 		noise = Gen_RectPDF() >> bits;
-		buffer[1] = buffer[1] + noise;
+		add = buffer[1] + noise;
+		if (add > 32767)
+		{
+			add = 32767;
+		}
+		else if (add < -32768)
+		{
+			add = -32768;
+		}
+		buffer[1] = (short)add;
 		buffer += 2;
 	}
 }
@@ -126,12 +145,31 @@ void TriangleDither(signed short *buffer, unsigned int length)
 {
 	unsigned int i;
 	signed short noise;
+	signed long add;
 	for(i = 0; i < length; i++)
 	{
 		noise = Gen_TriPDF() >> bits;
-		buffer[0] = buffer[0] + noise;
+		add = buffer[0] + noise;
+		if (add > 32767)
+		{
+			add = 32767;
+		}
+		else if (add < -32768)
+		{
+			add = -32768;
+		}
+		buffer[0] = (short)add;
 		noise = Gen_TriPDF() >> bits;
-		buffer[1] = buffer[1] + noise;
+		add = buffer[1] + noise;
+		if (add > 32767)
+		{
+			add = 32767;
+		}
+		else if (add < -32768)
+		{
+			add = -32768;
+		}
+		buffer[1] = (short)add;
 		buffer += 2;
 	}
 }
@@ -141,12 +179,31 @@ void GaussianDither(signed short *buffer, unsigned int length)
 	unsigned int i;
 	unsigned int nmult = (1 << (16 - bits)) / 4;
 	signed short noise;
+	signed long add;
 	for(i = 0; i < length; i++)
 	{
 		noise = AWGN_generator() * nmult;
-		buffer[0] = buffer[0] + noise;
+		add = buffer[0] + noise;
+		if (add > 32767)
+		{
+			add = 32767;
+		}
+		else if (add < -32768)
+		{
+			add = -32768;
+		}
+		buffer[0] = (short)add;
 		noise = AWGN_generator() * nmult;
-		buffer[1] = buffer[1] + noise;
+		add = buffer[1] + noise;
+		if (add > 32767)
+		{
+			add = 32767;
+		}
+		else if (add < -32768)
+		{
+			add = -32768;
+		}
+		buffer[1] = (short)add;
 		buffer += 2;
 	}
 }
@@ -195,6 +252,10 @@ void SurroundSoundLeft(signed short *buffer, unsigned int length)
 	unsigned int i;
 	for(i = 0; i < length; i++)
 	{
+		if (buffer[0] < -32767)
+		{
+			buffer[0] = -32767;
+		}
 		buffer[0] = buffer[0] * -1;
 		buffer += 2;
 	}
@@ -205,6 +266,10 @@ void SurroundSoundRight(signed short *buffer, unsigned int length)
 	unsigned int i;
 	for(i = 0; i < length; i++)
 	{
+		if (buffer[1] < -32767)
+		{
+			buffer[1] = -32767;
+		}
 		buffer[1] = buffer[1] * -1;
 		buffer += 2;
 	}
