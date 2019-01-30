@@ -237,12 +237,20 @@ void SwapStereo(signed short *buffer, unsigned int length)
 void MonoMixdown(signed short *buffer, unsigned int length)
 {
 	unsigned int i;
-	signed short mixdown;
+	signed long mixdown;
 	for(i = 0; i < length; i++)
 	{
 		mixdown = (buffer[0] + buffer[1]) / 2;
-		buffer[0] = mixdown;
-		buffer[1] = mixdown;
+		if (mixdown > 32767)
+		{
+			mixdown = 32767;
+		}
+		else if (mixdown < -32768)
+		{
+			mixdown = -32768;
+		}
+		buffer[0] = (short)mixdown;
+		buffer[1] = (short)mixdown;
 		buffer += 2;
 	}
 }
