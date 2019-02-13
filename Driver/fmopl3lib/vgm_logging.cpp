@@ -82,8 +82,9 @@ default:
 
 	if (hFileVGM == NULL)
 	{
-		CreateDirectory("C:\\OPLSynth", NULL);
 		char filename[100];
+		UINT32 i;
+		CreateDirectory("C:\\OPLSynth", NULL);
 		sprintf(filename, "C:\\OPLSynth\\opl3vgmlog.vgm");
 		if (fileexists(filename) == 0)
 		{
@@ -91,7 +92,7 @@ default:
 		}
 		else
 		{
-			for (unsigned int i = 0; i >= 0; i++)
+			for(i = 0; i >= 0; i++)
 			{
 				sprintf(filename, "C:\\OPLSynth\\opl3vgmlog%d.vgm", i);
 				if (fileexists(filename) == 0)
@@ -234,6 +235,7 @@ DWORD VGMLog_CountSamplesFromOffset(DWORD offset)
 void VGMLog_Close()
 {
 	DWORD TotalSamples = LastVgmSmpl;
+	UINT32 AbsVol;
 	//TotalSamplesConv = (DWORD)floor(VGMSmplPlayed * FMToVGMSamples + 0.5),
 	//VGMSamplesRecount;
 
@@ -244,7 +246,7 @@ void VGMLog_Close()
 	TotalSamples = LastVgmSmpl;
 
 	//fputc(0x66, hFileVGM);
-	UINT32 AbsVol = (UINT32)(ftell(hFileVGM) - 0x04);
+	AbsVol = (UINT32)(ftell(hFileVGM) - 0x04);
 	fseek(hFileVGM, 0x04, SEEK_SET);
 	fwrite(&AbsVol, sizeof(UINT32), 0x01, hFileVGM);
 

@@ -60,8 +60,9 @@ void WavFileOpen(unsigned int rate)
 	if (out == NULL)
 	{
 		//file open routines:
-		CreateDirectory("C:\\OPLSynth", NULL);
 		char filename[100];
+		UINT32 i;
+		CreateDirectory("C:\\OPLSynth", NULL);
 		sprintf(filename, "C:\\OPLSynth\\output.wav");
 		if (fileexists(filename) == 0)
 		{
@@ -70,7 +71,7 @@ void WavFileOpen(unsigned int rate)
 		else
 		{
 			//if the file already exists, try opening the file with a number appended to the end of the filename:
-			for (unsigned int i = 0; i >= 0; i++)
+			for(i = 0; i >= 0; i++)
 			{
 				sprintf(filename, "C:\\OPLSynth\\output%d.wav", i);
 				if (fileexists(filename) == 0)
@@ -106,10 +107,11 @@ void WavFileWrite(signed short *buffer, unsigned int length)
 
 void WavFileClose()
 {
+	UINT32 size;
 	if (out == NULL)
 	return;
 	//get the current size of the file:
-	UINT32 size = ftell(out);
+	size = ftell(out);
 	//fill header with correct size values:
 	head.dSize = size-sizeof(head);
 	head.rSize = size-8;
