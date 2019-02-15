@@ -9,12 +9,12 @@
 
 #include "opl_lpt.h"
 
-static unsigned int lpt_base = 0x378;
+static UINT32 lpt_base = 0x378;
 
-void opl2lpt_write(unsigned short reg, unsigned char data) {
-	unsigned int i;
-	unsigned int lpt_data;
-	unsigned int lpt_ctrl;
+void opl2lpt_write(WORD reg, BYTE data) {
+	UINT32 i;
+	UINT32 lpt_data;
+	UINT32 lpt_ctrl;
 	if (!lpt_base) {
 		return;
 	}
@@ -44,10 +44,10 @@ void opl2lpt_write(unsigned short reg, unsigned char data) {
 	}
 }
 
-void opl3lpt_write(unsigned short reg, unsigned char data) {
-	unsigned int i;
-	unsigned int lpt_data;
-	unsigned int lpt_ctrl;
+void opl3lpt_write(WORD reg, BYTE data) {
+	UINT32 i;
+	UINT32 lpt_data;
+	UINT32 lpt_ctrl;
 	if (!lpt_base) {
 		return;
 	}
@@ -83,7 +83,7 @@ void opl3lpt_write(unsigned short reg, unsigned char data) {
 	}
 }
 
-void opl_lpt_write(unsigned short reg, unsigned char data) {
+void opl_lpt_write(WORD reg, BYTE data) {
 	char *opl2lptmode = getenv("OPL2LPTMODE");
 	if (opl2lptmode)
 	{
@@ -98,7 +98,7 @@ void opl_lpt_write(unsigned short reg, unsigned char data) {
 
 void opl_lpt_reset(void)
 {
-	unsigned short Reg;
+	WORD Reg;
 	//float FnlVolBak;
 	
 	//FnlVolBak = FinalVol;
