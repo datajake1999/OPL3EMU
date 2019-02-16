@@ -57,6 +57,7 @@ static int fileexists(const char * filename)
 
 void WavFileOpen(unsigned int rate)
 {
+#ifndef DISABLE_IO_SUPPORT
 	if (out == NULL)
 	{
 		//file open routines:
@@ -107,18 +108,22 @@ void WavFileOpen(unsigned int rate)
 	head.fBytesPerSec = 4*rate;
 	//write dummy wave header:
 	fwrite(&head, sizeof(head), 1, out);
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 void WavFileWrite(signed short *buffer, unsigned int length)
 {
+#ifndef DISABLE_IO_SUPPORT
 	if (out == NULL)
 	return;
 	//write 16 bit stereo samples:
 	fwrite(buffer, sizeof(INT32), length, out);
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 void WavFileClose()
 {
+#ifndef DISABLE_IO_SUPPORT
 	UINT32 size;
 	if (out == NULL)
 	return;
@@ -142,4 +147,5 @@ void WavFileClose()
 	printf("File saved.\n");
 #endif
 #endif //_DEBUG
+#endif /*DISABLE_IO_SUPPORT*/
 }

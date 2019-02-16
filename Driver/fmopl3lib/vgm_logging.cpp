@@ -40,6 +40,7 @@ static int fileexists(const char * filename)
 
 void VGMLog_Init(int samplerate)
 {
+#ifndef DISABLE_IO_SUPPORT
 	FMToVGMSamples = ((long double)44100.0 / samplerate);
 	LastVgmSmpl = 0;
 	LastPBSample = 0;
@@ -140,10 +141,12 @@ default:
 	fputc(0x5E, hFileVGM);
 	fputc(0x04, hFileVGM);
 	fputc(0x60, hFileVGM);
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 void VGMLog_FlushWait()
 {
+#ifndef DISABLE_IO_SUPPORT
 	DWORD CurPBSmpl, CurVGMSmpl;
 	DWORD DelayDiff;//, CurTime;
 	WORD WrtDly;
@@ -175,11 +178,13 @@ void VGMLog_FlushWait()
 		DelayDiff -= WrtDly;
 	}
 	//LastVgmDelay = CurTime;	//PlayingTime;
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 // helper function
 void VGMLog_CmdWrite(BYTE Cmd, BYTE Reg, BYTE Data)
 {
+#ifndef DISABLE_IO_SUPPORT
 	if (hFileVGM == NULL) 
 	return;
 
@@ -193,18 +198,22 @@ void VGMLog_CmdWrite(BYTE Cmd, BYTE Reg, BYTE Data)
 	fputc(Data, hFileVGM);
 	
 	return;
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 void VGMLog_IncrementSamples(int len)
 {
+#ifndef DISABLE_IO_SUPPORT
 	if (hFileVGM == NULL)
 	return;
 	//VGMSmplPlayed += (DWORD)(len * FMToVGMSamples);
 	LastPBSample += len;
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 DWORD VGMLog_CountSamplesFromOffset(DWORD offset)
 {
+#ifndef DISABLE_IO_SUPPORT
 	vgmcmd_t cmdBuf;
 	DWORD DelayCount = 0;
 
@@ -241,11 +250,13 @@ DWORD VGMLog_CountSamplesFromOffset(DWORD offset)
 	}
 
 	return DelayCount;
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 //Stop the logger
 void VGMLog_Close()
 {
+#ifndef DISABLE_IO_SUPPORT
 	DWORD TotalSamples = LastVgmSmpl;
 	UINT32 AbsVol;
 	//TotalSamplesConv = (DWORD)floor(VGMSmplPlayed * FMToVGMSamples + 0.5),
@@ -293,10 +304,12 @@ void VGMLog_Close()
 	printf("File saved.\n");
 #endif
 #endif //_DEBUG
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 void VGMLog_MarkLoopStartNow()
 {
+#ifndef DISABLE_IO_SUPPORT
 	if (hFileVGM == NULL) 
 	return;
 
@@ -304,6 +317,7 @@ void VGMLog_MarkLoopStartNow()
 	VGMLog_FlushWait();
 	SamplesBeforeLoop = LastVgmSmpl;
 	LoopMarker = (DWORD)(ftell(hFileVGM) - 0x1C);
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 /*OPL_Write() / adlib_wite() etc. guide
