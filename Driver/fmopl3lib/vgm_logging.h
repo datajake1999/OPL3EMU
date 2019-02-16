@@ -8,7 +8,9 @@
 */
 
 #include <stdio.h>
+#ifdef WIN32
 #include <windows.h>
+#endif
 #include <math.h>
 #ifndef VGM_LOGGING_H
 #define VGM_LOGGING_H
