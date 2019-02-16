@@ -29,6 +29,7 @@ static FILE *hwlog;
 */
 BOOL OpenInpOut32(void)
 {
+#ifndef DISABLE_HW_SUPPORT
 #if defined(_X86_)
 	hInpOutDll = LoadLibraryW ( L"InpOut32.DLL" ) ;	//The 32bit DLL. If we are building x64 C++ 
 	//applicaiton then use InpOutx64.dll
@@ -56,10 +57,12 @@ BOOL OpenInpOut32(void)
 	MessageBoxW(NULL, L"Cannot load inpoutx64.dll for hardware OPL playback.", L"OPL3_HW", MB_OK | MB_ICONEXCLAMATION);
 #endif
 	return TRUE;
+#endif /*DISABLE_HW_SUPPORT*/
 }
 
 void CloseInpOut32(void)
 {
+#ifndef DISABLE_HW_SUPPORT
 #ifdef _DEBUG
 	fprintf(hwlog, "Closed driver\n");
 	fclose(hwlog);
@@ -69,10 +72,12 @@ void CloseInpOut32(void)
 	gfpInp32 = NULL;
 	gfpIsInpOutDriverOpen = NULL;
 	gfpIsXP64Bit = NULL;
+#endif /*DISABLE_HW_SUPPORT*/
 }
 
 void outportb(unsigned short PortAddress, unsigned short Data)
 {
+#ifndef DISABLE_HW_SUPPORT
 	if (gfpOut32 == NULL)
 	{
 #ifdef _DEBUG
@@ -88,10 +93,12 @@ void outportb(unsigned short PortAddress, unsigned short Data)
 #ifdef _DEBUG
 	fprintf(hwlog, "Write: %x, %x\n", PortAddress, Data);
 #endif
+#endif /*DISABLE_HW_SUPPORT*/
 }
 
 unsigned char inportb(unsigned short PortAddress)
 {
+#ifndef DISABLE_HW_SUPPORT
 	if (gfpInp32 == NULL)
 	{
 #ifdef _DEBUG
@@ -107,4 +114,5 @@ unsigned char inportb(unsigned short PortAddress)
 	fprintf(hwlog, "Read: %x\n", PortAddress);
 #endif
 	return (char)gfpInp32(PortAddress);
+#endif /*DISABLE_HW_SUPPORT*/
 }
