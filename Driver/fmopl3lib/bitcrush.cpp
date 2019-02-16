@@ -88,6 +88,7 @@ static double AWGN_generator()
 
 void SetCrushAmount(unsigned int amount)
 {
+#ifndef DISABLE_DSP_SUPPORT
 	bits = amount;
 	if (bits > 16)
 	{
@@ -97,19 +98,23 @@ void SetCrushAmount(unsigned int amount)
 	{
 		bits = 1;
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }
 
 void SetCrushAmountEnv()
 {
+#ifndef DISABLE_DSP_SUPPORT
 	char *crushamount = getenv("CRUSHAMOUNT");
 	if (crushamount)
 	{
 		SetCrushAmount(atoi(crushamount));
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }
 
 void RectangleDither(signed short *buffer, unsigned int length)
 {
+#ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
 	signed short noise;
 	signed long add;
@@ -139,10 +144,12 @@ void RectangleDither(signed short *buffer, unsigned int length)
 		buffer[1] = (short)add;
 		buffer += 2;
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }
 
 void TriangleDither(signed short *buffer, unsigned int length)
 {
+#ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
 	signed short noise;
 	signed long add;
@@ -172,10 +179,12 @@ void TriangleDither(signed short *buffer, unsigned int length)
 		buffer[1] = (short)add;
 		buffer += 2;
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }
 
 void GaussianDither(signed short *buffer, unsigned int length)
 {
+#ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
 	unsigned int nmult = (1 << (16 - bits)) / 4;
 	signed short noise;
@@ -206,10 +215,12 @@ void GaussianDither(signed short *buffer, unsigned int length)
 		buffer[1] = (short)add;
 		buffer += 2;
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }
 
 void BitCrush(signed short *buffer, unsigned int length)
 {
+#ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
 	unsigned int crush = 16 - bits;
 	for(i = 0; i < length; i++)
@@ -218,10 +229,12 @@ void BitCrush(signed short *buffer, unsigned int length)
 		buffer[1] = buffer[1] >> crush << crush;
 		buffer += 2;
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }
 
 void SwapStereo(signed short *buffer, unsigned int length)
 {
+#ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
 	signed short swap[2];
 	for(i = 0; i < length; i++)
@@ -232,10 +245,12 @@ void SwapStereo(signed short *buffer, unsigned int length)
 		buffer[1] = swap[1];
 		buffer += 2;
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }
 
 void MonoMixdown(signed short *buffer, unsigned int length)
 {
+#ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
 	signed long mixdown;
 	for(i = 0; i < length; i++)
@@ -253,10 +268,12 @@ void MonoMixdown(signed short *buffer, unsigned int length)
 		buffer[1] = (short)mixdown;
 		buffer += 2;
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }
 
 void SurroundSoundLeft(signed short *buffer, unsigned int length)
 {
+#ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
 	for(i = 0; i < length; i++)
 	{
@@ -267,10 +284,12 @@ void SurroundSoundLeft(signed short *buffer, unsigned int length)
 		buffer[0] = buffer[0] * -1;
 		buffer += 2;
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }
 
 void SurroundSoundRight(signed short *buffer, unsigned int length)
 {
+#ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
 	for(i = 0; i < length; i++)
 	{
@@ -281,10 +300,12 @@ void SurroundSoundRight(signed short *buffer, unsigned int length)
 		buffer[1] = buffer[1] * -1;
 		buffer += 2;
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }
 
 void LimitOutput(signed long limit, signed short *buffer, unsigned int length)
 {
+#ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
 	if (limit > 32767)
 	{
@@ -314,4 +335,5 @@ void LimitOutput(signed long limit, signed short *buffer, unsigned int length)
 		}
 		buffer += 2;
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }
