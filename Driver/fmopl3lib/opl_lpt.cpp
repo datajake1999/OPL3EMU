@@ -98,7 +98,7 @@ void opl_lpt_write(WORD reg, BYTE data) {
 
 void opl_lpt_reset(void)
 {
-	WORD Reg;
+	UINT16 Reg;
 	//float FnlVolBak;
 	
 	//FnlVolBak = FinalVol;
