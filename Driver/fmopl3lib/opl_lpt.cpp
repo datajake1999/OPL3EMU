@@ -12,6 +12,7 @@
 static UINT32 lpt_base = 0x378;
 
 void opl2lpt_write(WORD reg, BYTE data) {
+#ifndef DISABLE_HW_SUPPORT
 	UINT32 i;
 	UINT32 lpt_data;
 	UINT32 lpt_ctrl;
@@ -42,9 +43,11 @@ void opl2lpt_write(WORD reg, BYTE data) {
 	for (i = 0; i < 35; i++) {
 		inportb(lpt_ctrl);
 	}
+#endif /*DISABLE_HW_SUPPORT*/
 }
 
 void opl3lpt_write(WORD reg, BYTE data) {
+#ifndef DISABLE_HW_SUPPORT
 	UINT32 i;
 	UINT32 lpt_data;
 	UINT32 lpt_ctrl;
@@ -81,9 +84,11 @@ void opl3lpt_write(WORD reg, BYTE data) {
 	for (i = 0; i < 6; i++) {
 		inportb(lpt_ctrl);
 	}
+#endif /*DISABLE_HW_SUPPORT*/
 }
 
 void opl_lpt_write(WORD reg, BYTE data) {
+#ifndef DISABLE_HW_SUPPORT
 	char *opl2lptmode = getenv("OPL2LPTMODE");
 	if (opl2lptmode)
 	{
@@ -94,10 +99,12 @@ void opl_lpt_write(WORD reg, BYTE data) {
 		}
 	}
 	opl3lpt_write(reg, data);
+#endif /*DISABLE_HW_SUPPORT*/
 }
 
 void opl_lpt_reset(void)
 {
+#ifndef DISABLE_HW_SUPPORT
 	UINT16 Reg;
 	//float FnlVolBak;
 	
@@ -170,27 +177,34 @@ void opl_lpt_reset(void)
 	//FinalVol = FnlVolBak;
 	
 	return;
+#endif /*DISABLE_HW_SUPPORT*/
 }
 
 void SetLPTPort(void) 
 {
+#ifndef DISABLE_HW_SUPPORT
 	char *lptport = getenv("LPTPORT");
 	if (lptport)
 	{
 		lpt_base = strtoul(lptport, 0, 16);
 	}
+#endif /*DISABLE_HW_SUPPORT*/
 };
 
 void OPL_LPT_Init() 
 {
+#ifndef DISABLE_HW_SUPPORT
 	OpenInpOut32(); 
 	SetLPTPort();
 	opl_lpt_reset();
+#endif /*DISABLE_HW_SUPPORT*/
 };
 
 void OPL_LPT_Close()
 {
+#ifndef DISABLE_HW_SUPPORT
 	opl_lpt_reset();
 	CloseInpOut32(); 
+#endif /*DISABLE_HW_SUPPORT*/
 };
 
