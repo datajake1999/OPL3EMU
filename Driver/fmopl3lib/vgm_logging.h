@@ -8,6 +8,9 @@
 */
 
 #include <stdio.h>
+#ifdef _MSC_VER
+#define WIN32
+#endif
 #ifdef WIN32
 #include <windows.h>
 #endif
