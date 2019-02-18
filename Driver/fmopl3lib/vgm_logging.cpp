@@ -250,6 +250,8 @@ DWORD VGMLog_CountSamplesFromOffset(DWORD offset)
 	}
 
 	return DelayCount;
+#else
+	return 0;
 #endif /*DISABLE_IO_SUPPORT*/
 }
 

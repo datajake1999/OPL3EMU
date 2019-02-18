@@ -242,6 +242,8 @@ UINT8 OPL_HW_GetStatus(void)
 	RetStatus = inportb(FMPort);
 	
 	return RetStatus;
+#else
+	return 0;
 #endif	// DISABLE_HW_SUPPORT
 }
 

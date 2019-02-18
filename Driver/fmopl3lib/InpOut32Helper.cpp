@@ -57,6 +57,8 @@ BOOL OpenInpOut32(void)
 	MessageBoxW(NULL, L"Cannot load inpoutx64.dll for hardware OPL playback.", L"OPL3_HW", MB_OK | MB_ICONEXCLAMATION);
 #endif
 	return TRUE;
+#else
+	return TRUE;
 #endif /*DISABLE_HW_SUPPORT*/
 }
 
@@ -114,5 +116,7 @@ unsigned char inportb(unsigned short PortAddress)
 	fprintf(hwlog, "Read: %x\n", PortAddress);
 #endif
 	return (char)gfpInp32(PortAddress);
+#else
+	return ~0;
 #endif /*DISABLE_HW_SUPPORT*/
 }
