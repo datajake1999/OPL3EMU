@@ -26,6 +26,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #endif
 #ifdef WIN32
 #include <windows.h>
+#else
+#include <string.h>
+#include "types.h"
 #endif
 #ifndef WAV_WRITER_H
 #define WAV_WRITER_H

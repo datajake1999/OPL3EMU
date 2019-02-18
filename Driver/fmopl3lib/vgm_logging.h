@@ -13,6 +13,9 @@
 #endif
 #ifdef WIN32
 #include <windows.h>
+#else
+#include <string.h>
+#include "types.h"
 #endif
 #include <math.h>
 #ifndef VGM_LOGGING_H
