@@ -27,8 +27,8 @@ static unsigned int bits = 8;
 
 /*
 Sources for dither noise generators
-Rectangle and Triangle probability density functions: http://github.com/Metabog/ADither/blob/master/DSP_dither.c
-Additive White Gaussian Noise Generator: http://www.embeddedrelated.com/showcode/311.php
+Rectangle and Triangle Probability Density Functions: https://github.com/Metabog/ADither/blob/master/DSP_dither.c
+Additive White Gaussian Noise Generator: https://www.embeddedrelated.com/showcode/311.php
 */
 
 static short Gen_Random()
