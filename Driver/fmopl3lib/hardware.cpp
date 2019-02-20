@@ -16,10 +16,13 @@
 #include "opl_hw.h"
 #include "opl_lpt.h"
 
+#ifndef DISABLE_HW_SUPPORT
 static char *hwsupport = getenv("OPLHWSUPPORT");
+#endif /*DISABLE_HW_SUPPORT*/
 
 void hardware_Init() 
 {
+#ifndef DISABLE_HW_SUPPORT
 	if (hwsupport)
 	{
 		if (strstr(hwsupport, "-on"))
@@ -32,9 +35,11 @@ void hardware_Init()
 			OPL_LPT_Init();
 		}
 	}
+#endif /*DISABLE_HW_SUPPORT*/
 };
 
 void hardware_WriteReg(unsigned short reg, unsigned char data) {
+#ifndef DISABLE_HW_SUPPORT
 	if (hwsupport)
 	{
 		if (strstr(hwsupport, "-on"))
@@ -46,10 +51,12 @@ void hardware_WriteReg(unsigned short reg, unsigned char data) {
 			opl_lpt_write(reg, data);
 		}
 	}
+#endif /*DISABLE_HW_SUPPORT*/
 }
 
 void hardware_Close()
 {
+#ifndef DISABLE_HW_SUPPORT
 	if (hwsupport)
 	{
 		if (strstr(hwsupport, "-on"))
@@ -61,4 +68,5 @@ void hardware_Close()
 			OPL_LPT_Close();
 		}
 	}
+#endif /*DISABLE_HW_SUPPORT*/
 };
