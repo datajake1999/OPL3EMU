@@ -14,6 +14,7 @@ typedef short	(__stdcall *lpInp32)(short);
 typedef BOOL	(__stdcall *lpIsInpOutDriverOpen)(void);
 typedef BOOL	(__stdcall *lpIsXP64Bit)(void);
 
+#ifndef DISABLE_HW_SUPPORT
 static lpOut32 gfpOut32 = 0;
 static lpInp32 gfpInp32 = 0;
 static lpIsInpOutDriverOpen gfpIsInpOutDriverOpen = 0;
@@ -23,6 +24,7 @@ static HINSTANCE hInpOutDll ;
 #ifdef _DEBUG
 static FILE *hwlog;
 #endif
+#endif /*DISABLE_HW_SUPPORT*/
 
 /*
 * Returns true if inpout32 failed to open (necessary for applications checking for non-zero failures)

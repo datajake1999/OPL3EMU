@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "wav_writer.h"
 
+#ifndef DISABLE_IO_SUPPORT
 //create the file object:
 static FILE *out;
 
@@ -54,6 +55,7 @@ static int fileexists(const char * filename)
 	}
 	return 0;
 }
+#endif /*DISABLE_IO_SUPPORT*/
 
 void WavFileOpen(unsigned int rate)
 {

@@ -9,7 +9,9 @@
 
 #include "opl_lpt.h"
 
+#ifndef DISABLE_HW_SUPPORT
 static UINT32 lpt_base = 0x378;
+#endif /*DISABLE_HW_SUPPORT*/
 
 void opl2lpt_write(WORD reg, BYTE data) {
 #ifndef DISABLE_HW_SUPPORT

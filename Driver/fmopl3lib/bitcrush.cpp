@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <math.h>
 #include "bitcrush.h"
 
+#ifndef DISABLE_DSP_SUPPORT
 static unsigned int bits = 8;
 
 /*
@@ -85,6 +86,7 @@ static double AWGN_generator()
 	return result;	// return the generated random sample to the caller
 
 }// end AWGN_generator()
+#endif /*DISABLE_DSP_SUPPORT*/
 
 void SetCrushAmount(unsigned int amount)
 {

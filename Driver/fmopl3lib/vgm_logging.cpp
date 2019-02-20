@@ -9,6 +9,7 @@
 
 #include "vgm_logging.h"
 
+#ifndef DISABLE_IO_SUPPORT
 //static const double FMToVGMSamples = 0.887038377986966;
 //static const long double FMToVGMSamples = ((long double)44100.0 / 49716.0);
 static long double FMToVGMSamples;
@@ -37,6 +38,7 @@ static int fileexists(const char * filename)
 	}
 	return 0;
 }
+#endif /*DISABLE_IO_SUPPORT*/
 
 void VGMLog_Init(int samplerate)
 {
