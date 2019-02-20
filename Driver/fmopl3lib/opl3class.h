@@ -16,10 +16,16 @@
 #include "..\interface.h"
 #include "emulator.h"
 #include "resampler.h"
+#ifndef DISABLE_DSP_SUPPORT
 #include "bitcrush.h"
+#endif /*DISABLE_DSP_SUPPORT*/
+#ifndef DISABLE_HW_SUPPORT
 #include "hardware.h"
+#endif /*DISABLE_HW_SUPPORT*/
+#ifndef DISABLE_IO_SUPPORT
 #include "wav_writer.h"
 #include "vgm_logging.h"
+#endif /*DISABLE_IO_SUPPORT*/
 
 
 class opl3class : public fm_chip {

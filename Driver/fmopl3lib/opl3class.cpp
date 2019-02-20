@@ -18,15 +18,19 @@
 #include "opl3class.h"
 
 static char *hqresampler = getenv("HQRESAMPLER");
+#ifndef DISABLE_DSP_SUPPORT
 static char *bitcrush = getenv("BITCRUSH");
 static char *dither = getenv("DITHER");
 static char *swapstereo = getenv("SWAPSTEREO");
 static char *mono = getenv("MONO");
 static char *surround = getenv("SURROUND");
 static char *limit = getenv("LIMIT");
+#endif /*DISABLE_DSP_SUPPORT*/
+#ifndef DISABLE_IO_SUPPORT
 static char *wavwrite = getenv("WAVWRITE");
 static char *vgmlog = getenv("VGMLOG");
 static char *vgmloop = getenv("VGMLOOP");
+#endif /*DISABLE_IO_SUPPORT*/
 
 int opl3class::fm_init(unsigned int rate) {
 	if (hqresampler)
@@ -45,6 +49,7 @@ int opl3class::fm_init(unsigned int rate) {
 	{
 		emul.Init(rate);
 	}
+#ifndef DISABLE_DSP_SUPPORT
 	if (bitcrush)
 	{
 		if (strstr(bitcrush, "-on"))
@@ -52,7 +57,11 @@ int opl3class::fm_init(unsigned int rate) {
 			SetCrushAmountEnv();
 		}
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
+#ifndef DISABLE_HW_SUPPORT
 	hardware_Init();
+#endif /*DISABLE_HW_SUPPORT*/
+#ifndef DISABLE_IO_SUPPORT
 	if (wavwrite)
 	{
 		if (strstr(wavwrite, "-on"))
@@ -74,13 +83,17 @@ int opl3class::fm_init(unsigned int rate) {
 			}
 		}
 	}
+#endif /*DISABLE_IO_SUPPORT*/
 
 	return 1;
 }
 
 void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 	emul.WriteReg(reg, data);
+#ifndef DISABLE_HW_SUPPORT
 	hardware_WriteReg(reg, data);
+#endif /*DISABLE_HW_SUPPORT*/
+#ifndef DISABLE_IO_SUPPORT
 	if (vgmlog)
 	{
 		if (strstr(vgmlog, "-on"))
@@ -88,6 +101,7 @@ void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 			VGMLog_CmdWrite((0x5E | (reg>>8)), (BYTE)reg, data);
 		}
 	}
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 void opl3class::fm_generate_resampled(signed short *buffer, unsigned int len) {
@@ -125,6 +139,7 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	{
 		emul.Generate(buffer, len);
 	}
+#ifndef DISABLE_DSP_SUPPORT
 	if (bitcrush)
 	{
 		if (strstr(bitcrush, "-on"))
@@ -176,6 +191,8 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	{
 		LimitOutput(atoi(limit), buffer, len);
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
+#ifndef DISABLE_IO_SUPPORT
 	if (wavwrite)
 	{
 		if (strstr(wavwrite, "-on"))
@@ -190,6 +207,7 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 			VGMLog_IncrementSamples(len);
 		}
 	}
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 void opl3class::fm_close() {
@@ -204,7 +222,10 @@ void opl3class::fm_close() {
 			resampler_destroy(resampler);
 		}
 	}
+#ifndef DISABLE_HW_SUPPORT
 	hardware_Close();
+#endif /*DISABLE_HW_SUPPORT*/
+#ifndef DISABLE_IO_SUPPORT
 	if (wavwrite)
 	{
 		if (strstr(wavwrite, "-on"))
@@ -219,6 +240,7 @@ void opl3class::fm_close() {
 			VGMLog_Close();
 		}
 	}
+#endif /*DISABLE_IO_SUPPORT*/
 }
 
 fm_chip *getchip() {
