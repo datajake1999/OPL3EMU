@@ -9,12 +9,12 @@
 
 #include "InpOut32Helper.h"
 
+#ifndef DISABLE_HW_SUPPORT
 typedef void	(__stdcall *lpOut32)(short, short);
 typedef short	(__stdcall *lpInp32)(short);
 typedef BOOL	(__stdcall *lpIsInpOutDriverOpen)(void);
 typedef BOOL	(__stdcall *lpIsXP64Bit)(void);
 
-#ifndef DISABLE_HW_SUPPORT
 static lpOut32 gfpOut32 = 0;
 static lpInp32 gfpInp32 = 0;
 static lpIsInpOutDriverOpen gfpIsInpOutDriverOpen = 0;
