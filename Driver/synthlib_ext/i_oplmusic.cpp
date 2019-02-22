@@ -100,7 +100,9 @@ bool DoomOPL::LoadInstrumentTable(void)
 	unsigned int size;
 
 #ifdef _MSC_VER
+#ifndef WIN32
 #define WIN32
+#endif
 #endif
 #ifdef WIN32
 	FILE *file = fopen("C:\\OPLSynth\\GENMIDI.OP2", "rb");

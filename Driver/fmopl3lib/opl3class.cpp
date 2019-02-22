@@ -40,7 +40,9 @@ int opl3class::fm_init(unsigned int rate) {
 			emul.Init(49716);
 #ifdef _DEBUG
 #ifdef _MSC_VER
+#ifndef WIN32
 #define WIN32
+#endif
 #endif
 #ifdef WIN32
 			rawsamples = fopen("C:\\OPLSynth\\rawsamples.pcm", "ab");
