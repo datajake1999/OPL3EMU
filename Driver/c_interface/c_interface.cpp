@@ -1,4 +1,4 @@
-#include "..\interface.h"
+#include "../interface.h"
 
 #include "c_types.h"
 #include "c_interface.h"

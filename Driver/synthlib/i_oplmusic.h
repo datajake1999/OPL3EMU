@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "..\interface.h"
+#include "../interface.h"
 #define MIDI_CHANNELS_PER_TRACK 16
 
 #define MIDI_EVENT_NOTE_OFF 0x80

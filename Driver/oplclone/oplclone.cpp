@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
-#include "..\interface.h"
+#include "../interface.h"
 fm_chip *chip;
 
 void writeopl(int r, int v)

@@ -20,7 +20,7 @@
 #include "dbopl.h"
 #include "ymf262.h"
 #ifdef __GNUC__
-#include "..\opal\opal_wrapper.h"
+#include "../opal/opal_wrapper.h"
 #endif
 #include "silence.h"
 

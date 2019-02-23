@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define __AL_MIDI_H
 
 #include "_al_midi.h"
-#include "..\interface.h"
+#include "../interface.h"
 
 enum AL_Errors
    {

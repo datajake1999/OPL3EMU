@@ -17,5 +17,5 @@
 #include <process.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "..\interface.h"
+#include "../interface.h"
 #include "MidiSynth.h"

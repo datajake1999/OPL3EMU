@@ -13,7 +13,7 @@
 // GNU General Public License for more details.
 //
 
-#include "..\interface.h"
+#include "../interface.h"
 #include "emulator.h"
 #include "resampler.h"
 #ifndef DISABLE_DSP_SUPPORT
