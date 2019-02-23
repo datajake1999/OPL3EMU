@@ -39,7 +39,7 @@ typedef intptr_t             Bits;
 //Select the type of wave generator routine
 #define DBOPL_WAVE WAVE_TABLEMUL
 
-#define INLINE __forceinline
+#define INLINE __inline
 
 namespace DBOPL {
 
