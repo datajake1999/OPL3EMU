@@ -2,6 +2,9 @@
 typedef uint8_t BYTE;
 typedef uint16_t WORD;
 typedef uint32_t DWORD;
+typedef int32_t BOOL;
+#define FALSE 0
+#define TRUE 1
 typedef uint8_t UINT8;
 typedef int8_t INT8;
 typedef uint16_t UINT16;
