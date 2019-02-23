@@ -2,8 +2,12 @@
 #ifndef INPOUT32_HELPER_H
 #define INPOUT32_HELPER_H
 
+#ifndef DISABLE_HW_SUPPORT
 #include <stdio.h>
 #include <windows.h>
+#else
+#include "types.h"
+#endif /*DISABLE_HW_SUPPORT*/
 
 BOOL OpenInpOut32(void);
 void CloseInpOut32(void);
