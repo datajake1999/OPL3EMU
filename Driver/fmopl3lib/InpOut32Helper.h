@@ -2,6 +2,9 @@
 #ifndef INPOUT32_HELPER_H
 #define INPOUT32_HELPER_H
 
+#ifndef _WIN32
+#define DISABLE_HW_SUPPORT
+#endif
 #ifndef DISABLE_HW_SUPPORT
 #include <stdio.h>
 #include <windows.h>
