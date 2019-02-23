@@ -19,7 +19,7 @@
 #include "opl.h"
 #include "dbopl.h"
 #include "ymf262.h"
-#ifdef __MINGW32__
+#ifdef __GNUC__
 #include "..\opal\opal_wrapper.h"
 #endif
 #include "silence.h"
@@ -30,7 +30,7 @@ private:
 	OPLChipClass chip2;
 	DBOPL::Handler chip3;
 	void *chip4;
-#ifdef __MINGW32__
+#ifdef __GNUC__
 	opal_wrapper chip5;
 #endif
 public:
