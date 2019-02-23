@@ -341,7 +341,7 @@ int main()
 		printf("1 = DOSBox compat.\n");
 		printf("2 = DOSBox fast.\n");
 		printf("3 = MAME.\n");
-#ifdef __MINGW32__
+#ifdef __GNUC__
 		printf("4 = RAD.\n");
 #endif
 		scanf("%d", &core);
@@ -365,7 +365,7 @@ int main()
 			system("SetEnv -u opl3core -mame");
 			printf("The current OPL3 core is MAME.\n");
 		}
-#ifdef __MINGW32__
+#ifdef __GNUC__
 		if (core == 4)
 		{
 			system("SetEnv -u opl3core -rad");
@@ -841,7 +841,7 @@ int main()
 			{
 				printf("MAME is the current OPL3 core.\n");
 			}
-#ifdef __MINGW32__
+#ifdef __GNUC__
 			if (strstr(core, "-rad"))
 			{
 				printf("RAD is the current OPL3 core.\n");
