@@ -8,12 +8,7 @@
 */
 
 #include <stdio.h>
-#ifdef _MSC_VER
-#ifndef WIN32
-#define WIN32
-#endif
-#endif
-#ifdef WIN32
+#ifdef _WIN32
 #include <windows.h>
 #else
 #include <string.h>

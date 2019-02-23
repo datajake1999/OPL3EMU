@@ -87,7 +87,7 @@ default:
 	{
 		char filename[100];
 		UINT32 i;
-#ifdef WIN32
+#ifdef _WIN32
 		CreateDirectory("C:\\OPLSynth", NULL);
 		sprintf(filename, "C:\\OPLSynth\\opl3vgmlog.vgm");
 #else
@@ -101,7 +101,7 @@ default:
 		{
 			for(i = 0; i >= 0; i++)
 			{
-#ifdef WIN32
+#ifdef _WIN32
 				sprintf(filename, "C:\\OPLSynth\\opl3vgmlog%d.vgm", i);
 #else
 				sprintf(filename, "opl3vgmlog%d.vgm", i);
@@ -123,7 +123,7 @@ default:
 		if (hFileVGM == NULL)
 		{
 			//hFileVGM = NULL;
-#ifdef WIN32
+#ifdef _WIN32
 			MessageBoxW(NULL, L"Handle for opl3vgmlog.vgm failed.", L"VGM Logger", MB_OK | MB_ICONEXCLAMATION);
 #else
 			printf("Handle for %s failed.\n", filename);
@@ -302,7 +302,7 @@ void VGMLog_Close()
 	hFileVGM = NULL;
 
 #ifdef _DEBUG
-#ifdef WIN32
+#ifdef _WIN32
 	MessageBoxW(NULL, L"File opl3vgmlog.vgm saved.", L"VGM Logger", MB_OK | MB_ICONINFORMATION);
 #else
 	printf("File saved.\n");

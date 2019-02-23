@@ -21,12 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include <stdio.h>
-#ifdef _MSC_VER
-#ifndef WIN32
-#define WIN32
-#endif
-#endif
-#ifdef WIN32
+#ifdef _WIN32
 #include <windows.h>
 #else
 #include "types.h"

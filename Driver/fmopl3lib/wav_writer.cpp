@@ -65,7 +65,7 @@ void WavFileOpen(unsigned int rate)
 		//file open routines:
 		char filename[100];
 		UINT32 i;
-#ifdef WIN32
+#ifdef _WIN32
 		CreateDirectory("C:\\OPLSynth", NULL);
 		sprintf(filename, "C:\\OPLSynth\\output.wav");
 #else
@@ -80,7 +80,7 @@ void WavFileOpen(unsigned int rate)
 			//if the file already exists, try opening the file with a number appended to the end of the filename:
 			for(i = 0; i >= 0; i++)
 			{
-#ifdef WIN32
+#ifdef _WIN32
 				sprintf(filename, "C:\\OPLSynth\\output%d.wav", i);
 #else
 				sprintf(filename, "output%d.wav", i);
@@ -95,7 +95,7 @@ void WavFileOpen(unsigned int rate)
 		if (out == NULL)
 		{
 			//inform the user if the file fails to open:
-#ifdef WIN32
+#ifdef _WIN32
 			MessageBoxW(NULL, L"Failed to open output.wav.", L"WAV File Writer", MB_OK | MB_ICONEXCLAMATION);
 #else
 			printf("Failed to open %s.\n", filename);
@@ -143,7 +143,7 @@ void WavFileClose()
 	out = NULL;
 	//if running in debug mode, inform the user when the file is saved:
 #ifdef _DEBUG
-#ifdef WIN32
+#ifdef _WIN32
 	MessageBoxW(NULL, L"File output.wav saved.", L"WAV File Writer", MB_OK | MB_ICONINFORMATION);
 #else
 	printf("File saved.\n");
