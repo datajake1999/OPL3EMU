@@ -13,7 +13,6 @@
 //
 
 #include <string.h>
-#include <math.h>
 #include "zdopl_wrapper.h"
 
 void zdopl_wrapper::Init(unsigned int rate) {
