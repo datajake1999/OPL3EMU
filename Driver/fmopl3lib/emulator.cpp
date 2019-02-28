@@ -51,6 +51,11 @@ void emulator::Init(unsigned int rate) {
 			chip5.Init(rate);
 			return;
 		}
+		if (strstr(core, "-java"))
+		{
+			chip6.Init(rate);
+			return;
+		}
 #endif
 	}
 	OPL3_Reset(&chip, rate);
@@ -85,6 +90,11 @@ void emulator::WriteReg(unsigned short reg, unsigned char data) {
 		if (strstr(core, "-rad"))
 		{
 			chip5.WriteReg(reg, data);
+			return;
+		}
+		if (strstr(core, "-java"))
+		{
+			chip6.WriteReg(reg, data);
 			return;
 		}
 #endif
@@ -122,6 +132,11 @@ void emulator::Generate(signed short *buffer, unsigned int len) {
 		if (strstr(core, "-rad"))
 		{
 			chip5.Generate(buffer, len);
+			return;
+		}
+		if (strstr(core, "-java"))
+		{
+			chip6.Generate(buffer, len);
 			return;
 		}
 #endif

@@ -21,6 +21,7 @@
 #include "ymf262.h"
 #ifdef __GNUC__
 #include "../opal/opal_wrapper.h"
+#include "../zdopl/zdopl_wrapper.h"
 #endif
 #include "silence.h"
 
@@ -32,6 +33,7 @@ private:
 	void *chip4;
 #ifdef __GNUC__
 	opal_wrapper chip5;
+	zdopl_wrapper chip6;
 #endif
 public:
 	void Init(unsigned int rate);
