@@ -37,7 +37,7 @@ void zdopl_wrapper::Generate(signed short *buffer, unsigned int len)
 		unsigned int cursamples = 2 * curframes;
 		for(unsigned int i = 0; i < cursamples; ++i)
 		{
-			signed long sample = (signed long)lround(24576 * buf[i]);
+			signed long sample = (signed long)round(24576 * buf[i]);
 			sample = (sample > -32768) ? sample : -32768;
 			sample = (sample < +32767) ? sample : +32767;
 			buffer[i] = (signed short)sample;
