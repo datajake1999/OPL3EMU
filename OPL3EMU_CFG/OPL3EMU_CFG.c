@@ -343,6 +343,7 @@ int main()
 		printf("3 = MAME.\n");
 #ifdef __GNUC__
 		printf("4 = RAD.\n");
+		printf("5 = Java OPL3.\n");
 #endif
 		scanf("%d", &core);
 		if (core == 0)
@@ -370,6 +371,11 @@ int main()
 		{
 			system("SetEnv -u opl3core -rad");
 			printf("The current OPL3 core is RAD.\n");
+		}
+		if (core == 5)
+		{
+			system("SetEnv -u opl3core -java");
+			printf("The current OPL3 core is Java OPL3.\n");
 		}
 #endif
 		printf("Press any key to exit.\n");
@@ -845,6 +851,10 @@ int main()
 			if (strstr(core, "-rad"))
 			{
 				printf("RAD is the current OPL3 core.\n");
+			}
+			if (strstr(core, "-java"))
+			{
+				printf("Java OPL3 is the current OPL3 core.\n");
 			}
 #endif
 		}
