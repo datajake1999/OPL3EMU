@@ -325,7 +325,7 @@ void LimitOutput(signed long limit, signed short *buffer, unsigned int length)
 		}
 		else if (buffer[0] < limit * -1)
 		{
-			buffer[0] = limit * -1;
+			buffer[0] = (short)limit * -1;
 		}
 		if (buffer[1] > limit)
 		{
@@ -333,7 +333,7 @@ void LimitOutput(signed long limit, signed short *buffer, unsigned int length)
 		}
 		else if (buffer[1] < limit * -1)
 		{
-			buffer[1] = limit * -1;
+			buffer[1] = (short)limit * -1;
 		}
 		buffer += 2;
 	}
