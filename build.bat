@@ -1,5 +1,8 @@
 @ECHO OFF
-set path="C:\Program Files\Inno Setup 5"
+set path="C:\Program Files\7-Zip";"C:\Program Files\Inno Setup 5"
+cd..
+7z a -tzip OPL3EMU\output\OPL3EMU.zip @OPL3EMU\zip.txt
+cd OPL3EMU
 call "c:\program files\microsoft visual studio 8\vc\bin\vcvars32.bat"
 call "C:\program files\Microsoft Platform SDK\SetEnv.Cmd" /SRV32 /RETAIL
 cd Driver\X86

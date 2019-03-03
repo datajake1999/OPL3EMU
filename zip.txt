@@ -1,0 +1,19 @@
+OPL3EMU\64bit.txt
+OPL3EMU\Apogee_TMB
+OPL3EMU\build with log.bat
+OPL3EMU\build.bat
+OPL3EMU\build_mingw with log.bat
+OPL3EMU\build_mingw.bat
+OPL3EMU\Docs
+OPL3EMU\Driver
+OPL3EMU\GENMIDI
+OPL3EMU\Installer
+OPL3EMU\log.txt
+OPL3EMU\MidiPlyr
+OPL3EMU\MidiSel
+OPL3EMU\MIDI_Samples
+OPL3EMU\OPL3EMU.iss
+OPL3EMU\OPL3EMU_CFG
+OPL3EMU\OPL3EMU_mingw.iss
+OPL3EMU\SetEnv
+OPL3EMU\zip.txt
