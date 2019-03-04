@@ -26,6 +26,9 @@ void zdopl_wrapper::WriteReg(unsigned short reg, unsigned char data) {
 
 void zdopl_wrapper::Generate(signed short *buffer, unsigned int len)
 {
+	/*
+Bassed on code from libADLMIDI found at https://github.com/Wohlstand/libADLMIDI/blob/master/src/chips/java_opl3.cpp
+*/
 	enum { maxframes = 256 };
 	float buf[2 * maxframes];
 	while(len > 0)
