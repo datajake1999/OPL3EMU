@@ -20,7 +20,8 @@
 #include "bitcrush.h"
 #endif /*DISABLE_DSP_SUPPORT*/
 #ifndef DISABLE_HW_SUPPORT
-#include "hardware.h"
+#include "opl_hw.h"
+#include "opl_lpt.h"
 #endif /*DISABLE_HW_SUPPORT*/
 #ifndef DISABLE_IO_SUPPORT
 #include "wav_writer.h"

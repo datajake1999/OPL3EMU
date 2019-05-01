@@ -26,6 +26,9 @@ static char *mono = getenv("MONO");
 static char *surround = getenv("SURROUND");
 static char *limit = getenv("LIMIT");
 #endif /*DISABLE_DSP_SUPPORT*/
+#ifndef DISABLE_HW_SUPPORT
+static char *hwsupport = getenv("OPLHWSUPPORT");
+#endif /*DISABLE_HW_SUPPORT*/
 #ifndef DISABLE_IO_SUPPORT
 static char *wavwrite = getenv("WAVWRITE");
 static char *vgmlog = getenv("VGMLOG");
@@ -63,7 +66,18 @@ int opl3class::fm_init(unsigned int rate) {
 	}
 #endif /*DISABLE_DSP_SUPPORT*/
 #ifndef DISABLE_HW_SUPPORT
-	hardware_Init();
+	if (hwsupport)
+	{
+		if (strstr(hwsupport, "-on"))
+		{
+			OPL_Hardware_Detection();
+			OPL_HW_Init();
+		}
+		if (strstr(hwsupport, "-lpt"))
+		{
+			OPL_LPT_Init();
+		}
+	}
 #endif /*DISABLE_HW_SUPPORT*/
 #ifndef DISABLE_IO_SUPPORT
 	if (wavwrite)
@@ -95,7 +109,17 @@ int opl3class::fm_init(unsigned int rate) {
 void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
 	emul.WriteReg(reg, data);
 #ifndef DISABLE_HW_SUPPORT
-	hardware_WriteReg(reg, data);
+	if (hwsupport)
+	{
+		if (strstr(hwsupport, "-on"))
+		{
+			OPL_HW_WriteReg(reg, data);
+		}
+		if (strstr(hwsupport, "-lpt"))
+		{
+			opl_lpt_write(reg, data);
+		}
+	}
 #endif /*DISABLE_HW_SUPPORT*/
 #ifndef DISABLE_IO_SUPPORT
 	if (vgmlog)
@@ -227,7 +251,17 @@ void opl3class::fm_close() {
 		}
 	}
 #ifndef DISABLE_HW_SUPPORT
-	hardware_Close();
+	if (hwsupport)
+	{
+		if (strstr(hwsupport, "-on"))
+		{
+			OPL_HW_Close();
+		}
+		if (strstr(hwsupport, "-lpt"))
+		{
+			OPL_LPT_Close();
+		}
+	}
 #endif /*DISABLE_HW_SUPPORT*/
 #ifndef DISABLE_IO_SUPPORT
 	if (wavwrite)
