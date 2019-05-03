@@ -50,12 +50,11 @@ int opl3class::fm_init(unsigned int rate) {
 #endif
 			resampler = resampler_create();
 			resampler_set_rate(resampler, 49716.0 / (double)rate);
+			goto InitUtils;
 		}
 	}
-	else
-	{
-		emul.Init(rate);
-	}
+	emul.Init(rate);
+InitUtils:
 #ifndef DISABLE_DSP_SUPPORT
 	if (bitcrush)
 	{
@@ -161,12 +160,11 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 		if (strstr(hqresampler, "-on"))
 		{
 			fm_generate_resampled(buffer, len);
+			goto GenerateUtils;
 		}
 	}
-	else
-	{
-		emul.Generate(buffer, len);
-	}
+	emul.Generate(buffer, len);
+GenerateUtils:
 #ifndef DISABLE_DSP_SUPPORT
 	if (bitcrush)
 	{
