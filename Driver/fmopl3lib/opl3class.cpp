@@ -234,6 +234,7 @@ GenerateUtils:
 		}
 	}
 #endif /*DISABLE_IO_SUPPORT*/
+	return;
 }
 
 void opl3class::fm_close() {
