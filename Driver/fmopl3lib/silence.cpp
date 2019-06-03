@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 void GenerateSilence(signed short *buffer, unsigned int length)
 {
+#ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
 	for(i = 0; i < length; i++)
 	{
@@ -29,4 +30,5 @@ void GenerateSilence(signed short *buffer, unsigned int length)
 		buffer[1] = 0;
 		buffer += 2;
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 }

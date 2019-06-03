@@ -17,9 +17,12 @@
 #include "emulator.h"
 
 static char *core = getenv("OPL3CORE");
+#ifndef DISABLE_DSP_SUPPORT
 static char *silence = getenv("OPLEMUSILENCE");
+#endif /*DISABLE_DSP_SUPPORT*/
 
 void emulator::Init(unsigned int rate) {
+#ifndef DISABLE_DSP_SUPPORT
 	if (silence)
 	{
 		if (strstr(silence, "-on"))
@@ -27,6 +30,7 @@ void emulator::Init(unsigned int rate) {
 			return;
 		}
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 	if (core)
 	{
 		if (strstr(core, "-dbcompat"))
@@ -62,6 +66,7 @@ void emulator::Init(unsigned int rate) {
 }
 
 void emulator::WriteReg(unsigned short reg, unsigned char data) {
+#ifndef DISABLE_DSP_SUPPORT
 	if (silence)
 	{
 		if (strstr(silence, "-on"))
@@ -69,6 +74,7 @@ void emulator::WriteReg(unsigned short reg, unsigned char data) {
 			return;
 		}
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 	if (core)
 	{
 		if (strstr(core, "-dbcompat"))
@@ -103,6 +109,7 @@ void emulator::WriteReg(unsigned short reg, unsigned char data) {
 }
 
 void emulator::Generate(signed short *buffer, unsigned int len) {
+#ifndef DISABLE_DSP_SUPPORT
 	if (silence)
 	{
 		if (strstr(silence, "-on"))
@@ -111,6 +118,7 @@ void emulator::Generate(signed short *buffer, unsigned int len) {
 			return;
 		}
 	}
+#endif /*DISABLE_DSP_SUPPORT*/
 	if (core)
 	{
 		if (strstr(core, "-dbcompat"))

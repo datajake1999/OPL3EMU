@@ -23,7 +23,9 @@
 #include "../opal/opal_wrapper.h"
 #include "../zdopl/zdopl_wrapper.h"
 #endif
+#ifndef DISABLE_DSP_SUPPORT
 #include "silence.h"
+#endif /*DISABLE_DSP_SUPPORT*/
 
 class emulator {
 private:
