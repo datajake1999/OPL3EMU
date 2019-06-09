@@ -191,6 +191,10 @@ void GaussianDither(signed short *buffer, unsigned int length)
 	unsigned int nmult = (1 << (16 - bits)) / 4;
 	signed short noise;
 	signed long add;
+	if (nmult < 1)
+	{
+		nmult = 1;
+	}
 	for(i = 0; i < length; i++)
 	{
 		noise = AWGN_generator() * nmult;
