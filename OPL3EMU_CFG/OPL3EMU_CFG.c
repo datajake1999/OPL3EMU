@@ -55,6 +55,8 @@ int main()
 	int crushamount;
 	int dither;
 	int limit;
+	int reverb;
+	int preset;
 	int reset;
 	char string[100];
 	CreateDirectory("C:\\OPLSynth", NULL);
@@ -552,6 +554,8 @@ int main()
 		printf("12 = Set bit crushing amount.\n");
 		printf("13 = Set dither mode.\n");
 		printf("14 = Limit maximum amplitude in final output.\n");
+		printf("15 = Enable/disable reverb.\n");
+		printf("16 = Set reverb preset.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -801,6 +805,62 @@ int main()
 			}
 			printf("The maximum amplitude allowed in the final output is%d.\n", limit);
 		}
+		if (audcfg == 15)
+		{
+			printf("Enable/disable reverb. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			scanf("%d", &reverb);
+			if (reverb == 0)
+			{
+				system("SetEnv -u -d reverb");
+				printf("Reverb has been disabled.\n");
+			}
+			if (reverb == 1)
+			{
+				system("SetEnv -u reverb -on");
+				printf("Reverb has been enabled.\n");
+			}
+		}
+		if (audcfg == 16)
+		{
+			printf("Set reverb preset. Type the number that is assosiated to your desired  reverb preset and press enter to apply.\n");
+			printf("0 = Default.\n");
+			printf("1 = Castle.\n");
+			printf("2 = Stadium.\n");
+			printf("3 = Heaven.\n");
+			printf("4 = Sewer.\n");
+			printf("5 = Psychotic.\n");
+			scanf("%d", &preset);
+			if (preset == 0)
+			{
+				system("SetEnv -u -d preset");
+				printf("The default reverb preset is set.\n");
+			}
+			if (preset == 1)
+			{
+				system("SetEnv -u preset -castle");
+				printf("The castle reverb preset is set.\n");
+			}
+			if (preset == 2)
+			{
+				system("SetEnv -u preset -stadium");
+				printf("The stadium reverb preset is set.\n");
+			}
+			if (preset == 3)
+			{
+				system("SetEnv -u preset -heaven");
+				printf("The heaven reverb preset is set.\n");
+			}
+			if (preset == 4)
+			{
+				system("SetEnv -u preset -sewer");
+				printf("The sewer reverb preset is set.\n");
+			}
+			if (preset == 5)
+			{
+				system("SetEnv -u preset -psychotic");
+				printf("The psychotic reverb preset is set.\n");
+			}
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -832,6 +892,8 @@ int main()
 		char *crushamount = getenv("CRUSHAMOUNT");
 		char *dither = getenv("DITHER");
 		char *limit = getenv("LIMIT");
+		char *reverb = getenv("REVERB");
+		char *preset = getenv("PRESET");
 		printf("General driver configuration.\n");
 		if (core)
 		{
@@ -1149,6 +1211,44 @@ int main()
 		{
 			printf("The maximum amplitude allowed in the final output is %s.\n", limit);
 		}
+		if (reverb)
+		{
+			if (strstr(reverb, "-on"))
+			{
+				printf("Reverb is enabled.\n");
+				if (preset)
+				{
+					if (strstr(preset, "-castle"))
+					{
+						printf("The castle preset is set.\n");
+					}
+					if (strstr(preset, "-stadium"))
+					{
+						printf("The stadium preset is set.\n");
+					}
+					if (strstr(preset, "-heaven"))
+					{
+						printf("The heaven preset is set.\n");
+					}
+					if (strstr(preset, "-sewer"))
+					{
+						printf("The sewer preset is set.\n");
+					}
+					if (strstr(preset, "-psychotic"))
+					{
+						printf("The psychotic preset is set.\n");
+					}
+				}
+				else
+				{
+					printf("The default preset is set.\n");
+				}
+			}
+		}
+		else
+		{
+			printf("Reverb is disabled.\n");
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -1190,6 +1290,8 @@ int main()
 			system("SetEnv -u -d crushamount");
 			system("SetEnv -u -d dither");
 			system("SetEnv -u -d limit");
+			system("SetEnv -u -d reverb");
+			system("SetEnv -u -d preset");
 			printf("Driver configuration has been reset.\n");
 		}
 		printf("Press any key to exit.\n");

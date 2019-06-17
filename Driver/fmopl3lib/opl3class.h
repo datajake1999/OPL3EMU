@@ -14,6 +14,7 @@
 //
 
 #include "../interface.h"
+#include "EAXReverb.h"
 #include "emulator.h"
 #include "resampler.h"
 #ifndef DISABLE_DSP_SUPPORT
@@ -31,6 +32,7 @@
 
 class opl3class : public fm_chip {
 private:
+	EAXReverb EAX;
 	emulator emul;
 	void *resampler;
 #ifdef _DEBUG

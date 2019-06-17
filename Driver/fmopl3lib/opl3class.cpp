@@ -18,6 +18,8 @@
 #include "opl3class.h"
 
 static char *hqresampler = getenv("HQRESAMPLER");
+static char *reverb = getenv("REVERB");
+static char *preset = getenv("PRESET");
 #ifndef DISABLE_DSP_SUPPORT
 static char *bitcrush = getenv("BITCRUSH");
 static char *dither = getenv("DITHER");
@@ -36,6 +38,36 @@ static char *vgmloop = getenv("VGMLOOP");
 #endif /*DISABLE_IO_SUPPORT*/
 
 int opl3class::fm_init(unsigned int rate) {
+	if (reverb)
+	{
+		if (strstr(reverb, "-on"))
+		{
+			EAX.Init(rate);
+			if (preset)
+			{
+				if (strstr(preset, "-castle"))
+				{
+					EAX.SetPreset(0);
+				}
+				if (strstr(preset, "-stadium"))
+				{
+					EAX.SetPreset(1);
+				}
+				if (strstr(preset, "-heaven"))
+				{
+					EAX.SetPreset(2);
+				}
+				if (strstr(preset, "-sewer"))
+				{
+					EAX.SetPreset(3);
+				}
+				if (strstr(preset, "-psychotic"))
+				{
+					EAX.SetPreset(4);
+				}
+			}
+		}
+	}
 	if (hqresampler)
 	{
 		if (strstr(hqresampler, "-on"))
@@ -165,6 +197,13 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
 	}
 	emul.Generate(buffer, len);
 GenerateUtils:
+	if (reverb)
+	{
+		if (strstr(reverb, "-on"))
+		{
+			EAX.Generate(buffer, len);
+		}
+	}
 #ifndef DISABLE_DSP_SUPPORT
 	if (bitcrush)
 	{
@@ -238,6 +277,13 @@ GenerateUtils:
 }
 
 void opl3class::fm_close() {
+	if (reverb)
+	{
+		if (strstr(reverb, "-on"))
+		{
+			EAX.Close();
+		}
+	}
 	if (hqresampler)
 	{
 		if (strstr(hqresampler, "-on"))
