@@ -98,6 +98,14 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 		for (i=0; i<workSamples; i++)
 		{
 			int32_t outSample = buffer[0] + (int32_t) (floatSamplesOut[i*2 + 0] * 32767.0f);
+			if (outSample >= buffer[0] + 32767)
+			{
+				outSample = buffer[0];
+			}
+			else if (outSample <= buffer[0] - 32768)
+			{
+				outSample = buffer[0];
+			}
 			if (outSample > 32767)
 			{
 				outSample = 32767;
@@ -108,6 +116,14 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 			}
 			buffer[0] = (short)outSample;
 			outSample = buffer[1] + (int32_t) (floatSamplesOut[i*2 + 1] * 32767.0f);
+			if (outSample >= buffer[1] + 32767)
+			{
+				outSample = buffer[1];
+			}
+			else if (outSample <= buffer[1] - 32768)
+			{
+				outSample = buffer[1];
+			}
 			if (outSample > 32767)
 			{
 				outSample = 32767;
