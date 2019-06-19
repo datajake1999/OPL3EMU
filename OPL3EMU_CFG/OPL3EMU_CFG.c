@@ -344,9 +344,7 @@ int main()
 		printf("2 = DOSBox fast.\n");
 		printf("3 = MAME.\n");
 		printf("4 = Java OPL3.\n");
-#ifdef __GNUC__
-		printf("5 = RAD.\n");
-#endif
+		printf("5 = Opal.\n");
 		scanf("%d", &core);
 		if (core == 0)
 		{
@@ -373,13 +371,11 @@ int main()
 			system("SetEnv -u opl3core -java");
 			printf("The current OPL3 core is Java OPL3.\n");
 		}
-#ifdef __GNUC__
 		if (core == 5)
 		{
-			system("SetEnv -u opl3core -rad");
-			printf("The current OPL3 core is RAD.\n");
+			system("SetEnv -u opl3core -opal");
+			printf("The current OPL3 core is Opal.\n");
 		}
-#endif
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -913,12 +909,10 @@ int main()
 			{
 				printf("Java OPL3 is the current OPL3 core.\n");
 			}
-#ifdef __GNUC__
-			if (strstr(core, "-rad"))
+			if (strstr(core, "-opal"))
 			{
-				printf("RAD is the current OPL3 core.\n");
+				printf("Opal is the current OPL3 core.\n");
 			}
-#endif
 		}
 		else
 		{

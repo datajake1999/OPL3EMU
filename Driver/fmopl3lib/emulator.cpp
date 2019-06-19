@@ -54,13 +54,11 @@ void emulator::Init(unsigned int rate) {
 			chip5.Init(rate);
 			return;
 		}
-#ifdef __GNUC__
-		if (strstr(core, "-rad"))
+		if (strstr(core, "-opal"))
 		{
 			chip6.Init(rate);
 			return;
 		}
-#endif
 	}
 	OPL3_Reset(&chip, rate);
 }
@@ -97,13 +95,11 @@ void emulator::WriteReg(unsigned short reg, unsigned char data) {
 			chip5.WriteReg(reg, data);
 			return;
 		}
-#ifdef __GNUC__
-		if (strstr(core, "-rad"))
+		if (strstr(core, "-opal"))
 		{
 			chip6.WriteReg(reg, data);
 			return;
 		}
-#endif
 	}
 	OPL3_WriteRegBuffered(&chip, reg, data);
 }
@@ -141,13 +137,11 @@ void emulator::Generate(signed short *buffer, unsigned int len) {
 			chip5.Generate(buffer, len);
 			return;
 		}
-#ifdef __GNUC__
-		if (strstr(core, "-rad"))
+		if (strstr(core, "-opal"))
 		{
 			chip6.Generate(buffer, len);
 			return;
 		}
-#endif
 	}
 	OPL3_GenerateStream(&chip, buffer, len);
 }

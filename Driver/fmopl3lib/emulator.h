@@ -20,9 +20,7 @@
 #include "dbopl.h"
 #include "ymf262.h"
 #include "zdopl_wrapper.h"
-#ifdef __GNUC__
-#include "../opal/opal_wrapper.h"
-#endif
+#include "opal_wrapper.h"
 #ifndef DISABLE_DSP_SUPPORT
 #include "silence.h"
 #endif /*DISABLE_DSP_SUPPORT*/
@@ -34,9 +32,7 @@ private:
 	DBOPL::Handler chip3;
 	void *chip4;
 	zdopl_wrapper chip5;
-#ifdef __GNUC__
 	opal_wrapper chip6;
-#endif
 public:
 	void Init(unsigned int rate);
 	void WriteReg(unsigned short reg, unsigned char data);

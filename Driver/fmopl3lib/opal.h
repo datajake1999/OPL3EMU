@@ -166,8 +166,8 @@ class Opal {
 
     public:
                             Opal(int sample_rate);
-                            Opal(const Opal &) = delete;
-                            Opal(Opal &&) = delete;
+                            //Opal(const Opal &) = delete;
+                            //Opal(Opal &&) = delete;
                             ~Opal();
 
         void                SetSampleRate(int sample_rate);
