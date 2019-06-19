@@ -343,9 +343,9 @@ int main()
 		printf("1 = DOSBox compat.\n");
 		printf("2 = DOSBox fast.\n");
 		printf("3 = MAME.\n");
+		printf("4 = Java OPL3.\n");
 #ifdef __GNUC__
-		printf("4 = RAD.\n");
-		printf("5 = Java OPL3.\n");
+		printf("5 = RAD.\n");
 #endif
 		scanf("%d", &core);
 		if (core == 0)
@@ -368,16 +368,16 @@ int main()
 			system("SetEnv -u opl3core -mame");
 			printf("The current OPL3 core is MAME.\n");
 		}
-#ifdef __GNUC__
 		if (core == 4)
-		{
-			system("SetEnv -u opl3core -rad");
-			printf("The current OPL3 core is RAD.\n");
-		}
-		if (core == 5)
 		{
 			system("SetEnv -u opl3core -java");
 			printf("The current OPL3 core is Java OPL3.\n");
+		}
+#ifdef __GNUC__
+		if (core == 5)
+		{
+			system("SetEnv -u opl3core -rad");
+			printf("The current OPL3 core is RAD.\n");
 		}
 #endif
 		printf("Press any key to exit.\n");
@@ -909,14 +909,14 @@ int main()
 			{
 				printf("MAME is the current OPL3 core.\n");
 			}
+			if (strstr(core, "-java"))
+			{
+				printf("Java OPL3 is the current OPL3 core.\n");
+			}
 #ifdef __GNUC__
 			if (strstr(core, "-rad"))
 			{
 				printf("RAD is the current OPL3 core.\n");
-			}
-			if (strstr(core, "-java"))
-			{
-				printf("Java OPL3 is the current OPL3 core.\n");
 			}
 #endif
 		}
