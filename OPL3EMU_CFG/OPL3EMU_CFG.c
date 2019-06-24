@@ -1419,15 +1419,15 @@ int main()
 				}
 				if (fltfreq)
 				{
-			printf("The filter frequency is %s.\n", fltfreq);
+					printf("The filter frequency is %s.\n", fltfreq);
 				}
 				if (fltres)
 				{
-			printf("The filter resonance is %s.\n", fltres);
+					printf("The filter resonance is %s.\n", fltres);
 				}
 				if (fltgain)
 				{
-			printf("The filter gain is %s.\n", fltgain);
+					printf("The filter gain is %s.\n", fltgain);
 				}
 			}
 		}
