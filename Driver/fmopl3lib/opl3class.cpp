@@ -20,6 +20,11 @@
 static char *hqresampler = getenv("HQRESAMPLER");
 static char *reverb = getenv("REVERB");
 static char *preset = getenv("PRESET");
+static char *filter = getenv("FILTER");
+static char *flttype = getenv("FLTTYPE");
+static char *fltfreq = getenv("FLTFREQ");
+static char *fltres = getenv("FLTRES");
+static char *fltgain = getenv("FLTGAIN");
 #ifndef DISABLE_DSP_SUPPORT
 static char *bitcrush = getenv("BITCRUSH");
 static char *dither = getenv("DITHER");
@@ -66,6 +71,60 @@ int opl3class::fm_init(unsigned int rate) {
 					EAX.SetPreset(4);
 				}
 			}
+		}
+	}
+	if (flttype)
+	{
+		if (strstr(flttype, "-lowpass"))
+		{
+			FLT.SetType(0);
+		}
+		if (strstr(flttype, "-highpass"))
+		{
+			FLT.SetType(1);
+		}
+		if (strstr(flttype, "-bandpass"))
+		{
+			FLT.SetType(2);
+		}
+		if (strstr(flttype, "-allpass"))
+		{
+			FLT.SetType(3);
+		}
+		if (strstr(flttype, "-notch"))
+		{
+			FLT.SetType(4);
+		}
+		if (strstr(flttype, "-peaking"))
+		{
+			FLT.SetType(5);
+		}
+		if (strstr(flttype, "-lowshelf"))
+		{
+			FLT.SetType(6);
+		}
+		if (strstr(flttype, "-highshelf"))
+		{
+			FLT.SetType(7);
+		}
+	}
+	if (fltfreq)
+	{
+		FLT.SetFreq(atof(fltfreq));
+	}
+	if (fltres)
+	{
+		FLT.SetRes(atof(fltres));
+	}
+	if (fltgain)
+	{
+		FLT.SetGain(atof(fltgain));
+	}
+	if (filter)
+	{
+		if (strstr(filter, "-on"))
+		{
+			FLT.Init(rate);
 		}
 	}
 	if (hqresampler)
@@ -202,6 +261,13 @@ GenerateUtils:
 		if (strstr(reverb, "-on"))
 		{
 			EAX.Generate(buffer, len);
+		}
+	}
+	if (filter)
+	{
+		if (strstr(filter, "-on"))
+		{
+			FLT.Generate(buffer, len);
 		}
 	}
 #ifndef DISABLE_DSP_SUPPORT

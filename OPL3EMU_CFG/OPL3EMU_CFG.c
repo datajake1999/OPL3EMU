@@ -57,6 +57,11 @@ int main()
 	int limit;
 	int reverb;
 	int preset;
+	int filter;
+	int flttype;
+	int fltfreq;
+	int fltres;
+	int fltgain;
 	int reset;
 	char string[100];
 	CreateDirectory("C:\\OPLSynth", NULL);
@@ -552,6 +557,11 @@ int main()
 		printf("14 = Limit maximum amplitude in final output.\n");
 		printf("15 = Enable/disable reverb.\n");
 		printf("16 = Set reverb preset.\n");
+		printf("17 = Enable/disable biquad filtering.\n");
+		printf("18 = Set filter type.\n");
+		printf("19 = Set filter frequency.\n");
+		printf("20 = Set filter resonance.\n");
+		printf("21 = Set filter gain.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -759,7 +769,7 @@ int main()
 		}
 		if (audcfg == 13)
 		{
-			printf("Set dither mode. Type the number that is assosiated to your desired  dithering mode and press enter to apply.\n");
+			printf("Set dither mode. Type the number that is assosiated to your desired dithering mode and press enter to apply.\n");
 			printf("0 = None.\n");
 			printf("1 = Rectangle dither.\n");
 			printf("2 = Triangle dither.\n");
@@ -799,7 +809,7 @@ int main()
 				sprintf(string, "SetEnv -u limit %d", limit);
 				system(string);
 			}
-			printf("The maximum amplitude allowed in the final output is%d.\n", limit);
+			printf("The maximum amplitude allowed in the final output is %d.\n", limit);
 		}
 		if (audcfg == 15)
 		{
@@ -818,7 +828,7 @@ int main()
 		}
 		if (audcfg == 16)
 		{
-			printf("Set reverb preset. Type the number that is assosiated to your desired  reverb preset and press enter to apply.\n");
+			printf("Set reverb preset. Type the number that is assosiated to your desired reverb preset and press enter to apply.\n");
 			printf("0 = Default.\n");
 			printf("1 = Castle.\n");
 			printf("2 = Stadium.\n");
@@ -857,6 +867,125 @@ int main()
 				printf("The psychotic reverb preset is set.\n");
 			}
 		}
+		if (audcfg == 17)
+		{
+			printf("Enable/disable biquad filtering. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			scanf("%d", &filter);
+			if (filter == 0)
+			{
+				system("SetEnv -u -d filter");
+				printf("Biquad filtering has been disabled.\n");
+			}
+			if (filter == 1)
+			{
+				system("SetEnv -u filter -on");
+				printf("Biquad filtering has been enabled.\n");
+			}
+		}
+		if (audcfg == 18)
+		{
+			printf("Set filter type. Type the number that is assosiated to your desired filter type and press enter to apply.\n");
+			printf("0 = None.\n");
+			printf("1 = Lowpass.\n");
+			printf("2 = Highpass.\n");
+			printf("3 = Bandpass.\n");
+			printf("4 = Allpass.\n");
+			printf("5 = Notch.\n");
+			printf("6 = Peaking.\n");
+			printf("7 = Lowshelf.\n");
+			printf("8 = Highshelf.\n");
+			scanf("%d", &flttype);
+			if (flttype == 0)
+			{
+				system("SetEnv -u -d flttype");
+				printf("No filter is set.\n");
+			}
+			if (flttype == 1)
+			{
+				system("SetEnv -u flttype -lowpass");
+				printf("Lowpass filter is set.\n");
+			}
+			if (flttype == 2)
+			{
+				system("SetEnv -u flttype -highpass");
+				printf("Highpass filter is set.\n");
+			}
+			if (flttype == 3)
+			{
+				system("SetEnv -u flttype -bandpass");
+				printf("Bandpass filter is set.\n");
+			}
+			if (flttype == 4)
+			{
+				system("SetEnv -u flttype -allpass");
+				printf("Allpass filter is set.\n");
+			}
+			if (flttype == 5)
+			{
+				system("SetEnv -u flttype -notch");
+				printf("Notch filter is set.\n");
+			}
+			if (flttype == 6)
+			{
+				system("SetEnv -u flttype -peaking");
+				printf("Peaking filter is set.\n");
+			}
+			if (flttype == 7)
+			{
+				system("SetEnv -u flttype -lowshelf");
+				printf("Lowshelf filter is set.\n");
+			}
+			if (flttype == 8)
+			{
+				system("SetEnv -u flttype -highshelf");
+				printf("Highshelf filter is set.\n");
+			}
+		}
+		if (audcfg == 19)
+		{
+			printf("Enter frequency.\n");
+			scanf("%d", &fltfreq);
+			if (fltfreq == 0)
+			{
+				system("SetEnv -u -d fltfreq");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u fltfreq %d", fltfreq);
+				system(string);
+			}
+			printf("The filter frequency has been set to %d.\n", fltfreq);
+		}
+		if (audcfg == 20)
+		{
+			printf("Enter resonance.\n");
+			scanf("%d", &fltres);
+			if (fltres == 0)
+			{
+				system("SetEnv -u -d fltres");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u fltres %d", fltres);
+				system(string);
+			}
+			printf("The filter resonance has been set to %d.\n", fltres);
+		}
+		if (audcfg == 21)
+		{
+			printf("Enter gain.\n");
+			scanf("%d", &fltgain);
+			if (fltgain == 0)
+			{
+				system("SetEnv -u -d fltgain");
+			}
+			else
+			{
+				sprintf(string, "SetEnv -u fltgain %d", fltgain);
+				system(string);
+			}
+			printf("The filter gain has been set to %d.\n", fltgain);
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -890,6 +1019,11 @@ int main()
 		char *limit = getenv("LIMIT");
 		char *reverb = getenv("REVERB");
 		char *preset = getenv("PRESET");
+		char *filter = getenv("FILTER");
+		char *flttype = getenv("FLTTYPE");
+		char *fltfreq = getenv("FLTFREQ");
+		char *fltres = getenv("FLTRES");
+		char *fltgain = getenv("FLTGAIN");
 		printf("General driver configuration.\n");
 		if (core)
 		{
@@ -947,12 +1081,12 @@ int main()
 				{
 					if (strstr(opl2lptmode, "-on"))
 					{
-						printf("The LPT driver  is in OPL2LPT mode.\n");
+						printf("The LPT driver is in OPL2LPT mode.\n");
 					}
 				}
 				else
 				{
-					printf("The LPT driver  is in OPL3LPT mode.\n");
+					printf("The LPT driver is in OPL3LPT mode.\n");
 				}
 			}
 		}
@@ -1243,6 +1377,64 @@ int main()
 		{
 			printf("Reverb is disabled.\n");
 		}
+		if (filter)
+		{
+			if (strstr(filter, "-on"))
+			{
+				printf("Biquad filtering is enabled.\n");
+				if (flttype)
+				{
+					if (strstr(flttype, "-lowpass"))
+					{
+						printf("Lowpass filter is applied.\n");
+					}
+					if (strstr(flttype, "-highpass"))
+					{
+						printf("Highpass filter is applied.\n");
+					}
+					if (strstr(flttype, "-bandpass"))
+					{
+						printf("Bandpass filter is applied.\n");
+					}
+					if (strstr(flttype, "-allpass"))
+					{
+						printf("Allpass filter is applied.\n");
+					}
+					if (strstr(flttype, "-notch"))
+					{
+						printf("Notch filter is applied.\n");
+					}
+					if (strstr(flttype, "-peaking"))
+					{
+						printf("Peaking filter is applied.\n");
+					}
+					if (strstr(flttype, "-lowshelf"))
+					{
+						printf("Lowshelf filter is applied.\n");
+					}
+					if (strstr(flttype, "-highshelf"))
+					{
+						printf("Highshelf filter is applied.\n");
+					}
+				}
+				if (fltfreq)
+				{
+			printf("The filter frequency is %s.\n", fltfreq);
+				}
+				if (fltres)
+				{
+			printf("The filter resonance is %s.\n", fltres);
+				}
+				if (fltgain)
+				{
+			printf("The filter gain is %s.\n", fltgain);
+				}
+			}
+		}
+		else
+		{
+			printf("Biquad filtering is disabled.\n");
+		}
 		printf("Press any key to exit.\n");
 		getch();
 	}
@@ -1286,6 +1478,11 @@ int main()
 			system("SetEnv -u -d limit");
 			system("SetEnv -u -d reverb");
 			system("SetEnv -u -d preset");
+			system("SetEnv -u -d filter");
+			system("SetEnv -u -d flttype");
+			system("SetEnv -u -d fltfreq");
+			system("SetEnv -u -d fltres");
+			system("SetEnv -u -d fltgain");
 			printf("Driver configuration has been reset.\n");
 		}
 		printf("Press any key to exit.\n");
