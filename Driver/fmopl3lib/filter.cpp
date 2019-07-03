@@ -78,7 +78,7 @@ void filter::Generate(signed short *buffer, unsigned int len) {
 		return;
 	}
 	sf_sample_st *buf =  new sf_sample_st[len];
-	int i;
+	unsigned int i;
 	for (i=0; i<len; i++)
 	{
 		buf[i].L = (float)buffer[0] / 32767.0f;

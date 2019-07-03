@@ -63,7 +63,7 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 	}
 	//allocate memory for mono samples
 	int16_t *samples = new int16_t[len];
-	int i;
+	unsigned int i;
 	//convert stereo samples into mono
 	for (i=0; i<len; i++)
 	{
@@ -82,12 +82,12 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 	//get rid of the original mono samples, as they are no longer needed
 	delete[] samples;
 	//set the offset for the audio buffer
-	int offset = 0;
+	unsigned int offset = 0;
 	//allocate memory for reverb output samples in floating point
 	float floatSamplesOut[REVERB_BUFFERSIZE * OUTPUT_CHANNELS];
 	do {
 		//set the amount of samples to process at a time
-		int workSamples = REVERB_BUFFERSIZE / 4;
+		unsigned int workSamples = REVERB_BUFFERSIZE / 4;
 		if (workSamples>len)
 		{
 			workSamples = len;
