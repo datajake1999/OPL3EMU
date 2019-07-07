@@ -55,6 +55,10 @@ void EAXReverb::SetPreset(unsigned int preset) {
 	effect.Update(sampleRate);
 }
 
+void EAXReverb::InvertReverb(bool val) {
+	invert = val;
+}
+
 void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 	//check the sample rate, since the effect has issues when working with sample rates below 10000 HZ
 	if (sampleRate < 10000)
@@ -94,6 +98,15 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 		}
 		//process the effect
 		effect.Process(workSamples, &floatSamplesIn[offset],  floatSamplesOut);
+		//invert the phase of the reverb if we set InvertReverb to true
+		if (invert == true)
+		{
+			for (i=0; i<workSamples; i++)
+			{
+				floatSamplesOut[i*2 + 0] = floatSamplesOut[i*2 + 0] * -1;
+				floatSamplesOut[i*2 + 1] = floatSamplesOut[i*2 + 1] * -1;
+			}
+		}
 		//convert the floating point output to 32 bit integers, check to make sure they don't overflow, and convert them to 16 bit integers to write to the audio buffer
 		for (i=0; i<workSamples; i++)
 		{

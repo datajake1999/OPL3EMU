@@ -20,6 +20,7 @@
 static char *hqresampler = getenv("HQRESAMPLER");
 static char *reverb = getenv("REVERB");
 static char *preset = getenv("PRESET");
+static char *invertrev = getenv("INVERTREV");
 static char *filter = getenv("FILTER");
 static char *flttype = getenv("FLTTYPE");
 static char *fltfreq = getenv("FLTFREQ");
@@ -69,6 +70,13 @@ int opl3class::fm_init(unsigned int rate) {
 				if (strstr(preset, "-psychotic"))
 				{
 					EAX.SetPreset(4);
+				}
+			}
+			if (invertrev)
+			{
+				if (strstr(invertrev, "-on"))
+				{
+					EAX.InvertReverb(true);
 				}
 			}
 		}

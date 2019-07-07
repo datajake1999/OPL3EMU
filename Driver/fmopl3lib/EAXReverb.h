@@ -17,10 +17,12 @@
 class EAXReverb {
 private:
 	unsigned int sampleRate;
+	bool invert;
 	ReverbEffect effect;
 public:
 	void Init(unsigned int rate);
 	void SetPreset(unsigned int preset);
+	void InvertReverb(bool val);
 	void Generate(signed short *buffer, unsigned int length);
 	void Close();
 };
