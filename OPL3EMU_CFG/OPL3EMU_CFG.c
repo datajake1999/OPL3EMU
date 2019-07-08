@@ -58,6 +58,7 @@ int main()
 	unsigned int reverb;
 	unsigned int preset;
 	unsigned int invertrev;
+	unsigned int onlyrev;
 	unsigned int filter;
 	unsigned int flttype;
 	unsigned int fltfreq;
@@ -559,11 +560,12 @@ int main()
 		printf("15 = Enable/disable reverb.\n");
 		printf("16 = Set reverb preset.\n");
 		printf("17 = Enable/disable reverb invert.\n");
-		printf("18 = Enable/disable biquad filtering.\n");
-		printf("19 = Set filter type.\n");
-		printf("20 = Set filter frequency.\n");
-		printf("21 = Set filter resonance.\n");
-		printf("22 = Set filter gain.\n");
+		printf("18 = Enable/disable reverb only.\n");
+		printf("19 = Enable/disable biquad filtering.\n");
+		printf("20 = Set filter type.\n");
+		printf("21 = Set filter frequency.\n");
+		printf("22 = Set filter resonance.\n");
+		printf("23 = Set filter gain.\n");
 		scanf("%d", &audcfg);
 		if (audcfg == 0)
 		{
@@ -886,6 +888,21 @@ int main()
 		}
 		if (audcfg == 18)
 		{
+			printf("Enable/disable reverb only. Press 0 to disable or 1 to enable, and press enter to apply.\n");
+			scanf("%d", &onlyrev);
+			if (onlyrev == 0)
+			{
+				system("SetEnv -u -d onlyrev");
+				printf("Reverb only has been disabled.\n");
+			}
+			if (onlyrev == 1)
+			{
+				system("SetEnv -u onlyrev -on");
+				printf("Reverb only has been enabled.\n");
+			}
+		}
+		if (audcfg == 19)
+		{
 			printf("Enable/disable biquad filtering. Press 0 to disable or 1 to enable, and press enter to apply.\n");
 			scanf("%d", &filter);
 			if (filter == 0)
@@ -899,7 +916,7 @@ int main()
 				printf("Biquad filtering has been enabled.\n");
 			}
 		}
-		if (audcfg == 19)
+		if (audcfg == 20)
 		{
 			printf("Set filter type. Type the number that is assosiated to your desired filter type and press enter to apply.\n");
 			printf("0 = None.\n");
@@ -958,7 +975,7 @@ int main()
 				printf("Highshelf filter is set.\n");
 			}
 		}
-		if (audcfg == 20)
+		if (audcfg == 21)
 		{
 			printf("Enter frequency.\n");
 			scanf("%d", &fltfreq);
@@ -973,7 +990,7 @@ int main()
 			}
 			printf("The filter frequency has been set to %d.\n", fltfreq);
 		}
-		if (audcfg == 21)
+		if (audcfg == 22)
 		{
 			printf("Enter resonance.\n");
 			scanf("%d", &fltres);
@@ -988,7 +1005,7 @@ int main()
 			}
 			printf("The filter resonance has been set to %d.\n", fltres);
 		}
-		if (audcfg == 22)
+		if (audcfg == 23)
 		{
 			printf("Enter gain.\n");
 			scanf("%d", &fltgain);
@@ -1037,6 +1054,7 @@ int main()
 		char *reverb = getenv("REVERB");
 		char *preset = getenv("PRESET");
 		char *invertrev = getenv("INVERTREV");
+		char *onlyrev = getenv("ONLYREV");
 		char *filter = getenv("FILTER");
 		char *flttype = getenv("FLTTYPE");
 		char *fltfreq = getenv("FLTFREQ");
@@ -1396,6 +1414,13 @@ int main()
 						printf("Reverb invert is enabled.\n");
 					}
 				}
+				if (onlyrev)
+				{
+					if (strstr(onlyrev, "-on"))
+					{
+						printf("Reverb only is enabled.\n");
+					}
+				}
 			}
 		}
 		else
@@ -1504,6 +1529,7 @@ int main()
 			system("SetEnv -u -d reverb");
 			system("SetEnv -u -d preset");
 			system("SetEnv -u -d invertrev");
+			system("SetEnv -u -d onlyrev");
 			system("SetEnv -u -d filter");
 			system("SetEnv -u -d flttype");
 			system("SetEnv -u -d fltfreq");
