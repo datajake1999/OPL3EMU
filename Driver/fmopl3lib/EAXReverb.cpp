@@ -24,32 +24,501 @@ void EAXReverb::Init(unsigned int rate) {
 	effect.Update(rate);
 }
 
-void EAXReverb::SetPreset(unsigned int preset) {
+void EAXReverb::SetPreset(unsigned int category, unsigned int preset) {
 	//set a preset
-	if (preset == 0)
+	if (category == 0)
 	{
-		//castle
-		effect.LoadPreset(26.0f, 8.3f, 0.890f, -1000.0f, -800.0f, -2000.0f, 1.22f, 0.83f, 0.31f, -100.0f, 0.022f, 0.0f, 0.0f, 0.0f, 600.0f, 0.011f, 0.0f, 0.0f, 0.0f, 0.138f, 0.080f, 0.250f, 0.0f, -5.0f, 5168.6f, 139.5f, 0.0f, 0x20);
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_GENERIC);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PADDEDCELL);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ROOM);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_BATHROOM);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_LIVINGROOM);
+		}
+		else if (preset == 5)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_STONEROOM);
+		}
+		else if (preset == 6)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_AUDITORIUM);
+		}
+		else if (preset == 7)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CONCERTHALL);
+		}
+		else if (preset == 8)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CAVE);
+		}
+		else if (preset == 9)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ARENA);
+		}
+		else if (preset == 10)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_HANGAR);
+		}
+		else if (preset == 11)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CARPETEDHALLWAY);
+		}
+		else if (preset == 12)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_HALLWAY);
+		}
+		else if (preset == 13)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_STONECORRIDOR);
+		}
+		else if (preset == 14)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ALLEY);
+		}
+		else if (preset == 15)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_FOREST);
+		}
+		else if (preset == 16)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CITY);
+		}
+		else if (preset == 17)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_MOUNTAINS);
+		}
+		else if (preset == 18)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_QUARRY);
+		}
+		else if (preset == 19)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PLAIN);
+		}
+		else if (preset == 20)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PARKINGLOT);
+		}
+		else if (preset == 21)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SEWERPIPE);
+		}
+		else if (preset == 22)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_UNDERWATER);
+		}
+		else if (preset == 23)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DRUGGED);
+		}
+		else if (preset == 24)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DIZZY);
+		}
+		else if (preset == 25)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PSYCHOTIC);
+		}
 	}
-	else if (preset == 1)
+	else if (category == 1)
 	{
-		//stadium
-		effect.LoadPreset(26, 7.2f, 1.0f, -1000, -700, -200, 6.26f, 0.51f, 1.10f, -2400, 0.183f, 0.0f, 0.0f, 0.0f, -800, 0.038f, 0.0f, 0.0f, 0.0f, 0.250f, 0.0f, 0.250f, 0.0f, -5.0f, 5000.0f, 250.0f, 0.0f, 0x20);
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CASTLE_SMALLROOM);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CASTLE_SHORTPASSAGE);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CASTLE_MEDIUMROOM);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CASTLE_LARGEROOM);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CASTLE_LONGPASSAGE);
+		}
+		else if (preset == 5)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CASTLE_HALL);
+		}
+		else if (preset == 6)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CASTLE_CUPBOARD);
+		}
+		else if (preset == 7)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CASTLE_COURTYARD);
+		}
+		else if (preset == 8)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CASTLE_ALCOVE);
+		}
 	}
-	else if (preset == 2)
+	else if (category == 2)
 	{
-		// heaven
-		effect.LoadPreset(26, 19.6f, 0.940f, -1000, -200, -700, 5.04f, 1.12f, 0.56f, -1230, 0.020f, 0.0f, 0.0f, 0.0f, 200, 0.029f, 0.0f, 0.0f, 0.0f, 0.250f, 0.080f, 2.742f, 0.050f, -2.0f, 5000.0f, 250.0f, 0.0f, 0x3f);
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_FACTORY_SMALLROOM);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_FACTORY_SHORTPASSAGE);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_FACTORY_MEDIUMROOM);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_FACTORY_LARGEROOM);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_FACTORY_LONGPASSAGE);
+		}
+		else if (preset == 5)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_FACTORY_HALL);
+		}
+		else if (preset == 6)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_FACTORY_CUPBOARD);
+		}
+		else if (preset == 7)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_FACTORY_COURTYARD);
+		}
+		else if (preset == 8)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_FACTORY_ALCOVE);
+		}
 	}
-	else if (preset == 3)
+	else if (category == 3)
 	{
-		//sewer
-		effect.LoadPreset(21, 1.7f, 0.800f, -1000, -1000, 0, 2.81f, 0.14f, 1.0f, 429, 0.014f, 0.0f, 0.0f, 0.0f, 1023, 0.021f, 0.0f, 0.0f, 0.0f, 0.250f, 0.0f, 0.250f, 0.0f, -5.0f, 5000.0f, 250.0f, 0.0f, 0x3f);
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ICEPALACE_SMALLROOM);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ICEPALACE_SHORTPASSAGE);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ICEPALACE_MEDIUMROOM);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ICEPALACE_LARGEROOM);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ICEPALACE_LONGPASSAGE);
+		}
+		else if (preset == 5)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ICEPALACE_HALL);
+		}
+		else if (preset == 6)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ICEPALACE_CUPBOARD);
+		}
+		else if (preset == 7)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ICEPALACE_COURTYARD);
+		}
+		else if (preset == 8)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_ICEPALACE_ALCOVE);
+		}
 	}
-	else if (preset == 4)
+	else if (category == 4)
 	{
-		//psychotic
-		effect.LoadPreset(25, 1.0f, 0.500f, -1000, -151, 0, 7.56f, 0.91f, 1.0f, -626, 0.020f, 0.0f, 0.0f, 0.0f, 774, 0.030f, 0.0f, 0.0f, 0.0f, 0.250f, 0.0f, 4.0f, 1.0f, -5.0f, 5000.0f, 250.0f, 0.0f, 0x1f);
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPACESTATION_SMALLROOM);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPACESTATION_SHORTPASSAGE);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPACESTATION_MEDIUMROOM);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPACESTATION_LARGEROOM);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPACESTATION_LONGPASSAGE);
+		}
+		else if (preset == 5)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPACESTATION_HALL);
+		}
+		else if (preset == 6)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPACESTATION_CUPBOARD);
+		}
+		else if (preset == 7)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPACESTATION_ALCOVE);
+		}
+	}
+	else if (category == 5)
+	{
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_WOODEN_SMALLROOM);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_WOODEN_SHORTPASSAGE);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_WOODEN_MEDIUMROOM);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_WOODEN_LARGEROOM);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_WOODEN_LONGPASSAGE);
+		}
+		else if (preset == 5)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_WOODEN_HALL);
+		}
+		else if (preset == 6)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_WOODEN_CUPBOARD);
+		}
+		else if (preset == 7)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_WOODEN_COURTYARD);
+		}
+		else if (preset == 8)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_WOODEN_ALCOVE);
+		}
+	}
+	else if (category == 6)
+	{
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPORT_EMPTYSTADIUM);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPORT_SQUASHCOURT);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPORT_SMALLSWIMMINGPOOL);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPORT_LARGESWIMMINGPOOL);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPORT_GYMNASIUM);
+		}
+		else if (preset == 5)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPORT_FULLSTADIUM);
+		}
+		else if (preset == 6)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SPORT_STADIUMTANNOY);
+		}
+	}
+	else if (category == 7)
+	{
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PREFAB_WORKSHOP);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PREFAB_SCHOOLROOM);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PREFAB_PRACTISEROOM);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PREFAB_OUTHOUSE);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PREFAB_CARAVAN);
+		}
+	}
+	else if (category == 8)
+	{
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DOME_TOMB);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PIPE_SMALL);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DOME_SAINTPAULS);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PIPE_LONGTHIN);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PIPE_LARGE);
+		}
+		else if (preset == 5)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_PIPE_RESONANT);
+		}
+	}
+	else if (category == 9)
+	{
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_OUTDOORS_BACKYARD);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_OUTDOORS_ROLLINGPLAINS);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_OUTDOORS_DEEPCANYON);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_OUTDOORS_CREEK);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_OUTDOORS_VALLEY);
+		}
+	}
+	else if (category == 10)
+	{
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_MOOD_HEAVEN);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_MOOD_HELL);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_MOOD_MEMORY);
+		}
+	}
+	else if (category == 11)
+	{
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DRIVING_COMMENTATOR);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DRIVING_PITGARAGE);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DRIVING_INCAR_RACER);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DRIVING_INCAR_SPORTS);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DRIVING_INCAR_LUXURY);
+		}
+		else if (preset == 5)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DRIVING_FULLGRANDSTAND);
+		}
+		else if (preset == 6)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DRIVING_EMPTYGRANDSTAND);
+		}
+		else if (preset == 7)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DRIVING_TUNNEL);
+		}
+	}
+	else if (category == 12)
+	{
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CITY_STREETS);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CITY_SUBWAY);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CITY_MUSEUM);
+		}
+		else if (preset == 3)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CITY_LIBRARY);
+		}
+		else if (preset == 4)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CITY_UNDERPASS);
+		}
+		else if (preset == 5)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CITY_ABANDONED);
+		}
+	}
+	else if (category == 13)
+	{
+		if (preset == 0)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_DUSTYROOM);
+		}
+		else if (preset == 1)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_CHAPEL);
+		}
+		else if (preset == 2)
+		{
+			effect.LoadPreset(EFX_REVERB_PRESET_SMALLWATERROOM);
+		}
 	}
 	//update the effect
 	effect.Update(sampleRate);

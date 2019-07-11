@@ -12,6 +12,7 @@
 // GNU General Public License for more details.
 //
 
+#include "efx-presets.h"
 #include "ReverbEffect.h"
 
 class EAXReverb {
@@ -23,7 +24,7 @@ private:
 	ReverbEffect effect;
 public:
 	void Init(unsigned int rate);
-	void SetPreset(unsigned int preset);
+	void SetPreset(unsigned int category, unsigned int preset);
 	void InvertReverb(bool val);
 	void OnlyReverb(bool val);
 	void Generate(signed short *buffer, unsigned int length);

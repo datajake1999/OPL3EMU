@@ -257,10 +257,10 @@ class ReverbEffect
         void Process(uint32_t SamplesToDo, const float *SamplesIn, float *SamplesOut);
         void Update(int frequency);
 
-        void LoadPreset(int environment, float environmentSize, float environmentDiffusion, int room, int roomHF, int roomLF,
+        void LoadPreset(float environmentSize, float environmentDiffusion, float room, float roomHF, float roomLF,
                         float decayTime, float decayHFRatio, float decayLFRatio,
-                        int reflections, float reflectionsDelay, float reflectionsPanX, float reflectionsPanY, float reflectionsPanZ,
-                        int reverb, float reverbDelay, float reverbPanX, float reverbPanY, float reverbPanZ,
+                        float reflections, float reflectionsDelay, float reflectionsPanX, float reflectionsPanY, float reflectionsPanZ,
+                        float reverb, float reverbDelay, float reverbPanX, float reverbPanY, float reverbPanZ,
                         float echoTime, float echoDepth, float modulationTime, float modulationDepth, float airAbsorptionHF,
                         float hfReference, float lfReference, float roomRolloffFactor, int flags);
 
