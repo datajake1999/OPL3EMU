@@ -971,11 +971,6 @@ void ReverbEffect::Update(int frequency)
 }
 
 
- float eaxDbToAmp(float eaxDb){
-    float dB = eaxDb / 2000.0f;
-    return pow(10.0f, dB);
-}
-
 void ReverbEffect::LoadPreset(float environmentSize, float environmentDiffusion, float room, float roomHF, float roomLF,
                                 float decayTime, float decayHFRatio, float decayLFRatio,
                                 float reflections, float reflectionsDelay, float reflectionsPanX, float reflectionsPanY, float reflectionsPanZ,
