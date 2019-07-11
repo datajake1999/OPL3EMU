@@ -54,23 +54,23 @@ int opl3class::fm_init(unsigned int rate) {
 			{
 				if (strstr(preset, "-castle"))
 				{
-					EAX.SetPreset(1, 0);
+					EAX.SetPreset(26);
 				}
 				if (strstr(preset, "-stadium"))
 				{
-					EAX.SetPreset(6, 0);
+					EAX.SetPreset(70);
 				}
 				if (strstr(preset, "-heaven"))
 				{
-					EAX.SetPreset(10, 0);
+					EAX.SetPreset(93);
 				}
 				if (strstr(preset, "-sewer"))
 				{
-					EAX.SetPreset(0, 21);
+					EAX.SetPreset(21);
 				}
 				if (strstr(preset, "-psychotic"))
 				{
-					EAX.SetPreset(0, 25);
+					EAX.SetPreset(25);
 				}
 			}
 			if (invertrev)
