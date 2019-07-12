@@ -832,44 +832,18 @@ int main()
 		}
 		if (audcfg == 16)
 		{
-			printf("Set reverb preset. Type the number that is assosiated to your desired reverb preset and press enter to apply.\n");
-			printf("0 = Default.\n");
-			printf("1 = Castle.\n");
-			printf("2 = Stadium.\n");
-			printf("3 = Heaven.\n");
-			printf("4 = Sewer.\n");
-			printf("5 = Psychotic.\n");
+			printf("Enter preset number.\n");
 			scanf("%d", &preset);
 			if (preset == 0)
 			{
 				system("SetEnv -u -d preset");
-				printf("The default reverb preset is set.\n");
 			}
-			if (preset == 1)
+			else
 			{
-				system("SetEnv -u preset -castle");
-				printf("The castle reverb preset is set.\n");
+				sprintf(string, "SetEnv -u preset %d", preset);
+				system(string);
 			}
-			if (preset == 2)
-			{
-				system("SetEnv -u preset -stadium");
-				printf("The stadium reverb preset is set.\n");
-			}
-			if (preset == 3)
-			{
-				system("SetEnv -u preset -heaven");
-				printf("The heaven reverb preset is set.\n");
-			}
-			if (preset == 4)
-			{
-				system("SetEnv -u preset -sewer");
-				printf("The sewer reverb preset is set.\n");
-			}
-			if (preset == 5)
-			{
-				system("SetEnv -u preset -psychotic");
-				printf("The psychotic reverb preset is set.\n");
-			}
+			printf("The preset number has been set to %d.\n", preset);
 		}
 		if (audcfg == 17)
 		{
@@ -1382,30 +1356,7 @@ int main()
 				printf("Reverb is enabled.\n");
 				if (preset)
 				{
-					if (strstr(preset, "-castle"))
-					{
-						printf("The castle preset is set.\n");
-					}
-					if (strstr(preset, "-stadium"))
-					{
-						printf("The stadium preset is set.\n");
-					}
-					if (strstr(preset, "-heaven"))
-					{
-						printf("The heaven preset is set.\n");
-					}
-					if (strstr(preset, "-sewer"))
-					{
-						printf("The sewer preset is set.\n");
-					}
-					if (strstr(preset, "-psychotic"))
-					{
-						printf("The psychotic preset is set.\n");
-					}
-				}
-				else
-				{
-					printf("The default preset is set.\n");
+					printf("The preset number is %s.\n", preset);
 				}
 				if (invertrev)
 				{
