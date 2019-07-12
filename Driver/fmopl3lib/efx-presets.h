@@ -3,35 +3,6 @@
 #ifndef EFX_PRESETS_H
 #define EFX_PRESETS_H
 
-#ifndef EFXEAXREVERBPROPERTIES_DEFINED
-#define EFXEAXREVERBPROPERTIES_DEFINED
-typedef struct {
-    float flDensity;
-    float flDiffusion;
-    float flGain;
-    float flGainHF;
-    float flGainLF;
-    float flDecayTime;
-    float flDecayHFRatio;
-    float flDecayLFRatio;
-    float flReflectionsGain;
-    float flReflectionsDelay;
-    float flReflectionsPan[3];
-    float flLateReverbGain;
-    float flLateReverbDelay;
-    float flLateReverbPan[3];
-    float flEchoTime;
-    float flEchoDepth;
-    float flModulationTime;
-    float flModulationDepth;
-    float flAirAbsorptionGainHF;
-    float flHFReference;
-    float flLFReference;
-    float flRoomRolloffFactor;
-    int   iDecayHFLimit;
-} EFXEAXREVERBPROPERTIES, *LPEFXEAXREVERBPROPERTIES;
-#endif
-
 /* Default Presets */
 
 #define EFX_REVERB_PRESET_GENERIC \
