@@ -12,7 +12,6 @@
 // GNU General Public License for more details.
 //
 
-#include "efx-presets.h"
 #include "ReverbEffect.h"
 
 class EAXReverb {

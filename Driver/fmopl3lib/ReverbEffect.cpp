@@ -1098,33 +1098,7 @@ void ReverbEffect::Create(uint32_t frequency)
 
     this->Offset = 0;
 
-    this->settings.Density   = EAXREVERB_DEFAULT_DENSITY;
-    this->settings.Diffusion = EAXREVERB_DEFAULT_DIFFUSION;
-    this->settings.Gain   = EAXREVERB_DEFAULT_GAIN;
-    this->settings.GainHF = EAXREVERB_DEFAULT_GAINHF;
-    this->settings.GainLF = EAXREVERB_DEFAULT_GAINLF;
-    this->settings.DecayTime    = EAXREVERB_DEFAULT_DECAY_TIME;
-    this->settings.DecayHFRatio = EAXREVERB_DEFAULT_DECAY_HFRATIO;
-    this->settings.DecayLFRatio = EAXREVERB_DEFAULT_DECAY_LFRATIO;
-    this->settings.ReflectionsGain   = EAXREVERB_DEFAULT_REFLECTIONS_GAIN;
-    this->settings.ReflectionsDelay  = EAXREVERB_DEFAULT_REFLECTIONS_DELAY;
-    this->settings.ReflectionsPan[0] = EAXREVERB_DEFAULT_REFLECTIONS_PAN_XYZ;
-    this->settings.ReflectionsPan[1] = EAXREVERB_DEFAULT_REFLECTIONS_PAN_XYZ;
-    this->settings.ReflectionsPan[2] = EAXREVERB_DEFAULT_REFLECTIONS_PAN_XYZ;
-    this->settings.LateReverbGain   = EAXREVERB_DEFAULT_LATE_REVERB_GAIN;
-    this->settings.LateReverbDelay  = EAXREVERB_DEFAULT_LATE_REVERB_DELAY;
-    this->settings.LateReverbPan[0] = EAXREVERB_DEFAULT_LATE_REVERB_PAN_XYZ;
-    this->settings.LateReverbPan[1] = EAXREVERB_DEFAULT_LATE_REVERB_PAN_XYZ;
-    this->settings.LateReverbPan[2] = EAXREVERB_DEFAULT_LATE_REVERB_PAN_XYZ;
-    this->settings.EchoTime  = EAXREVERB_DEFAULT_ECHO_TIME;
-    this->settings.EchoDepth = EAXREVERB_DEFAULT_ECHO_DEPTH;
-    this->settings.ModulationTime  = EAXREVERB_DEFAULT_MODULATION_TIME;
-    this->settings.ModulationDepth = EAXREVERB_DEFAULT_MODULATION_DEPTH;
-    this->settings.AirAbsorptionGainHF = EAXREVERB_DEFAULT_AIR_ABSORPTION_GAINHF;
-    this->settings.HFReference = EAXREVERB_DEFAULT_HFREFERENCE;
-    this->settings.LFReference = EAXREVERB_DEFAULT_LFREFERENCE;
-    this->settings.RoomRolloffFactor = EAXREVERB_DEFAULT_ROOM_ROLLOFF_FACTOR;
-    this->settings.DecayHFLimit = EAXREVERB_DEFAULT_DECAY_HFLIMIT;
+    LoadPreset(EFX_REVERB_PRESET_GENERIC);
 
     // Allocate the delay lines.
     AllocLines(frequency);
