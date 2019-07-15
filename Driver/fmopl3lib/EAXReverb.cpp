@@ -25,6 +25,7 @@ void EAXReverb::Init(unsigned int rate) {
 }
 
 void EAXReverb::SetPreset(unsigned int preset) {
+	reverbPreset = preset;
 	//set a preset
 	if (preset == 0)
 	{

@@ -17,6 +17,7 @@
 class EAXReverb {
 private:
 	unsigned int sampleRate;
+	unsigned int reverbPreset;
 	bool invert;
 	bool only;
 	void GenerateReverb(signed short *buffer, unsigned int length);
