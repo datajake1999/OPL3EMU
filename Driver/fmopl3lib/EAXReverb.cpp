@@ -948,6 +948,22 @@ void EAXReverb::OnlyReverb(bool val) {
 	only = val;
 }
 
+unsigned int EAXReverb::GetRate() {
+	return sampleRate;
+}
+
+unsigned int EAXReverb::GetPreset() {
+	return reverbPreset;
+}
+
+bool EAXReverb::GetInvertReverb() {
+	return invert;
+}
+
+bool EAXReverb::GetOnlyReverb() {
+	return only;
+}
+
 void EAXReverb::GenerateReverb(signed short *buffer, unsigned int len) {
 	//check the sample rate, since the effect has issues when working with sample rates below 10000 HZ
 	if (sampleRate < 10000)

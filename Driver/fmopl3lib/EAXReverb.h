@@ -28,6 +28,10 @@ public:
 	const char *GetPresetName(unsigned int preset);
 	void InvertReverb(bool val);
 	void OnlyReverb(bool val);
+	unsigned int GetRate();
+	unsigned int GetPreset();
+	bool GetInvertReverb();
+	bool GetOnlyReverb();
 	void Generate(signed short *buffer, unsigned int length);
 	void Close();
 };
