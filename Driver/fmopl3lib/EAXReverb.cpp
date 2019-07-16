@@ -1148,6 +1148,120 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 	delete[] floatSamplesIn;
 }
 
+void EAXReverb::GenerateReverb_float(float *buffer, unsigned int len) {
+	//check the sample rate, since the effect has issues when working with sample rates below 10000 HZ
+	if (sampleRate < 10000)
+	{
+		return;
+	}
+	//allocate memory for mono samples
+	float *floatSamplesIn =  new float[len];
+	unsigned int i;
+	//convert stereo samples into mono
+	for (i=0; i<len; i++)
+	{
+		floatSamplesIn[i] = (buffer[0] + buffer[1]) / 2;
+		buffer += 2;
+	}
+	//rewind the buffer back to the beginning, as it will be used for the final output
+	buffer -= len*2;
+	//set the offset for the audio buffer
+	unsigned int offset = 0;
+	//allocate memory for reverb output samples
+	float floatSamplesOut[REVERB_BUFFERSIZE * OUTPUT_CHANNELS];
+	do {
+		//set the amount of samples to process at a time
+		unsigned int workSamples = REVERB_BUFFERSIZE / 4;
+		if (workSamples>len)
+		{
+			workSamples = len;
+		}
+		//process the effect
+		effect.Process(workSamples, &floatSamplesIn[offset],  floatSamplesOut);
+		//invert the phase of the reverb if we set InvertReverb to true
+		if (invert == true)
+		{
+			for (i=0; i<workSamples; i++)
+			{
+				floatSamplesOut[i*2 + 0] = floatSamplesOut[i*2 + 0] * -1;
+				floatSamplesOut[i*2 + 1] = floatSamplesOut[i*2 + 1] * -1;
+			}
+		}
+		//write to the audio buffer
+		for (i=0; i<workSamples; i++)
+		{
+			buffer[0] = floatSamplesOut[i*2 + 0];
+			buffer[1] = floatSamplesOut[i*2 + 1];
+			buffer += 2;
+		}
+		//update the sample counters
+		len -= workSamples;
+		offset += workSamples;
+	} while (len>0);
+	//delete the mono samples
+	delete[] floatSamplesIn;
+}
+
+void EAXReverb::Generate_float(float *buffer, unsigned int len) {
+	//check if we are only generating the reverb output
+	if (only == true)
+	{
+		GenerateReverb_float(buffer, len);
+		return;
+	}
+	//check the sample rate, since the effect has issues when working with sample rates below 10000 HZ
+	if (sampleRate < 10000)
+	{
+		return;
+	}
+	//allocate memory for mono samples
+	float *floatSamplesIn =  new float[len];
+	unsigned int i;
+	//convert stereo samples into mono
+	for (i=0; i<len; i++)
+	{
+		floatSamplesIn[i] = (buffer[0] + buffer[1]) / 2;
+		buffer += 2;
+	}
+	//rewind the buffer back to the beginning, as it will be used for the final output
+	buffer -= len*2;
+	//set the offset for the audio buffer
+	unsigned int offset = 0;
+	//allocate memory for reverb output samples
+	float floatSamplesOut[REVERB_BUFFERSIZE * OUTPUT_CHANNELS];
+	do {
+		//set the amount of samples to process at a time
+		unsigned int workSamples = REVERB_BUFFERSIZE / 4;
+		if (workSamples>len)
+		{
+			workSamples = len;
+		}
+		//process the effect
+		effect.Process(workSamples, &floatSamplesIn[offset],  floatSamplesOut);
+		//invert the phase of the reverb if we set InvertReverb to true
+		if (invert == true)
+		{
+			for (i=0; i<workSamples; i++)
+			{
+				floatSamplesOut[i*2 + 0] = floatSamplesOut[i*2 + 0] * -1;
+				floatSamplesOut[i*2 + 1] = floatSamplesOut[i*2 + 1] * -1;
+			}
+		}
+		//write to the audio buffer
+		for (i=0; i<workSamples; i++)
+		{
+			buffer[0] = buffer[0] + floatSamplesOut[i*2 + 0];
+			buffer[1] = buffer[1] + floatSamplesOut[i*2 + 1];
+			buffer += 2;
+		}
+		//update the sample counters
+		len -= workSamples;
+		offset += workSamples;
+	} while (len>0);
+	//delete the mono samples
+	delete[] floatSamplesIn;
+}
+
 void EAXReverb::Close() {
 	//close the effect
 	effect.Destroy();

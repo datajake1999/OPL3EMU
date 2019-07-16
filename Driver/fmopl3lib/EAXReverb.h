@@ -21,6 +21,7 @@ private:
 	bool invert;
 	bool only;
 	void GenerateReverb(signed short *buffer, unsigned int length);
+	void GenerateReverb_float(float *buffer, unsigned int length);
 	ReverbEffect effect;
 public:
 	void Init(unsigned int rate);
@@ -33,5 +34,6 @@ public:
 	bool GetInvertReverb();
 	bool GetOnlyReverb();
 	void Generate(signed short *buffer, unsigned int length);
+	void Generate_float(float *buffer, unsigned int length);
 	void Close();
 };
