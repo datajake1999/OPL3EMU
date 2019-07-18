@@ -16,6 +16,7 @@
 
 class filter {
 private:
+	unsigned int samplerate;
 	unsigned int type;
 	float freq;
 	float res;

@@ -33,6 +33,7 @@ void filter::SetGain(float val) {
 }
 
 void filter::Init(unsigned int rate) {
+	samplerate = rate;
 	if (type == 0)
 	{
 		sf_lowpass(&bq_state, rate, freq, res);
