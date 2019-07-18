@@ -16,6 +16,10 @@
 
 class filter {
 private:
+	unsigned int type;
+	float freq;
+	float res;
+	float gain;
 	sf_biquad_state_st bq_state;
 public:
 	void SetType(unsigned int val);

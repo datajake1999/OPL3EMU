@@ -16,11 +16,6 @@
 
 #include "filter.h"
 
-static unsigned int type = -1;
-static float freq = 0;
-static float res = 0;
-static float gain = 0;
-
 void filter::SetType(unsigned int val) {
 	type = val;
 }
