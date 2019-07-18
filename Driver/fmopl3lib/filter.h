@@ -34,4 +34,5 @@ public:
 	float GetGain();
 	void Init(unsigned int rate);
 	void Generate(signed short *buffer, unsigned int length);
+	void Generate_float(float *buffer, unsigned int length);
 };

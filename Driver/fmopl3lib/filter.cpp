@@ -129,3 +129,27 @@ void filter::Generate(signed short *buffer, unsigned int len) {
 	}
 	delete[] buf;
 }
+
+void filter::Generate_float(float *buffer, unsigned int len) {
+	if (type > 7 && type < 0)
+	{
+		return;
+	}
+	sf_sample_st *buf =  new sf_sample_st[len];
+	unsigned int i;
+	for (i=0; i<len; i++)
+	{
+		buf[i].L = buffer[0];
+		buf[i].R = buffer[1];
+		buffer += 2;
+	}
+	buffer -= len*2;
+	sf_biquad_process(&bq_state, len, buf, buf);
+	for (i=0; i<len; i++)
+	{
+		buffer[0] = buf[i].L;
+		buffer[1] = buf[i].R;
+		buffer += 2;
+	}
+	delete[] buf;
+}
