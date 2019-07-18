@@ -27,6 +27,11 @@ public:
 	void SetFreq(float val);
 	void SetRes(float val);
 	void SetGain(float val);
+	unsigned int GetRate();
+	unsigned int GetType();
+	float GetFreq();
+	float GetRes();
+	float GetGain();
 	void Init(unsigned int rate);
 	void Generate(signed short *buffer, unsigned int length);
 };

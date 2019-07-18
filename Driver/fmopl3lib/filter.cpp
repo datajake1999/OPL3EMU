@@ -32,6 +32,26 @@ void filter::SetGain(float val) {
 	gain = val;
 }
 
+unsigned int filter::GetRate() {
+	return samplerate;
+}
+
+unsigned int filter::GetType() {
+	return type;
+}
+
+float filter::GetFreq() {
+	return freq;
+}
+
+float filter::GetRes() {
+	return res;
+}
+
+float filter::GetGain() {
+	return gain;
+}
+
 void filter::Init(unsigned int rate) {
 	samplerate = rate;
 	if (type == 0)
