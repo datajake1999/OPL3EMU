@@ -18,15 +18,15 @@ class EAXReverb {
 private:
 	unsigned int sampleRate;
 	unsigned int reverbPreset;
-	bool invert;
-	bool only;
+	bool InvertReverb;
+	bool OnlyReverb;
 	ReverbEffect effect;
 public:
 	void Init(unsigned int rate);
 	void SetPreset(unsigned int preset);
 	const char *GetPresetName(unsigned int preset);
-	void InvertReverb(bool val);
-	void OnlyReverb(bool val);
+	void SetInvertReverb(bool val);
+	void SetOnlyReverb(bool val);
 	unsigned int GetRate();
 	unsigned int GetPreset();
 	bool GetInvertReverb();

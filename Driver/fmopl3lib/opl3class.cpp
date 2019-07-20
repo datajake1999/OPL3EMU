@@ -58,14 +58,14 @@ int opl3class::fm_init(unsigned int rate) {
 			{
 				if (strstr(invertrev, "-on"))
 				{
-					EAX.InvertReverb(true);
+					EAX.SetInvertReverb(true);
 				}
 			}
 			if (onlyrev)
 			{
 				if (strstr(onlyrev, "-on"))
 				{
-					EAX.OnlyReverb(true);
+					EAX.SetOnlyReverb(true);
 				}
 			}
 		}

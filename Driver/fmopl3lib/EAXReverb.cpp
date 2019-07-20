@@ -940,12 +940,12 @@ const char *EAXReverb::GetPresetName(unsigned int preset) {
 	return "GENERIC";
 }
 
-void EAXReverb::InvertReverb(bool val) {
-	invert = val;
+void EAXReverb::SetInvertReverb(bool val) {
+	InvertReverb = val;
 }
 
-void EAXReverb::OnlyReverb(bool val) {
-	only = val;
+void EAXReverb::SetOnlyReverb(bool val) {
+	OnlyReverb = val;
 }
 
 unsigned int EAXReverb::GetRate() {
@@ -957,11 +957,11 @@ unsigned int EAXReverb::GetPreset() {
 }
 
 bool EAXReverb::GetInvertReverb() {
-	return invert;
+	return InvertReverb;
 }
 
 bool EAXReverb::GetOnlyReverb() {
-	return only;
+	return OnlyReverb;
 }
 
 void EAXReverb::Generate(signed short *buffer, unsigned int len) {
@@ -1004,7 +1004,7 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 		//process the effect
 		effect.Process(workSamples, &floatSamplesIn[offset],  floatSamplesOut);
 		//invert the phase of the reverb if we set InvertReverb to true
-		if (invert == true)
+		if (InvertReverb == true)
 		{
 			for (i=0; i<workSamples; i++)
 			{
@@ -1017,7 +1017,7 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 		{
 			int32_t outSample;
 			//check if we are only generating the reverb output
-			if (only == true)
+			if (OnlyReverb == true)
 			{
 				outSample = (int32_t) (floatSamplesOut[i*2 + 0] * 32767.0f);
 			}
@@ -1042,7 +1042,7 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 				outSample = -32768;
 			}
 			buffer[0] = (short)outSample;
-			if (only == true)
+			if (OnlyReverb == true)
 			{
 				outSample = (int32_t) (floatSamplesOut[i*2 + 1] * 32767.0f);
 			}
@@ -1108,7 +1108,7 @@ void EAXReverb::Generate_float(float *buffer, unsigned int len) {
 		//process the effect
 		effect.Process(workSamples, &floatSamplesIn[offset],  floatSamplesOut);
 		//invert the phase of the reverb if we set InvertReverb to true
-		if (invert == true)
+		if (InvertReverb == true)
 		{
 			for (i=0; i<workSamples; i++)
 			{
@@ -1120,7 +1120,7 @@ void EAXReverb::Generate_float(float *buffer, unsigned int len) {
 		for (i=0; i<workSamples; i++)
 		{
 			//check if we are only generating the reverb output
-			if (only == true)
+			if (OnlyReverb == true)
 			{
 				buffer[0] = floatSamplesOut[i*2 + 0];
 				buffer[1] = floatSamplesOut[i*2 + 1];
