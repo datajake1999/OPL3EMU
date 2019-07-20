@@ -964,94 +964,7 @@ bool EAXReverb::GetOnlyReverb() {
 	return only;
 }
 
-void EAXReverb::GenerateReverb(signed short *buffer, unsigned int len) {
-	//check the sample rate, since the effect has issues when working with sample rates below 10000 HZ
-	if (sampleRate < 10000)
-	{
-		return;
-	}
-	//allocate memory for mono samples
-	int16_t *samples = new int16_t[len];
-	unsigned int i;
-	//convert stereo samples into mono
-	for (i=0; i<len; i++)
-	{
-		samples[i] = (buffer[0] + buffer[1]) / 2;
-		buffer += 2;
-	}
-	//rewind the buffer back to the beginning, as it will be used for the final output
-	buffer -= len*2;
-	//allocate memory for mono samples in floating point
-	float *floatSamplesIn =  new float[len];
-	//convert mono samples into floating point for use by the reverb effect
-	for (i=0; i<len; i++)
-	{
-		floatSamplesIn[i] = (float)samples[i] / 32767.0f;
-	}
-	//get rid of the original mono samples, as they are no longer needed
-	delete[] samples;
-	//set the offset for the audio buffer
-	unsigned int offset = 0;
-	//allocate memory for reverb output samples in floating point
-	float floatSamplesOut[REVERB_BUFFERSIZE * OUTPUT_CHANNELS];
-	do {
-		//set the amount of samples to process at a time
-		unsigned int workSamples = REVERB_BUFFERSIZE / 4;
-		if (workSamples>len)
-		{
-			workSamples = len;
-		}
-		//process the effect
-		effect.Process(workSamples, &floatSamplesIn[offset],  floatSamplesOut);
-		//invert the phase of the reverb if we set InvertReverb to true
-		if (invert == true)
-		{
-			for (i=0; i<workSamples; i++)
-			{
-				floatSamplesOut[i*2 + 0] = floatSamplesOut[i*2 + 0] * -1;
-				floatSamplesOut[i*2 + 1] = floatSamplesOut[i*2 + 1] * -1;
-			}
-		}
-		//convert the floating point output to 32 bit integers, check to make sure they don't overflow, and convert them to 16 bit integers to write to the audio buffer
-		for (i=0; i<workSamples; i++)
-		{
-			int32_t outSample = (int32_t) (floatSamplesOut[i*2 + 0] * 32767.0f);
-			if (outSample > 32767)
-			{
-				outSample = 32767;
-			}
-			else if (outSample < -32768)
-			{
-				outSample = -32768;
-			}
-			buffer[0] = (short)outSample;
-			outSample = (int32_t) (floatSamplesOut[i*2 + 1] * 32767.0f);
-			if (outSample > 32767)
-			{
-				outSample = 32767;
-			}
-			else if (outSample < -32768)
-			{
-				outSample = -32768;
-			}
-			buffer[1] = (short)outSample;
-			buffer += 2;
-		}
-		//update the sample counters
-		len -= workSamples;
-		offset += workSamples;
-	} while (len>0);
-	//delete the floating point input samples
-	delete[] floatSamplesIn;
-}
-
 void EAXReverb::Generate(signed short *buffer, unsigned int len) {
-	//check if we are only generating the reverb output
-	if (only == true)
-	{
-		GenerateReverb(buffer, len);
-		return;
-	}
 	//check the sample rate, since the effect has issues when working with sample rates below 10000 HZ
 	if (sampleRate < 10000)
 	{
@@ -1102,14 +1015,23 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 		//convert the floating point output to 32 bit integers, check to make sure they don't overflow, and convert them to 16 bit integers to write to the audio buffer
 		for (i=0; i<workSamples; i++)
 		{
-			int32_t outSample = buffer[0] + (int32_t) (floatSamplesOut[i*2 + 0] * 32767.0f);
-			if (outSample > buffer[0] + 32767)
+			int32_t outSample;
+			//check if we are only generating the reverb output
+			if (only == true)
 			{
-				outSample = buffer[0];
+				outSample = (int32_t) (floatSamplesOut[i*2 + 0] * 32767.0f);
 			}
-			else if (outSample < buffer[0] - 32768)
+			else
 			{
-				outSample = buffer[0];
+				outSample = buffer[0] + (int32_t) (floatSamplesOut[i*2 + 0] * 32767.0f);
+				if (outSample > buffer[0] + 32767)
+				{
+					outSample = buffer[0];
+				}
+				else if (outSample < buffer[0] - 32768)
+				{
+					outSample = buffer[0];
+				}
 			}
 			if (outSample > 32767)
 			{
@@ -1120,14 +1042,21 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 				outSample = -32768;
 			}
 			buffer[0] = (short)outSample;
-			outSample = buffer[1] + (int32_t) (floatSamplesOut[i*2 + 1] * 32767.0f);
-			if (outSample > buffer[1] + 32767)
+			if (only == true)
 			{
-				outSample = buffer[1];
+				outSample = (int32_t) (floatSamplesOut[i*2 + 1] * 32767.0f);
 			}
-			else if (outSample < buffer[1] - 32768)
+			else
 			{
-				outSample = buffer[1];
+				outSample = buffer[1] + (int32_t) (floatSamplesOut[i*2 + 1] * 32767.0f);
+				if (outSample > buffer[1] + 32767)
+				{
+					outSample = buffer[1];
+				}
+				else if (outSample < buffer[1] - 32768)
+				{
+					outSample = buffer[1];
+				}
 			}
 			if (outSample > 32767)
 			{
@@ -1145,70 +1074,10 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 		offset += workSamples;
 	} while (len>0);
 	//delete the floating point input samples
-	delete[] floatSamplesIn;
-}
-
-void EAXReverb::GenerateReverb_float(float *buffer, unsigned int len) {
-	//check the sample rate, since the effect has issues when working with sample rates below 10000 HZ
-	if (sampleRate < 10000)
-	{
-		return;
-	}
-	//allocate memory for mono samples
-	float *floatSamplesIn =  new float[len];
-	unsigned int i;
-	//convert stereo samples into mono
-	for (i=0; i<len; i++)
-	{
-		floatSamplesIn[i] = (buffer[0] + buffer[1]) / 2;
-		buffer += 2;
-	}
-	//rewind the buffer back to the beginning, as it will be used for the final output
-	buffer -= len*2;
-	//set the offset for the audio buffer
-	unsigned int offset = 0;
-	//allocate memory for reverb output samples
-	float floatSamplesOut[REVERB_BUFFERSIZE * OUTPUT_CHANNELS];
-	do {
-		//set the amount of samples to process at a time
-		unsigned int workSamples = REVERB_BUFFERSIZE / 4;
-		if (workSamples>len)
-		{
-			workSamples = len;
-		}
-		//process the effect
-		effect.Process(workSamples, &floatSamplesIn[offset],  floatSamplesOut);
-		//invert the phase of the reverb if we set InvertReverb to true
-		if (invert == true)
-		{
-			for (i=0; i<workSamples; i++)
-			{
-				floatSamplesOut[i*2 + 0] = floatSamplesOut[i*2 + 0] * -1;
-				floatSamplesOut[i*2 + 1] = floatSamplesOut[i*2 + 1] * -1;
-			}
-		}
-		//write to the audio buffer
-		for (i=0; i<workSamples; i++)
-		{
-			buffer[0] = floatSamplesOut[i*2 + 0];
-			buffer[1] = floatSamplesOut[i*2 + 1];
-			buffer += 2;
-		}
-		//update the sample counters
-		len -= workSamples;
-		offset += workSamples;
-	} while (len>0);
-	//delete the mono samples
 	delete[] floatSamplesIn;
 }
 
 void EAXReverb::Generate_float(float *buffer, unsigned int len) {
-	//check if we are only generating the reverb output
-	if (only == true)
-	{
-		GenerateReverb_float(buffer, len);
-		return;
-	}
 	//check the sample rate, since the effect has issues when working with sample rates below 10000 HZ
 	if (sampleRate < 10000)
 	{
@@ -1250,8 +1119,17 @@ void EAXReverb::Generate_float(float *buffer, unsigned int len) {
 		//write to the audio buffer
 		for (i=0; i<workSamples; i++)
 		{
-			buffer[0] = buffer[0] + floatSamplesOut[i*2 + 0];
-			buffer[1] = buffer[1] + floatSamplesOut[i*2 + 1];
+			//check if we are only generating the reverb output
+			if (only == true)
+			{
+				buffer[0] = floatSamplesOut[i*2 + 0];
+				buffer[1] = floatSamplesOut[i*2 + 1];
+			}
+			else
+			{
+				buffer[0] = buffer[0] + floatSamplesOut[i*2 + 0];
+				buffer[1] = buffer[1] + floatSamplesOut[i*2 + 1];
+			}
 			buffer += 2;
 		}
 		//update the sample counters

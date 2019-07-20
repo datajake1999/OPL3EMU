@@ -20,8 +20,6 @@ private:
 	unsigned int reverbPreset;
 	bool invert;
 	bool only;
-	void GenerateReverb(signed short *buffer, unsigned int length);
-	void GenerateReverb_float(float *buffer, unsigned int length);
 	ReverbEffect effect;
 public:
 	void Init(unsigned int rate);
