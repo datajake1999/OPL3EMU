@@ -21,6 +21,7 @@ static char *hqresampler = getenv("HQRESAMPLER");
 static char *reverb = getenv("REVERB");
 static char *preset = getenv("PRESET");
 static char *invertrev = getenv("INVERTREV");
+static char *monorev = getenv("MONOREV");
 static char *onlyrev = getenv("ONLYREV");
 static char *filter = getenv("FILTER");
 static char *flttype = getenv("FLTTYPE");
@@ -59,6 +60,13 @@ int opl3class::fm_init(unsigned int rate) {
 				if (strstr(invertrev, "-on"))
 				{
 					EAX.SetInvertReverb(true);
+				}
+			}
+			if (monorev)
+			{
+				if (strstr(monorev, "-on"))
+				{
+					EAX.SetMonoReverb(true);
 				}
 			}
 			if (onlyrev)

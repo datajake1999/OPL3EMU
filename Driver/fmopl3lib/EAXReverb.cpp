@@ -944,6 +944,10 @@ void EAXReverb::SetInvertReverb(bool val) {
 	InvertReverb = val;
 }
 
+void EAXReverb::SetMonoReverb(bool val) {
+	MonoReverb = val;
+}
+
 void EAXReverb::SetOnlyReverb(bool val) {
 	OnlyReverb = val;
 }
@@ -958,6 +962,10 @@ unsigned int EAXReverb::GetPreset() {
 
 bool EAXReverb::GetInvertReverb() {
 	return InvertReverb;
+}
+
+bool EAXReverb::GetMonoReverb() {
+	return MonoReverb;
 }
 
 bool EAXReverb::GetOnlyReverb() {
@@ -1010,6 +1018,16 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 			{
 				floatSamplesOut[i*2 + 0] = floatSamplesOut[i*2 + 0] * -1;
 				floatSamplesOut[i*2 + 1] = floatSamplesOut[i*2 + 1] * -1;
+			}
+		}
+		//mixdown the reverb to mono if we set MonoReverb to true
+		if (MonoReverb == true)
+		{
+			for (i=0; i<workSamples; i++)
+			{
+				float sample = (floatSamplesOut[i*2 + 0] + floatSamplesOut[i*2 + 1]) / 2;
+				floatSamplesOut[i*2 + 0] = sample;
+				floatSamplesOut[i*2 + 1] = sample;
 			}
 		}
 		//convert the floating point output to 32 bit integers, check to make sure they don't overflow, and convert them to 16 bit integers to write to the audio buffer
@@ -1114,6 +1132,16 @@ void EAXReverb::Generate_float(float *buffer, unsigned int len) {
 			{
 				floatSamplesOut[i*2 + 0] = floatSamplesOut[i*2 + 0] * -1;
 				floatSamplesOut[i*2 + 1] = floatSamplesOut[i*2 + 1] * -1;
+			}
+		}
+		//mixdown the reverb to mono if we set MonoReverb to true
+		if (MonoReverb == true)
+		{
+			for (i=0; i<workSamples; i++)
+			{
+				float sample = (floatSamplesOut[i*2 + 0] + floatSamplesOut[i*2 + 1]) / 2;
+				floatSamplesOut[i*2 + 0] = sample;
+				floatSamplesOut[i*2 + 1] = sample;
 			}
 		}
 		//write to the audio buffer

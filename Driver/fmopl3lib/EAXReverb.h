@@ -19,6 +19,7 @@ private:
 	unsigned int sampleRate;
 	unsigned int reverbPreset;
 	bool InvertReverb;
+	bool MonoReverb;
 	bool OnlyReverb;
 	ReverbEffect effect;
 public:
@@ -26,10 +27,12 @@ public:
 	void SetPreset(unsigned int preset);
 	const char *GetPresetName(unsigned int preset);
 	void SetInvertReverb(bool val);
+	void SetMonoReverb(bool val);
 	void SetOnlyReverb(bool val);
 	unsigned int GetRate();
 	unsigned int GetPreset();
 	bool GetInvertReverb();
+	bool GetMonoReverb();
 	bool GetOnlyReverb();
 	void Generate(signed short *buffer, unsigned int length);
 	void Generate_float(float *buffer, unsigned int length);
