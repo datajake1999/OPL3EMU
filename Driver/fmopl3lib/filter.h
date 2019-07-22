@@ -24,6 +24,7 @@ private:
 	sf_biquad_state_st bq_state;
 public:
 	void SetType(unsigned int val);
+	const char *GetFilterName(unsigned int filter);
 	void SetFreq(float val);
 	void SetRes(float val);
 	void SetGain(float val);
@@ -33,6 +34,7 @@ public:
 	float GetRes();
 	float GetGain();
 	void Init(unsigned int rate);
+	void Reload();
 	void Generate(signed short *buffer, unsigned int length);
 	void Generate_float(float *buffer, unsigned int length);
 };

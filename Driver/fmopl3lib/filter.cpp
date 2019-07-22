@@ -32,6 +32,42 @@ void filter::SetGain(float val) {
 	gain = val;
 }
 
+const char *filter::GetFilterName(unsigned int filter) {
+	if (filter == 0)
+	{
+		return "lowpass";
+	}
+	else if (filter == 1)
+	{
+		return "highpass";
+	}
+	else if (filter == 2)
+	{
+		return "bandpass";
+	}
+	else if (filter == 3)
+	{
+		return "allpass";
+	}
+	else if (filter == 4)
+	{
+		return "notch";
+	}
+	else if (filter == 5)
+	{
+		return "peaking";
+	}
+	else if (filter == 6)
+	{
+		return "lowshelf";
+	}
+	else if (filter == 7)
+	{
+		return "highshelf";
+	}
+	return "none";
+}
+
 unsigned int filter::GetRate() {
 	return samplerate;
 }
@@ -86,6 +122,10 @@ void filter::Init(unsigned int rate) {
 	{
 		sf_highshelf(&bq_state, rate, freq, res, gain);
 	}
+}
+
+void filter::Reload() {
+	Init(samplerate);
 }
 
 void filter::Generate(signed short *buffer, unsigned int len) {
