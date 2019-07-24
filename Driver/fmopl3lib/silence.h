@@ -21,6 +21,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef SILENCE_H
 #define SILENCE_H
 
-void GenerateSilence(signed short *buffer, unsigned int length);
+#ifdef __cplusplus
+extern "C" {
+#endif
+	void GenerateSilence(signed short *buffer, unsigned int length);
+#ifdef __cplusplus
+}
+#endif
 
 #endif //SILENCE_H

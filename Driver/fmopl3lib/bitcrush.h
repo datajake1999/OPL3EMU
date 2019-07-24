@@ -21,17 +21,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef BITCRUSH_H
 #define BITCRUSH_H
 
-void SetCrushAmount(unsigned int amount);
-void SetCrushAmountEnv();
-unsigned int GetCrushAmount();
-void RectangleDither(signed short *buffer, unsigned int length);
-void TriangleDither(signed short *buffer, unsigned int length);
-void GaussianDither(signed short *buffer, unsigned int length);
-void BitCrush(signed short *buffer, unsigned int length);
-void SwapStereo(signed short *buffer, unsigned int length);
-void MonoMixdown(signed short *buffer, unsigned int length);
-void SurroundSoundLeft(signed short *buffer, unsigned int length);
-void SurroundSoundRight(signed short *buffer, unsigned int length);
-void LimitOutput(signed long limit, signed short *buffer, unsigned int length);
+#ifdef __cplusplus
+extern "C" {
+#endif
+	void SetCrushAmount(unsigned int amount);
+	void SetCrushAmountEnv();
+	unsigned int GetCrushAmount();
+	void RectangleDither(signed short *buffer, unsigned int length);
+	void TriangleDither(signed short *buffer, unsigned int length);
+	void GaussianDither(signed short *buffer, unsigned int length);
+	void BitCrush(signed short *buffer, unsigned int length);
+	void SwapStereo(signed short *buffer, unsigned int length);
+	void MonoMixdown(signed short *buffer, unsigned int length);
+	void SurroundSoundLeft(signed short *buffer, unsigned int length);
+	void SurroundSoundRight(signed short *buffer, unsigned int length);
+	void LimitOutput(signed long limit, signed short *buffer, unsigned int length);
+#ifdef __cplusplus
+}
+#endif
 
 #endif //BITCRUSH_H
