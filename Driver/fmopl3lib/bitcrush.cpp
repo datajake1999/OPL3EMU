@@ -114,6 +114,13 @@ void SetCrushAmountEnv()
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
+unsigned int GetCrushAmount()
+{
+#ifndef DISABLE_DSP_SUPPORT
+	return bits;
+#endif /*DISABLE_DSP_SUPPORT*/
+}
+
 void RectangleDither(signed short *buffer, unsigned int length)
 {
 #ifndef DISABLE_DSP_SUPPORT
