@@ -76,6 +76,22 @@ int opl3class::fm_init(unsigned int rate) {
 					EAX.SetOnlyReverb(true);
 				}
 			}
+#ifdef _DEBUG
+			printf("The sample rate is %d.\n", EAX.GetRate());
+			printf("The name of the selected preset is %s, and its preset number is %d.\n", EAX.GetPresetName(EAX.GetPreset()), EAX.GetPreset());
+			if (EAX.GetInvertReverb() == true)
+			{
+				printf("The reverb is inverted.\n");
+			}
+			if (EAX.GetMonoReverb() == true)
+			{
+				printf("The reverb is mono.\n");
+			}
+			if (EAX.GetOnlyReverb() == true)
+			{
+				printf("The output is only the reverb.\n");
+			}
+#endif
 		}
 	}
 	if (flttype)
@@ -130,6 +146,13 @@ int opl3class::fm_init(unsigned int rate) {
 		if (strstr(filter, "-on"))
 		{
 			FLT.Init(rate);
+#ifdef _DEBUG
+			printf("The sample rate is %d.\n", FLT.GetRate());
+			printf("The type of filter is %s, and its associated number is %d.\n", FLT.GetFilterName(FLT.GetType()), FLT.GetType());
+			printf("The frequency is %f.\n", FLT.GetFreq());
+			printf("The resonance is %f.\n", FLT.GetRes());
+			printf("The gain is %f.\n", FLT.GetGain());
+#endif
 		}
 	}
 	if (hqresampler)
@@ -157,6 +180,9 @@ InitUtils:
 		if (strstr(bitcrush, "-on"))
 		{
 			SetCrushAmountEnv();
+#ifdef _DEBUG
+			printf("The new bit depth is %d.\n", GetCrushAmount());
+#endif
 		}
 	}
 #endif /*DISABLE_DSP_SUPPORT*/
