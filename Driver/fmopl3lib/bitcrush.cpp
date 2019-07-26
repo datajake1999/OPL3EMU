@@ -118,6 +118,8 @@ unsigned int GetCrushAmount()
 {
 #ifndef DISABLE_DSP_SUPPORT
 	return bits;
+#else
+	return 0;
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
