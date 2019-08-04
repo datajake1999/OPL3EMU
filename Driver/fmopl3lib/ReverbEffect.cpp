@@ -971,40 +971,35 @@ void ReverbEffect::Update(int frequency)
 }
 
 
-void ReverbEffect::LoadPreset(float environmentSize, float environmentDiffusion, float room, float roomHF, float roomLF,
-                                float decayTime, float decayHFRatio, float decayLFRatio,
-                                float reflections, float reflectionsDelay, float reflectionsPanX, float reflectionsPanY, float reflectionsPanZ,
-                                float reverb, float reverbDelay, float reverbPanX, float reverbPanY, float reverbPanZ,
-                                float echoTime, float echoDepth, float modulationTime, float modulationDepth, float airAbsorptionHF,
-                                float hfReference, float lfReference, float roomRolloffFactor, int flags)
+void ReverbEffect::LoadPreset(float Density, float Diffusion, float Gain, float GainHF, float GainLF, float DecayTime, float DecayHFRatio, float DecayLFRatio, float ReflectionsGain, float ReflectionsDelay, float ReflectionsPanX, float ReflectionsPanY, float ReflectionsPanZ, float LateReverbGain, float LateReverbDelay, float LateReverbPanX, float LateReverbPanY, float LateReverbPanZ, float EchoTime, float EchoDepth, float ModulationTime, float ModulationDepth, float AirAbsorptionGainHF, float HFReference, float LFReference, float RoomRolloffFactor, int DecayHFLimit)
 {
-    this->settings.Density = environmentSize;
-    this->settings.Diffusion = environmentDiffusion;
-    this->settings.Gain =  room;
-    this->settings.GainHF = roomHF;
-    this->settings.GainLF = roomLF;
-    this->settings.DecayTime = decayTime;
-    this->settings.DecayHFRatio = decayHFRatio;
-    this->settings.DecayLFRatio = decayLFRatio;
-    this->settings.ReflectionsGain = reflections;
-    this->settings.ReflectionsDelay = reflectionsDelay;
-    this->settings.ReflectionsPan[0] = reflectionsPanX;
-    this->settings.ReflectionsPan[1] = reflectionsPanY;
-    this->settings.ReflectionsPan[2] = reflectionsPanZ;
-    this->settings.LateReverbGain = reverb;
-    this->settings.LateReverbDelay = reverbDelay;
-    this->settings.LateReverbPan[0] = reverbPanX;
-    this->settings.LateReverbPan[1] = reverbPanY;
-    this->settings.LateReverbPan[2] = reverbPanZ;
-    this->settings.EchoTime = echoTime;
-    this->settings.EchoDepth = echoDepth;
-    this->settings.ModulationTime = modulationTime;
-    this->settings.ModulationDepth = modulationDepth;
-    this->settings.AirAbsorptionGainHF = airAbsorptionHF;
-    this->settings.HFReference = hfReference;
-    this->settings.LFReference = lfReference;
-    this->settings.RoomRolloffFactor = roomRolloffFactor;
-    this->settings.DecayHFLimit = flags;
+    this->settings.Density = Density;
+    this->settings.Diffusion = Diffusion;
+    this->settings.Gain =  Gain;
+    this->settings.GainHF = GainHF;
+    this->settings.GainLF = GainLF;
+    this->settings.DecayTime = DecayTime;
+    this->settings.DecayHFRatio = DecayHFRatio;
+    this->settings.DecayLFRatio = DecayLFRatio;
+    this->settings.ReflectionsGain = ReflectionsGain;
+    this->settings.ReflectionsDelay = ReflectionsDelay;
+    this->settings.ReflectionsPan[0] = ReflectionsPanX;
+    this->settings.ReflectionsPan[1] = ReflectionsPanY;
+    this->settings.ReflectionsPan[2] = ReflectionsPanZ;
+    this->settings.LateReverbGain = LateReverbGain;
+    this->settings.LateReverbDelay = LateReverbDelay;
+    this->settings.LateReverbPan[0] = LateReverbPanX;
+    this->settings.LateReverbPan[1] = LateReverbPanY;
+    this->settings.LateReverbPan[2] = LateReverbPanZ;
+    this->settings.EchoTime = EchoTime;
+    this->settings.EchoDepth = EchoDepth;
+    this->settings.ModulationTime = ModulationTime;
+    this->settings.ModulationDepth = ModulationDepth;
+    this->settings.AirAbsorptionGainHF = AirAbsorptionGainHF;
+    this->settings.HFReference = HFReference;
+    this->settings.LFReference = LFReference;
+    this->settings.RoomRolloffFactor = RoomRolloffFactor;
+    this->settings.DecayHFLimit = DecayHFLimit;
 }
 
 void ReverbEffect::Create(uint32_t frequency)
