@@ -479,6 +479,10 @@ void EAXReverb::SetPreset(unsigned int preset) {
 	{
 		effect.LoadPreset(EFX_REVERB_PRESET_SMALLWATERROOM);
 	}
+	else
+	{
+		effect.LoadPreset(EFX_REVERB_PRESET_GENERIC);
+	}
 	//update the effect
 	effect.Update(sampleRate);
 }
