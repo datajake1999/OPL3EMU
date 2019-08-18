@@ -243,6 +243,7 @@ class ReverbEffect
     // fragmentation and management code.
     float  *SampleBuffer;
     uint32_t    TotalSamples;
+    float CutoffFrequency;
 
     // Master effect filters
     FilterState LpFilter;

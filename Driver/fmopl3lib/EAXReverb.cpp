@@ -977,11 +977,6 @@ bool EAXReverb::GetOnlyReverb() {
 }
 
 void EAXReverb::Generate(signed short *buffer, unsigned int len) {
-	//check the sample rate, since the effect has issues when working with sample rates below 10000 HZ
-	if (sampleRate < 10000)
-	{
-		return;
-	}
 	//allocate memory for mono samples
 	int16_t *samples = new int16_t[len];
 	unsigned int i;
@@ -1100,11 +1095,6 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 }
 
 void EAXReverb::Generate_float(float *buffer, unsigned int len) {
-	//check the sample rate, since the effect has issues when working with sample rates below 10000 HZ
-	if (sampleRate < 10000)
-	{
-		return;
-	}
 	//allocate memory for mono samples
 	float *floatSamplesIn =  new float[len];
 	unsigned int i;

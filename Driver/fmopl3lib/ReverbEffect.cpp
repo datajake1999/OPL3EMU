@@ -973,6 +973,8 @@ void ReverbEffect::Update(int frequency)
 
 void ReverbEffect::LoadPreset(float Density, float Diffusion, float Gain, float GainHF, float GainLF, float DecayTime, float DecayHFRatio, float DecayLFRatio, float ReflectionsGain, float ReflectionsDelay, float ReflectionsPanX, float ReflectionsPanY, float ReflectionsPanZ, float LateReverbGain, float LateReverbDelay, float LateReverbPanX, float LateReverbPanY, float LateReverbPanZ, float EchoTime, float EchoDepth, float ModulationTime, float ModulationDepth, float AirAbsorptionGainHF, float HFReference, float LFReference, float RoomRolloffFactor, int DecayHFLimit)
 {
+    if (HFReference > this->CutoffFrequency) HFReference = this->CutoffFrequency;
+    if (LFReference > this->CutoffFrequency) LFReference = this->CutoffFrequency;
     this->settings.Density = Density;
     this->settings.Diffusion = Diffusion;
     this->settings.Gain =  Gain;
@@ -1016,6 +1018,7 @@ void ReverbEffect::Create(uint32_t frequency)
 
     uint32_t index;
 
+    this->CutoffFrequency = (frequency / 2) - (frequency / 2) / (22050.f / 2050.f);
     this->TotalSamples = 0;
     this->SampleBuffer = NULL;
 
