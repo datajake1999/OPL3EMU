@@ -928,6 +928,10 @@ void ReverbEffect::Update(int frequency)
     float lfscale, hfscale, hfRatio;
     float cw, x, y;
 
+    this->CutoffFrequency = (frequency / 2) - (frequency / 2) / (22050.f / 2050.f);
+    if (this->settings.HFReference > this->CutoffFrequency) this->settings.HFReference = this->CutoffFrequency;
+    if (this->settings.LFReference > this->CutoffFrequency) this->settings.LFReference = this->CutoffFrequency;
+
     // Calculate the master low-pass filter (from the master effect HF gain).
     hfscale = this->settings.HFReference / frequency;
     FilterState_setParams(&this->LpFilter, Filter_HighShelf, this->settings.GainHF, hfscale, 0.0f);
