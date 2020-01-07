@@ -90,37 +90,41 @@ float filter::GetGain() {
 
 void filter::Init(unsigned int rate) {
 	samplerate = rate;
+	if (freq > rate/2-2)
+	{
+		freq = float(rate/2-2);
+	}
 	if (type == 0)
 	{
-		sf_lowpass(&bq_state, rate, freq, res);
+		sf_lowpass(&bq_state, rate, freq/2, res);
 	}
 	else if (type == 1)
 	{
-		sf_highpass(&bq_state, rate, freq, res);
+		sf_highpass(&bq_state, rate, freq/2, res);
 	}
 	else if (type == 2)
 	{
-		sf_bandpass(&bq_state, rate, freq, res);
+		sf_bandpass(&bq_state, rate, freq/2, res);
 	}
 	else if (type == 3)
 	{
-		sf_allpass(&bq_state, rate, freq, res);
+		sf_allpass(&bq_state, rate, freq/2, res);
 	}
 	else if (type == 4)
 	{
-		sf_notch(&bq_state, rate, freq, res);
+		sf_notch(&bq_state, rate, freq/2, res);
 	}
 	else if (type == 5)
 	{
-		sf_peaking(&bq_state, rate, freq, res, gain);
+		sf_peaking(&bq_state, rate, freq/2, res, gain);
 	}
 	else if (type == 6)
 	{
-		sf_lowshelf(&bq_state, rate, freq, res, gain);
+		sf_lowshelf(&bq_state, rate, freq/2, res, gain);
 	}
 	else if (type == 7)
 	{
-		sf_highshelf(&bq_state, rate, freq, res, gain);
+		sf_highshelf(&bq_state, rate, freq/2, res, gain);
 	}
 }
 
