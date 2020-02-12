@@ -179,9 +179,9 @@ InitUtils:
 	{
 		if (strstr(bitcrush, "-on"))
 		{
-			SetCrushAmountEnv();
+			SetCrushAmountEnv(&bc);
 #ifdef _DEBUG
-			printf("The new bit depth is %d.\n", GetCrushAmount());
+			printf("The new bit depth is %d.\n", GetCrushAmount(&bc));
 #endif
 		}
 	}
@@ -310,18 +310,18 @@ GenerateUtils:
 			{
 				if (strstr(dither, "-rectangle"))
 				{
-					RectangleDither(buffer, len);
+					RectangleDither(&bc, buffer, len);
 				}
 				if (strstr(dither, "-triangle"))
 				{
-					TriangleDither(buffer, len);
+					TriangleDither(&bc, buffer, len);
 				}
 				if (strstr(dither, "-gaussian"))
 				{
-					GaussianDither(buffer, len);
+					GaussianDither(&bc, buffer, len);
 				}
 			}
-			BitCrush(buffer, len);
+			BitCrush(&bc, buffer, len);
 		}
 	}
 	if (swapstereo)

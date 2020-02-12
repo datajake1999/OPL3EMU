@@ -134,7 +134,7 @@ void emulator::Generate(signed short *buffer, unsigned int len) {
 		}
 		if (strstr(core, "-java"))
 		{
-			chip5.Generate(buffer, len);
+			chip5.GenerateResampled(buffer, len);
 			return;
 		}
 		if (strstr(core, "-opal"))

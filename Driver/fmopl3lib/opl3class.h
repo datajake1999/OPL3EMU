@@ -40,6 +40,9 @@ private:
 #ifdef _DEBUG
 	FILE *rawsamples;
 #endif
+#ifndef DISABLE_DSP_SUPPORT
+	bitcrusher bc;
+#endif /*DISABLE_DSP_SUPPORT*/
 	void fm_generate_resampled(signed short *buffer, unsigned int length);
 public:
 	int fm_init(unsigned int rate);

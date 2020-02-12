@@ -24,17 +24,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifdef __cplusplus
 extern "C" {
 #endif
-	void SetCrushAmount(unsigned int amount);
-	void SetCrushAmountEnv();
-	unsigned int GetCrushAmount();
-	void SetAutoDither(unsigned int val);
-	unsigned int GetAutoDither();
-	void SetOnlyError(unsigned int val);
-	unsigned int GetOnlyError();
-	void RectangleDither(signed short *buffer, unsigned int length);
-	void TriangleDither(signed short *buffer, unsigned int length);
-	void GaussianDither(signed short *buffer, unsigned int length);
-	void BitCrush(signed short *buffer, unsigned int length);
+	typedef struct {
+		unsigned int bits;
+		unsigned int AutoDither;
+		unsigned int OnlyError;
+	} bitcrusher;
+
+	void SetCrushAmount(bitcrusher *bc, unsigned int amount);
+	void SetCrushAmountEnv(bitcrusher *bc);
+	unsigned int GetCrushAmount(bitcrusher *bc);
+	void SetAutoDither(bitcrusher *bc, unsigned int val);
+	unsigned int GetAutoDither(bitcrusher *bc);
+	void SetOnlyError(bitcrusher *bc, unsigned int val);
+	unsigned int GetOnlyError(bitcrusher *bc);
+	void RectangleDither(bitcrusher *bc, signed short *buffer, unsigned int length);
+	void TriangleDither(bitcrusher *bc, signed short *buffer, unsigned int length);
+	void GaussianDither(bitcrusher *bc, signed short *buffer, unsigned int length);
+	void BitCrush(bitcrusher *bc, signed short *buffer, unsigned int length);
 	void SwapStereo(signed short *buffer, unsigned int length);
 	void MonoMixdown(signed short *buffer, unsigned int length);
 	void SurroundSoundLeft(signed short *buffer, unsigned int length);

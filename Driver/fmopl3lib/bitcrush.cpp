@@ -24,10 +24,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "bitcrush.h"
 
 #ifndef DISABLE_DSP_SUPPORT
-static unsigned int bits = 8;
-static unsigned int AutoDither = 0;
-static unsigned int OnlyError = 0;
-
 /*
 Sources for dither noise generators
 Rectangle and Triangle Probability Density Functions: https://github.com/Metabog/ADither/blob/master/DSP_dither.c
@@ -90,74 +86,78 @@ static double AWGN_generator()
 }// end AWGN_generator()
 #endif /*DISABLE_DSP_SUPPORT*/
 
-void SetCrushAmount(unsigned int amount)
+void SetCrushAmount(bitcrusher *bc, unsigned int amount)
 {
 #ifndef DISABLE_DSP_SUPPORT
-	bits = amount;
-	if (bits > 16)
+	bc->bits = amount;
+	if (bc->bits > 16)
 	{
-		bits = 16;
+		bc->bits = 16;
 	}
-	else if (bits < 1)
+	else if (bc->bits < 1)
 	{
-		bits = 1;
+		bc->bits = 1;
 	}
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
-void SetCrushAmountEnv()
+void SetCrushAmountEnv(bitcrusher *bc)
 {
 #ifndef DISABLE_DSP_SUPPORT
 	char *crushamount = getenv("CRUSHAMOUNT");
 	if (crushamount)
 	{
-		SetCrushAmount(atoi(crushamount));
+		SetCrushAmount(bc, atoi(crushamount));
+	}
+	else
+	{
+		SetCrushAmount(bc, 8);
 	}
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
-unsigned int GetCrushAmount()
+unsigned int GetCrushAmount(bitcrusher *bc)
 {
 #ifndef DISABLE_DSP_SUPPORT
-	return bits;
+	return bc->bits;
 #else
 	return 0;
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
-void SetAutoDither(unsigned int val)
+void SetAutoDither(bitcrusher *bc, unsigned int val)
 {
 #ifndef DISABLE_DSP_SUPPORT
-	AutoDither = val;
+	bc->AutoDither = val;
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
-unsigned int GetAutoDither()
+unsigned int GetAutoDither(bitcrusher *bc)
 {
 #ifndef DISABLE_DSP_SUPPORT
-	return AutoDither;
+	return bc->AutoDither;
 #else
 	return 0;
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
-void SetOnlyError(unsigned int val)
+void SetOnlyError(bitcrusher *bc, unsigned int val)
 {
 #ifndef DISABLE_DSP_SUPPORT
-	OnlyError = val;
+	bc->OnlyError = val;
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
-unsigned int GetOnlyError()
+unsigned int GetOnlyError(bitcrusher *bc)
 {
 #ifndef DISABLE_DSP_SUPPORT
-	return OnlyError;
+	return bc->OnlyError;
 #else
 	return 0;
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
-void RectangleDither(signed short *buffer, unsigned int length)
+void RectangleDither(bitcrusher *bc, signed short *buffer, unsigned int length)
 {
 #ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
@@ -165,10 +165,10 @@ void RectangleDither(signed short *buffer, unsigned int length)
 	signed long add;
 	for(i = 0; i < length; i++)
 	{
-		if (AutoDither == 1 && buffer[0] == 0)
+		if (bc->AutoDither == 1 && buffer[0] == 0)
 		noise = 0;
 		else
-		noise = Gen_RectPDF() >> bits;
+		noise = Gen_RectPDF() >> bc->bits;
 		add = buffer[0] + noise;
 		if (add > 32767)
 		{
@@ -179,10 +179,10 @@ void RectangleDither(signed short *buffer, unsigned int length)
 			add = -32768;
 		}
 		buffer[0] = (short)add;
-		if (AutoDither == 1 && buffer[1] == 0)
+		if (bc->AutoDither == 1 && buffer[1] == 0)
 		noise = 0;
 		else
-		noise = Gen_RectPDF() >> bits;
+		noise = Gen_RectPDF() >> bc->bits;
 		add = buffer[1] + noise;
 		if (add > 32767)
 		{
@@ -198,7 +198,7 @@ void RectangleDither(signed short *buffer, unsigned int length)
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
-void TriangleDither(signed short *buffer, unsigned int length)
+void TriangleDither(bitcrusher *bc, signed short *buffer, unsigned int length)
 {
 #ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
@@ -206,10 +206,10 @@ void TriangleDither(signed short *buffer, unsigned int length)
 	signed long add;
 	for(i = 0; i < length; i++)
 	{
-		if (AutoDither == 1 && buffer[0] == 0)
+		if (bc->AutoDither == 1 && buffer[0] == 0)
 		noise = 0;
 		else
-		noise = Gen_TriPDF() >> bits;
+		noise = Gen_TriPDF() >> bc->bits;
 		add = buffer[0] + noise;
 		if (add > 32767)
 		{
@@ -220,10 +220,10 @@ void TriangleDither(signed short *buffer, unsigned int length)
 			add = -32768;
 		}
 		buffer[0] = (short)add;
-		if (AutoDither == 1 && buffer[1] == 0)
+		if (bc->AutoDither == 1 && buffer[1] == 0)
 		noise = 0;
 		else
-		noise = Gen_TriPDF() >> bits;
+		noise = Gen_TriPDF() >> bc->bits;
 		add = buffer[1] + noise;
 		if (add > 32767)
 		{
@@ -239,11 +239,11 @@ void TriangleDither(signed short *buffer, unsigned int length)
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
-void GaussianDither(signed short *buffer, unsigned int length)
+void GaussianDither(bitcrusher *bc, signed short *buffer, unsigned int length)
 {
 #ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
-	unsigned int nmult = (1 << (16 - bits)) / 4;
+	unsigned int nmult = (1 << (16 - bc->bits)) / 4;
 	signed short noise;
 	signed long add;
 	if (nmult < 1)
@@ -252,7 +252,7 @@ void GaussianDither(signed short *buffer, unsigned int length)
 	}
 	for(i = 0; i < length; i++)
 	{
-		if (AutoDither == 1 && buffer[0] == 0)
+		if (bc->AutoDither == 1 && buffer[0] == 0)
 		noise = 0;
 		else
 		noise = AWGN_generator() * nmult;
@@ -266,7 +266,7 @@ void GaussianDither(signed short *buffer, unsigned int length)
 			add = -32768;
 		}
 		buffer[0] = (short)add;
-		if (AutoDither == 1 && buffer[1] == 0)
+		if (bc->AutoDither == 1 && buffer[1] == 0)
 		noise = 0;
 		else
 		noise = AWGN_generator() * nmult;
@@ -285,18 +285,18 @@ void GaussianDither(signed short *buffer, unsigned int length)
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
-void BitCrush(signed short *buffer, unsigned int length)
+void BitCrush(bitcrusher *bc, signed short *buffer, unsigned int length)
 {
 #ifndef DISABLE_DSP_SUPPORT
 	unsigned int i;
-	unsigned int crush = 16 - bits;
+	unsigned int crush = 16 - bc->bits;
 	for(i = 0; i < length; i++)
 	{
-		if (OnlyError == 1)
+		if (bc->OnlyError == 1)
 		buffer[0] = buffer[0] + (buffer[0] >> crush << crush) * -1;
 		else
 		buffer[0] = buffer[0] >> crush << crush;
-		if (OnlyError == 1)
+		if (bc->OnlyError == 1)
 		buffer[1] = buffer[1] + (buffer[1] >> crush << crush) * -1;
 		else
 		buffer[1] = buffer[1] >> crush << crush;

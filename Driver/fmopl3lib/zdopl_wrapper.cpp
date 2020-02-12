@@ -18,6 +18,12 @@
 void zdopl_wrapper::Init(unsigned int rate) {
 	chip = JavaOPLCreate(false);
 	chip->Reset();
+	rateratio = (rate << RSM_FRAC) / 49716;
+	samplecnt = 0;
+	oldsamples[0] = 0;
+	oldsamples[1] = 0;
+	samples[0] = 0;
+	samples[1] = 0;
 }
 
 void zdopl_wrapper::WriteReg(unsigned short reg, unsigned char data) {
@@ -47,5 +53,25 @@ Bassed on code from libADLMIDI found at https://github.com/Wohlstand/libADLMIDI/
 		}
 		buffer += cursamples;
 		len -= curframes;
+	}
+}
+
+void zdopl_wrapper::GenerateResampled(signed short *buffer, unsigned int len)
+{
+	for(unsigned int i = 0; i < len; i++)
+	{
+		while (samplecnt >= rateratio)
+		{
+			oldsamples[0] = samples[0];
+			oldsamples[1] = samples[1];
+			Generate(samples, 1);
+			samplecnt -= rateratio;
+		}
+		buffer[0] = (signed short)((oldsamples[0] * (rateratio - samplecnt)
+		+ samples[0] * samplecnt) / rateratio);
+		buffer[1] = (signed short)((oldsamples[1] * (rateratio - samplecnt)
+		+ samples[1] * samplecnt) / rateratio);
+		samplecnt += 1 << RSM_FRAC;
+		buffer += 2;
 	}
 }

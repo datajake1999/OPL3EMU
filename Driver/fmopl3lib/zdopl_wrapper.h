@@ -13,12 +13,18 @@
 //
 
 #include "zdopl.h"
+#define RSM_FRAC    10
 
 class zdopl_wrapper {
 private:
 	OPLEmul *chip;
+	signed long rateratio;
+	signed long samplecnt;
+	signed short oldsamples[2];
+	signed short samples[2];
 public:
 	void Init(unsigned int rate);
 	void WriteReg(unsigned short reg, unsigned char data);
 	void Generate(signed short *buffer, unsigned int length);
+	void GenerateResampled(signed short *buffer, unsigned int length);
 };
