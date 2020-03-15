@@ -956,6 +956,10 @@ void EAXReverb::SetOnlyReverb(bool val) {
 	OnlyReverb = val;
 }
 
+void EAXReverb::SetDither(bool val) {
+	Dither = val;
+}
+
 unsigned int EAXReverb::GetRate() {
 	return sampleRate;
 }
@@ -975,6 +979,47 @@ bool EAXReverb::GetMonoReverb() {
 bool EAXReverb::GetOnlyReverb() {
 	return OnlyReverb;
 }
+
+bool EAXReverb::GetDither() {
+	return Dither;
+}
+
+#define PI 3.1415926536
+
+float EAXReverb::AWGN_generator()
+{/* Generates additive white Gaussian Noise samples with zero mean and a standard deviation of 1. */
+
+	float temp1;
+	float temp2;
+	float result;
+	int p;
+
+	p = 1;
+
+	while( p > 0 )
+	{
+		temp2 = ( rand() / ( (float)RAND_MAX ) ); /*  rand() function generates an
+													integer between 0 and  RAND_MAX,
+													which is defined in stdlib.h.
+												*/
+
+		if ( temp2 == 0 )
+		{// temp2 is >= (RAND_MAX / 2)
+			p = 1;
+		}// end if
+		else
+		{// temp2 is < (RAND_MAX / 2)
+			p = -1;
+		}// end else
+
+	}// end while()
+
+	temp1 = cosf( ( 2.0f * (float)PI ) * rand() / ( (float)RAND_MAX ) );
+	result = sqrtf( -2.0f * logf( temp2 ) ) * temp1;
+
+	return result;	// return the generated random sample to the caller
+
+}// end AWGN_generator()
 
 void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 	//allocate memory for mono samples
@@ -1027,6 +1072,18 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 				float sample = (floatSamplesOut[i*2 + 0] + floatSamplesOut[i*2 + 1]) / 2;
 				floatSamplesOut[i*2 + 0] = sample;
 				floatSamplesOut[i*2 + 1] = sample;
+			}
+		}
+		//add dither noise to the reverb if we set Dither to true
+		if (Dither == true)
+		{
+			float n;
+			for (i=0; i<workSamples; i++)
+			{
+				n = AWGN_generator() / 32767.0f;
+				floatSamplesOut[i*2 + 0] = floatSamplesOut[i*2 + 0] + n;
+				n = AWGN_generator() / 32767.0f;
+				floatSamplesOut[i*2 + 1] = floatSamplesOut[i*2 + 1] + n;
 			}
 		}
 		//convert the floating point output to 32 bit integers, check to make sure they don't overflow, and convert them to 16 bit integers to write to the audio buffer

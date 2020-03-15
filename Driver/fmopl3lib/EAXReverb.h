@@ -12,6 +12,10 @@
 // GNU General Public License for more details.
 //
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
 #include "ReverbEffect.h"
 
 class EAXReverb {
@@ -21,7 +25,9 @@ private:
 	bool InvertReverb;
 	bool MonoReverb;
 	bool OnlyReverb;
+	bool Dither;
 	ReverbEffect effect;
+	float AWGN_generator();
 public:
 	void Init(unsigned int rate);
 	void SetPreset(unsigned int preset);
@@ -29,11 +35,13 @@ public:
 	void SetInvertReverb(bool val);
 	void SetMonoReverb(bool val);
 	void SetOnlyReverb(bool val);
+	void SetDither(bool val);
 	unsigned int GetRate();
 	unsigned int GetPreset();
 	bool GetInvertReverb();
 	bool GetMonoReverb();
 	bool GetOnlyReverb();
+	bool GetDither();
 	void Generate(signed short *buffer, unsigned int length);
 	void Generate_float(float *buffer, unsigned int length);
 	void Close();
