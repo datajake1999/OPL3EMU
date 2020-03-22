@@ -941,7 +941,10 @@ const char *EAXReverb::GetPresetName(unsigned int preset) {
 	{
 		return "SMALLWATERROOM";
 	}
-	return "GENERIC";
+	else
+	{
+		return "GENERIC";
+	}
 }
 
 void EAXReverb::SetInvertReverb(bool val) {

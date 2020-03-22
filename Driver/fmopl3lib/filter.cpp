@@ -65,7 +65,10 @@ const char *filter::GetFilterName(unsigned int filter) {
 	{
 		return "highshelf";
 	}
-	return "none";
+	else
+	{
+		return "none";
+	}
 }
 
 unsigned int filter::GetRate() {
