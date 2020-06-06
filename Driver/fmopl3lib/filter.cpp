@@ -129,6 +129,10 @@ void filter::Init(unsigned int rate) {
 	{
 		sf_highshelf(&bq_state, rate, freq/2, res, gain);
 	}
+	else
+	{
+		sf_highpass(&bq_state, rate, 0, 0);
+	}
 }
 
 void filter::Reload() {
