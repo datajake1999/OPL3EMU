@@ -32,6 +32,10 @@ void filter::SetGain(float val) {
 	gain = val;
 }
 
+void filter::SetDither(bool val) {
+	Dither = val;
+}
+
 const char *filter::GetFilterName(unsigned int filter) {
 	if (filter == 0)
 	{
@@ -91,11 +95,52 @@ float filter::GetGain() {
 	return gain;
 }
 
+bool filter::GetDither() {
+	return Dither;
+}
+
+#define PI 3.1415926536
+
+float filter::AWGN_generator()
+{/* Generates additive white Gaussian Noise samples with zero mean and a standard deviation of 1. */
+
+	float temp1;
+	float temp2;
+	float result;
+	int p;
+
+	p = 1;
+
+	while( p > 0 )
+	{
+		temp2 = ( rand() / ( (float)RAND_MAX ) ); /*  rand() function generates an
+													integer between 0 and  RAND_MAX,
+													which is defined in stdlib.h.
+												*/
+
+		if ( temp2 == 0 )
+		{// temp2 is >= (RAND_MAX / 2)
+			p = 1;
+		}// end if
+		else
+		{// temp2 is < (RAND_MAX / 2)
+			p = -1;
+		}// end else
+
+	}// end while()
+
+	temp1 = cosf( ( 2.0f * (float)PI ) * rand() / ( (float)RAND_MAX ) );
+	result = sqrtf( -2.0f * logf( temp2 ) ) * temp1;
+
+	return result;	// return the generated random sample to the caller
+
+}// end AWGN_generator()
+
 void filter::Init(unsigned int rate) {
 	samplerate = rate;
 	if (freq > rate/2-2)
 	{
-		freq = float(rate/2-2);
+		freq = rate/2-2;
 	}
 	if (type == 0)
 	{
@@ -154,6 +199,17 @@ void filter::Generate(signed short *buffer, unsigned int len) {
 	}
 	buffer -= len*2;
 	sf_biquad_process(&bq_state, len, buf, buf);
+	if (Dither == true)
+	{
+		float n;
+		for (i=0; i<len; i++)
+		{
+			n = AWGN_generator() / 32767.0f;
+			buf[i].L = buf[i].L + n;
+			n = AWGN_generator() / 32767.0f;
+			buf[i].R = buf[i].R + n;
+		}
+	}
 	for (i=0; i<len; i++)
 	{
 		signed long outSample = (signed long) (buf[i].L * 32767.0f);
