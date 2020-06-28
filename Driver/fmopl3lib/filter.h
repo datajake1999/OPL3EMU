@@ -20,11 +20,11 @@
 
 class filter {
 private:
-	unsigned int samplerate;
-	unsigned int type;
-	float freq;
-	float res;
-	float gain;
+	unsigned int SampleRate;
+	unsigned int Type;
+	float Freq;
+	float Res;
+	float Gain;
 	bool Dither;
 	sf_biquad_state_st bq_state;
 	float AWGN_generator();
@@ -44,5 +44,5 @@ public:
 	void Init(unsigned int rate);
 	void Reload();
 	void Generate(signed short *buffer, unsigned int length);
-	void Generate_float(float *buffer, unsigned int length);
+	void GenerateFloat(float *buffer, unsigned int length);
 };

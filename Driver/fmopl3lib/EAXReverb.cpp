@@ -17,7 +17,7 @@
 #include "EAXReverb.h"
 
 void EAXReverb::Init(unsigned int rate) {
-	sampleRate = rate;
+	SampleRate = rate;
 	//initialize the effect
 	effect.Create(rate);
 	//update the effect
@@ -25,7 +25,7 @@ void EAXReverb::Init(unsigned int rate) {
 }
 
 void EAXReverb::SetPreset(unsigned int preset) {
-	reverbPreset = preset;
+	ReverbPreset = preset;
 	//set a preset
 	if (preset == 0)
 	{
@@ -484,7 +484,7 @@ void EAXReverb::SetPreset(unsigned int preset) {
 		effect.LoadPreset(EFX_REVERB_PRESET_GENERIC);
 	}
 	//update the effect
-	effect.Update(sampleRate);
+	effect.Update(SampleRate);
 }
 
 const char *EAXReverb::GetPresetName(unsigned int preset) {
@@ -964,11 +964,11 @@ void EAXReverb::SetDither(bool val) {
 }
 
 unsigned int EAXReverb::GetRate() {
-	return sampleRate;
+	return SampleRate;
 }
 
 unsigned int EAXReverb::GetPreset() {
-	return reverbPreset;
+	return ReverbPreset;
 }
 
 bool EAXReverb::GetInvertReverb() {
@@ -1138,7 +1138,7 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 	delete[] floatSamplesIn;
 }
 
-void EAXReverb::Generate_float(float *buffer, unsigned int len) {
+void EAXReverb::GenerateFloat(float *buffer, unsigned int len) {
 	//allocate memory for mono samples
 	float *floatSamplesIn =  new float[len];
 	unsigned int i;

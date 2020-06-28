@@ -17,19 +17,19 @@
 #include "filter.h"
 
 void filter::SetType(unsigned int val) {
-	type = val;
+	Type = val;
 }
 
 void filter::SetFreq(float val) {
-	freq = val;
+	Freq = val;
 }
 
 void filter::SetRes(float val) {
-	res = val;
+	Res = val;
 }
 
 void filter::SetGain(float val) {
-	gain = val;
+	Gain = val;
 }
 
 void filter::SetDither(bool val) {
@@ -76,23 +76,23 @@ const char *filter::GetFilterName(unsigned int filter) {
 }
 
 unsigned int filter::GetRate() {
-	return samplerate;
+	return SampleRate;
 }
 
 unsigned int filter::GetType() {
-	return type;
+	return Type;
 }
 
 float filter::GetFreq() {
-	return freq;
+	return Freq;
 }
 
 float filter::GetRes() {
-	return res;
+	return Res;
 }
 
 float filter::GetGain() {
-	return gain;
+	return Gain;
 }
 
 bool filter::GetDither() {
@@ -137,42 +137,42 @@ float filter::AWGN_generator()
 }// end AWGN_generator()
 
 void filter::Init(unsigned int rate) {
-	samplerate = rate;
-	if (freq > rate/2-2)
+	SampleRate = rate;
+	if (Freq > rate/2-2)
 	{
-		freq = rate/2-2;
+		Freq = rate/2-2;
 	}
-	if (type == 0)
+	if (Type == 0)
 	{
-		sf_lowpass(&bq_state, rate, freq/2, res);
+		sf_lowpass(&bq_state, rate, Freq/2, Res);
 	}
-	else if (type == 1)
+	else if (Type == 1)
 	{
-		sf_highpass(&bq_state, rate, freq/2, res);
+		sf_highpass(&bq_state, rate, Freq/2, Res);
 	}
-	else if (type == 2)
+	else if (Type == 2)
 	{
-		sf_bandpass(&bq_state, rate, freq/2, res);
+		sf_bandpass(&bq_state, rate, Freq/2, Res);
 	}
-	else if (type == 3)
+	else if (Type == 3)
 	{
-		sf_allpass(&bq_state, rate, freq/2, res);
+		sf_allpass(&bq_state, rate, Freq/2, Res);
 	}
-	else if (type == 4)
+	else if (Type == 4)
 	{
-		sf_notch(&bq_state, rate, freq/2, res);
+		sf_notch(&bq_state, rate, Freq/2, Res);
 	}
-	else if (type == 5)
+	else if (Type == 5)
 	{
-		sf_peaking(&bq_state, rate, freq/2, res, gain);
+		sf_peaking(&bq_state, rate, Freq/2, Res, Gain);
 	}
-	else if (type == 6)
+	else if (Type == 6)
 	{
-		sf_lowshelf(&bq_state, rate, freq/2, res, gain);
+		sf_lowshelf(&bq_state, rate, Freq/2, Res, Gain);
 	}
-	else if (type == 7)
+	else if (Type == 7)
 	{
-		sf_highshelf(&bq_state, rate, freq/2, res, gain);
+		sf_highshelf(&bq_state, rate, Freq/2, Res, Gain);
 	}
 	else
 	{
@@ -181,11 +181,11 @@ void filter::Init(unsigned int rate) {
 }
 
 void filter::Reload() {
-	Init(samplerate);
+	Init(SampleRate);
 }
 
 void filter::Generate(signed short *buffer, unsigned int len) {
-	if (type > 7 && type < 0)
+	if (Type > 7 && Type < 0)
 	{
 		return;
 	}
@@ -237,8 +237,8 @@ void filter::Generate(signed short *buffer, unsigned int len) {
 	delete[] buf;
 }
 
-void filter::Generate_float(float *buffer, unsigned int len) {
-	if (type > 7 && type < 0)
+void filter::GenerateFloat(float *buffer, unsigned int len) {
+	if (Type > 7 && Type < 0)
 	{
 		return;
 	}

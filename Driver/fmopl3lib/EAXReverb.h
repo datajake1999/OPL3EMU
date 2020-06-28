@@ -20,8 +20,8 @@
 
 class EAXReverb {
 private:
-	unsigned int sampleRate;
-	unsigned int reverbPreset;
+	unsigned int SampleRate;
+	unsigned int ReverbPreset;
 	bool InvertReverb;
 	bool MonoReverb;
 	bool OnlyReverb;
@@ -43,6 +43,6 @@ public:
 	bool GetOnlyReverb();
 	bool GetDither();
 	void Generate(signed short *buffer, unsigned int length);
-	void Generate_float(float *buffer, unsigned int length);
+	void GenerateFloat(float *buffer, unsigned int length);
 	void Close();
 };
