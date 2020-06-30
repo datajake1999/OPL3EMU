@@ -33,7 +33,13 @@ private:
 	void *chip4;
 	zdopl_wrapper chip5;
 	opal_wrapper chip6;
+	unsigned int core;
+	unsigned int silent;
 public:
+	void SetCore(unsigned int val);
+	unsigned int GetCore();
+	void SetSilent(unsigned int val);
+	unsigned int GetSilent();
 	void Init(unsigned int rate);
 	void WriteReg(unsigned short reg, unsigned char data);
 	void Generate(signed short *buffer, unsigned int length);

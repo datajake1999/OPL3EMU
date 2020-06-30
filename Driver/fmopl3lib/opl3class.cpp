@@ -17,6 +17,7 @@
 #include <string.h>
 #include "opl3class.h"
 
+static char *core = getenv("OPL3CORE");
 static char *hqresampler = getenv("HQRESAMPLER");
 static char *reverb = getenv("REVERB");
 static char *preset = getenv("PRESET");
@@ -29,6 +30,7 @@ static char *fltfreq = getenv("FLTFREQ");
 static char *fltres = getenv("FLTRES");
 static char *fltgain = getenv("FLTGAIN");
 #ifndef DISABLE_DSP_SUPPORT
+static char *silence = getenv("OPLEMUSILENCE");
 static char *bitcrush = getenv("BITCRUSH");
 static char *dither = getenv("DITHER");
 static char *swapstereo = getenv("SWAPSTEREO");
@@ -91,6 +93,10 @@ int opl3class::fm_init(unsigned int rate) {
 			{
 				printf("The output is only the reverb.\n");
 			}
+			if (EAX.GetDither() == true)
+			{
+				printf("The reverb is dithered.\n");
+			}
 #endif
 		}
 	}
@@ -152,7 +158,41 @@ int opl3class::fm_init(unsigned int rate) {
 			printf("The frequency is %f.\n", FLT.GetFreq());
 			printf("The resonance is %f.\n", FLT.GetRes());
 			printf("The gain is %f.\n", FLT.GetGain());
+			if (FLT.GetDither() == true)
+			{
+				printf("The filtered audio is dithered.\n");
+			}
 #endif
+		}
+	}
+	if (silence)
+	{
+		if (strstr(silence, "-on"))
+		{
+			emul.SetSilent(1);
+		}
+	}
+	if (core)
+	{
+		if (strstr(core, "-dbcompat"))
+		{
+			emul.SetCore(1);
+		}
+		if (strstr(core, "-dbfast"))
+		{
+			emul.SetCore(2);
+		}
+		if (strstr(core, "-mame"))
+		{
+			emul.SetCore(3);
+		}
+		if (strstr(core, "-java"))
+		{
+			emul.SetCore(4);
+		}
+		if (strstr(core, "-opal"))
+		{
+			emul.SetCore(5);
 		}
 	}
 	if (hqresampler)

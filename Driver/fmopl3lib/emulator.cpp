@@ -12,136 +12,121 @@
 // GNU General Public License for more details.
 //
 
-#include <stdlib.h>
-#include <string.h>
 #include "emulator.h"
 
-static char *core = getenv("OPL3CORE");
-#ifndef DISABLE_DSP_SUPPORT
-static char *silence = getenv("OPLEMUSILENCE");
-#endif /*DISABLE_DSP_SUPPORT*/
+void emulator::SetCore(unsigned int val) {
+	core = val;
+}
+
+unsigned int emulator::GetCore() {
+	return core;
+}
+
+void emulator::SetSilent(unsigned int val) {
+	silent = val;
+}
+
+unsigned int emulator::GetSilent() {
+	return silent;
+}
 
 void emulator::Init(unsigned int rate) {
 #ifndef DISABLE_DSP_SUPPORT
-	if (silence)
+	if (silent == 1)
 	{
-		if (strstr(silence, "-on"))
-		{
-			return;
-		}
+		return;
 	}
 #endif /*DISABLE_DSP_SUPPORT*/
-	if (core)
+	if (core == 1)
 	{
-		if (strstr(core, "-dbcompat"))
-		{
-			chip2.adlib_init(rate, 2, 2);
-			return;
-		}
-		if (strstr(core, "-dbfast"))
-		{
-			chip3.Init(rate);
-			chip3.WriteReg(0x105, 0x01);
-			return;
-		}
-		if (strstr(core, "-mame"))
-		{
-			chip4 = ymf262_init(49716*288, rate);
-			return;
-		}
-		if (strstr(core, "-java"))
-		{
-			chip5.Init(rate);
-			return;
-		}
-		if (strstr(core, "-opal"))
-		{
-			chip6.Init(rate);
-			return;
-		}
+		chip2.adlib_init(rate, 2, 2);
 	}
-	OPL3_Reset(&chip, rate);
+	else if (core == 2)
+	{
+		chip3.Init(rate);
+		chip3.WriteReg(0x105, 0x01);
+	}
+	else if (core == 3)
+	{
+		chip4 = ymf262_init(49716*288, rate);
+	}
+	else if (core == 4)
+	{
+		chip5.Init(rate);
+	}
+	else if (core == 5)
+	{
+		chip6.Init(rate);
+	}
+	else
+	{
+		OPL3_Reset(&chip, rate);
+	}
 }
 
 void emulator::WriteReg(unsigned short reg, unsigned char data) {
 #ifndef DISABLE_DSP_SUPPORT
-	if (silence)
+	if (silent == 1)
 	{
-		if (strstr(silence, "-on"))
-		{
-			return;
-		}
+		return;
 	}
 #endif /*DISABLE_DSP_SUPPORT*/
-	if (core)
+	if (core == 1)
 	{
-		if (strstr(core, "-dbcompat"))
-		{
-			chip2.adlib_write(reg, data);
-			return;
-		}
-		if (strstr(core, "-dbfast"))
-		{
-			chip3.WriteReg(reg, data);
-			return;
-		}
-		if (strstr(core, "-mame"))
-		{
-			ymf262_write_reg(chip4, reg, data);
-			return;
-		}
-		if (strstr(core, "-java"))
-		{
-			chip5.WriteReg(reg, data);
-			return;
-		}
-		if (strstr(core, "-opal"))
-		{
-			chip6.WriteReg(reg, data);
-			return;
-		}
+		chip2.adlib_write(reg, data);
 	}
-	OPL3_WriteRegBuffered(&chip, reg, data);
+	else if (core == 2)
+	{
+		chip3.WriteReg(reg, data);
+	}
+	else if (core == 3)
+	{
+		ymf262_write_reg(chip4, reg, data);
+	}
+	else if (core == 4)
+	{
+		chip5.WriteReg(reg, data);
+	}
+	else if (core == 5)
+	{
+		chip6.WriteReg(reg, data);
+	}
+	else
+	{
+		OPL3_WriteRegBuffered(&chip, reg, data);
+	}
 }
 
 void emulator::Generate(signed short *buffer, unsigned int len) {
 #ifndef DISABLE_DSP_SUPPORT
-	if (silence)
+	if (silent == 1)
 	{
-		if (strstr(silence, "-on"))
-		{
-			GenerateSilence(buffer, len);
-			return;
-		}
+		GenerateSilence(buffer, len);
+		return;
 	}
 #endif /*DISABLE_DSP_SUPPORT*/
-	if (core)
+	if (core == 1)
 	{
-		if (strstr(core, "-dbcompat"))
-		{
-			chip2.adlib_getsample(buffer, len);
-			return;
-		}
-		if (strstr(core, "-dbfast"))
-		{
-			chip3.Generate(buffer, len);
-			return;
-		}
-		if (strstr(core, "-mame"))
-		{
-			ymf262_update_one(chip4, buffer, len);
-			return;
-		}
-		if (strstr(core, "-java"))
-		{
-			chip5.GenerateResampled(buffer, len);
-			return;
-		}
-		if (strstr(core, "-opal"))
-		{
-			chip6.Generate(buffer, len);
-			return;
-		}
+		chip2.adlib_getsample(buffer, len);
 	}
-	OPL3_GenerateStream(&chip, buffer, len);
+	else if (core == 2)
+	{
+		chip3.Generate(buffer, len);
+	}
+	else if (core == 3)
+	{
+		ymf262_update_one(chip4, buffer, len);
+	}
+	else if (core == 4)
+	{
+		chip5.GenerateResampled(buffer, len);
+	}
+	else if (core == 5)
+	{
+		chip6.Generate(buffer, len);
+	}
+	else
+	{
+		OPL3_GenerateStream(&chip, buffer, len);
+	}
 }
