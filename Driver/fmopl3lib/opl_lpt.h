@@ -16,7 +16,10 @@ void opl2lpt_write(WORD reg, BYTE data);
 void opl3lpt_write(WORD reg, BYTE data);
 void opl_lpt_write(WORD reg, BYTE data);
 void opl_lpt_reset(void);
-void SetLPTPort(void);
+void SetLPTPort(UINT32 port);
+UINT32 GetLPTPort();
+void SetLPTMode(UINT32 mode);
+UINT32 GetLPTMode();
 void OPL_LPT_Init();
 void OPL_LPT_Close();
 

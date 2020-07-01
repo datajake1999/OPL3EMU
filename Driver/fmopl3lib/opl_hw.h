@@ -20,7 +20,8 @@
 void OPL_Hardware_Detection(void);
 void OPL_HW_WriteReg(WORD Reg, BYTE Data);
 void opl_chip_reset(void);
-void SetFMPort(void);
+void SetFMPort(UINT32 port);
+UINT32 GetFMPort();
 void OPL_HW_Init();
 void OPL_HW_Close();
 UINT8 OPL_HW_GetStatus(void);

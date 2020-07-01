@@ -32,6 +32,7 @@ static char *fltgain = getenv("FLTGAIN");
 #ifndef DISABLE_DSP_SUPPORT
 static char *silence = getenv("OPLEMUSILENCE");
 static char *bitcrush = getenv("BITCRUSH");
+static char *crushamount = getenv("CRUSHAMOUNT");
 static char *dither = getenv("DITHER");
 static char *swapstereo = getenv("SWAPSTEREO");
 static char *mono = getenv("MONO");
@@ -39,6 +40,9 @@ static char *surround = getenv("SURROUND");
 static char *limit = getenv("LIMIT");
 #endif /*DISABLE_DSP_SUPPORT*/
 #ifndef DISABLE_HW_SUPPORT
+static char *hwport = getenv("OPL3PORT");
+static char *lptport = getenv("LPTPORT");
+static char *opl2lptmode = getenv("OPL2LPTMODE");
 static char *hwsupport = getenv("OPLHWSUPPORT");
 #endif /*DISABLE_HW_SUPPORT*/
 #ifndef DISABLE_IO_SUPPORT
@@ -165,6 +169,7 @@ int opl3class::fm_init(unsigned int rate) {
 #endif
 		}
 	}
+#ifndef DISABLE_DSP_SUPPORT
 	if (silence)
 	{
 		if (strstr(silence, "-on"))
@@ -172,6 +177,13 @@ int opl3class::fm_init(unsigned int rate) {
 			emul.SetSilent(1);
 		}
 	}
+#ifdef _DEBUG
+	if (emul.GetSilent() == 1)
+	{
+		printf("Silent emulation mode is enabled.\n");
+	}
+#endif
+#endif /*DISABLE_DSP_SUPPORT*/
 	if (core)
 	{
 		if (strstr(core, "-dbcompat"))
@@ -195,6 +207,32 @@ int opl3class::fm_init(unsigned int rate) {
 			emul.SetCore(5);
 		}
 	}
+#ifdef _DEBUG
+	if (emul.GetCore() == 1)
+	{
+		printf("The current OPL3 core is DOSBox compat.\n");
+	}
+	else if (emul.GetCore() == 2)
+	{
+		printf("The current OPL3 core is DOSBox fast.\n");
+	}
+	else if (emul.GetCore() == 3)
+	{
+		printf("The current OPL3 core is MAME.\n");
+	}
+	else if (emul.GetCore() == 4)
+	{
+		printf("The current OPL3 core is Java OPL3.\n");
+	}
+	else if (emul.GetCore() == 5)
+	{
+		printf("The current OPL3 core is Opal.\n");
+	}
+	else
+	{
+		printf("The current OPL3 core is Nuked.\n");
+	}
+#endif
 	if (hqresampler)
 	{
 		if (strstr(hqresampler, "-on"))
@@ -219,7 +257,14 @@ InitUtils:
 	{
 		if (strstr(bitcrush, "-on"))
 		{
-			SetCrushAmountEnv(&bc);
+			if (crushamount)
+			{
+				SetCrushAmount(&bc, atoi(crushamount));
+			}
+			else
+			{
+				SetCrushAmount(&bc, 8);
+			}
 #ifdef _DEBUG
 			printf("The new bit depth is %d.\n", GetCrushAmount(&bc));
 #endif
@@ -231,11 +276,36 @@ InitUtils:
 	{
 		if (strstr(hwsupport, "-on"))
 		{
+			if (hwport)
+			{
+				SetFMPort(strtoul(hwport, 0, 16));
+			}
+#ifdef _DEBUG
+			printf("The FM port is %x.\n", GetFMPort());
+#endif
 			OPL_Hardware_Detection();
 			OPL_HW_Init();
 		}
 		if (strstr(hwsupport, "-lpt"))
 		{
+			if (lptport)
+			{
+				SetLPTPort(strtoul(lptport, 0, 16));
+			}
+			if (opl2lptmode)
+			{
+				if (strstr(opl2lptmode, "-on"))
+				{
+					SetLPTMode(1);		
+				}
+			}
+#ifdef _DEBUG
+			printf("The LPT port is %x.\n", GetLPTPort());
+			if (GetLPTMode() == 1)
+			{
+				printf("The LPT driver is in OPL2LPT mode.\n");
+			}
+#endif
 			OPL_LPT_Init();
 		}
 	}

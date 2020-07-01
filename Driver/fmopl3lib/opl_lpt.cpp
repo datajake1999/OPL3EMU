@@ -11,6 +11,7 @@
 
 #ifndef DISABLE_HW_SUPPORT
 static UINT32 lpt_base = 0x378;
+static UINT32 lpt_mode = 0;
 #endif /*DISABLE_HW_SUPPORT*/
 
 void opl2lpt_write(WORD reg, BYTE data) {
@@ -91,16 +92,14 @@ void opl3lpt_write(WORD reg, BYTE data) {
 
 void opl_lpt_write(WORD reg, BYTE data) {
 #ifndef DISABLE_HW_SUPPORT
-	char *opl2lptmode = getenv("OPL2LPTMODE");
-	if (opl2lptmode)
+	if (lpt_mode == 1)
 	{
-		if (strstr(opl2lptmode, "-on"))
-		{
-			opl2lpt_write(reg, data);
-			return;
-		}
+		opl2lpt_write(reg, data);
 	}
-	opl3lpt_write(reg, data);
+	else
+	{
+		opl3lpt_write(reg, data);
+	}
 #endif /*DISABLE_HW_SUPPORT*/
 }
 
@@ -182,14 +181,35 @@ void opl_lpt_reset(void)
 #endif /*DISABLE_HW_SUPPORT*/
 }
 
-void SetLPTPort(void) 
+void SetLPTPort(UINT32 port) 
 {
 #ifndef DISABLE_HW_SUPPORT
-	char *lptport = getenv("LPTPORT");
-	if (lptport)
-	{
-		lpt_base = strtoul(lptport, 0, 16);
-	}
+	lpt_base = port;
+#endif /*DISABLE_HW_SUPPORT*/
+};
+
+UINT32 GetLPTPort() 
+{
+#ifndef DISABLE_HW_SUPPORT
+	return lpt_base;
+#else
+	return 0;
+#endif /*DISABLE_HW_SUPPORT*/
+};
+
+void SetLPTMode(UINT32 mode) 
+{
+#ifndef DISABLE_HW_SUPPORT
+	lpt_mode = mode;
+#endif /*DISABLE_HW_SUPPORT*/
+};
+
+UINT32 GetLPTMode() 
+{
+#ifndef DISABLE_HW_SUPPORT
+	return lpt_mode;
+#else
+	return 0;
 #endif /*DISABLE_HW_SUPPORT*/
 };
 
@@ -197,7 +217,6 @@ void OPL_LPT_Init()
 {
 #ifndef DISABLE_HW_SUPPORT
 	OpenInpOut32(); 
-	SetLPTPort();
 	opl_lpt_reset();
 #endif /*DISABLE_HW_SUPPORT*/
 };

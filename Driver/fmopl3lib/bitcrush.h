@@ -31,7 +31,6 @@ extern "C" {
 	} bitcrusher;
 
 	void SetCrushAmount(bitcrusher *bc, unsigned int amount);
-	void SetCrushAmountEnv(bitcrusher *bc);
 	unsigned int GetCrushAmount(bitcrusher *bc);
 	void SetAutoDither(bitcrusher *bc, unsigned int val);
 	unsigned int GetAutoDither(bitcrusher *bc);

@@ -101,21 +101,6 @@ void SetCrushAmount(bitcrusher *bc, unsigned int amount)
 #endif /*DISABLE_DSP_SUPPORT*/
 }
 
-void SetCrushAmountEnv(bitcrusher *bc)
-{
-#ifndef DISABLE_DSP_SUPPORT
-	char *crushamount = getenv("CRUSHAMOUNT");
-	if (crushamount)
-	{
-		SetCrushAmount(bc, atoi(crushamount));
-	}
-	else
-	{
-		SetCrushAmount(bc, 8);
-	}
-#endif /*DISABLE_DSP_SUPPORT*/
-}
-
 unsigned int GetCrushAmount(bitcrusher *bc)
 {
 #ifndef DISABLE_DSP_SUPPORT
