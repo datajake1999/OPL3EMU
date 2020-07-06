@@ -52,7 +52,7 @@ void emulator::Init(unsigned int rate) {
 	}
 	else if (core == 4)
 	{
-		chip5.Init(rate);
+		chip5.Init(rate, false);
 	}
 	else if (core == 5)
 	{
@@ -119,7 +119,7 @@ void emulator::Generate(signed short *buffer, unsigned int len) {
 	}
 	else if (core == 4)
 	{
-		chip5.GenerateResampled(buffer, len);
+		chip5.GenerateStream(buffer, len);
 	}
 	else if (core == 5)
 	{

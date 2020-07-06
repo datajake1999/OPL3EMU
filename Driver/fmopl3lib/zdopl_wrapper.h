@@ -23,8 +23,10 @@ private:
 	signed short oldsamples[2];
 	signed short samples[2];
 public:
-	void Init(unsigned int rate);
+	void Init(unsigned int rate, bool fullpan);
 	void WriteReg(unsigned short reg, unsigned char data);
+	void SetPanning(int c, float left, float right);
 	void Generate(signed short *buffer, unsigned int length);
 	void GenerateResampled(signed short *buffer, unsigned int length);
+	void GenerateStream(signed short *buffer, unsigned int length);
 };

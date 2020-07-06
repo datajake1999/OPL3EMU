@@ -371,6 +371,14 @@ void Opal::Port(uint16_t reg_num, uint8_t val) {
 //==================================================================================================
 void Opal::Sample(int16_t *left, int16_t *right) {
 
+    // If the destination sample rate is the same as the OPL3 sample rate, we will output samples and return
+    if (SampleRate == OPL3SampleRate) {
+
+        Output(left[0], right[0]);
+
+        return;
+    }
+
     // If the destination sample rate is higher than the OPL3 sample rate, we need to skip ahead
     while (SampleAccum >= SampleRate) {
 

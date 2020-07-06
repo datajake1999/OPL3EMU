@@ -15,8 +15,8 @@
 #include <string.h>
 #include "zdopl_wrapper.h"
 
-void zdopl_wrapper::Init(unsigned int rate) {
-	chip = JavaOPLCreate(false);
+void zdopl_wrapper::Init(unsigned int rate, bool fullpan) {
+	chip = JavaOPLCreate(fullpan);
 	chip->Reset();
 	rateratio = (rate << RSM_FRAC) / 49716;
 	samplecnt = 0;
@@ -28,6 +28,10 @@ void zdopl_wrapper::Init(unsigned int rate) {
 
 void zdopl_wrapper::WriteReg(unsigned short reg, unsigned char data) {
 	chip->WriteReg(reg, data);
+}
+
+void zdopl_wrapper::SetPanning(int c, float left, float right) {
+	chip->SetPanning(c, left, right);
 }
 
 void zdopl_wrapper::Generate(signed short *buffer, unsigned int len)
@@ -74,4 +78,12 @@ void zdopl_wrapper::GenerateResampled(signed short *buffer, unsigned int len)
 		samplecnt += 1 << RSM_FRAC;
 		buffer += 2;
 	}
+}
+
+void zdopl_wrapper::GenerateStream(signed short *buffer, unsigned int len)
+{
+	if (rateratio == 1 << RSM_FRAC)
+	Generate(buffer, len);
+	else
+	GenerateResampled(buffer, len);
 }
