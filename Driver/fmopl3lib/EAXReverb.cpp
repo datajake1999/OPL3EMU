@@ -1083,9 +1083,9 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 			float n;
 			for (i=0; i<workSamples; i++)
 			{
-				n = AWGN_generator() / 32767.0f;
+				n = AWGN_generator() / 65536;
 				floatSamplesOut[i*2 + 0] = floatSamplesOut[i*2 + 0] + n;
-				n = AWGN_generator() / 32767.0f;
+				n = AWGN_generator() / 65536;
 				floatSamplesOut[i*2 + 1] = floatSamplesOut[i*2 + 1] + n;
 			}
 		}

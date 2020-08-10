@@ -204,9 +204,9 @@ void filter::Generate(signed short *buffer, unsigned int len) {
 		float n;
 		for (i=0; i<len; i++)
 		{
-			n = AWGN_generator() / 32767.0f;
+			n = AWGN_generator() / 65536;
 			buf[i].L = buf[i].L + n;
-			n = AWGN_generator() / 32767.0f;
+			n = AWGN_generator() / 65536;
 			buf[i].R = buf[i].R + n;
 		}
 	}
