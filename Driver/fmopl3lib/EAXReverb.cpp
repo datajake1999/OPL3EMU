@@ -1041,7 +1041,7 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 	//convert mono samples into floating point for use by the reverb effect
 	for (i=0; i<len; i++)
 	{
-		floatSamplesIn[i] = (float)samples[i] / 32767.0f;
+		floatSamplesIn[i] = (float)samples[i] / 32768.0f;
 	}
 	//get rid of the original mono samples, as they are no longer needed
 	delete[] samples;
@@ -1096,11 +1096,11 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 			//check if we are only generating the reverb output
 			if (OnlyReverb == true)
 			{
-				outSample = (int32_t) (floatSamplesOut[i*2 + 0] * 32767.0f);
+				outSample = (int32_t) (floatSamplesOut[i*2 + 0] * 32768.0f);
 			}
 			else
 			{
-				outSample = buffer[0] + (int32_t) (floatSamplesOut[i*2 + 0] * 32767.0f);
+				outSample = buffer[0] + (int32_t) (floatSamplesOut[i*2 + 0] * 32768.0f);
 			}
 			if (outSample > 32767)
 			{
@@ -1113,11 +1113,11 @@ void EAXReverb::Generate(signed short *buffer, unsigned int len) {
 			buffer[0] = (short)outSample;
 			if (OnlyReverb == true)
 			{
-				outSample = (int32_t) (floatSamplesOut[i*2 + 1] * 32767.0f);
+				outSample = (int32_t) (floatSamplesOut[i*2 + 1] * 32768.0f);
 			}
 			else
 			{
-				outSample = buffer[1] + (int32_t) (floatSamplesOut[i*2 + 1] * 32767.0f);
+				outSample = buffer[1] + (int32_t) (floatSamplesOut[i*2 + 1] * 32768.0f);
 			}
 			if (outSample > 32767)
 			{

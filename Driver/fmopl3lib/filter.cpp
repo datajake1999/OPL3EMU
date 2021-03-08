@@ -193,8 +193,8 @@ void filter::Generate(signed short *buffer, unsigned int len) {
 	unsigned int i;
 	for (i=0; i<len; i++)
 	{
-		buf[i].L = (float)buffer[0] / 32767.0f;
-		buf[i].R = (float)buffer[1] / 32767.0f;
+		buf[i].L = (float)buffer[0] / 32768.0f;
+		buf[i].R = (float)buffer[1] / 32768.0f;
 		buffer += 2;
 	}
 	buffer -= len*2;
@@ -212,7 +212,7 @@ void filter::Generate(signed short *buffer, unsigned int len) {
 	}
 	for (i=0; i<len; i++)
 	{
-		signed long outSample = (signed long) (buf[i].L * 32767.0f);
+		signed long outSample = (signed long) (buf[i].L * 32768.0f);
 		if (outSample > 32767)
 		{
 			outSample = 32767;
@@ -222,7 +222,7 @@ void filter::Generate(signed short *buffer, unsigned int len) {
 			outSample = -32768;
 		}
 		buffer[0] = (short)outSample;
-		outSample = (signed long) (buf[i].R * 32767.0f);
+		outSample = (signed long) (buf[i].R * 32768.0f);
 		if (outSample > 32767)
 		{
 			outSample = 32767;
