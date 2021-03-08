@@ -1472,6 +1472,7 @@ void ApogeeOPL::midi_generate(signed short *buffer, unsigned int length)
 void ApogeeOPL::midi_close()
 {
     chip->fm_close();
+    delete chip;
 }
 
 char *ApogeeOPL::midi_synthname(void)

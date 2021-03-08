@@ -1006,6 +1006,7 @@ void DoomOPL::midi_generate(signed short *buffer, unsigned int length) {
 
 void DoomOPL::midi_close() {
 	opl->fm_close();
+	delete opl;
 }
 
 midisynth *getsynth() {

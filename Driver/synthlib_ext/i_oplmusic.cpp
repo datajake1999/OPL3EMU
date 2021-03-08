@@ -1056,6 +1056,7 @@ void DoomOPL::midi_close() {
     for (unsigned int i = 0; i < num_chips; i++)
     {
         opl[i]->fm_close();
+        delete opl[i];
     }
 }
 
